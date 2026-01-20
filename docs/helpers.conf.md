@@ -61,7 +61,7 @@ details.
 
 ## SEE ALSO
 
-**[slurm.conf](slurm.conf.html)**(5)
+**[slurm.conf](slurm.conf.md)**(5)
 
 ---
 

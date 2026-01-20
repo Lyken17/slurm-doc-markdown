@@ -37,7 +37,7 @@ Typical configuration
 
 The default port used by **slurmctld** to listen for incoming requests
 is 6817. This port can be changed with the
-[SlurmctldPort](slurm.conf.html#OPT_SlurmctldPort) slurm.conf
+[SlurmctldPort](slurm.conf.md#OPT_SlurmctldPort) slurm.conf
 parameter. Slurmctld listens for incoming requests on that port and responds
 back on the same connection opened by the requester.
 
@@ -51,16 +51,16 @@ this).
 
 By default, the **slurmctld** will listen for IPv4 traffic. IPv6
 communication can be enabled by adding EnableIPv6 to the
-[CommunicationParameters](slurm.conf.html#OPT_CommunicationParameters) in your slurm.conf. With IPv6 enabled, you can
+[CommunicationParameters](slurm.conf.md#OPT_CommunicationParameters) in your slurm.conf. With IPv6 enabled, you can
 disable IPv4 by adding DisableIPv4 to the
-[CommunicationParameters](slurm.conf.html#OPT_CommunicationParameters). These settings must match in both slurmdbd.conf
+[CommunicationParameters](slurm.conf.md#OPT_CommunicationParameters). These settings must match in both slurmdbd.conf
 and slurm.conf (see the [slurmdbd](#slurmdbd) section).
 
 ## Communication for slurmdbd
 
 The default port used by **slurmdbd** to listen for incoming requests
 is 6819. This port can be changed with the
-[DbdPort](slurmdbd.conf.html#OPT_DbdPort) slurmdbd.conf parameter.
+[DbdPort](slurmdbd.conf.md#OPT_DbdPort) slurmdbd.conf parameter.
 Slurmdbd listens for incoming requests on that port and responds back
 on the same connection opened by the requester.
 
@@ -68,7 +68,7 @@ The machine running **slurmdbd** needs to be able to reach the
 MySQL or MariaDB server on port 3306 by default (the port is
 configurable on the database side).
 This port can be changed with the
-[StoragePort](slurmdbd.conf.html#OPT_StoragePort) slurmdbd.conf
+[StoragePort](slurmdbd.conf.md#OPT_StoragePort) slurmdbd.conf
 parameter. It also needs to be able to initiate
 a connection to **slurmctld** on port 6819 by default (see the
 [slurmctld](#slurmctld) section for information on how to
@@ -76,22 +76,22 @@ change this).
 
 By default, the **slurmdbd** will listen for IPv4 traffic. IPv6
 communication can be enabled by adding EnableIPv6 to the
-[CommunicationParameters](slurmdbd.conf.html#OPT_CommunicationParameters) in your slurmdbd.conf. With IPv6 enabled, you can
+[CommunicationParameters](slurmdbd.conf.md#OPT_CommunicationParameters) in your slurmdbd.conf. With IPv6 enabled, you can
 disable IPv4 by adding DisableIPv4 to the
-[CommunicationParameters](slurmdbd.conf.html#OPT_CommunicationParameters). These settings must match in both slurmdbd.conf
+[CommunicationParameters](slurmdbd.conf.md#OPT_CommunicationParameters). These settings must match in both slurmdbd.conf
 and slurm.conf (see the [slurmctld](#slurmctld) section).
 
 ## Communication for slurmd
 
 The default port used by **slurmd** to listen for incoming requests
 from **slurmctld** is 6818. This port can be changed with the
-[SlurmdPort](slurm.conf.html#OPT_SlurmdPort) slurm.conf
+[SlurmdPort](slurm.conf.md#OPT_SlurmdPort) slurm.conf
 parameter.
 
 The machines running **srun** also use a range of ports to be able
 to communicate with **slurmstepd**. By default these ports are chosen
 at random from the ephemeral port range, but you can use the
-[SrunPortRange](slurm.conf.html#OPT_SrunPortRange) to specify
+[SrunPortRange](slurm.conf.md#OPT_SrunPortRange) to specify
 a range of ports from which they can be chosen. This is necessary
 for login nodes that are behind a firewall.
 
@@ -152,7 +152,7 @@ users to specify a cluster to submit their jobs to. Ports
 used by the different daemons don't change, but all instances of
 **slurmctld** need to be able to communicate with the same instance of
 **slurmdbd**. You can read more about multi cluster configurations in the
-[Multi-Cluster Operation](multi_cluster.html#OPT_SlurmdPort)
+[Multi-Cluster Operation](multi_cluster.md#OPT_SlurmdPort)
 documentation.
 
 ![](network_multi_cluster.gif)  
@@ -166,7 +166,7 @@ available resources first. The difference in communication needs between this
 and a multi-cluster configuration is that the two instances of **slurmctld**
 need to be able to communicate with each other. There are more details about
 using a
-[Federation](federation.html#OPT_SlurmdPort) in the
+[Federation](federation.md#OPT_SlurmdPort) in the
 documentation.
 
 ![](network_federation.gif)  

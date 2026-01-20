@@ -51,7 +51,7 @@ All of the OCI patterns will replace the following characters:
 **%%**
 :   Replace as "%".
 
-    : **%@** : Replace as the command and arguments. Each argument will be enclosed with single quotes and escaped. : **%b** : Replace as OCI Bundle Path. : **%e** : Replace as path to file containing environment if **CreateEnvFile=true**. : **%j** : Replace as numeric job id. : **%m** : Replace with the per-step spool directory path of the container as patterned by **ContainerPath**. If **ContainerPath** is not set, this is replaced with a uniquely generated subdirectory under **SlurmdSpoolDir** as defined in **[slurm.conf](slurm.conf.html)**(5), or defaults to "/var/spool/slurmd". : **%n** : Replace as nodename. : **%p** : Replace as PID of first processes forked off. Only for use in **RunTimeKill** or **RunTimeDelete**. : **%r** : Replace as original path to rootfs. : **%s** : Replace as numeric step id. : **%t** : Replace as numeric step task id. : **%u** : Replace as user name. : **%U** : Replace as numeric user id.
+    : **%@** : Replace as the command and arguments. Each argument will be enclosed with single quotes and escaped. : **%b** : Replace as OCI Bundle Path. : **%e** : Replace as path to file containing environment if **CreateEnvFile=true**. : **%j** : Replace as numeric job id. : **%m** : Replace with the per-step spool directory path of the container as patterned by **ContainerPath**. If **ContainerPath** is not set, this is replaced with a uniquely generated subdirectory under **SlurmdSpoolDir** as defined in **[slurm.conf](slurm.conf.md)**(5), or defaults to "/var/spool/slurmd". : **%n** : Replace as nodename. : **%p** : Replace as PID of first processes forked off. Only for use in **RunTimeKill** or **RunTimeDelete**. : **%r** : Replace as original path to rootfs. : **%s** : Replace as numeric step id. : **%t** : Replace as numeric step task id. : **%u** : Replace as user name. : **%U** : Replace as numeric user id.
 
 ## COPYING
 
@@ -72,7 +72,7 @@ details.
 
 ## SEE ALSO
 
-**[slurm.conf](slurm.conf.html)**(5)
+**[slurm.conf](slurm.conf.md)**(5)
 
 ---
 

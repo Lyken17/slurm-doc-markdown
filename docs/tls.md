@@ -36,7 +36,7 @@ settings.
 ### Setup
 
 To enable TLS for internal Slurm cluster communications, configure the
-[TLSType](slurm.conf.html#OPT_TLSType) option in slurm.conf and
+[TLSType](slurm.conf.md#OPT_TLSType) option in slurm.conf and
 slurmdbd.conf to use the `tls/s2n` plugin.
 
 All Slurm components are required to have access to a common CA certificate.
@@ -51,7 +51,7 @@ can optionally use the `certmgr` plugin interface to dynamically
 retrieve and renew their certificate/key pairs. If the `certmgr`
 plugin interface is not configured, they are required to have a static
 predefined certificate/key pair. See the
-[TLS Certificate Management](certmgr.html) page for more info.
+[TLS Certificate Management](certmgr.md) page for more info.
 
 Here's a list of the default certificate/key PEM file names which are expected
 to be in Slurm's default etc directory. Different absolute file paths can be
@@ -79,7 +79,7 @@ securely sharing these certificates in pre-established TLS connections.
 By default, the `certgen` plugin requires no configuration and will
 use the openssl cli to generate a self-signed certificate/key pair. It can
 optionally be configured to use different scripts to generate this pair via
-[CertgenParameters](slurm.conf.html#CertgenParameters).
+[CertgenParameters](slurm.conf.md#CertgenParameters).
 
 After configuring the `tls/s2n` plugin and certificates, the
 following debug log can be seen in the daemon logs:
@@ -94,7 +94,7 @@ Note that when tls/s2n is not configured, this line will always be seen:
 debug:  tls/none: init: tls/none loaded
 ```
 
-With [DebugFlags=TLS](slurm.conf.html#OPT_TLS) configured, an extremely verbose view of RPC connections can be seen in the logs. For example, here's what appears for a connection between slurmctld and slurmdbd:
+With [DebugFlags=TLS](slurm.conf.md#OPT_TLS) configured, an extremely verbose view of RPC connections can be seen in the logs. For example, here's what appears for a connection between slurmctld and slurmdbd:
 
 ```
 slurmctld: tls/s2n: tls_p_create_conn: TLS: tls/s2n: cipher suite:TLS_AES_128_GCM_SHA256, {0x13,0x01}. fd:17.

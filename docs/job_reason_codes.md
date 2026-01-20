@@ -5,31 +5,31 @@
 These reason codes can be used to identify why a pending job has not yet been
 started by the scheduler. There may be multiple reasons why a job cannot start,
 in which case only the reason that was encountered by the attempted scheduling
-method will be displayed. Refer to the [Scheduling Configuration Guide](sched_config.html) for more details.
+method will be displayed. Refer to the [Scheduling Configuration Guide](sched_config.md) for more details.
 
 ## Common Reasons
 
 * **AssocGrp\*** — The job's association has reached an aggregate
-  [limit](resource_limits.html).
+  [limit](resource_limits.md).
 * **AssocMax\*** — A portion of the job request exceeds a maximum
-  [limit](resource_limits.html) (e.g., PerJob, PerNode) for the
+  [limit](resource_limits.md) (e.g., PerJob, PerNode) for the
   requested association.
-* **BeginTime** — The job's earliest [start time](sbatch.html#OPT_begin) has not yet been reached.
+* **BeginTime** — The job's earliest [start time](sbatch.md#OPT_begin) has not yet been reached.
 * **Dependency** — This job has a
-  [dependency](sbatch.html#OPT_dependency) on another job that has not
+  [dependency](sbatch.md#OPT_dependency) on another job that has not
   been satisfied.
 * **Max\*PerAccount** — A portion of the job request exceeds the
-  per-Account [limit](resource_limits.html) on the job's
-  [QOS](qos.html).
+  per-Account [limit](resource_limits.md) on the job's
+  [QOS](qos.md).
 * **Priority** — One of more higher
-  [priority](priority_multifactor.html) jobs exist for the partition
+  [priority](priority_multifactor.md) jobs exist for the partition
   associated with the job or for the [advanced
-  reservation](reservations.html).
-* **QOSGrp\*** — The job's [QOS](qos.html) has reached an
-  aggregate [limit](resource_limits.html).
+  reservation](reservations.md).
+* **QOSGrp\*** — The job's [QOS](qos.md) has reached an
+  aggregate [limit](resource_limits.md).
 * **QOSMax\*** — A portion of the job request exceeds a
-  maximum [limit](resource_limits.html) (e.g., PerJob, PerNode) for
-  the requested [QOS](qos.html).
+  maximum [limit](resource_limits.md) (e.g., PerJob, PerNode) for
+  the requested [QOS](qos.md).
 * **Resources** — The resources requested by the job are not
   available (e.g., already used by other jobs).
 

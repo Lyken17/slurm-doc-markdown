@@ -143,7 +143,7 @@ whole as well as entries for the following types of job steps:
 * **extern step** — A step created for each job as long as you have
   *PrologFlags=contain* in your slurm.conf. Each node in the job will
   have a slurmstepd process created for the extern step.
-  [pam\_slurm\_adopt](pam_slurm_adopt.html) uses this step to contain
+  [pam\_slurm\_adopt](pam_slurm_adopt.md) uses this step to contain
   external connections.
 * **batch step** — A step created for jobs that were submitted with
   sbatch. The batch host, or the primary node for the job, will run an instance

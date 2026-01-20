@@ -3,18 +3,18 @@
 # REST API Details
 
 Slurm provides a [REST API](https://restfulapi.net/) through the
-slurmrestd daemon, using [JSON Web Tokens](jwt.html) for
+slurmrestd daemon, using [JSON Web Tokens](jwt.md) for
 authentication. This daemon is designed to allow clients to communicate with
 Slurm via a REST API (in addition to the command line interface (CLI) or C API).
 
 See also:
 
-* [REST API Quick Start Guide](rest_quickstart.html)
-  + [Common Issues](rest_quickstart.html#common_issues)
-* [REST API Methods and Models](rest_api.html)
-* [slurmrestd man page](slurmrestd.html)
-* [OpenAPI Plugin Release Notes](openapi_release_notes.html)
-* [REST API Client Guide](rest_clients.html)
+* [REST API Quick Start Guide](rest_quickstart.md)
+  + [Common Issues](rest_quickstart.md#common_issues)
+* [REST API Methods and Models](rest_api.md)
+* [slurmrestd man page](slurmrestd.md)
+* [OpenAPI Plugin Release Notes](openapi_release_notes.md)
+* [REST API Client Guide](rest_clients.md)
 
 ## Contents
 
@@ -72,7 +72,7 @@ authenticated.
 
 slurmrestd can be configured either by environment variables or command line
 arguments. Please see the **doc/man/man1/slurmrestd.8** man page and
-[REST API Quick Start Guide](rest_quickstart.html#customization)
+[REST API Quick Start Guide](rest_quickstart.md#customization)
 for details.
 
 ## Plugins
@@ -82,10 +82,10 @@ generating content. As of Slurm-21.08, the OpenAPI plugins are available
 outside of slurmrestd daemon and other slurm commands may provide or accept the
 latest version of the OpenAPI formatted output. This functionality is provided
 on a per command basis. Please refer to the
-[Data Parser Lifecycle](rest_clients.html#data_parser_lifecycle)
+[Data Parser Lifecycle](rest_clients.md#data_parser_lifecycle)
 documentation for the planned life cycles of versioned endpoints.
 These plugins can be optionally listed or selected via command line arguments
-as described in the [slurmrestd](slurmrestd.html) documentation.
+as described in the [slurmrestd](slurmrestd.md) documentation.
 
 ## High Availability
 
@@ -140,7 +140,7 @@ or **slurmd**) for information about the actual issue.
 
 ### JSON Web Token (JWT) Authentication
 
-slurmrestd supports using [JWT to authenticate users](jwt.html).
+slurmrestd supports using [JWT to authenticate users](jwt.md).
 JWT can be used to authenticate user over REST protocol.
 
 * User Name Header: X-SLURM-USER-NAME
@@ -255,7 +255,7 @@ between the REST API and the Python client:
   Corresponding Python function: `slurm_v0043_post_job_submit()`
 
 If you encounter any errors, check the common issues on the
-[REST Quickstart](rest_quickstart.html#common_issues) page.
+[REST Quickstart](rest_quickstart.md#common_issues) page.
 
 ### Job Submission
 

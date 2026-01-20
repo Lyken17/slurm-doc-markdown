@@ -18,16 +18,16 @@ CPU Management through user commands is constrained by the configuration paramet
 chosen by the Slurm administrator. The interactions between different CPU management options are complex
 and often difficult to predict. Some experimentation may be required to discover the exact combination
 of options needed to produce a desired outcome. Users and administrators should refer to the man pages
-for [slurm.conf](slurm.conf.html), [cgroup.conf](cgroup.conf.html),
-[salloc](salloc.html),
-[sbatch](sbatch.html) and [srun](srun.html) for detailed explanations of each
+for [slurm.conf](slurm.conf.md), [cgroup.conf](cgroup.conf.md),
+[salloc](salloc.md),
+[sbatch](sbatch.md) and [srun](srun.md) for detailed explanations of each
 option. The following html documents may also be useful:
 
-[Consumable Resources in Slurm](cons_tres.html)  
-[Sharing Consumable Resources](cons_tres_share.html)  
+[Consumable Resources in Slurm](cons_tres.md)  
+[Sharing Consumable Resources](cons_tres_share.md)  
 [Support for Multi-core/Multi-thread
-Architectures](mc_support.html)  
-[Plane distribution](dist_plane.html)
+Architectures](mc_support.md)  
+[Plane distribution](dist_plane.md)
 
 ## CPU Management Steps performed by Slurm
 
@@ -48,7 +48,7 @@ SelectType=select/linear is configured, all resources on the selected nodes will
 to the job/step. If SelectType is configured to be
 select/cons\_tres,
 individual sockets, cores and threads may be allocated from the selected nodes as
-[consumable resources](cons_tres.html). The consumable resource type is defined by
+[consumable resources](cons_tres.md). The consumable resource type is defined by
 SelectTypeParameters.
   
   
@@ -62,11 +62,11 @@ Step 1 is performed by slurmctld and the select plugin.
 |  |  |  |
 | --- | --- | --- |
 | **slurm.conf parameter** | **Possible values** | **Description** |
-| [NodeName](slurm.conf.html#OPT_NodeName) | <name of the node>   Plus additional parameters. See man page for details. | Defines a node. This includes the number and layout of boards, sockets, cores, threads and processors (logical CPUs) on the node. |
-| [PartitionName](slurm.conf.html#OPT_PartitionName) | <name of the partition>   Plus additional parameters. See man page for details. | Defines a partition. Several parameters of the partition definition affect the selection of nodes (e.g., Nodes, OverSubscribe, MaxNodes) |
-| [SlurmdParameters](slurm.conf.html#OPT_SlurmdParameters) | config\_overrides | Controls how the information in a node definition is used. |
-| [SelectType](slurm.conf.html#OPT_SelectType) | select/linear | select/cons\_tres | Controls whether CPU resources are allocated to jobs and job steps in units of whole nodes or as consumable resources (sockets, cores or threads). |
-| [SelectTypeParameters](slurm.conf.html#OPT_SelectTypeParameters) | CR\_CPU | CR\_CPU\_Memory | CR\_Core | CR\_Core\_Memory | CR\_Socket | CR\_Socket\_Memory  Plus additional options. See man page for details. | Defines the consumable resource type and controls other aspects of CPU resource allocation by the select plugin. |
+| [NodeName](slurm.conf.md#OPT_NodeName) | <name of the node>   Plus additional parameters. See man page for details. | Defines a node. This includes the number and layout of boards, sockets, cores, threads and processors (logical CPUs) on the node. |
+| [PartitionName](slurm.conf.md#OPT_PartitionName) | <name of the partition>   Plus additional parameters. See man page for details. | Defines a partition. Several parameters of the partition definition affect the selection of nodes (e.g., Nodes, OverSubscribe, MaxNodes) |
+| [SlurmdParameters](slurm.conf.md#OPT_SlurmdParameters) | config\_overrides | Controls how the information in a node definition is used. |
+| [SelectType](slurm.conf.md#OPT_SelectType) | select/linear | select/cons\_tres | Controls whether CPU resources are allocated to jobs and job steps in units of whole nodes or as consumable resources (sockets, cores or threads). |
+| [SelectTypeParameters](slurm.conf.md#OPT_SelectTypeParameters) | CR\_CPU | CR\_CPU\_Memory | CR\_Core | CR\_Core\_Memory | CR\_Socket | CR\_Socket\_Memory  Plus additional options. See man page for details. | Defines the consumable resource type and controls other aspects of CPU resource allocation by the select plugin. |
 
   
 
@@ -79,28 +79,28 @@ Step 1 is performed by slurmctld and the select plugin.
 |  |  |  |
 | --- | --- | --- |
 | **Command line option** | **Possible values** | **Description** |
-| [-B, --extra-node-info](srun.html#OPT_extra-node-info) | <sockets[:cores[:threads]]> | Restricts node selection to nodes with a specified layout of sockets, cores and threads. |
-| [-C, --constraint](srun.html#OPT_constraint) | <list> | Restricts node selection to nodes with specified attributes |
-| [--contiguous](srun.html#OPT_contiguous) | N/A | Restricts node selection to contiguous nodes |
-| [--cores-per-socket](srun.html#OPT_cores-per-socket) | <cores> | Restricts node selection to nodes with at least the specified number of cores per socket |
-| [-c, --cpus-per-task](srun.html#OPT_cpus-per-task) | <ncpus> | Controls the number of CPUs allocated per task |
-| [--exclusive](srun.html#OPT_exclusive) | N/A | Prevents sharing of allocated nodes with other jobs. Suballocates CPUs to job steps. |
-| [-F, --nodefile](salloc.html#OPT_nodefile) | <node file> | File containing a list of specific nodes to be selected for the job (salloc and sbatch only) |
-| [--hint](srun.html#OPT_hint) | compute\_bound | memory\_bound | [no]multithread | Additional controls on allocation of CPU resources |
-| [--mincpus](srun.html#OPT_mincpus) | <n> | Controls the minimum number of CPUs allocated per node |
-| [-N, --nodes](srun.html#OPT_nodes) | <minnodes[-maxnodes]> | Controls the minimum/maximum number of nodes allocated to the job |
-| [-n, --ntasks](srun.html#OPT_ntasks) | <number> | Controls the number of tasks to be created for the job |
-| [--ntasks-per-core](srun.html#OPT_ntasks-per-core) | <number> | Controls the maximum number of tasks per allocated core |
-| [--ntasks-per-socket](srun.html#OPT_ntasks-per-socket) | <number> | Controls the maximum number of tasks per allocated socket |
-| [--ntasks-per-node](srun.html#OPT_ntasks-per-node) | <number> | Controls the maximum number of tasks per allocated node |
-| [-O, --overcommit](srun.html#OPT_overcommit) | N/A | Allows fewer CPUs to be allocated than the number of tasks |
-| [-p, --partition](srun.html#OPT_partition) | <partition\_names> | Controls which partition is used for the job |
-| [-s, --oversubscribe](srun.html#OPT_share) | N/A | Allows sharing of allocated nodes with other jobs |
-| [--sockets-per-node](srun.html#OPT_sockets-per-node) | <sockets> | Restricts node selection to nodes with at least the specified number of sockets |
-| [--threads-per-core](srun.html#OPT_threads-per-core) | <threads> | Restricts node selection to nodes with at least the specified number of threads per core |
-| [-w, --nodelist](srun.html#OPT_nodelist) | <host1,host2,... or filename> | List of specific nodes to be allocated to the job |
-| [-x, --exclude](srun.html#OPT_exclude) | <host1,host2,... or filename> | List of specific nodes to be excluded from allocation to the job |
-| [-Z, --no-allocate](srun.html#OPT_no-allocate) | N/A | Bypass normal allocation (privileged option available to users “SlurmUser” and “root” only) |
+| [-B, --extra-node-info](srun.md#OPT_extra-node-info) | <sockets[:cores[:threads]]> | Restricts node selection to nodes with a specified layout of sockets, cores and threads. |
+| [-C, --constraint](srun.md#OPT_constraint) | <list> | Restricts node selection to nodes with specified attributes |
+| [--contiguous](srun.md#OPT_contiguous) | N/A | Restricts node selection to contiguous nodes |
+| [--cores-per-socket](srun.md#OPT_cores-per-socket) | <cores> | Restricts node selection to nodes with at least the specified number of cores per socket |
+| [-c, --cpus-per-task](srun.md#OPT_cpus-per-task) | <ncpus> | Controls the number of CPUs allocated per task |
+| [--exclusive](srun.md#OPT_exclusive) | N/A | Prevents sharing of allocated nodes with other jobs. Suballocates CPUs to job steps. |
+| [-F, --nodefile](salloc.md#OPT_nodefile) | <node file> | File containing a list of specific nodes to be selected for the job (salloc and sbatch only) |
+| [--hint](srun.md#OPT_hint) | compute\_bound | memory\_bound | [no]multithread | Additional controls on allocation of CPU resources |
+| [--mincpus](srun.md#OPT_mincpus) | <n> | Controls the minimum number of CPUs allocated per node |
+| [-N, --nodes](srun.md#OPT_nodes) | <minnodes[-maxnodes]> | Controls the minimum/maximum number of nodes allocated to the job |
+| [-n, --ntasks](srun.md#OPT_ntasks) | <number> | Controls the number of tasks to be created for the job |
+| [--ntasks-per-core](srun.md#OPT_ntasks-per-core) | <number> | Controls the maximum number of tasks per allocated core |
+| [--ntasks-per-socket](srun.md#OPT_ntasks-per-socket) | <number> | Controls the maximum number of tasks per allocated socket |
+| [--ntasks-per-node](srun.md#OPT_ntasks-per-node) | <number> | Controls the maximum number of tasks per allocated node |
+| [-O, --overcommit](srun.md#OPT_overcommit) | N/A | Allows fewer CPUs to be allocated than the number of tasks |
+| [-p, --partition](srun.md#OPT_partition) | <partition\_names> | Controls which partition is used for the job |
+| [-s, --oversubscribe](srun.md#OPT_share) | N/A | Allows sharing of allocated nodes with other jobs |
+| [--sockets-per-node](srun.md#OPT_sockets-per-node) | <sockets> | Restricts node selection to nodes with at least the specified number of sockets |
+| [--threads-per-core](srun.md#OPT_threads-per-core) | <threads> | Restricts node selection to nodes with at least the specified number of threads per core |
+| [-w, --nodelist](srun.md#OPT_nodelist) | <host1,host2,... or filename> | List of specific nodes to be allocated to the job |
+| [-x, --exclude](srun.md#OPT_exclude) | <host1,host2,... or filename> | List of specific nodes to be excluded from allocation to the job |
+| [-Z, --no-allocate](srun.md#OPT_no-allocate) | N/A | Bypass normal allocation (privileged option available to users “SlurmUser” and “root” only) |
 
   
 
@@ -114,7 +114,7 @@ SelectType=select/linear is configured, all resources on the selected nodes will
 to the job/step. If SelectType is configured to be
 select/cons\_tres,
 individual sockets, cores and threads may be allocated from the selected nodes as
-[consumable resources](cons_tres.html). The consumable resource type is defined by
+[consumable resources](cons_tres.md). The consumable resource type is defined by
 SelectTypeParameters.
 
 When using a SelectType of
@@ -137,11 +137,11 @@ Step 2 is performed by slurmctld and the select plugin.
 |  |  |  |
 | --- | --- | --- |
 | **slurm.conf parameter** | **Possible values** | **Description** |
-| [NodeName](slurm.conf.html#OPT_NodeName) | <name of the node>   Plus additional parameters. See man page for details. | Defines a node. This includes the number and layout of boards, sockets, cores, threads and processors (logical CPUs) on the node. |
-| [PartitionName](slurm.conf.html#OPT_PartitionName) | <name of the partition>   Plus additional parameters. See man page for details. | Defines a partition. Several parameters of the partition definition affect the allocation of CPU resources to jobs (e.g., Nodes, OverSubscribe, MaxNodes) |
-| [SlurmdParameters](slurm.conf.html#OPT_SlurmdParameters) | config\_overrides | Controls how the information in a node definition is used. |
-| [SelectType](slurm.conf.html#OPT_SelectType) | select/linear | select/cons\_tres | Controls whether CPU resources are allocated to jobs and job steps in units of whole nodes or as consumable resources (sockets, cores or threads). |
-| [SelectTypeParameters](slurm.conf.html#OPT_SelectTypeParameters) | CR\_CPU | CR\_CPU\_Memory | CR\_Core | CR\_Core\_Memory | CR\_Socket | CR\_Socket\_Memory  Plus additional options. See man page for details. | Defines the consumable resource type and controls other aspects of CPU resource allocation by the select plugin. |
+| [NodeName](slurm.conf.md#OPT_NodeName) | <name of the node>   Plus additional parameters. See man page for details. | Defines a node. This includes the number and layout of boards, sockets, cores, threads and processors (logical CPUs) on the node. |
+| [PartitionName](slurm.conf.md#OPT_PartitionName) | <name of the partition>   Plus additional parameters. See man page for details. | Defines a partition. Several parameters of the partition definition affect the allocation of CPU resources to jobs (e.g., Nodes, OverSubscribe, MaxNodes) |
+| [SlurmdParameters](slurm.conf.md#OPT_SlurmdParameters) | config\_overrides | Controls how the information in a node definition is used. |
+| [SelectType](slurm.conf.md#OPT_SelectType) | select/linear | select/cons\_tres | Controls whether CPU resources are allocated to jobs and job steps in units of whole nodes or as consumable resources (sockets, cores or threads). |
+| [SelectTypeParameters](slurm.conf.md#OPT_SelectTypeParameters) | CR\_CPU | CR\_CPU\_Memory | CR\_Core | CR\_Core\_Memory | CR\_Socket | CR\_Socket\_Memory  Plus additional options. See man page for details. | Defines the consumable resource type and controls other aspects of CPU resource allocation by the select plugin. |
 
   
 
@@ -154,29 +154,29 @@ Step 2 is performed by slurmctld and the select plugin.
 |  |  |  |
 | --- | --- | --- |
 | **Command line option** | **Possible values** | **Description** |
-| [-B, --extra-node-info](srun.html#OPT_extra-node-info) | <sockets[:cores[:threads]]> | Restricts node selection to nodes with a specified layout of sockets, cores and threads. |
-| [-C, --constraint](srun.html#OPT_constraint) | <list> | Restricts node selection to nodes with specified attributes |
-| [--contiguous](srun.html#OPT_contiguous) | N/A | Restricts node selection to contiguous nodes |
-| [--cores-per-socket](srun.html#OPT_cores-per-socket) | <cores> | Restricts node selection to nodes with at least the specified number of cores per socket |
-| [-c, --cpus-per-task](srun.html#OPT_cpus-per-task) | <ncpus> | Controls the number of CPUs allocated per task |
-| [--distribution, -m](srun.html#OPT_distribution) | block|cyclic |arbitrary|plane=<options>[:block|cyclic] | The second specified distribution (after the ":") can be used to override the default allocation method within nodes |
-| [--exclusive](srun.html#OPT_exclusive) | N/A | Prevents sharing of allocated nodes with other jobs |
-| [-F, --nodefile](salloc.html#OPT_nodefile) | <node file> | File containing a list of specific nodes to be selected for the job (salloc and sbatch only) |
-| [--hint](srun.html#OPT_hint) | compute\_bound | memory\_bound | [no]multithread | Additional controls on allocation of CPU resources |
-| [--mincpus](srun.html#OPT_mincpus) | <n> | Controls the minimum number of CPUs allocated per node |
-| [-N, --nodes](srun.html#OPT_nodes) | <minnodes[-maxnodes]> | Controls the minimum/maximum number of nodes allocated to the job |
-| [-n, --ntasks](srun.html#OPT_ntasks) | <number> | Controls the number of tasks to be created for the job |
-| [--ntasks-per-core](srun.html#OPT_ntasks-per-core) | <number> | Controls the maximum number of tasks per allocated core |
-| [--ntasks-per-socket](srun.html#OPT_ntasks-per-socket) | <number> | Controls the maximum number of tasks per allocated socket |
-| [--ntasks-per-node](srun.html#OPT_ntasks-per-node) | <number> | Controls the maximum number of tasks per allocated node |
-| [-O, --overcommit](srun.html#OPT_overcommit) | N/A | Allows fewer CPUs to be allocated than the number of tasks |
-| [-p, --partition](srun.html#OPT_partition) | <partition\_names> | Controls which partition is used for the job |
-| [-s, --oversubscribe](srun.html#OPT_share) | N/A | Allows sharing of allocated nodes with other jobs |
-| [--sockets-per-node](srun.html#OPT_sockets-per-node) | <sockets> | Restricts node selection to nodes with at least the specified number of sockets |
-| [--threads-per-core](srun.html#OPT_threads-per-core) | <threads> | Restricts node selection to nodes with at least the specified number of threads per core |
-| [-w, --nodelist](srun.html#OPT_nodelist) | <host1,host2,... or filename> | List of specific nodes to be allocated to the job |
-| [-x, --exclude](srun.html#OPT_exclude) | <host1,host2,... or filename> | List of specific nodes to be excluded from allocation to the job |
-| [-Z, --no-allocate](srun.html#OPT_no-allocate) | N/A | Bypass normal allocation (privileged option available to users “SlurmUser” and “root” only) |
+| [-B, --extra-node-info](srun.md#OPT_extra-node-info) | <sockets[:cores[:threads]]> | Restricts node selection to nodes with a specified layout of sockets, cores and threads. |
+| [-C, --constraint](srun.md#OPT_constraint) | <list> | Restricts node selection to nodes with specified attributes |
+| [--contiguous](srun.md#OPT_contiguous) | N/A | Restricts node selection to contiguous nodes |
+| [--cores-per-socket](srun.md#OPT_cores-per-socket) | <cores> | Restricts node selection to nodes with at least the specified number of cores per socket |
+| [-c, --cpus-per-task](srun.md#OPT_cpus-per-task) | <ncpus> | Controls the number of CPUs allocated per task |
+| [--distribution, -m](srun.md#OPT_distribution) | block|cyclic |arbitrary|plane=<options>[:block|cyclic] | The second specified distribution (after the ":") can be used to override the default allocation method within nodes |
+| [--exclusive](srun.md#OPT_exclusive) | N/A | Prevents sharing of allocated nodes with other jobs |
+| [-F, --nodefile](salloc.md#OPT_nodefile) | <node file> | File containing a list of specific nodes to be selected for the job (salloc and sbatch only) |
+| [--hint](srun.md#OPT_hint) | compute\_bound | memory\_bound | [no]multithread | Additional controls on allocation of CPU resources |
+| [--mincpus](srun.md#OPT_mincpus) | <n> | Controls the minimum number of CPUs allocated per node |
+| [-N, --nodes](srun.md#OPT_nodes) | <minnodes[-maxnodes]> | Controls the minimum/maximum number of nodes allocated to the job |
+| [-n, --ntasks](srun.md#OPT_ntasks) | <number> | Controls the number of tasks to be created for the job |
+| [--ntasks-per-core](srun.md#OPT_ntasks-per-core) | <number> | Controls the maximum number of tasks per allocated core |
+| [--ntasks-per-socket](srun.md#OPT_ntasks-per-socket) | <number> | Controls the maximum number of tasks per allocated socket |
+| [--ntasks-per-node](srun.md#OPT_ntasks-per-node) | <number> | Controls the maximum number of tasks per allocated node |
+| [-O, --overcommit](srun.md#OPT_overcommit) | N/A | Allows fewer CPUs to be allocated than the number of tasks |
+| [-p, --partition](srun.md#OPT_partition) | <partition\_names> | Controls which partition is used for the job |
+| [-s, --oversubscribe](srun.md#OPT_share) | N/A | Allows sharing of allocated nodes with other jobs |
+| [--sockets-per-node](srun.md#OPT_sockets-per-node) | <sockets> | Restricts node selection to nodes with at least the specified number of sockets |
+| [--threads-per-core](srun.md#OPT_threads-per-core) | <threads> | Restricts node selection to nodes with at least the specified number of threads per core |
+| [-w, --nodelist](srun.md#OPT_nodelist) | <host1,host2,... or filename> | List of specific nodes to be allocated to the job |
+| [-x, --exclude](srun.md#OPT_exclude) | <host1,host2,... or filename> | List of specific nodes to be excluded from allocation to the job |
+| [-Z, --no-allocate](srun.md#OPT_no-allocate) | N/A | Bypass normal allocation (privileged option available to users “SlurmUser” and “root” only) |
 
   
 
@@ -201,7 +201,7 @@ Step 3 is performed by slurmctld.
 |  |  |  |
 | --- | --- | --- |
 | **slurm.conf parameter** | **Possible values** | **Description** |
-| [MaxTasksPerNode](slurm.conf.html#OPT_MaxTasksPerNode) | <number> | Controls the maximum number of tasks that a job step can spawn on a single node |
+| [MaxTasksPerNode](slurm.conf.md#OPT_MaxTasksPerNode) | <number> | Controls the maximum number of tasks that a job step can spawn on a single node |
 
   
 
@@ -214,11 +214,11 @@ Step 3 is performed by slurmctld.
 |  |  |  |
 | --- | --- | --- |
 | **Command line option** | **Possible values** | **Description** |
-| [--distribution, -m](srun.html#OPT_distribution) | block|cyclic |arbitrary|plane=<options>[:block|cyclic] | The first specified distribution (before the ":") controls the sequence in which tasks are distributed to each of the selected nodes. Note that this option does not affect the number of tasks distributed to each node, but only the sequence of distribution. |
-| [--ntasks-per-core](srun.html#OPT_ntasks-per-core) | <number> | Controls the maximum number of tasks per allocated core |
-| [--ntasks-per-socket](srun.html#OPT_ntasks-per-socket) | <number> | Controls the maximum number of tasks per allocated socket |
-| [--ntasks-per-node](srun.html#OPT_ntasks-per-node) | <number> | Controls the maximum number of tasks per allocated node |
-| [-r, --relative](srun.html#OPT_relative) | N/A | Controls which node is used for a job step |
+| [--distribution, -m](srun.md#OPT_distribution) | block|cyclic |arbitrary|plane=<options>[:block|cyclic] | The first specified distribution (before the ":") controls the sequence in which tasks are distributed to each of the selected nodes. Note that this option does not affect the number of tasks distributed to each node, but only the sequence of distribution. |
+| [--ntasks-per-core](srun.md#OPT_ntasks-per-core) | <number> | Controls the maximum number of tasks per allocated core |
+| [--ntasks-per-socket](srun.md#OPT_ntasks-per-socket) | <number> | Controls the maximum number of tasks per allocated socket |
+| [--ntasks-per-node](srun.md#OPT_ntasks-per-node) | <number> | Controls the maximum number of tasks per allocated node |
+| [-r, --relative](srun.md#OPT_relative) | N/A | Controls which node is used for a job step |
 
   
 
@@ -240,7 +240,7 @@ Step 4 is performed by slurmd and the task plugin.
 |  |  |  |
 | --- | --- | --- |
 | **slurm.conf parameter** | **Possible values** | **Description** |
-| [TaskPlugin](slurm.conf.html#OPT_TaskPlugin) | task/none | task/affinity | task/cgroup | Controls whether this step is enabled and which task plugin to use |
+| [TaskPlugin](slurm.conf.md#OPT_TaskPlugin) | task/none | task/affinity | task/cgroup | Controls whether this step is enabled and which task plugin to use |
 
 
 
@@ -252,7 +252,7 @@ Step 4 is performed by slurmd and the task plugin.
 |  |  |  |
 | --- | --- | --- |
 | **cgroup.conf parameter** | **Possible values** | **Description** |
-| [ConstrainCores](cgroup.conf.html) | yes|no | Controls whether jobs are constrained to their allocated CPUs |
+| [ConstrainCores](cgroup.conf.md) | yes|no | Controls whether jobs are constrained to their allocated CPUs |
 
   
 
@@ -265,9 +265,9 @@ Step 4 is performed by slurmd and the task plugin.
 |  |  |  |
 | --- | --- | --- |
 | **Command line option** | **Possible values** | **Description** |
-| [--cpu-bind](srun.html#OPT_cpu-bind) | See man page | Controls binding of tasks to CPUs (srun only) |
-| [--ntasks-per-core](srun.html#OPT_ntasks-per-core) | <number> | Controls the maximum number of tasks per allocated core |
-| [--distribution, -m](srun.html#OPT_distribution) | block|cyclic |arbitrary|plane=<options>[:block|cyclic] | The second specified distribution (after the ":") controls the sequence in which tasks are distributed to allocated CPUs within a node for binding of tasks to CPUs |
+| [--cpu-bind](srun.md#OPT_cpu-bind) | See man page | Controls binding of tasks to CPUs (srun only) |
+| [--ntasks-per-core](srun.md#OPT_ntasks-per-core) | <number> | Controls the maximum number of tasks per allocated core |
+| [--distribution, -m](srun.md#OPT_distribution) | block|cyclic |arbitrary|plane=<options>[:block|cyclic] | The second specified distribution (after the ":") controls the sequence in which tasks are distributed to allocated CPUs within a node for binding of tasks to CPUs |
 
   
   

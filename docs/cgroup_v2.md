@@ -703,7 +703,7 @@ parent cgroup of the container.
 
 ## PAM Slurm Adopt plugin on cgroup v2
 
-The [pam\_slurm\_adopt plugin](pam_slurm_adopt.html) has a
+The [pam\_slurm\_adopt plugin](pam_slurm_adopt.md) has a
 dependency with the API of *cgroup/v1* because in some situations it relied
 on the job's cgroup creation time for choosing which job id should be picked to
 add your sshd pid into. With v2 we wanted to remove this dependency and not

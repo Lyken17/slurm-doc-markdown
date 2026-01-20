@@ -174,7 +174,7 @@ details.
 
 ## SEE ALSO
 
-**[sacct](sacct.html)**(1), **[slurmdbd](slurmdbd.html)**(8)
+**[sacct](sacct.md)**(1), **[slurmdbd](slurmdbd.md)**(8)
 
 ---
 

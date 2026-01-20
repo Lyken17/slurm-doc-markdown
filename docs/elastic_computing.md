@@ -143,11 +143,11 @@ The following configuration parameters of interest include:
     }
     ```
 
-    See the [squeue man page](squeue.html#OPT_OverSubscribe)
+    See the [squeue man page](squeue.md#OPT_OverSubscribe)
     for possible values for **oversubscribe**.
 
     **NOTE**: The **SLURM\_RESUME\_FILE** will only exist and be
-    usable if Slurm was compiled with the [JSON-C](related_software.html#json) serializer library.
+    usable if Slurm was compiled with the [JSON-C](related_software.md#json) serializer library.
 
 **ResumeRate**
 :   Maximum number of nodes to be removed from power saving mode per
@@ -514,7 +514,7 @@ the *SchedulerParameters=salloc\_wait\_nodes* option.
 
 ## Node Features
 
-Features defined by [NodeFeaturesPlugins](slurm.conf.html#OPT_NodeFeaturesPlugins), and
+Features defined by [NodeFeaturesPlugins](slurm.conf.md#OPT_NodeFeaturesPlugins), and
 associated to cloud nodes in the **slurm.conf**, will be available but not
 active when the node is powered down. If a job requests available but not
 active features, the controller will allocate nodes that are powered down and
@@ -684,4 +684,4 @@ $ curl -k -s \
 
 Cloud nodes can have topologies defined statically in the config files, or
 can be dynamically added to and removed from topologies as described in the
-[Topology Guide](topology.html).
+[Topology Guide](topology.md).

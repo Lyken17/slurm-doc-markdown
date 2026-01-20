@@ -59,7 +59,7 @@ cgroup:
 
 For extended information on Slurm's internal Cgroup plugin read:
 
-* [cgroup/v2 plugin documentation](cgroup_v2.html)
+* [cgroup/v2 plugin documentation](cgroup_v2.md)
 
 ## Use of cgroup in Slurm
 
@@ -76,10 +76,10 @@ cores or memory).
 
 There are several sets of configuration options for Slurm cgroups:
 
-* [slurm.conf](slurm.conf.html) provides options to enable the
+* [slurm.conf](slurm.conf.md) provides options to enable the
   cgroup plugins. Each plugin may be enabled or disabled independently of the
   others.
-* [cgroup.conf](cgroup.conf.html) provides general options that are
+* [cgroup.conf](cgroup.conf.md) provides general options that are
   common to all cgroup plugins, plus additional options that apply only to
   specific plugins.
 * System-level resource specialization is enabled using node configuration
@@ -117,7 +117,7 @@ ProctrackType=proctrack/cgroup
 ```
 
 There are no specific options for this plugin in cgroup.conf, but the general
-options apply. See the [cgroup.conf](cgroup.conf.html) man page for
+options apply. See the [cgroup.conf](cgroup.conf.md) man page for
 details.
 
 ### task/cgroup plugin
@@ -146,7 +146,7 @@ TaskPlugin=task/cgroup
 ```
 
 There are many specific options for this plugin in cgroup.conf. The general
-options also apply. See the [cgroup.conf](cgroup.conf.html) man page
+options also apply. See the [cgroup.conf](cgroup.conf.md) man page
 for details.
 
 This plugin can be stacked with other task plugins, for example with
@@ -180,7 +180,7 @@ JobacctGatherType=jobacct_gather/cgroup
 ```
 
 There are no specific options for this plugin in cgroup.conf, but the general
-options apply. See the [cgroup.conf](cgroup.conf.html) man page for
+options apply. See the [cgroup.conf](cgroup.conf.md) man page for
 details.
 
 ## Use of cgroup for Resource Specialization
@@ -198,7 +198,7 @@ MPI job can initialize many ranks with PMI and make slurmstepd consume more
 memory.
 
 System-level resource specialization is enabled with special node
-configuration parameters. Read [slurm.conf](slurm.conf.html) and core
+configuration parameters. Read [slurm.conf](slurm.conf.md) and core
 specialization in <core_spec.html> for more
 information.
 

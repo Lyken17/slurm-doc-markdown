@@ -192,7 +192,7 @@ that is partially used.
 
 The block topology approach begins with "base blocks" (bblocks), which are
 fundamental, contiguous groups of nodes defined in
-[topology.conf](topology.conf.html).
+[topology.conf](topology.conf.md).
 These base blocks can be combined with other adjacent base blocks to form
 "aggregated blocks". In turn, these higher-level blocks can be aggregated
 with other contiguous blocks of the same hierarchical level to construct
@@ -240,7 +240,7 @@ is `--switches=count[@time]`.
 The system administrator can limit the maximum time that any job can
 wait for this optimized configuration using the **SchedulerParameters**
 configuration parameter with the
-[max\_switch\_wait](slurm.conf.html#OPT_max_switch_wait=#) option.
+[max\_switch\_wait](slurm.conf.md#OPT_max_switch_wait=#) option.
 
 When **topology/tree** or **topology/block** is configured, hostlist
 functions may be used in place of or alongside regular hostlist expressions
@@ -261,7 +261,7 @@ PartitionName=Block10 Nodes=block{block10} ...
 ```
 
 See also the hostlist function **feature{myfeature}**
-[here](slurm.conf.html#OPT_Features).
+[here](slurm.conf.md#OPT_Features).
 
 ## Environment Variables
 
@@ -285,9 +285,9 @@ A period is used to separate each hardware component type.
 ## Multiple Topologies
 
 Slurm 25.05 introduced the ability to define multiple network topologies using the
-[topology.yaml](topology.yaml.html) configuration file.
+[topology.yaml](topology.yaml.md) configuration file.
 Each partition can be configured to use a specific topology by specifying the
-[Topology](slurm.conf.html#OPT_Topology_1)
+[Topology](slurm.conf.md#OPT_Topology_1)
 in its partition configuration line.
 The Slurm controller will use the selected topology to optimize resource
 allocation for jobs submitted to that partition.

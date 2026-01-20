@@ -32,7 +32,7 @@ administrators.
   for the application to manage Kerberos V credentials.
 
 * **Databases** can be used to store accounting information.
-  See our [Accounting](accounting.html) web page for more information.
+  See our [Accounting](accounting.md) web page for more information.
 
 + [MySQL](http://www.mysql.com/)
 + [MariaDB](https://mariadb.org/)
@@ -106,7 +106,7 @@ administrators.
   administrators and other developers a low cost, low effort ability to
   dynamically modify the runtime behavior of Slurm job launch.
   Additional documentation can be found
-  [here](https://slurm.schedmd.com/spank.html).
+  [here](https://slurm.schedmd.com/spank.md).
   
 * **Node Health Check**  
   Probably the most comprehensive and lightweight health check tool out
@@ -148,11 +148,11 @@ administrators.
   
 * [**JSON**](https://github.com/json-c/json-c/wiki)
 
-  Some Slurm plugins ([slurmrestd](rest.html),
-  [burst\_buffer/datawarp](burst_buffer.html),
-  [burst\_buffer/lua](burst_buffer.html),
-  [jobcomp/elasticsearch](elasticsearch.html), and
-  [jobcomp/kafka](jobcomp_kafka.html)) parse and/or
+  Some Slurm plugins ([slurmrestd](rest.md),
+  [burst\_buffer/datawarp](burst_buffer.md),
+  [burst\_buffer/lua](burst_buffer.md),
+  [jobcomp/elasticsearch](elasticsearch.md), and
+  [jobcomp/kafka](jobcomp_kafka.md)) parse and/or
   serialize JSON format data. These plugins and slurmrestd are designed to
   make use of the **JSON-C library (>= v0.15)** for this purpose.
   Instructions for the build are as follows:
@@ -175,7 +175,7 @@ administrators.
   
 * [**HTTP Parser**](https://github.com/nodejs/http-parser)
 
-  [slurmrestd](rest.html) requires **libhttp\_parser
+  [slurmrestd](rest.md) requires **libhttp\_parser
   (>= v2.6.0)**. Instructions for the build are as follows:
 
   ```
@@ -193,7 +193,7 @@ administrators.
   
 * [**YAML Parser**](https://github.com/yaml/libyaml)
 
-  [slurmrestd](rest.html) and commands that recognize a
+  [slurmrestd](rest.md) and commands that recognize a
   `--yaml` flag will be able to parse YAML if **libyaml
   (>= v0.2.5)** is present. Instructions for the build are as follows:
 
@@ -214,7 +214,7 @@ administrators.
   
 * [**JWT library**](https://github.com/benmcollins/libjwt)
 
-  [JWT authentication](jwt.html) requires **libjwt
+  [JWT authentication](jwt.md) requires **libjwt
   (>= v1.10.0)**. Instructions for the build are as follows:
 
   ```

@@ -15,7 +15,7 @@ topology.conf - Slurm configuration file for the topology plugins
 **topology.conf** is an ASCII file which describes the
 cluster's network topology for optimized job resource allocation.
 The file will always be located in the same directory as the **slurm.conf**.
-**NOTE**: This file is ignored if **[topology.yaml](topology.yaml.html)**(5) exists.
+**NOTE**: This file is ignored if **[topology.yaml](topology.yaml.md)**(5) exists.
 
 Parameter names are case insensitive.
 Any text following a "#" in the configuration file is treated
@@ -130,7 +130,7 @@ details.
 
 ## SEE ALSO
 
-**[slurm.conf](slurm.conf.html)**(5), **[topology.yaml](topology.yaml.html)**(5)
+**[slurm.conf](slurm.conf.md)**(5), **[topology.yaml](topology.yaml.md)**(5)
 
 ---
 

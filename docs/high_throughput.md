@@ -84,7 +84,7 @@ options that you may want to consider for higher throughput.
   Disabling storing accounting records by not setting this plugin.
   Turning accounting off provides minimal improvement in performance.
   If using the SlurmDBD increased speedup can be achieved by setting the
-  CommitDelay option in the [slurmdbd.conf](slurmdbd.conf.html)
+  CommitDelay option in the [slurmdbd.conf](slurmdbd.conf.md)
 * **JobAcctGatherType**:
   Disabling the collection of job accounting information will improve job
   throughput. Disable collection of accounting by using the
@@ -248,7 +248,7 @@ options that you may want to consider for higher throughput.
 
 Turning accounting off provides a minimal improvement in performance.
 If using SlurmDBD increased speedup can be achieved by setting the CommitDelay
-option in the [slurmdbd.conf](slurmdbd.conf.html) to introduce a
+option in the [slurmdbd.conf](slurmdbd.conf.md) to introduce a
 delay between the time slurmdbd receives a connection from slurmctld and
 when it commits the information to the database. This allows multiple
 requests to be accumulated and reduces the number of commit requests
@@ -258,9 +258,9 @@ High job throughput leads to the database growing much faster than in a
 typical environment, potentially to a size that becomes difficult to manage
 depending on the capabilities of the database server. Sites are strongly
 encouraged to make a plan for data retention early on and to configure the
-relevant [Purge options](accounting.html#slurmdbd-archive-purge) to
+relevant [Purge options](accounting.md#slurmdbd-archive-purge) to
 keep the database files at a manageable size. Also consider the frequency of
 these purges as explained in the linked documentation. Alternately, sites may
 prefer to skip the storage of steps or jobs entirely through the relevant
-[AccountingStorageEnforce](slurm.conf.html#OPT_AccountingStorageEnforce)
+[AccountingStorageEnforce](slurm.conf.md#OPT_AccountingStorageEnforce)
 options (**nosteps** and **nojobs**).

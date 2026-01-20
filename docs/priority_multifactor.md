@@ -106,7 +106,7 @@ the partition based priority would look like this:
 ```
 
 See the other priority factors you can configure to not be normalized in the
-[PriorityFlags](slurm.conf.html#OPT_PriorityFlags) section of the
+[PriorityFlags](slurm.conf.md#OPT_PriorityFlags) section of the
 documentation.
 
 **IMPORTANT:** The weight values should be high enough to get a
@@ -122,7 +122,7 @@ so for those factors you want to make predominant.
 
 **Note:** Computing the age factor requires the installation
 and operation of the [Slurm Accounting
-Database](accounting.html).
+Database](accounting.md).
 
 The age factor represents the length of time a job has been sitting in the queue and eligible to run. In general, the longer a job waits in the queue, the larger its age factor grows. However, the age factor for a dependent job will not change while it waits for the job it depends on to complete. Also, the age factor will not change when scheduling is withheld for a job whose node or time limits exceed the cluster's current limits.
 
@@ -193,7 +193,7 @@ requested/allocated on a job, the greater the job priority will be for that job.
 
 **Note:** Computing the fair-share factor requires the installation
 and operation of the [Slurm Accounting
-Database](accounting.html) to provide the assigned shares and the consumed,
+Database](accounting.md) to provide the assigned shares and the consumed,
 computing resources described below.
 
 The fair-share component to a job's priority influences the order in which a user's queued jobs are scheduled to run based on the portion of the computing resources they have been allocated and the resources their jobs have already consumed. The fair-share factor does not involve a fixed allotment, whereby a user's access to a machine is cut off once that allotment is reached.
@@ -250,7 +250,7 @@ slurm.conf.
 ### "Fair Tree" Fairshare
 
 As of the 19.05 release, the "Fair Tree" fairshare algorithm has been made the
-default. Please see the [Fair Tree Fairshare](fair_tree.html)
+default. Please see the [Fair Tree Fairshare](fair_tree.md)
 documentation for further details.
 
 ### "Classic" Fairshare
@@ -258,7 +258,7 @@ documentation for further details.
 As of the 19.05 release, the "classic" fairshare algorithm is no longer the
 default, and will only be used if *PriorityFlags=NO\_FAIR\_TREE* is
 explicitly configured. Documentation describing that algorithm has been moved
-to a separate [Classic Fairshare](classic_fair_share.html)
+to a separate [Classic Fairshare](classic_fair_share.md)
 documentation page.
 
 ## The *sprio* utility

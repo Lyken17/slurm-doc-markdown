@@ -9,7 +9,7 @@ resources for a configured period of time.
   
 Slurm also supports preemptive job scheduling that allows a job in a
 higher *PriorityTier* partition, or in a preempting QOS, to preempt other
-jobs. [Preemption](preempt.html) is related to Gang scheduling
+jobs. [Preemption](preempt.md) is related to Gang scheduling
 because SUSPEND is one of the *PreemptionMode*s, and it uses the Gang
 scheduler to resume suspended jobs.
 
@@ -69,7 +69,7 @@ gang scheduling:
   adversely affecting other jobs sharing the same resources.
 * **PreemptMode**: set the *GANG* option.
   See the *slurm.conf* manpage for other options that may be specified to
-  enable job [preemption](preempt.html) in addition to GANG.
+  enable job [preemption](preempt.md) in addition to GANG.
   In order to use gang scheduling, the **GANG** option must be specified at
   the cluster level.
     

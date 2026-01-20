@@ -5,7 +5,7 @@
 Slurm supports job preemption, the act of "stopping" one or more "low-priority"
 jobs to let a "high-priority" job run.
 Job preemption is implemented as a variation of Slurm's
-[Gang Scheduling](gang_scheduling.html) logic.
+[Gang Scheduling](gang_scheduling.md) logic.
 When a job that can preempt others is allocated resources that are
 already allocated to one or more jobs that could be preempted by the first job,
 the preemptable job(s) are preempted.
@@ -65,7 +65,7 @@ There are several important configuration parameters relating to preemption:
   **NOTE**: This parameter is not used when *PreemptMode=SUSPEND*
   is configured or when suspending jobs with *scontrol suspend*. For
   setting the preemption grace time in these cases, see
-  [suspend\_grace\_time](slurm.conf.html#OPT_suspend_grace_time).
+  [suspend\_grace\_time](slurm.conf.md#OPT_suspend_grace_time).
 * **JobAcctGatherType and JobAcctGatherFrequency**: The "maximum data segment
   size" and "maximum virtual memory size" system limits will be configured for
   each job to ensure that the job does not exceed its requested amount of memory.
@@ -146,7 +146,7 @@ There are several important configuration parameters relating to preemption:
     This option is not compatible with *PreemptMode=OFF*.
     A configuration of *PreemptMode=SUSPEND* is only supported by the
     *SelectType=select/cons\_tres* plugin.
-    See the [sacctmgr man page](sacctmgr.html) to configure the options
+    See the [sacctmgr man page](sacctmgr.md) to configure the options
     of *preempt/qos*.
 * **PreemptExemptTime**: Specifies minimum run time of jobs before they are
   considered for preemption. This is only honored when the *PreemptMode*
@@ -192,7 +192,7 @@ There are several important configuration parameters relating to preemption:
   (but not be preempted by) fully "--exclusive" jobs from other users.
   This is for the same reason that "--exclusive=user" blocks preemption, but this
   partition-level setting can only be overridden by making a job fully exclusive.
-* **MCSParameters**: If [MCS](mcs.html) labels are set on jobs,
+* **MCSParameters**: If [MCS](mcs.md) labels are set on jobs,
   preemption will be restricted to other jobs with the same MCS label. If this
   parameter is configured to use `enforced,select`, MCS labels will
   be set by default on jobs, causing this restriction to be universal.

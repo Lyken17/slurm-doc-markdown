@@ -31,7 +31,7 @@ command line interface (CLI) programs. Three hooks are defined:
   activity.
 
 cli\_filter plugins vary from the [job\_submit
-plugin](job_submit_plugins.html) as it is entirely executed client-side, whereas job\_submit is
+plugin](job_submit_plugins.md) as it is entirely executed client-side, whereas job\_submit is
 processed server-side (within the slurm controller). The benefit of the
 cli\_filter is that it has access to all command line options in a simple and
 consistent interface as well as being safer to run disruptive operations
@@ -187,7 +187,7 @@ stepid
 Setting **CliFilterPlugins=cli\_filter/lua** in slurm.conf will allow
 you to implement the API functions mentioned using Lua language. Unless
 otherwise specified via
-[CliFilterParameters=cli\_filter\_lua\_path](slurm.conf.html#OPT_cli_filter_lua_path),
+[CliFilterParameters=cli\_filter\_lua\_path](slurm.conf.md#OPT_cli_filter_lua_path),
 the file must be named "cli\_filter.lua" and, similar to the job\_submit plugin,
 it must be located in the default configuration directory (typically the
 subdirectory "etc" of the installation).

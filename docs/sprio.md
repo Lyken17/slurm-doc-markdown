@@ -55,7 +55,7 @@ value of the following environment variables.
 **SLURM\_CLUSTERS**
 :   Same as **--clusters**
 
-    : **SLURM\_CONF** : The location of the Slurm configuration file. : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for sprio to use. See DebugFlags in the **[slurm.conf](slurm.conf.html)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf. : **SPRIO\_FEDERATION** : Same as **--federation** : **SPRIO\_FORMAT** : Same as **-o <output\_format>, --format=<output\_format>** : **SPRIO\_LOCAL** : Same as **--local** : **SPRIO\_SIBLING** : Same as **--sibling**
+    : **SLURM\_CONF** : The location of the Slurm configuration file. : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for sprio to use. See DebugFlags in the **[slurm.conf](slurm.conf.md)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf. : **SPRIO\_FEDERATION** : Same as **--federation** : **SPRIO\_FORMAT** : Same as **-o <output\_format>, --format=<output\_format>** : **SPRIO\_LOCAL** : Same as **--local** : **SPRIO\_SIBLING** : Same as **--sibling**
 
 ## EXAMPLES
 
@@ -83,7 +83,7 @@ details.
 
 ## SEE ALSO
 
-**[squeue](squeue.html)**(1), **[sshare](sshare.html)**(1)
+**[squeue](squeue.md)**(1), **[sshare](sshare.md)**(1)
 
 ---
 

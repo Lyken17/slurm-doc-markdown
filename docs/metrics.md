@@ -33,7 +33,7 @@ The metrics feature requires specific configuration in *slurm.conf*:
   *PrivateData* parameter is configured in slurm.conf. This is a security
   requirement to prevent exposure of sensitive information through metrics.
 * **MetricsType parameter**: Set the
-  [MetricsType](slurm.conf.html#OPT_MetricsType) parameter to specify
+  [MetricsType](slurm.conf.md#OPT_MetricsType) parameter to specify
   which metrics plugin to use. Currently, only the OpenMetrics plugin is
   supported:
 
@@ -140,7 +140,7 @@ partitions. Examples include:
   - Nodes on the specified partition
 
 The following metrics might be useful for
-[Slinky](https://slurm.schedmd.com/slinky.html) or other systems
+[Slinky](https://slurm.schedmd.com/slinky.md) or other systems
 which have an auto-scale feature. By knowing the maximum number of nodes that a
 job requested in a partition, the decision to extend the nodes of the partition
 by this number can be considered. Jobs which are held are not included in these

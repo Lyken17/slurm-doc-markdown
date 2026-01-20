@@ -14,7 +14,7 @@ that have SLURM\_JWT in their environment).
 
 ## Prerequisites
 
-JWT requires [libjwt](related_software.html#jwt).
+JWT requires [libjwt](related_software.md#jwt).
 Both the library and the development headers must be available when Slurm is
 compiled.
 
@@ -77,7 +77,7 @@ complexity than the default offering will use one of those systems instead.
 
 ## Setup for Standalone Use
 
-1. [Configure and build Slurm with JWT support](related_software.html#jwt)
+1. [Configure and build Slurm with JWT support](related_software.md#jwt)
 2. Add the same JWT key to both the controller and slurmdbd (if used). For the
    controller only, it is recommended to put the JWT key in the StateSaveLocation.
    For example, using /var/spool/slurm/statesave/:
@@ -257,7 +257,7 @@ mapping the token to a username. Slurm defaults to using the `sun`
 correct this for it to work with Slurm.
 
 **Option 1**: Change Slurm to use a different field. This can be
-customized using [AuthAltParameters=userclaimfield](slurm.conf.html#OPT_userclaimfield=). For example, using the default field
+customized using [AuthAltParameters=userclaimfield](slurm.conf.md#OPT_userclaimfield=). For example, using the default field
 for [KeyCloak](https://www.keycloak.org/):
 
 ```

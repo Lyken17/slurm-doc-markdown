@@ -4,12 +4,12 @@
 
 See also:
 
-* [REST API Quick Start Guide](rest_quickstart.html)
-  + [Common Issues](rest_quickstart.html#common_issues)
-* [REST API Details](rest.html)
-* [REST API Methods and Models](rest_api.html)
-* [slurmrestd man page](slurmrestd.html)
-* [OpenAPI Plugin Release Notes](openapi_release_notes.html)
+* [REST API Quick Start Guide](rest_quickstart.md)
+  + [Common Issues](rest_quickstart.md#common_issues)
+* [REST API Details](rest.md)
+* [REST API Methods and Models](rest_api.md)
+* [slurmrestd man page](slurmrestd.md)
+* [OpenAPI Plugin Release Notes](openapi_release_notes.md)
 
 ## Contents
 
@@ -45,12 +45,12 @@ that automatically generate documentation against the OAS output listed by
 An example of how to generate the docs is [here](#generated-openapi-docs).
 
 The generated OpenAPI specification changes depending on the configuration of
-slurmrestd at run time. [slurmrestd](slurmrestd.html) is a
+slurmrestd at run time. [slurmrestd](slurmrestd.md) is a
 framework, and the actual content is provided by plugins, which are optional at
 runtime. However, the specific plugin versions (as noted by the v0.0.XX in the
 paths) will be stable across Slurm versions, if the relevant plugin is still
 present. Plugin life cycles are described
-[here](upgrades.html#openapi_changes).
+[here](upgrades.md#openapi_changes).
 
 ## OpenAPI Standard Compliance
 
@@ -76,12 +76,12 @@ Tested compatibility by OpenAPI plugins:
 
 ## OpenAPI Specification (OAS) Documentation
 
-Slurm includes [example generated documentation](rest_api.html),
+Slurm includes [example generated documentation](rest_api.md),
 provided with each release. Slurm's documentation only includes the latest
 plugins to encourage sites to develop against the latest plugins, as they
 will have the longest lifespan and, by extension, the new clients will continue
 to work for longer. Plugin life cycles are described
-[here](upgrades.html#openapi_changes). This documentation is
+[here](upgrades.md#openapi_changes). This documentation is
 generated via the following steps using
 [OpenAPI-generator](https://github.com/OpenAPITools/openapi-generator) HTML output:
 
@@ -100,7 +100,7 @@ relatively simple.
 ## Client Design
 
 Clients should always be generated against or designed to work with specific
-versions of the tagged paths from [slurmrestd](slurmrestd.html).
+versions of the tagged paths from [slurmrestd](slurmrestd.md).
 Client developers are strongly encouraged to not include functionality for
 versions of methods not intended for use.
 
@@ -150,7 +150,7 @@ having to ensure compatibility of multiple permutations at all times.
 
 Developers should be aware that older versions of the versioned plugins are
 removed from Slurm in a documented cadence as given
-[here](https://slurm.schedmd.com/upgrades.html#openapi_changes).
+[here](https://slurm.schedmd.com/upgrades.md#openapi_changes).
 Clients will need to be upgraded once the relevant plugins versions are removed
 to continue to communicate with slurmrestd.
 
@@ -185,7 +185,7 @@ the same endpoint having different functionalities.
 ## OpenAPI Specification (OAS) changes
 
 Changes to the OAS are always listed with every release in the
-[OpenAPI Release Notes](openapi_release_notes.html).
+[OpenAPI Release Notes](openapi_release_notes.md).
 
 A simple trick to see the differences between versions is to query both and
 then mask the newer one, to avoid having diff list out every version tag that
@@ -222,12 +222,12 @@ resultant client code at all.
 |  |  |  |
 | --- | --- | --- |
 | **data\_parser plugin** | **Added in Release** | **Removed in Release** |
-| v0.0.39 | 23.02 ([release notes](openapi_release_notes.html#23020)) | 24.11 |
-| v0.0.40 | 23.11 ([release notes](openapi_release_notes.html#23110)) | 25.11 |
-| v0.0.41 | 24.05 ([release notes](openapi_release_notes.html#24050)) | 26.05 |
-| v0.0.42 | 24.11 ([release notes](openapi_release_notes.html#24110)) | 26.11 |
-| v0.0.43 | 25.05 ([release notes](openapi_release_notes.html#25050)) | 27.05 |
-| v0.0.44 | 25.11 ([release notes](openapi_release_notes.html#25110)) | 27.11 |
+| v0.0.39 | 23.02 ([release notes](openapi_release_notes.md#23020)) | 24.11 |
+| v0.0.40 | 23.11 ([release notes](openapi_release_notes.md#23110)) | 25.11 |
+| v0.0.41 | 24.05 ([release notes](openapi_release_notes.md#24050)) | 26.05 |
+| v0.0.42 | 24.11 ([release notes](openapi_release_notes.md#24110)) | 26.11 |
+| v0.0.43 | 25.05 ([release notes](openapi_release_notes.md#25050)) | 27.05 |
+| v0.0.44 | 25.11 ([release notes](openapi_release_notes.md#25110)) | 27.11 |
 
 The data\_parser plugins are explicitly versioned with scheduled release and
 removal dates in the above table. The data\_parser plugins are purposefully kept
@@ -267,7 +267,7 @@ path.
 
 As the data\_parser plugins utilize the Slurm API internally, compatibility is
 entirely based on the Slurm version. Refer to the general
-[compatibility window](upgrades.html#compatibility_window)
+[compatibility window](upgrades.md#compatibility_window)
 explanation for details.
 
 ### Handling Format Changes

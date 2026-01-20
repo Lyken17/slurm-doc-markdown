@@ -31,11 +31,11 @@ instructions for slurmd also apply to sackd nodes.
 
 slurmctld will need access to the CA certificate, and the CA certificate/key
 pair must be owned by `SlurmUser` (this is NOT recommended in a
-production setting). See the [TLS](tls.html#s2n_openssl_example)
+production setting). See the [TLS](tls.md#s2n_openssl_example)
 page for more info on how to generate this certificate/key pair.
 
 The following scripts need to be created and configured.
-See [CertmgrParameters](slurm.conf.html#OPT_CertmgrParameters) for
+See [CertmgrParameters](slurm.conf.md#OPT_CertmgrParameters) for
 more details on each script.
 
 * `get_node_token_script`
@@ -236,7 +236,7 @@ exit 0
 
 If everything is configured correctly, the following lines should appear in the
 slurmd and slurmctld logs with the
-[DebugFlags=TLS](slurm.conf.html#OPT_TLS) setting.
+[DebugFlags=TLS](slurm.conf.md#OPT_TLS) setting.
 
 slurmd:
 
@@ -267,5 +267,5 @@ slurmd: TLS: Successfully got signed certificate from slurmctld:
 -----END CERTIFICATE-----
 ```
 
-[DebugFlags=AuditTLS](slurm.conf.html#OPT_AuditTLS) can also be used
+[DebugFlags=AuditTLS](slurm.conf.md#OPT_AuditTLS) can also be used
 to show less verbose logs of certificate renewal.

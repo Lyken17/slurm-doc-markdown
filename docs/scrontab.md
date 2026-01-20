@@ -28,7 +28,7 @@ entries or custom variable settings.
 Lines starting with **#SCRON** allow options to be defined for the single
 following crontab entry. Options are always reset in between each crontab
 entry. Options include most of those available to the **sbatch** command;
-details are available in the **[sbatch](sbatch.html)**(1) man page.
+details are available in the **[sbatch](sbatch.md)**(1) man page.
 
 Note that jobs are not guaranteed to execute at the preferred time. Jobs will
 run no more frequently than requested, but are managed by setting the
@@ -90,7 +90,7 @@ intervals for the specified script to run. These include the following:
 **VISUAL**
 :   Used as the interactive editor if set.
 
-    : **EDITOR** : Used as the interactive editor if set and **VISUAL** is not defined. : **SLURM\_CONF** : The location of the Slurm configuration file. : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for scrontab to use. See DebugFlags in the **[slurm.conf](slurm.conf.html)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf.
+    : **EDITOR** : Used as the interactive editor if set and **VISUAL** is not defined. : **SLURM\_CONF** : The location of the Slurm configuration file. : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for scrontab to use. See DebugFlags in the **[slurm.conf](slurm.conf.md)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf.
 
 ## NOTES
 
@@ -146,7 +146,7 @@ details.
 
 ## SEE ALSO
 
-**[sbatch](sbatch.html)**(1), **[squeue](squeue.html)**(1), **[slurm.conf](slurm.conf.html)**(5)
+**[sbatch](sbatch.md)**(1), **[squeue](squeue.md)**(1), **[slurm.conf](slurm.conf.md)**(5)
 
 ---
 

@@ -4,10 +4,10 @@
 
 Slurm provides multiple Job Completion Plugins.
 These plugins are an orthogonal way to provide historical job
-[accounting](accounting.html) data for finished jobs.
+[accounting](accounting.md) data for finished jobs.
 
 In most installations, Slurm is already configured with an
-[AccountingStorageType](slurm.conf.html#OPT_AccountingStorageType)
+[AccountingStorageType](slurm.conf.md#OPT_AccountingStorageType)
 plugin — usually **slurmdbd**. In these situations, the information
 captured by a completion plugin is intentionally redundant.
 
@@ -23,26 +23,26 @@ diagrams, tables, histograms and/or apply customized filters when searching.
 The plugin requires additional libraries for compilation:
 
 * [libcurl](https://curl.se/libcurl) development files
-* [JSON-C](related_software.html#json)
+* [JSON-C](related_software.md#json)
 
 ## Configuration
 
 The Elasticsearch instance should be running and reachable from the multiple
-[SlurmctldHost](slurm.conf.html#OPT_SlurmctldAddr) configured.
+[SlurmctldHost](slurm.conf.md#OPT_SlurmctldAddr) configured.
 Refer to the [Elasticsearch
 Official Documentation](https://www.elastic.co/) for further details on setup and configuration.
 
-There are three [slurm.conf](slurm.conf.html) options related to
+There are three [slurm.conf](slurm.conf.md) options related to
 this plugin:
 
-* [**JobCompType**](slurm.conf.html#OPT_JobCompType)
+* [**JobCompType**](slurm.conf.md#OPT_JobCompType)
   is used to select the job completion plugin type to activate. It should be set
   to **jobcomp/elasticsearch**.
 
   ```
   JobCompType=jobcomp/elasticsearch
   ```
-* [**JobCompLoc**](slurm.conf.html#OPT_JobCompLoc) should be set to
+* [**JobCompLoc**](slurm.conf.md#OPT_JobCompLoc) should be set to
   the Elasticsearch server URL endpoint (including the port number and the target
   index).
 
@@ -64,7 +64,7 @@ this plugin:
   information around these concepts, the type to typeless deprecation transition
   as well as reindex API references on how to copy data from one index to another
   if needed.
-* [**DebugFlags**](slurm.conf.html#OPT_DebugFlags) could include
+* [**DebugFlags**](slurm.conf.md#OPT_DebugFlags) could include
   the **Elasticsearch** flag for extra debugging purposes.
 
   ```
@@ -128,7 +128,7 @@ $ curl -XGET http://localhost:9200/_cat
 When the primary slurmctld is shut down, information about all completed but
 not yet indexed jobs held within the Elasticsearch plugin saved to a
 file named **elasticsearch\_state**, which is located in the
-[StateSaveLocation](slurm.conf.html#OPT_StateSaveLocation). This
+[StateSaveLocation](slurm.conf.md#OPT_StateSaveLocation). This
 permits the plugin to restore the information when the slurmctld is restarted,
 and will be sent to the Elasticsearch database when the connection is
 restored.

@@ -42,7 +42,7 @@ interconnect fabric, task scheduling, etc. A set of functions is defined for use
 by all of the different infrastructures of a particular variety. When a Slurm
 daemon is initiated, it reads the configuration file to determine which of the
 available plugins should be used. A [plugin developer's
-guide](plugins.html) is available with general information about plugins.
+guide](plugins.md) is available with general information about plugins.
 
 ## Directory Structure
 
@@ -176,7 +176,7 @@ warning or error messages:
 ## Configuration
 
 Sample configuration files are included in the **etc** subdirectory.
-The **slurm.conf** can be built using a [configuration tool](configurator.html).
+The **slurm.conf** can be built using a [configuration tool](configurator.md).
 See **doc/man/man5/slurm.conf.5** and the man pages for other configuration files
 for more details.
 **init.d.slurm** is a script that determines which

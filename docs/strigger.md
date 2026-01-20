@@ -89,7 +89,7 @@ environment variables, along with their corresponding options, are listed below.
 **SLURM\_CONF**
 :   The location of the Slurm configuration file.
 
-    : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for strigger to use. See DebugFlags in the **[slurm.conf](slurm.conf.html)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf.
+    : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for strigger to use. See DebugFlags in the **[slurm.conf](slurm.conf.md)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf.
 
 ## EXAMPLES
 
@@ -119,7 +119,7 @@ details.
 
 ## SEE ALSO
 
-**[scontrol](scontrol.html)**(1), **[sinfo](sinfo.html)**(1), **[squeue](squeue.html)**(1)
+**[scontrol](scontrol.md)**(1), **[sinfo](sinfo.md)**(1), **[squeue](squeue.md)**(1)
 
 ---
 

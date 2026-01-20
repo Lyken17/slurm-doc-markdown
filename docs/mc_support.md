@@ -33,7 +33,7 @@ by their application. Table 1 summarizes these options.
 | --threads-per-core=*T* | Minimum number of threads in a core to dedicate to a job. In task layout, use the specified maximum number of threads per-core. |
 | -B *S[:C[:T]]* | Combined shortcut option for --sockets-per-node, --cores-per\_cpu, --threads-per\_core |
 | **[Task Distribution Options](#srun_dist)** | |
-| -m / --distribution | Distributions of: arbitrary | block | cyclic | [plane=*x*](dist_plane.html) | [block|cyclic]:[block|cyclic|fcyclic] |
+| -m / --distribution | Distributions of: arbitrary | block | cyclic | [plane=*x*](dist_plane.md) | [block|cyclic]:[block|cyclic|fcyclic] |
 | **[Memory as a consumable resource](#srun_consres)** | |
 | --mem=*mem* | amount of real memory per node required by the job. |
 | --mem-per-cpu=*mem* | amount of real memory per allocated CPU required by the job. |
@@ -146,7 +146,7 @@ Available distributions include:
   
 arbitrary | block | cyclic | plane=*x* | [block|cyclic]:[block|cyclic|fcyclic]
 
-The [plane distribution](dist_plane.html) (plane=*x*)
+The [plane distribution](dist_plane.md) (plane=*x*)
 results in a block:cyclic distribution of blocksize equal to *x*.
 In the following we use "lowest level of logical processors"
 to describe sockets, cores or threads depending of the architecture.

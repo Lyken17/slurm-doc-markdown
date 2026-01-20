@@ -53,7 +53,7 @@ variables settings.
 **SLURM\_CONF**
 :   The location of the Slurm configuration file.
 
-    : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for sattach to use. See DebugFlags in the **[slurm.conf](slurm.conf.html)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf. : **SLURM\_EXIT\_ERROR** : Specifies the exit code generated when a Slurm error occurs (e.g. invalid options). This can be used by a script to distinguish application exit codes from various Slurm error conditions.
+    : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for sattach to use. See DebugFlags in the **[slurm.conf](slurm.conf.md)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf. : **SLURM\_EXIT\_ERROR** : Specifies the exit code generated when a Slurm error occurs (e.g. invalid options). This can be used by a script to distinguish application exit codes from various Slurm error conditions.
 
 ## EXAMPLES
 
@@ -83,9 +83,9 @@ details.
 
 ## SEE ALSO
 
-**[sinfo](sinfo.html)**(1), **[salloc](salloc.html)**(1), **[sbatch](sbatch.html)**(1), **[squeue](squeue.html)**(1),
-**[scancel](scancel.html)**(1), **[scontrol](scontrol.html)**(1),
-**[slurm.conf](slurm.conf.html)**(5), **sched\_setaffinity** (2), **numa** (3)
+**[sinfo](sinfo.md)**(1), **[salloc](salloc.md)**(1), **[sbatch](sbatch.md)**(1), **[squeue](squeue.md)**(1),
+**[scancel](scancel.md)**(1), **[scontrol](scontrol.md)**(1),
+**[slurm.conf](slurm.conf.md)**(5), **sched\_setaffinity** (2), **numa** (3)
 
 ---
 

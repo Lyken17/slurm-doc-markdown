@@ -50,10 +50,10 @@ accounting\_storage/slurmdbd plugin and the MUNGE or authentication
 keys must be installed to allow each cluster to communicate with the
 SlurmDBD. Note that MUNGE can be configured to use different keys for
 communications within a cluster and across clusters if desired.
-See [accounting](accounting.html) for details.
+See [accounting](accounting.md) for details.
 
 Once configured, Slurm commands specifying the "-M, --clusters="
 option will become active for all of the clusters listed by the
 **"sacctmgr show clusters"** command.
 
-See also the [Slurm Federated Scheduling Guide.](federation.html)
+See also the [Slurm Federated Scheduling Guide.](federation.md)

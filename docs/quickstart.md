@@ -361,7 +361,7 @@ steps both for performance reasons and ease of management.
 Each Slurm job can contain a multitude of job steps and the overhead in
 Slurm for managing job steps is much lower than that of individual jobs.
 
-[Job arrays](job_array.html) are an efficient mechanism of
+[Job arrays](job_array.md) are an efficient mechanism of
 managing a collection of batch jobs with identical resource requirements.
 Most Slurm commands can manage job arrays either as individual elements (tasks)
 or as a single entity (e.g. delete an entire job array in a single command).
@@ -389,7 +389,7 @@ by these various MPI implementations.
 Links to instructions for using several varieties of MPI
 with Slurm are provided below.
 
-* [Intel MPI](mpi_guide.html#intel_mpi)
-* [MPICH2](mpi_guide.html#mpich2)
-* [MVAPICH2](mpi_guide.html#mvapich2)
-* [Open MPI](mpi_guide.html#open_mpi)
+* [Intel MPI](mpi_guide.md#intel_mpi)
+* [MPICH2](mpi_guide.md#mpich2)
+* [MVAPICH2](mpi_guide.md#mvapich2)
+* [Open MPI](mpi_guide.md#open_mpi)

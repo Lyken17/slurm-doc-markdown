@@ -39,7 +39,7 @@ compiled into sackd.
 :   When a fatal error is detected, use abort() instead of exit() to terminate the
     process. This allows backtraces to be captured without recompiling Slurm.
 
-    : **RUNTIME\_DIRECTORY** : Absolute path governing the location for both the configuration cache sackd maintains, and the sack.socket unix socket used to provide authentication services. If multiple sackds need to be started on the same login node, the **RuntimeDirectory** systemd unit option should be set to **slurm-<clustername>**. Systemd v240+ automatically sets **RUNTIME\_DIRECTORY** to **/run/$RuntimeDirectory** for each sackd service, otherwise it requires manual setting (i.e. via **EnvironmentFile** unit option). If this is not set, the default value is **/run/slurm/**. : **SACKD\_DEBUG** : Set debug level explicitly for syslog and stderr. Valid values are 0-9, or the same string values as the debug options such as SlurmctldDebug in [slurm.conf](slurm.conf.html)(5). : **SACKD\_DISABLE\_RECONFIG** : Same as **--disable-reconfig**. : **SACKD\_PORT** : Same as **--port**. : **SACKD\_STDERR\_DEBUG** : Set debug level explicitly for stderr. Valid values are 0-9, or the same string values as the debug options such as SlurmctldDebug in [slurm.conf](slurm.conf.html)(5). : **SACKD\_SYSLOG\_DEBUG** : Set debug level explicitly for syslog. Valid values are 0-9, or the same string values as the debug options such as SlurmctldDebug in [slurm.conf](slurm.conf.html)(5). : **SLURM\_CONF** : The location of the Slurm configuration file. : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for sackd to use. See DebugFlags in the **[slurm.conf](slurm.conf.html)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf.
+    : **RUNTIME\_DIRECTORY** : Absolute path governing the location for both the configuration cache sackd maintains, and the sack.socket unix socket used to provide authentication services. If multiple sackds need to be started on the same login node, the **RuntimeDirectory** systemd unit option should be set to **slurm-<clustername>**. Systemd v240+ automatically sets **RUNTIME\_DIRECTORY** to **/run/$RuntimeDirectory** for each sackd service, otherwise it requires manual setting (i.e. via **EnvironmentFile** unit option). If this is not set, the default value is **/run/slurm/**. : **SACKD\_DEBUG** : Set debug level explicitly for syslog and stderr. Valid values are 0-9, or the same string values as the debug options such as SlurmctldDebug in [slurm.conf](slurm.conf.md)(5). : **SACKD\_DISABLE\_RECONFIG** : Same as **--disable-reconfig**. : **SACKD\_PORT** : Same as **--port**. : **SACKD\_STDERR\_DEBUG** : Set debug level explicitly for stderr. Valid values are 0-9, or the same string values as the debug options such as SlurmctldDebug in [slurm.conf](slurm.conf.md)(5). : **SACKD\_SYSLOG\_DEBUG** : Set debug level explicitly for syslog. Valid values are 0-9, or the same string values as the debug options such as SlurmctldDebug in [slurm.conf](slurm.conf.md)(5). : **SLURM\_CONF** : The location of the Slurm configuration file. : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for sackd to use. See DebugFlags in the **[slurm.conf](slurm.conf.md)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf.
 
 ## SIGNALS
 
@@ -67,7 +67,7 @@ details.
 
 ## SEE ALSO
 
-**[slurm.conf](slurm.conf.html)**(5), **[slurmctld](slurmctld.html)**(8)
+**[slurm.conf](slurm.conf.md)**(5), **[slurmctld](slurmctld.md)**(8)
 
 ---
 

@@ -4,7 +4,7 @@
 
 These release notes are maintained to provide OpenAPI client programmers a
 guide to where changes have taken place in the OpenAPI specifications from the
-OpenAPI plugins which are mainly used by [slurmrestd](rest.html)
+OpenAPI plugins which are mainly used by [slurmrestd](rest.md)
 but are also used to generate JSON or YAML output for multiple CLI commands.
 
 All paths given are formatted for use with

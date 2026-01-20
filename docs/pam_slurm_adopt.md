@@ -44,21 +44,21 @@ to modify the install location if desired.
 The included slurm.spec will build a slurm-pam\_slurm RPM which will install
 pam\_slurm\_adopt. Refer to the
 [Quick Start
-Administrator Guide](https://slurm.schedmd.com/quickstart_admin.html) for instructions on managing an RPM-based install.
+Administrator Guide](https://slurm.schedmd.com/quickstart_admin.md) for instructions on managing an RPM-based install.
 
 ### DEB:
 
 The included debian packaging scripts will build the
 slurm-smd-libpam-slurm-adopt package which will install pam\_slurm\_adopt.
 [Quick Start
-Administrator Guide](https://slurm.schedmd.com/quickstart_admin.html) for instructions on managing an DEB-based install.
+Administrator Guide](https://slurm.schedmd.com/quickstart_admin.md) for instructions on managing an DEB-based install.
 
 ## Slurm Configuration
 
 **PrologFlags=contain** must be set in the slurm.conf. This sets up the
 "extern" step into which ssh-launched processes will be adopted. You must also
 enable the task/cgroup plugin in slurm.conf. See the
-[Slurm cgroups guide.](https://slurm.schedmd.com/cgroups.html)
+[Slurm cgroups guide.](https://slurm.schedmd.com/cgroups.md)
 **CAUTION** This option must be in place *before* using this module.
 The module bases its checks on local steps that have already been launched. Jobs
 launched without this option do not have an extern step, so pam\_slurm\_adopt will
@@ -360,7 +360,7 @@ This module has the following options:
         :   Do not attempt to join a namespace.
 
 **log\_level**
-:   See [SlurmdDebug](https://slurm.schedmd.com/slurm.conf.html#OPT_SlurmdDebug) in slurm.conf for available options.
+:   See [SlurmdDebug](https://slurm.schedmd.com/slurm.conf.md#OPT_SlurmdDebug) in slurm.conf for available options.
     The default log\_level is **info**.
 
 **nodename**
@@ -384,7 +384,7 @@ This module has the following options:
 launch ssh. The RPC to determine the source job must be able to reach the
 *slurmd* port on that particular IP address. If there is no *slurmd*
 on the source node, such as on a [login
-node](quickstart_admin.html#login), it is better to have the RPC be
+node](quickstart_admin.md#login), it is better to have the RPC be
 rejected rather than silently dropped. This will allow better responsiveness to
 the RPC initiator.
 

@@ -185,8 +185,8 @@ user at an error level. This is to keep users from having to rely on the
 
 SPANK plugins also have an interface through which they may define
 and implement extra job options. These options are made available to
-the user through Slurm commands such as **[srun](srun.html)**(1), **[salloc](salloc.html)**(1),
-and **[sbatch](sbatch.html)**(1). If the option is specified by the user, its value is
+the user through Slurm commands such as **[srun](srun.md)**(1), **[salloc](salloc.md)**(1),
+and **[sbatch](sbatch.md)**(1). If the option is specified by the user, its value is
 forwarded and registered with the plugin in slurmd when the job is run.
 In this way, **SPANK** plugins may dynamically provide new options and
 functionality to Slurm.
@@ -285,7 +285,7 @@ and slurm\_spank\_job\_epilog.
 ## CONFIGURATION
 
 The default **SPANK** plug-in stack configuration file is
-**plugstack.conf** in the same directory as **[slurm.conf](slurm.conf.html)**(5),
+**plugstack.conf** in the same directory as **[slurm.conf](slurm.conf.md)**(5),
 though this may be changed via the Slurm config parameter
 *PlugStackConfig*. Normally the **plugstack.conf** file
 should be identical on all nodes of the cluster.
@@ -318,7 +318,7 @@ plugin's functions will cause **slurmd**, or the job allocator command to
 terminate the job, while *optional* plugins only cause a warning.
 
 If a fully-qualified path is not specified for a plugin, then the
-currently configured *PluginDir* in **[slurm.conf](slurm.conf.html)**(5) is searched.
+currently configured *PluginDir* in **[slurm.conf](slurm.conf.md)**(5) is searched.
 
 **SPANK** plugins are stackable, meaning that more than one plugin may
 be placed into the config file. The plugins will simply be called
@@ -419,7 +419,7 @@ details.
 
 ## SEE ALSO
 
-**[srun](srun.html)**(1), **[slurm.conf](slurm.conf.html)**(5)
+**[srun](srun.md)**(1), **[slurm.conf](slurm.conf.md)**(5)
 
 ---
 

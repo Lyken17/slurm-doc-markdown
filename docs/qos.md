@@ -20,12 +20,12 @@ scheduling priority, preemption, and resource limits.
 ### Job Scheduling Priority
 
 Job scheduling priority is made up of a number of factors as
-described in the [priority/multifactor](priority_multifactor.html) plugin. One
+described in the [priority/multifactor](priority_multifactor.md) plugin. One
 of the factors is the QOS priority. Each QOS is defined in the Slurm
 database and includes an associated priority. Jobs that request and
 are permitted a QOS will incorporate the priority associated with that
 QOS in the job's [multi-factor priority
-calculation.](priority_multifactor.html#general)
+calculation.](priority_multifactor.md#general)
 
 To enable the QOS priority component of the multi-factor priority
 calculation, the "PriorityWeightQOS" configuration parameter must be
@@ -39,7 +39,7 @@ multi-factor plugin is loaded.
 
 Slurm offers two ways for a queued job to preempt a running job,
 free-up the running job's resources and allocate them to the queued
-job. See the  [Preemption description](preempt.html) for
+job. See the  [Preemption description](preempt.md) for
 details.
 
 The preemption method is determined by the "PreemptType"
@@ -66,7 +66,7 @@ Each QOS is assigned a set of limits which will be applied to the
 job. The limits mirror the limits imposed by the
 user/account/cluster/partition association defined in the Slurm
 database and described in the  [Resource
-Limits page](resource_limits.html). When limits for a QOS have been defined, they
+Limits page](resource_limits.md). When limits for a QOS have been defined, they
 will take precedence over the association's limits.
 
 ## Partition QOS
@@ -87,7 +87,7 @@ by assigning all nodes to the partition, then configuring a Partition QOS with
 
 **NOTE**: Most QOS attributes are set using the **sacctmgr** command.
 However, setting a QOS as a partition QOS is accomplished in **slurm.conf**
-through the [QOS=](slurm.conf.html#OPT_QOS) option in the
+through the [QOS=](slurm.conf.md#OPT_QOS) option in the
 configuration of the associated partition. The QOS should be created using
 **sacctmgr** before it is assigned as a partition QOS. It is possible to
 delete a QOS attached to a partition without deleting the attachment in the

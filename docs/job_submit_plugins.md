@@ -178,7 +178,7 @@ For example:
 ```
 
 **NOTE**: To get/set the environment for all types of jobs, an alternate
-approach is to use [CliFilterPlugins](cli_filter_plugins.html).
+approach is to use [CliFilterPlugins](cli_filter_plugins.md).
 
 int slurm\_job\_submit(job\_desc\_msg\_t \*job\_desc, List part\_list, uint32\_t
 submit\_uid)

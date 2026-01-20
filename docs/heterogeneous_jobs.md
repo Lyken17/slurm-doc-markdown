@@ -205,7 +205,7 @@ directives are included in that script. The batch script's first component of th
 job will be modified in order to replace the burst buffer directives of other
 job components with "#EXCLUDED directive" where directive is "DW" or "BB"
 for the datawarp plugin and is the
-[configured](burst_buffer.html#submit_lua) value for the lua plugin.
+[configured](burst_buffer.md#submit_lua) value for the lua plugin.
 This prevents their interpretation by Cray infrastructure and aids
 administrators in writing an interface for the lua plugin.
 Since the batch script will only be executed by the first job

@@ -160,7 +160,7 @@ PriorityCalcPeriod
   usefully set to a much smaller value than usual, possibly as low as 1 or 2 times
   the number of user associations.
 * Fair Tree requires the [Slurm Accounting
-  Database](accounting.html) to provide usage information and the assigned shares values.
+  Database](accounting.md) to provide usage information and the assigned shares values.
 * *scontrol reconfigure* does not cause the Fair Tree algorithm to
   run immediately, even if switching from a different algorithm. You may have to
   wait until the next iteration as defined by *PriorityCalcPeriod*.

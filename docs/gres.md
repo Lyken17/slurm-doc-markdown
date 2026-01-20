@@ -29,7 +29,7 @@ You must explicitly specify which GRES are to be managed in the
 *slurm.conf* configuration file. The configuration parameters of
 interest are **GresTypes** and **Gres**.
 
-For more details, see [GresTypes](slurm.conf.html#OPT_GresTypes) and [Gres](slurm.conf.html#OPT_Gres_1) in the *slurm.conf* man page.
+For more details, see [GresTypes](slurm.conf.md#OPT_GresTypes) and [Gres](slurm.conf.md#OPT_Gres_1) in the *slurm.conf* man page.
 
 Note that the GRES specification for each node works in the same fashion
 as the other resources managed. Nodes which are found to have fewer resources
@@ -54,7 +54,7 @@ You can use the **no\_consume** flag to allow users to request a GRES
 without having a defined count that gets used as it is requested.
 
 To view available *gres.conf* configuration parameters, see the
-[gres.conf man page](gres.conf.html).
+[gres.conf man page](gres.conf.md).
 
 ## Running Jobs
 
@@ -328,7 +328,7 @@ it will be rejected.
 ## Accounting
 
 GPU memory and GPU utilization can be tracked as
-[TRES](https://slurm.schedmd.com/tres.html) for tasks using GPU
+[TRES](https://slurm.schedmd.com/tres.md) for tasks using GPU
 resources. If `AccountingStorageTRES=gres/gpu` is configured,
 gres/gpumem and gres/gpuutil will automatically be configured and gathered from
 GPU jobs. gres/gpumem and gres/gpuutil can also be set individually when
@@ -431,7 +431,7 @@ For example, if a job is allocated the device "/dev/nvidia1", then
 `CUDA_VISIBLE_DEVICES` will be set to a
 value of "0" (i.e. the first GPU device visible to the job).
 For more information see the
-[Prolog and Epilog Guide](prolog_epilog.html).
+[Prolog and Epilog Guide](prolog_epilog.md).
 
 When possible, Slurm automatically determines the GPUs on the system using
 NVML. NVML (which powers the
@@ -494,7 +494,7 @@ automatically gathered from the library and need not be recorded in the
 
 By default, job requests for MPS are required to fit on a single gpu on
 each node. This can be overridden with a flag in the *slurm.conf*
-configuration file. See [OPT\_MULTIPLE\_SHARING\_GRES\_PJ](slurm.conf.html#OPT_MULTIPLE_SHARING_GRES_PJ).
+configuration file. See [OPT\_MULTIPLE\_SHARING\_GRES\_PJ](slurm.conf.md#OPT_MULTIPLE_SHARING_GRES_PJ).
 
 Note the same GPU can be allocated either as a GPU type of GRES or as
 an MPS type of GRES, but not both.
@@ -566,7 +566,7 @@ If a job is allocated gres/gpu resources then the Prolog will have the
 The Prolog should then terminate any MPS server associated with that GPU.
 It may be necessary to modify this script as needed for the local environment.
 For more information see the
-[Prolog and Epilog Guide](prolog_epilog.html).
+[Prolog and Epilog Guide](prolog_epilog.md).
 
 Jobs requesting MPS resources will have the
 `CUDA_VISIBLE_DEVICES`
@@ -638,7 +638,7 @@ GresTypes=gpu
 NodeName=tux[1-16] gres=gpu:a100:1,gpu:a100_3g.20gb:2
 ```
 
-The [MultipleFiles](gres.conf.html#OPT_MultipleFiles) parameter
+The [MultipleFiles](gres.conf.md#OPT_MultipleFiles) parameter
 allows you to specify multiple device files for the GPU card.
 
 The sanity-check AutoDetect mode is not supported for MIGs.
@@ -699,7 +699,7 @@ jobs does not exceed the configured count.
 
 By default, job requests for shards are required to fit on a single gpu on
 each node. This can be overridden with a flag in the *slurm.conf*
-configuration file. See [OPT\_MULTIPLE\_SHARING\_GRES\_PJ](slurm.conf.html#OPT_MULTIPLE_SHARING_GRES_PJ).
+configuration file. See [OPT\_MULTIPLE\_SHARING\_GRES\_PJ](slurm.conf.md#OPT_MULTIPLE_SHARING_GRES_PJ).
 
 In order for this to be correctly configured, the appropriate nodes need
 to have the *shard* keyword added as a GRES for the relevant nodes as

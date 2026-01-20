@@ -77,7 +77,7 @@ environment variables, along with their corresponding options, are listed below.
 **SLURM\_CONF**
 :   The location of the Slurm configuration file.
 
-    : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for sshare to use. See DebugFlags in the **[slurm.conf](slurm.conf.html)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf. : **SLURM\_JSON** : Control JSON serialization: : : **compact** : Output JSON as compact as possible. : **pretty** : Output JSON in pretty format to make it more readable. **SLURM\_YAML** : Control YAML serialization: : : **compact** Output YAML as compact as possible. : : **pretty** Output YAML in pretty format to make it more readable.
+    : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for sshare to use. See DebugFlags in the **[slurm.conf](slurm.conf.md)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf. : **SLURM\_JSON** : Control JSON serialization: : : **compact** : Output JSON as compact as possible. : **pretty** : Output JSON in pretty format to make it more readable. **SLURM\_YAML** : Control YAML serialization: : : **compact** Output YAML as compact as possible. : : **pretty** Output YAML in pretty format to make it more readable.
 
 ## EXAMPLES
 
@@ -105,8 +105,8 @@ details.
 
 ## SEE ALSO
 
-**[slurm.conf](slurm.conf.html)**(5),
-**[slurmdbd](slurmdbd.html)**(8)
+**[slurm.conf](slurm.conf.md)**(5),
+**[slurmdbd](slurmdbd.md)**(8)
 
 ---
 

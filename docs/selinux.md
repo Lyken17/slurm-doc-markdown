@@ -123,7 +123,7 @@ will set the admin comment to show what context we will try to set for the job.
 ## Notes
 
 If you wish to use pam\_slurm\_adopt with SELinux, see the
-[pam\_slurm\_adopt](pam_slurm_adopt.html) documentation for hints on how
+[pam\_slurm\_adopt](pam_slurm_adopt.md) documentation for hints on how
 to get this working. Note that that when using this feature and
 pam\_slurm\_adopt at the same time that the ssh session may not land in the same
 context as the job.

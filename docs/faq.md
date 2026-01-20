@@ -254,7 +254,7 @@ Yes, Slurm is free and open source:
   [Free Software
   Foundation](https://www.gnu.org/philosophy/free-sw.en.html)
 * Slurm’s [source code](https://github.com/SchedMD/slurm) and
-  [documentation](https://slurm.schedmd.com/documentation.html) are
+  [documentation](https://slurm.schedmd.com/documentation.md) are
   publicly available under the GNU GPL v2
 * Slurm can be [downloaded](https://www.schedmd.com/download-slurm/), used, modified, and redistributed at no monetary cost
 
@@ -568,7 +568,7 @@ The sbatch command is designed to submit a script for later execution and its
 output is written to a file.
 Command options used in the job allocation are almost identical.
 The most noticeable difference in options is that the sbatch command supports
-the concept of [job arrays](job_array.html), while srun does not.
+the concept of [job arrays](job_array.md), while srun does not.
 Another significant difference is in fault tolerance.
 Failures involving sbatch jobs typically result in the job being requeued
 and executed again, while failures involving srun typically result in an
@@ -703,7 +703,7 @@ Other reasons can include waiting for resources, memory, qos, reservations, etc.
 As a guideline, issue an scontrol show job <jobid>
 and look at the field *State* and *Reason* to investigate the cause.
 A full list and explanation of the different Reasons can be found in the
-[resource limits](resource_limits.html#reasons) page.
+[resource limits](resource_limits.md#reasons) page.
 
 **Why is the Slurm backfill scheduler not starting my job?**  
 The most common problem is failing to set job time limits. If all jobs have
@@ -1003,7 +1003,7 @@ This can be disabled by specifically excluding the propagation of
 specific limits in the *slurm.conf* file. For example
 *PropagateResourceLimitsExcept=MEMLOCK* might be used to
 prevent the propagation of a user's locked memory limit from a
-[login node](quickstart_admin.html#login) to a dedicated
+[login node](quickstart_admin.md#login) to a dedicated
 node used for his parallel job.
 If the user's resource limit is not propagated, the limit in
 effect for the *slurmd* daemon will be used for the spawned job.
@@ -1079,7 +1079,7 @@ PartitionName=mira Default=yes Nodes=dummy26[1-100]
 ```
 
 See the
-[Programmers Guide](programmer_guide.html#multiple_slurmd_support)
+[Programmers Guide](programmer_guide.md#multiple_slurmd_support)
 for more details about configuring multiple slurmd support.
 
 **Can Slurm emulate nodes with more
@@ -1230,14 +1230,14 @@ $ scontrol update PartitionName=bar State=UP
 **How can I dry up the workload for a
 maintenance period?**  
 Create a resource reservation as described in Slurm's
-[Resource Reservation Guide](reservations.html).
+[Resource Reservation Guide](reservations.md).
 
 **What should I be aware of when upgrading Slurm?**  
-Refer to the [Upgrade Guide](upgrades.html) for details.
+Refer to the [Upgrade Guide](upgrades.md) for details.
 
 **Is there anything exceptional to be aware of when
 upgrading my database server?**  
-Generally, no. Special cases are noted in the [Database server](upgrades.html#db_server) section of the Upgrade Guide.
+Generally, no. Special cases are noted in the [Database server](upgrades.md#db_server) section of the Upgrade Guide.
 
 **When adding a new cluster, how can the Slurm cluster
 configuration be copied from an existing cluster to the new cluster?**  
@@ -1279,7 +1279,7 @@ In order to enforce resource limits, set the value of
 **AccountingStorageEnforce** in each cluster's slurm.conf configuration
 file appropriately. If **AccountingStorageEnforce** does not contains
 an option of "limits", then resource limits will not be enforced on that cluster.
-See [Resource Limits](resource_limits.html) for more information.
+See [Resource Limits](resource_limits.md) for more information.
 
 **Can Slurm be configured to manage licenses?**  
 Slurm does not provide a native integration with third party license managers,
@@ -1291,7 +1291,7 @@ It is not currently possible to change the total number of licenses on a system
 without restarting the slurmctld daemon, but it is possible to dynamically
 reserve licenses and remove them from being available to jobs on the system
 (e.g. "scontrol update reservation=licenses\_held licenses=foo:5,bar:2").
-For more information see the [Licenses Guide](licenses.html).
+For more information see the [Licenses Guide](licenses.md).
 
 **How easy is it to switch from PBS or Torque to Slurm?**  
 A lot of users don't even notice the difference.
@@ -1335,7 +1335,7 @@ A job submit plugin is designed to have access to a job request from a user,
 plus information about all of the available system partitions/queue.
 An administrator can write a C plugin or LUA script to set an incoming job's
 partition based upon its size, time limit, etc.
-See the  [Job Submit Plugin API](https://slurm.schedmd.com/job_submit_plugins.html)
+See the  [Job Submit Plugin API](https://slurm.schedmd.com/job_submit_plugins.md)
 guide for more information.
 Also see the available job submit plugins distributed with Slurm for examples
 (look in the "src/plugins/job\_submit" directory).
@@ -1447,7 +1447,7 @@ jobs per node?**
 There are two mechanisms to control this.
 If you want to allocate individual processors on a node to jobs,
 configure *SelectType=select/cons\_tres*.
-See [Consumable Resources in Slurm](cons_tres.html)
+See [Consumable Resources in Slurm](cons_tres.md)
 for details about this configuration.
 If you want to allocate whole nodes to jobs, configure
 configure *SelectType=select/linear*.
@@ -1608,7 +1608,7 @@ Otherwise use scontrol or sview to manually return the node to service.
 
 **How do I convert my nodes to Control Group (cgroup)
 v2?**  
-Refer to the [cgroup v2](cgroup_v2.html#conversion) documentation
+Refer to the [cgroup v2](cgroup_v2.md#conversion) documentation
 for the conversion procedure.
 
 **Can Slurm be used to run jobs on
@@ -1681,7 +1681,7 @@ root, which can always login).
 They are both included with the Slurm distribution.
 
 The pam\_slurm\_adopt module is highly recommended for most installations,
-and is documented in its [own guide](pam_slurm_adopt.html).
+and is documented in its [own guide](pam_slurm_adopt.md).
 
 pam\_slurm is older and less functional.
 These modules are built by default for RPM packages, but can be disabled using
@@ -1861,7 +1861,7 @@ fi
 The way user I/O is handled by Slurm makes it impossible to write to the
 user process as an admin after the user process is executed (execve is called).
 This happens right after the call to
-[TaskProlog](prolog_epilog.html), which is the last moment we can
+[TaskProlog](prolog_epilog.md), which is the last moment we can
 write to the stdout of the user process. Slurm assumes that this file
 descriptor is only owned by the user process while running. The file descriptor
 is opened as specified and passed to the task so it makes use of the file
@@ -1877,7 +1877,7 @@ write to a file where user output is stored may be problematic. The script is
 running as SlurmUser, so intensive validation of the file name may be required
 (e.g. to prevent users from specifying something like /etc/passwd as the
 output file). It's also possible that a job could have multiple output files
-(see [filename pattern](srun.html#OPT_filename-pattern) in the srun
+(see [filename pattern](srun.md#OPT_filename-pattern) in the srun
 man page).
 
 **Why are user processes and *srun*
@@ -1990,7 +1990,7 @@ jobs on my machine?**
 Tmpfs job container plugin can be used by including
 *JobContainerType=job\_container/tmpfs*
 in your slurm.conf file. It additionally requires a
-[job\_container.conf](job_container.conf.html) file to be
+[job\_container.conf](job_container.conf.md) file to be
 set up which is further described in the man page.
 Tmpfs plugin creates a private mount namespace inside of which it mounts a
 private /tmp to a location that is configured in job\_container.conf. The basepath
@@ -2407,8 +2407,8 @@ both). Configure can be made to explicitly request these libraries:
 Most distributions include packages to make installation relatively easy.
 Please make sure to install the 'dev' or 'devel' packages along with the
 library packages. We also provide explicit instructions on how to install from
-source: [libyaml](related_software.html#yaml) and
-[libjwt](related_software.html#jwt).
+source: [libyaml](related_software.md#yaml) and
+[libjwt](related_software.md#jwt).
 
 ### Third Party Integrations
 

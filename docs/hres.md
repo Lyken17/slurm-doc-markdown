@@ -9,17 +9,17 @@ state. While in beta, the configuration file format and other aspects of this
 feature may undergo substantial changes in future versions and require major
 changes to avoid errors. Sites that utilize this feature while in a beta state
 should pay particularly close attention to changes noted in RELEASE\_NOTES and
-the CHANGELOGs when [upgrading](upgrades.html).
+the CHANGELOGs when [upgrading](upgrades.md).
 
-Hierarchical Resources allow for [license](licenses.html)-like
+Hierarchical Resources allow for [license](licenses.md)-like
 resources to be defined as part of independent hierarchical topologies and
 associated with specific nodes. Jobs may request any integer count of that
 resource. Multiple resources may be defined in the configuration (in a
-[resources.yaml](resources.yaml.html) file), and will use
+[resources.yaml](resources.yaml.md) file), and will use
 independently defined hierarchies.
 
 Although these hierarchical topologies have some similarities to
-[network topologies](topology.html), the definitions for each are
+[network topologies](topology.md), the definitions for each are
 completely separate.
 
 ## Planning Modes

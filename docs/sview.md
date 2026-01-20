@@ -96,7 +96,7 @@ details.
 
 ## SEE ALSO
 
-**[sinfo](sinfo.html)**(1), **[squeue](squeue.html)**(1), **[scontrol](scontrol.html)**(1), **[slurm.conf](slurm.conf.html)**(5),
+**[sinfo](sinfo.md)**(1), **[squeue](squeue.md)**(1), **[scontrol](scontrol.md)**(1), **[slurm.conf](slurm.conf.md)**(5),
 **sched\_setaffinity** (2), **numa** (3)
 
 ---

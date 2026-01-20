@@ -49,7 +49,7 @@ A plugin must define and export the following symbols:
   Identifies the version of Slurm used to build this plugin and
   any attempt to load the plugin from a different version of Slurm will result
   in an error.
-  The micro version is not considered for [SPANK](spank.html) plugins.
+  The micro version is not considered for [SPANK](spank.md) plugins.
 
 ## API Functions in All Plugins
 

@@ -87,7 +87,7 @@ details.
 
 ## SEE ALSO
 
-**[slurm.conf](slurm.conf.html)**(5), **[slurmdbd.conf](slurmdbd.conf.html)**(5), **[slurmctld](slurmctld.html)**(8)
+**[slurm.conf](slurm.conf.md)**(5), **[slurmdbd.conf](slurmdbd.conf.md)**(5), **[slurmctld](slurmctld.md)**(8)
 
 ---
 

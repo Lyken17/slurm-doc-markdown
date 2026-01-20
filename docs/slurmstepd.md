@@ -31,7 +31,7 @@ compiled into slurmstepd.
 
 **SLURM\_DEBUG\_FLAGS**
 :   Specify debug flags for slurmstepd to use. See DebugFlags in the
-    **[slurm.conf](slurm.conf.html)**(5) man page for a full list of flags. The environment
+    **[slurm.conf](slurm.conf.md)**(5) man page for a full list of flags. The environment
     variable takes precedence over the setting in the slurm.conf.
 
 ## SIGNALS
@@ -63,7 +63,7 @@ details.
 
 ## SEE ALSO
 
-**[slurmd](slurmd.html)**(8)
+**[slurmd](slurmd.md)**(8)
 
 ---
 

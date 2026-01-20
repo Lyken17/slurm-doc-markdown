@@ -2,7 +2,7 @@
 
 # Resource Limits
 
-Familiarity with Slurm's [Accounting](accounting.html) web page
+Familiarity with Slurm's [Accounting](accounting.md) web page
 is strongly recommended before use of this document.
 
 ## Hierarchy
@@ -137,7 +137,7 @@ Limits and policies are applied in the following order:
 
 These are just the limits and policies for Associations. For a more
 complete description of the columns available to be displayed, see the
-[sacctmgr](sacctmgr.html#SECTION_LIST/SHOW-ASSOCIATION-FORMAT-OPTIONS) man page.
+[sacctmgr](sacctmgr.md#SECTION_LIST/SHOW-ASSOCIATION-FORMAT-OPTIONS) man page.
 
 **Fairshare**
 :   Integer value used for determining priority.
@@ -246,14 +246,14 @@ complete description of the columns available to be displayed, see the
 **MinPrioThreshold**
 :   Minimum priority required to reserve resources
     in the given association. Used to override bf\_min\_prio\_reserve.
-    See [bf\_min\_prio\_reserve](slurm.conf.html#OPT_bf_min_prio_reserve=#) for details.
+    See [bf\_min\_prio\_reserve](slurm.conf.md#OPT_bf_min_prio_reserve=#) for details.
 
 **QOS**
 :   comma separated list of QOSs an association is
     able to run.
 
 **NOTE**: When modifying a TRES field with *sacctmgr*, one must
-specify which TRES to modify (see [TRES](tres.html) for complete
+specify which TRES to modify (see [TRES](tres.md) for complete
 list) as in the following examples:
 
 ```
@@ -314,7 +314,7 @@ is treated as a Max limit.
     PriorityDecayHalfLife). It can also be reset (according to
     PriorityUsageResetPeriod) in order to allow jobs to run against the
     QOS again. QOS that have the NoDecay flag set do not decay GrpTRESMins,
-    see [QOS Options](qos.html#qos_other) for details.
+    see [QOS Options](qos.md#qos_other) for details.
     This limit only applies when using the Priority Multifactor plugin.
 
 **GrpTRESRunMins**
@@ -332,7 +332,7 @@ is treated as a Max limit.
     PriorityDecayHalfLife). It can also be reset (according to
     PriorityUsageResetPeriod) in order to allow jobs to run against the
     QOS again. QOS that have the NoDecay flag set do not decay GrpWall.
-    See [QOS Options](qos.html#qos_other) for details.
+    See [QOS Options](qos.md#qos_other) for details.
 
 **LimitFactor**
 :   A float that is factored into an associations [Grp|Max]TRES limits.
@@ -419,7 +419,7 @@ is treated as a Max limit.
     not include *Safe*, a job will be scheduled as long as the limits are
     not reached, but could be killed due to limits.
       
-    See [AccountingStorageEnforce](slurm.conf.html#OPT_AccountingStorageEnforce) in the slurm.conf man page.
+    See [AccountingStorageEnforce](slurm.conf.md#OPT_AccountingStorageEnforce) in the slurm.conf man page.
 
 The **MaxNodes** and **MaxTime** options already exist in
 Slurm's configuration on a per-partition basis, but the above options
@@ -437,7 +437,7 @@ rather than being allowed 20 CPUs for each partition.
 
 Fair-share scheduling is based upon the hierarchical account
 data maintained in the Slurm database. More information can be found
-in the [priority/multifactor](priority_multifactor.html)
+in the [priority/multifactor](priority_multifactor.md)
 plugin description.
 
 ### Specific limits over GRES
@@ -500,12 +500,12 @@ Tesla GPUs, you would set this in your slurm.conf:
   AccountingStorageTRES=gres/gpu,gres/gpu:tesla
 ```
 
-See [Trackable Resources TRES](tres.html) for details.
+See [Trackable Resources TRES](tres.md) for details.
 
 ## Job Reason Codes
 
 When a pending job is evaluated by the scheduler but found to exceed a
 configured resource limit, a corresponding reason will be assigned to the job.
 More details can be found on the [Job Reason
-Codes](job_reason_codes.html) page. More details about scheduling can be found in the
- [Scheduling Configuration Guide](sched_config.html).
+Codes](job_reason_codes.md) page. More details about scheduling can be found in the
+ [Scheduling Configuration Guide](sched_config.md).

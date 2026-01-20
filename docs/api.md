@@ -9,4 +9,4 @@ Interfaces (APIs) exposed through the "slurm.h" and "slurmdb.h" headers.
 Slurm's APIs are fixed within each major release. They do change —
 significantly — between each major release.
 
-Developers are encouraged to target Slurm's [REST API](rest_api.html) which provides for broader cross-version compatibility.
+Developers are encouraged to target Slurm's [REST API](rest_api.md) which provides for broader cross-version compatibility.

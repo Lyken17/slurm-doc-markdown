@@ -251,7 +251,7 @@ to all of the programs.
   Number of nodes assigned to a job.
 * **SLURM\_JOB\_OVERSUBSCRIBE**
   Job OverSubscribe status.
-  See the [squeue man page](squeue.html#OPT_OverSubscribe) for
+  See the [squeue man page](squeue.md#OPT_OverSubscribe) for
   possible values.
   Available in Prolog, PrologSlurmctld, Epilog and EpilogSlurmctld.
 * **SLURM\_JOB\_PARTITION**
@@ -394,7 +394,7 @@ to all of the programs.
 Plugin functions may also be useful to execute logic at various well-defined
 points.
 
-[SPANK](spank.html) is another mechanism that may be useful
+[SPANK](spank.md) is another mechanism that may be useful
 to invoke logic in the user commands, slurmd daemon, and slurmstepd daemon.
 
 ---

@@ -19,10 +19,10 @@ by Jeffrey B. Layton).
 More complex configurations can satisfy the job scheduling needs of
 world-class computer centers and rely upon a
 [MySQL](http://www.mysql.com/) database for archiving
-[accounting](accounting.html) records, managing
-[resource limits](resource_limits.html) by user or account,
+[accounting](accounting.md) records, managing
+[resource limits](resource_limits.md) by user or account,
 or supporting sophisticated
-[job prioritization](priority_multifactor.html) algorithms.
+[job prioritization](priority_multifactor.md) algorithms.
 
 While other workload managers do exist, Slurm is unique in several
 respects:

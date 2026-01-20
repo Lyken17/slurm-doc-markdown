@@ -34,7 +34,7 @@ Setting up containers requires several steps:
 
 1. Set up the [kernel](#prereq) and a
    [container runtime](#software).
-2. Deploy a suitable [oci.conf](oci.conf.html) file accessible to
+2. Deploy a suitable [oci.conf](oci.conf.md) file accessible to
    the compute nodes ([examples below](#example)).
 3. Restart or reconfigure slurmd on the compute nodes.
 4. Generate [OCI bundles](#bundle) for containers that are needed
@@ -446,28 +446,28 @@ srun --container $ABS_PATH_TO_BUNDLE --export=NONE bash -c "cat /etc/*rel*"
 
 ## Integration with Rootless Docker (Docker Engine v20.10+ & Slurm-23.02+)
 
-Slurm's [scrun](scrun.html) can be directly integrated with [Rootless Docker](https://docs.docker.com/engine/security/rootless/) to
+Slurm's [scrun](scrun.md) can be directly integrated with [Rootless Docker](https://docs.docker.com/engine/security/rootless/) to
 run containers as jobs. No special user permissions are required and **should
 not** be granted to use this functionality.
 
 ### Prerequisites
 
-1. [slurm.conf](slurm.conf.html) must be configured to use Munge
+1. [slurm.conf](slurm.conf.md) must be configured to use Munge
    authentication.
 
    ```
    AuthType=auth/munge
    ```
-2. [scrun.lua](scrun.html#SECTION_Example-<B>scrun.lua</B>-scripts)
+2. [scrun.lua](scrun.md#SECTION_Example-<B>scrun.lua</B>-scripts)
    must be configured for site storage configuration.
 3. [Configure kernel to allow pings](https://docs.docker.com/engine/security/rootless/#routing-ping-packets)
 4. [Configure rootless dockerd to allow listening on privileged ports](https://docs.docker.com/engine/security/rootless/#exposing-privileged-ports)
-5. [scrun.lua](scrun.html#SECTION_Example-%3CB%3Escrun.lua%3C/B%3E-scripts) must be present on any node where scrun may be run. The
+5. [scrun.lua](scrun.md#SECTION_Example-%3CB%3Escrun.lua%3C/B%3E-scripts) must be present on any node where scrun may be run. The
    example should be sufficient for most environments but paths should be
    modified to match available local storage.
-6. [oci.conf](oci.conf.html) must be present on any node where any
+6. [oci.conf](oci.conf.md) must be present on any node where any
    container job may be run. Example configurations for
-   [known OCI runtimes](https://slurm.schedmd.com/containers.html#example) are provided above. Examples may require
+   [known OCI runtimes](https://slurm.schedmd.com/containers.md#example) are provided above. Examples may require
    paths to be correct to installation locations.
 
 ### Limitations
@@ -619,7 +619,7 @@ not** be granted to use this functionality.
 
 ## Integration with Podman (Slurm-23.02+)
 
-Slurm's [scrun](scrun.html) can be directly integrated with
+Slurm's [scrun](scrun.md) can be directly integrated with
 [Podman](https://podman.io/)
 to run containers as jobs. No special user permissions are required and
 **should not** be granted to use this functionality.
@@ -627,21 +627,21 @@ to run containers as jobs. No special user permissions are required and
 ### Prerequisites
 
 1. Slurm must be fully configured and running on host running podman.
-2. [slurm.conf](slurm.conf.html) must be configured to use Munge
+2. [slurm.conf](slurm.conf.md) must be configured to use Munge
    authentication.
 
    ```
    AuthType=auth/munge
    ```
-3. [scrun.lua](scrun.html) must be configured for site storage
+3. [scrun.lua](scrun.md) must be configured for site storage
    configuration.
-4. [scrun.lua](scrun.html#SECTION_Example-%3CB%3Escrun.lua%3C/B%3E-scripts) must be present on any node where scrun may be run. The
+4. [scrun.lua](scrun.md#SECTION_Example-%3CB%3Escrun.lua%3C/B%3E-scripts) must be present on any node where scrun may be run. The
    example should be sufficient for most environments but paths should be
    modified to match available local storage.
-5. [oci.conf](oci.conf.html)
+5. [oci.conf](oci.conf.md)
    must be present on any node where any container job may be run.
    Example configurations for
-   [known OCI runtimes](https://slurm.schedmd.com/containers.html#example) are provided above. Examples may require
+   [known OCI runtimes](https://slurm.schedmd.com/containers.md#example) are provided above. Examples may require
    paths to be correct to installation locations.
 
 ### Limitations
@@ -893,7 +893,7 @@ RUN make && cp -v hello_c ring_c connectivity_c spc_example /usr/local/bin
 ## Container support via Plugin
 
 Slurm allows container developers to create [SPANK
-Plugins](plugins.html) that can be called at various points of job execution to support
+Plugins](plugins.md) that can be called at various points of job execution to support
 containers. Any site using one of these plugins to start containers **should
 not** have an "oci.conf" configuration file. The "oci.conf" file activates the
 builtin container functionality which may conflict with the SPANK based plugin

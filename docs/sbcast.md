@@ -68,7 +68,7 @@ these settings.)
 **SBCAST\_COMPRESS**
 :   **-C, --compress**
 
-    : **SBCAST\_EXCLUDE** : **--exclude**=<*NONE*|*path1*,*...*,*pathN*> : **SBCAST\_FANOUT** : **-F** *number*, **--fanout**=*number* : **SBCAST\_FORCE** : **-f, --force** : **SBCAST\_SEND\_LIBS** : **--send-libs**[=*yes|no*] : **SBCAST\_PRESERVE** : **-p, --preserve** : **SBCAST\_SIZE** : **-s** *size*, **--size**=*size* : **SBCAST\_TIMEOUT** : **-t** *seconds*, **--timeout**=*seconds* : **SLURM\_CONF** : The location of the Slurm configuration file. : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for sbcast to use. See DebugFlags in the **[slurm.conf](slurm.conf.html)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf.
+    : **SBCAST\_EXCLUDE** : **--exclude**=<*NONE*|*path1*,*...*,*pathN*> : **SBCAST\_FANOUT** : **-F** *number*, **--fanout**=*number* : **SBCAST\_FORCE** : **-f, --force** : **SBCAST\_SEND\_LIBS** : **--send-libs**[=*yes|no*] : **SBCAST\_PRESERVE** : **-p, --preserve** : **SBCAST\_SIZE** : **-s** *size*, **--size**=*size* : **SBCAST\_TIMEOUT** : **-t** *seconds*, **--timeout**=*seconds* : **SLURM\_CONF** : The location of the Slurm configuration file. : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for sbcast to use. See DebugFlags in the **[slurm.conf](slurm.conf.md)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf.
 
 ## AUTHORIZATION
 
@@ -112,7 +112,7 @@ details.
 
 ## SEE ALSO
 
-**[srun](srun.html)**(1)
+**[srun](srun.md)**(1)
 
 ---
 

@@ -6,7 +6,7 @@ Slurm supports in-place upgrades between certain versions. This page provides
 important details about the steps necessary to perform an upgrade and the
 potential complications to prepare for.
 
-See also [Quick Start Administrator Guide](quickstart_admin.html)
+See also [Quick Start Administrator Guide](quickstart_admin.md)
 
 ## Contents
 
@@ -172,7 +172,7 @@ that you are using. You may also notice new items added to Slurm that you wish
 to start using after the upgrade.
 
 Release notes for the latest major version are
-available [here](release_notes.html) or on GitHub
+available [here](release_notes.md) or on GitHub
 ([RELEASE\_NOTES.md](https://github.com/SchedMD/slurm/blob/master/RELEASE_NOTES.md)).
 Release notes for other versions can be found in the source, which can be viewed
 on GitHub by selecting the branch or tag corresponding to the desired version.
@@ -185,7 +185,7 @@ the NEWS file), but are usually not needed to prepare for upgrades.
 
 Always prepare and test configuration changes in a test environment
 before upgrading in production. Changes outlined in the release notes will need
-to be looked up in the man pages (such as [slurm.conf](slurm.conf.html)) for details and new syntax. Certain options in your configuration files
+to be looked up in the man pages (such as [slurm.conf](slurm.conf.md)) for details and new syntax. Certain options in your configuration files
 may need to be changed as features and functionality are improved in every major
 Slurm release. Typically, new naming and syntax conventions are introduced
 several versions before the old ones are removed, so you may be able to make the
@@ -214,8 +214,8 @@ the values parsed and dumped as JSON and YAML are handled by the data\_parser
 plugins. Please see the following links for explanations of the changes in each
 release and how to account for them while upgrading:
 
-* [OpenAPI Specification (OAS) changes](rest_clients.html#openapi-changes)
-* [OpenAPI release notes](openapi_release_notes.html)
+* [OpenAPI Specification (OAS) changes](rest_clients.md#openapi-changes)
+* [OpenAPI release notes](openapi_release_notes.md)
 
 ### Create Backups
 
@@ -234,7 +234,7 @@ designed and setup the cluster and procedures are not provided here.
 At a minimum, back up the following:
 
 * **StateSaveLocation** as defined in
-  [slurm.conf](slurm.conf.html#OPT_StateSaveLocation), or it can be
+  [slurm.conf](slurm.conf.md#OPT_StateSaveLocation), or it can be
   queried by calling
 
   ```
@@ -260,7 +260,7 @@ At a minimum, back up the following:
      + Creating a new database
      + Upgrading an existing database
      + Adding or Removing a cluster in the slurmdbd
-     + [Archiving or Purging](https://slurm.schedmd.com/accounting.html#slurmdbd-archive-purge) accounting data
+     + [Archiving or Purging](https://slurm.schedmd.com/accounting.md#slurmdbd-archive-purge) accounting data
 
 ### slurmdbd (Accounting)
 
@@ -274,7 +274,7 @@ Upgrades to the slurmdbd may require significant **downtime**.
 With large accounting databases, the precautionary database dump will take some
 time, and the upgraded daemon may be unresponsive for tens of minutes while it
 updates the database to the new schema. Sites are encouraged to use the
-[purge functionality](slurmdbd.conf.html#OPT_PurgeJobAfter) if older
+[purge functionality](slurmdbd.conf.md#OPT_PurgeJobAfter) if older
 accounting data is not required for normal operations. Purging old records
 before attempting to upgrade can significantly decrease outage time.
 
@@ -283,8 +283,8 @@ the upgrade is in process, provided the activity does not fill up the slurmdbd
 Agent queue on the slurmctld node. While slurmdbd is offline, you should
 monitor the memory usage of slurmctld, and the **DBD Agent queue size**, as
 reported by **sdiag**, to ensure it does not exceed the configured
-**MaxDBDMsgs** in [slurm.conf](slurm.conf.html#OPT_MaxDBDMsgs).
-Cli commands [sacct](sacct.html) and [sacctmgr](sacctmgr.html) will not work while slurmdbd is down.
+**MaxDBDMsgs** in [slurm.conf](slurm.conf.md#OPT_MaxDBDMsgs).
+Cli commands [sacct](sacct.md) and [sacctmgr](sacctmgr.md) will not work while slurmdbd is down.
 `slurmrestd` queries that include slurmdb in
 the URL path will fail while slurmdbd is down.
 
@@ -319,9 +319,9 @@ The suggested upgrade procedure is as follows:
 2. [Backup the Slurm database](#backups)
 3. Verify that the innodb\_buffer\_pool\_size in my.cnf is greater than the
    default. See the recommendation in the
-   [accounting page](accounting.html#slurm-accounting-configuration-before-build).
+   [accounting page](accounting.md#slurm-accounting-configuration-before-build).
 4. Upgrade the slurmdbd daemon binaries, libraries, and its systemd unit file
-   (if used). If using [RPM/DEB packages](quickstart_admin.html#build_install), the package manager will take care of these,
+   (if used). If using [RPM/DEB packages](quickstart_admin.md#build_install), the package manager will take care of these,
    although systemd overrides may prevent the new unit from taking effect.
      
    Only upgrade the slurmdbd system(s) at this time; other Slurm

@@ -34,9 +34,9 @@ you use a currently supported version of MySQL or MariaDB.
 
 Further reading:
 
-* [Quick Start Administrator Guide](quickstart_admin.html)
-* [Accounting and Resource Limits](accounting.html)
-* [Upgrade Guide](upgrades.html)
+* [Quick Start Administrator Guide](quickstart_admin.md)
+* [Accounting and Resource Limits](accounting.md)
+* [Upgrade Guide](upgrades.md)
 
 ## Accelerators
 

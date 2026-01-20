@@ -11,7 +11,7 @@ Slurm's **OverSubscribe** option controls the ability of a partition to
 execute more than one job at a time on each resource, no matter "what type"
 of job. Slurm job submission clients can also use the **--exclusive** and
 **--oversubscribe** parameters to request how the job can be
-[shared](cons_tres_share.html). The **ExclusiveUser**
+[shared](cons_tres_share.md). The **ExclusiveUser**
 slurm.conf parameter and the --exclusive=**user** client parameter value
 modifies the exclusivity functionality. With this parameter enabled, the
 "type of job" now matters when considering exclusivity, so jobs can share
@@ -23,7 +23,7 @@ nodes can only be shared among jobs having the same label.
 This adds even more degrees of freedom to how Slurm manages exclusivity,
 providing end users with much more flexibility in this area.
 
-Slurm also has the **PrivateData** [slurm.conf](slurm.conf.html)
+Slurm also has the **PrivateData** [slurm.conf](slurm.conf.md)
 parameter, which is used to control what type of information is hidden from
 regular users. Similar to the exclusivity property, the MCS Plugin also
 extends the **privacy** by filtering job and/or node information
@@ -34,7 +34,7 @@ labels in coordination with the PrivateData option.
 
 ### Limitations
 
-Use of MCS restricts the operation of [Preemption](preempt.html).
+Use of MCS restricts the operation of [Preemption](preempt.md).
 Specifically, any job that has an MCS label and requests node exclusivity
 according to that label will be prevented from preempting or being preempted by
 any job that doesn't match that label. If

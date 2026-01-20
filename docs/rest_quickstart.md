@@ -3,18 +3,18 @@
 # REST API Quick Start Guide
 
 Slurm provides a [REST API](https://restfulapi.net/) through the
-slurmrestd daemon, using [JSON Web Tokens](jwt.html) for
+slurmrestd daemon, using [JSON Web Tokens](jwt.md) for
 authentication. This daemon is designed to allow clients to communicate with
 Slurm via a REST API (in addition to the command line interface (CLI) or C API).
 This page provides a brief tutorial for setting up these components.
 
 See also:
 
-* [REST API Details](rest.html)
-* [REST API Methods and Models](rest_api.html)
-* [slurmrestd man page](slurmrestd.html)
-* [OpenAPI Plugin Release Notes](openapi_release_notes.html)
-* [REST API Client Guide](rest_clients.html)
+* [REST API Details](rest.md)
+* [REST API Methods and Models](rest_api.md)
+* [slurmrestd man page](slurmrestd.md)
+* [OpenAPI Plugin Release Notes](openapi_release_notes.md)
+* [REST API Client Guide](rest_clients.md)
 
 ## Contents
 
@@ -41,20 +41,20 @@ in order for slurmrestd to be compiled (minimum versions are on the related
 software page linked below):
 
 * [HTTP Parser](related_software.html#httpparser)
-* [JSON-C](related_software.html#json)
+* [JSON-C](related_software.md#json)
 
 The following development libraries are optional; if present at compile time
 the related functionality will be available:
 
-* [YAML](related_software.html#yaml) (YAML support)
-* [JWT](related_software.html#jwt)
+* [YAML](related_software.md#yaml) (YAML support)
+* [JWT](related_software.md#jwt)
   (authentication for socket-based clients)
-* [s2n](tls.html#s2n) (TLS communications)
+* [s2n](tls.md#s2n) (TLS communications)
 
 It is generally recommended that you have
-[slurmdbd](slurmdbd.html) set up for
-[accounting](accounting.html). Without slurmdbd you may need to
-start slurmrestd with the [-s](slurmrestd.html#OPT_-s-<plugin>)
+[slurmdbd](slurmdbd.md) set up for
+[accounting](accounting.md). Without slurmdbd you may need to
+start slurmrestd with the [-s](slurmrestd.md#OPT_-s-<plugin>)
 flag to tell it not to load the slurmdbd plugin.
 
 ## Quick Start
@@ -68,10 +68,10 @@ If you have multiple clusters, you will need a unique instance of
    * DEB: `slurm-smd slurm-smd-slurmrestd`
    * RPM: `slurm slurm-slurmrestd` (requires
      `--with slurmrestd` at build time)
-2. Set up [JSON Web Tokens](jwt.html) for authentication
+2. Set up [JSON Web Tokens](jwt.md) for authentication
 3. Ensure `/etc/slurm/slurm.conf` is present and correct for your
-   cluster (see [Quick Start Admin Guide](quickstart_admin.html) and
-   [slurm.conf man page](slurm.conf.html))
+   cluster (see [Quick Start Admin Guide](quickstart_admin.md) and
+   [slurm.conf man page](slurm.conf.md))
 4. Run **slurmrestd** (see [below](#systemd) for systemd
    instructions) on your preferred [HOST]:PORT combination
    (':6820' is the default for production)
@@ -83,7 +83,7 @@ If you have multiple clusters, you will need a unique instance of
    ```
 
    Adjust SLURMRESTD\_DEBUG to the desired level of output (as described on the
-   [man page](slurmrestd.html#OPT_SLURMRESTD_DEBUG))
+   [man page](slurmrestd.md#OPT_SLURMRESTD_DEBUG))
 
 ### Running with systemd
 
@@ -152,10 +152,10 @@ customizing its operation:
    The service will read environment variables from two files:
    `/etc/default/slurmrestd` and `/etc/sysconfig/slurmrestd`.
    You may set any environment variables recognized by
-   [slurmrestd](slurmrestd.html#SECTION_ENVIRONMENT-VARIABLES),
+   [slurmrestd](slurmrestd.md#SECTION_ENVIRONMENT-VARIABLES),
    but the following are particularly relevant:
    * **SLURMRESTD\_OPTIONS**: CLI options to add to the slurmrestd command
-     (see [slurmrestd](slurmrestd.html))
+     (see [slurmrestd](slurmrestd.md))
    * **SLURMRESTD\_LISTEN**: Comma-delimited list of host:port pairs or
      unix:$SOCKET\_PATH sockets to listen on
        
@@ -202,7 +202,7 @@ customizing its operation:
    * Examine the output to ensure the response was **200 OK**,
      and examine **/tmp/curl.log** for a valid JSON response.
    * Try other endpoints described in the [API Methods
-     and Models](rest_api.html). Change **GET** to the correct method for the endpoint.
+     and Models](rest_api.md). Change **GET** to the correct method for the endpoint.
 4. Alternate command to use the UNIX socket instead
 
    ```
@@ -222,13 +222,13 @@ customizing its operation:
 This guide provides a simple overview using `scontrol` to
 obtain tokens. This is a basic introductory approach that in many cases
 should be disabled in favor of more sophisticated token management.
-Refer to the [JWT page](jwt.html) for more details.
+Refer to the [JWT page](jwt.md) for more details.
 
 ## Advanced Usage
 
 Information about ways to further customize and configure slurmrestd,
 including authentication methods, run modes, plugins, high availability, proxies,
-and Python client is found on the [REST API Details](rest.html) page.
+and Python client is found on the [REST API Details](rest.md) page.
 
 ## Common Issues
 
@@ -272,7 +272,7 @@ Otherwise, consult the logs on the **slurmctld** and **slurmdbd**.
 
 ### Unable to find requested URL (HTTP 404)
 
-Check the [API Methods and Models](rest_api.html) page to ensure
+Check the [API Methods and Models](rest_api.md) page to ensure
 you're using a valid URL and the correct method for it. Pay attention to the
 path as there are different endpoints for **slurm** and **slurmdbd**.
 

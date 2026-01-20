@@ -24,14 +24,14 @@
 
 ## Overview
 
-Please see the [Quick Start User Guide](quickstart.html) for a
+Please see the [Quick Start User Guide](quickstart.md) for a
 general overview.
 
-Also see [Platforms](platforms.html) for a list of supported
+Also see [Platforms](platforms.md) for a list of supported
 computer platforms.
 
 For information on performing an upgrade, please see the
-[Upgrade Guide](upgrades.html).
+[Upgrade Guide](upgrades.md).
 
 ## Super Quick Start
 
@@ -52,7 +52,7 @@ For information on performing an upgrade, please see the
      Slurm packages available in software repositories. SchedMD does not maintain
      or recommend these packages.
 5. Build a configuration file using your favorite web browser and the
-   [Slurm Configuration Tool](configurator.html).  
+   [Slurm Configuration Tool](configurator.md).  
    **NOTE**: The *SlurmUser* must exist prior to starting Slurm
    and must exist on all nodes of the cluster.  
    **NOTE**: The parent directories for Slurm's log files, process ID files,
@@ -91,29 +91,29 @@ the convention on Debian-based distros is **libNAME-dev**.
 |  |  |
 | --- | --- |
 | **Component** | **Development library required** |
-| `acct_gather_energy/ipmi`  Gathers [energy consumption](slurm.conf.html#OPT_AcctGatherEnergyType) through IPMI | *freeipmi* |
-| `acct_gather_interconnect/ofed`  Gathers [traffic data](slurm.conf.html#OPT_AcctGatherInterconnectType) for InfiniBand networks | *libibmad*  *libibumad* |
-| `acct_gather_profile/hdf5`  Gathers [detailed job profiling](slurm.conf.html#OPT_AcctGatherProfileType) through HDF5 | *hdf5* |
-| `accounting_storage/mysql`  Required for [accounting](accounting.html); a currently supported version of MySQL or MariaDB should be used | *MySQL* or *MariaDB* |
-| `auth/slurm`  (alternative to the traditional MUNGE [authentication method](slurm.conf.html#OPT_AuthType)) | *jwt* |
-| `auth/munge`  (default [authentication method](slurm.conf.html#OPT_AuthType)) | *MUNGE* |
-| `AutoDetect=nvml`  Provides [autodetection](gres.conf.html#OPT_AutoDetect) of NVIDIA GPUs with MIGs and NVlinks (`AutoDetect=nvidia`, added in 24.11, does not have any prerequisites) | *libnvidia-ml* |
-| `AutoDetect=oneapi`  Provides [autodetection](gres.conf.html#OPT_AutoDetect) of Intel GPUs | *libvpl* |
-| `AutoDetect=rsmi`  Provides [autodetection](gres.conf.html#OPT_AutoDetect) of AMD GPUs | *ROCm* |
+| `acct_gather_energy/ipmi`  Gathers [energy consumption](slurm.conf.md#OPT_AcctGatherEnergyType) through IPMI | *freeipmi* |
+| `acct_gather_interconnect/ofed`  Gathers [traffic data](slurm.conf.md#OPT_AcctGatherInterconnectType) for InfiniBand networks | *libibmad*  *libibumad* |
+| `acct_gather_profile/hdf5`  Gathers [detailed job profiling](slurm.conf.md#OPT_AcctGatherProfileType) through HDF5 | *hdf5* |
+| `accounting_storage/mysql`  Required for [accounting](accounting.md); a currently supported version of MySQL or MariaDB should be used | *MySQL* or *MariaDB* |
+| `auth/slurm`  (alternative to the traditional MUNGE [authentication method](slurm.conf.md#OPT_AuthType)) | *jwt* |
+| `auth/munge`  (default [authentication method](slurm.conf.md#OPT_AuthType)) | *MUNGE* |
+| `AutoDetect=nvml`  Provides [autodetection](gres.conf.md#OPT_AutoDetect) of NVIDIA GPUs with MIGs and NVlinks (`AutoDetect=nvidia`, added in 24.11, does not have any prerequisites) | *libnvidia-ml* |
+| `AutoDetect=oneapi`  Provides [autodetection](gres.conf.md#OPT_AutoDetect) of Intel GPUs | *libvpl* |
+| `AutoDetect=rsmi`  Provides [autodetection](gres.conf.md#OPT_AutoDetect) of AMD GPUs | *ROCm* |
 | **HTML man pages**  This dependency is a command that must be present, typically provided by a package of the same name. | *man2html* |
 | **Lua API** | *lua* |
 | **PAM support** | *PAM* |
 | **PMIx support** (requires `--with-pmix` at build time) | *pmix* |
 | **Readline support** in `scontrol` and `sacctmgr` interactive modes | *readline* |
-| `slurmrestd`([restd node](#restd)) | *[http\_parser](related_software.html#httpparser)*  *[json-c](related_software.html#json)*  *[yaml](related_software.html#yaml)* (optional)  *[jwt](related_software.html#jwt)* (optional)  *[s2n](tls.html#s2n)* (optional) |
-| `sview` ([man page](sview.html)) | *gtk+-2.0* |
+| `slurmrestd`([restd node](#restd)) | *[http\_parser](related_software.html#httpparser)*  *[json-c](related_software.md#json)*  *[yaml](related_software.md#yaml)* (optional)  *[jwt](related_software.md#jwt)* (optional)  *[s2n](tls.md#s2n)* (optional) |
+| `sview` ([man page](sview.md)) | *gtk+-2.0* |
 | `switch/hpe_slingshot` | *cray-libcxi*  *curl*  *json-c* |
 | NUMA support with `task/affinity` | *numa* |
 | `task/cgroup`  Two packages packages are only required for cgroup/v2 support | *hwloc*  *bpf* (cgroup/v2)  *dbus* (cgroup/v2) |
 
   
 
-Please see the [Related Software](related_software.html) page for
+Please see the [Related Software](related_software.md) page for
 references to required software to build these plugins.
 
 If required libraries or header files are in non-standard locations, set
@@ -251,7 +251,7 @@ We recommend you create a Unix user named *slurm* for use by slurmctld
 and make sure it exists across the cluster. This user should be configured
 as the **SlurmUser** in the slurm.conf configuration file, and granted
 sufficient permissions to files used by the daemon. Refer to the
-[slurm.conf](slurm.conf.html#lbAP) man page for more details.
+[slurm.conf](slurm.conf.md#lbAP) man page for more details.
 
 Below is a brief overview of the different types of nodes Slurm utilizes:
 
@@ -259,14 +259,14 @@ Below is a brief overview of the different types of nodes Slurm utilizes:
 
 Compute nodes (frequently just referred to as "nodes") perform
 the computational work in the cluster.
-The [slurmd](slurmd.html) daemon executes on every compute node.
+The [slurmd](slurmd.md) daemon executes on every compute node.
 It monitors all tasks running on the node, accepts work, launches tasks and
 kills running tasks upon request. Because slurmd
 initiates and manages user jobs, it must execute as the root user.
 
 ### Controller Node
 
-The machine running [slurmctld](slurmctld.html) is sometimes
+The machine running [slurmctld](slurmctld.md) is sometimes
 referred to as the "head node" or the "controller".
 It orchestrates Slurm activities, including queuing of jobs,
 monitoring node states, and allocating resources to jobs. There is an
@@ -284,13 +284,13 @@ backup controller) or is restarted.
 ### DBD Node
 
 If you want to save job accounting records to a database, the
-[slurmdbd](slurmdbd.html) (Slurm DataBase Daemon) should be used.
+[slurmdbd](slurmdbd.md) (Slurm DataBase Daemon) should be used.
 It is good practice to run the slurmdbd daemon on a different machine than the
 controller. On larger systems, we also recommend that the database used by
 **slurmdbd** be on a separate machine. When getting started with Slurm, we
 recommend that you defer adding accounting support until after basic Slurm
 functionality is established on your system. Refer to the
-[Accounting](accounting.html) page for more information.
+[Accounting](accounting.md) page for more information.
 
 ### Login Node
 
@@ -305,24 +305,24 @@ and could run jobs as root on the cluster.
 
 Login nodes should have access to any Slurm client commands that users are
 expected to use. They should also have the cluster's 'slurm.conf' file and other
-components necessary for the [authentication](authentication.html)
+components necessary for the [authentication](authentication.md)
 method used in the cluster. They should not be configured to have jobs
 scheduled on them and users should not perform computationally demanding work
 on them while they're logged in. They do not typically need to have any Slurm
-daemons running. If using *auth/slurm*, [sackd](sackd.html)
+daemons running. If using *auth/slurm*, [sackd](sackd.md)
 should be running to provide authentication. If running in
-[configless mode](configless_slurm.html), and not using
-*auth/slurm*, a [slurmd](slurmd.html) can be configured to
+[configless mode](configless_slurm.md), and not using
+*auth/slurm*, a [slurmd](slurmd.md) can be configured to
 manage your configuration files.
 
 ### Restd Node
 
-The [slurmrestd](slurmrestd.html) daemon can be deployed to
-provide a [REST API](rest.html) that can be used to interact with the
+The [slurmrestd](slurmrestd.md) daemon can be deployed to
+provide a [REST API](rest.md) that can be used to interact with the
 Slurm cluster programmatically. See detailed
-[prerequisite](rest_quickstart.html#prereq),
-[installation](rest_quickstart.html#quick_start), and
-[systemd configuration](rest_quickstart.html#systemd) guides.
+[prerequisite](rest_quickstart.md#prereq),
+[installation](rest_quickstart.md#quick_start), and
+[systemd configuration](rest_quickstart.md#systemd) guides.
 
 ## High Availability
 
@@ -340,8 +340,8 @@ mode. The primary reads the saved state and resumes normal operation. Likewise,
 if both of the first two listed hosts fail the third SlurmctldHost will take
 over until the primary returns to service. Other than a brief period of non-
 responsiveness, the transition back and forth should go undetected.
-You can use [SlurmctldPrimaryOnProg](slurm.conf.html#OPT_SlurmctldPrimaryOnProg) and
-[SlurmctldPrimaryOffProg](slurm.conf.html#OPT_SlurmctldPrimaryOffProg) to define the actions taken when machines
+You can use [SlurmctldPrimaryOnProg](slurm.conf.md#OPT_SlurmctldPrimaryOnProg) and
+[SlurmctldPrimaryOffProg](slurm.conf.md#OPT_SlurmctldPrimaryOffProg) to define the actions taken when machines
 transition between primary and backup roles.
 
 Any time the slurmctld daemon or hardware fails before state information
@@ -355,12 +355,12 @@ The interval between state saves being written to disk can be configured at
 build time by defining SAVE\_MAX\_WAIT to a different value than five.
 
 A backup instance of slurmdbd can also be configured by specifying
-[AccountingStorageBackupHost](slurm.conf.html#OPT_AccountingStorageBackupHost) in slurm.conf, as well as
-[DbdBackupHost](slurmdbd.conf.html#OPT_DbdBackupHost) in
+[AccountingStorageBackupHost](slurm.conf.md#OPT_AccountingStorageBackupHost) in slurm.conf, as well as
+[DbdBackupHost](slurmdbd.conf.md#OPT_DbdBackupHost) in
 slurmdbd.conf. The backup host should be on a different machine than the one
 hosting the primary instance of slurmdbd. Both instances of slurmdbd should
 have access to the same database. The
-[network page](network.html#failover) has a visual representation
+[network page](network.md#failover) has a visual representation
 of how this might look.
 
 ## Infrastructure
@@ -387,7 +387,7 @@ started before Slurm daemons. Note that MUNGE does require clocks to be
 synchronized throughout the cluster, usually done by NTP.
 
 As of 23.11.0, **AuthType** can also be set to
-[slurm](authentication.html#slurm), an internal authentication
+[slurm](authentication.md#slurm), an internal authentication
 plugin. This plugin has similar requirements to MUNGE, requiring a key file
 shared to all Slurm daemons. The auth/slurm plugin requires installation of the
 jwt package.
@@ -401,7 +401,7 @@ utilized.
 ### MPI support
 
 Slurm supports many different MPI implementations.
-For more information, see [MPI](quickstart.html#mpi).
+For more information, see [MPI](quickstart.md#mpi).
 
 ### Scheduler support
 
@@ -414,7 +414,7 @@ with two options available: *basic* (first-in-first-out) and
 The *multifactor* plugin will assign a priority to jobs based upon
 a multitude of configuration parameters (age, size, fair-share allocation,
 etc.) and its details are beyond the scope of this document.
-See the [Multifactor Job Priority Plugin](priority_multifactor.html)
+See the [Multifactor Job Priority Plugin](priority_multifactor.md)
 document for details.
 
 The **SchedType** configuration parameter controls how queued
@@ -431,11 +431,11 @@ jobs are scheduled and several options are available.
   jobs in higher priority queues.
 
 For more information about scheduling options see
-[Gang Scheduling](gang_scheduling.html),
-[Preemption](preempt.html),
-[Resource Reservation Guide](reservations.html),
-[Resource Limits](resource_limits.html) and
-[Sharing Consumable Resources](cons_tres_share.html).
+[Gang Scheduling](gang_scheduling.md),
+[Preemption](preempt.md),
+[Resource Reservation Guide](reservations.md),
+[Resource Limits](resource_limits.md) and
+[Sharing Consumable Resources](cons_tres_share.md).
 
 ### Resource selection
 
@@ -445,7 +445,7 @@ If you want to execute multiple jobs per node, but track and manage allocation
 of the processors, memory and other resources, the *cons\_tres* (consumable
 trackable resources) plugin is recommended.
 For more information, please see
-[Consumable Resources in Slurm](cons_tres.html).
+[Consumable Resources in Slurm](cons_tres.md).
 
 ### Logging
 
@@ -457,7 +457,7 @@ Slurm uses syslog to record events if the `SlurmctldLogFile` and
 Slurm supports accounting records being written to a simple text file,
 directly to a database (MySQL or MariaDB), or to a daemon securely
 managing accounting data for multiple clusters. For more information
-see [Accounting](accounting.html).
+see [Accounting](accounting.md).
 
 ### Compute node access
 
@@ -542,7 +542,7 @@ a node should have to be considered available for use. Any node lacking these
 minimum configuration values will be considered DOWN and not scheduled.
 Note that a more extensive sample configuration file is provided in
 **etc/slurm.conf.example**. We also have a web-based
-[configuration tool](configurator.html) which can
+[configuration tool](configurator.md) which can
 be used to build a simple configuration file, which can then be
 manually edited for more complex configurations.
 
@@ -730,7 +730,7 @@ adev0: scontrol shutdown
 Slurm supports in-place upgrades between certain versions. Important details
 about the steps necessary to perform an upgrade and the potential complications
 to prepare for are contained on this page:
-[Upgrade Guide](upgrades.html)
+[Upgrade Guide](upgrades.md)
 
 ## FreeBSD
 

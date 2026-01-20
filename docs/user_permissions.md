@@ -15,7 +15,7 @@ On a SlurmDBD served cluster, these users can
 
 Set using an **AdminLevel** option in the user's database record.
 For configuration information, see
-[Accounting and Resource Limits](accounting.html).
+[Accounting and Resource Limits](accounting.md).
 
 ## Admin
 
@@ -25,7 +25,7 @@ or root.
 
 An **AdminLevel** option in the user's database record.
 For configuration information, see
-[Accounting and Resource Limits](accounting.html).
+[Accounting and Resource Limits](accounting.md).
 
 ## Coordinator
 
@@ -39,4 +39,4 @@ the parent ones.
 Set using a table in Slurm's database defining users and accounts for
 which they can serve as coordinators.
 For configuration information, see the
-[sacctmgr](sacctmgr.html) man page.
+[sacctmgr](sacctmgr.md) man page.

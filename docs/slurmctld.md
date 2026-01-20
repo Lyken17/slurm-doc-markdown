@@ -44,7 +44,7 @@ compiled into slurmctld.
 :   When a fatal error is detected, use abort() instead of exit() to terminate the
     process. This allows backtraces to be captured without recompiling Slurm.
 
-    : **SLURM\_CONF** : The location of the Slurm configuration file. This is overridden by explicitly naming a configuration file on the command line. : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for the scheduler to use. See DebugFlags in the **[slurm.conf](slurm.conf.html)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf.
+    : **SLURM\_CONF** : The location of the Slurm configuration file. This is overridden by explicitly naming a configuration file on the command line. : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for the scheduler to use. See DebugFlags in the **[slurm.conf](slurm.conf.md)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf.
 
 ## HTTP server
 
@@ -113,7 +113,7 @@ details.
 
 ## SEE ALSO
 
-**[slurm.conf](slurm.conf.html)**(5), **[slurmd](slurmd.html)**(8)
+**[slurm.conf](slurm.conf.md)**(5), **[slurmd](slurmd.md)**(8)
 
 ---
 

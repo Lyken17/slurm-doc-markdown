@@ -194,13 +194,13 @@ LDAP server could also serve as a way to gather this information.
 ### Storage Backup Host
 
 A backup instance of slurmdbd can be configured by specifying
-[AccountingStorageBackupHost](slurm.conf.html#OPT_AccountingStorageBackupHost) in slurm.conf, as well as
-[DbdBackupHost](slurmdbd.conf.html#OPT_DbdBackupHost) in
+[AccountingStorageBackupHost](slurm.conf.md#OPT_AccountingStorageBackupHost) in slurm.conf, as well as
+[DbdBackupHost](slurmdbd.conf.md#OPT_DbdBackupHost) in
 slurmdbd.conf. The backup host should be on a different machine than the one
 hosting the primary instance of slurmdbd. Both instances of slurmdbd should
 have access to the same database, share the same munge key(s), and have the
 same users with the same UID/GIDs. The
-[network page](network.html#failover) has a visual representation
+[network page](network.md#failover) has a visual representation
 of how this might look.
 
 ## Slurm JobComp Configuration
@@ -240,7 +240,7 @@ the creation of user entities called "associations", which consist of the
 cluster, a user, account and optionally a partition.
 
 **MySQL or MariaDB is the preferred database.** Refer to the
-[Upgrade Guide](upgrades.html#db_server) for information on in-place
+[Upgrade Guide](upgrades.md#db_server) for information on in-place
 upgrades of Slurm and DB server packages.
 
 To enable this database support
@@ -463,7 +463,7 @@ This file should be only on the computer where SlurmDBD executes and
 should only be readable by the user which executes SlurmDBD (e.g. "slurm").
 This file should be protected from unauthorized access since it
 contains a database login name and password.
-See [slurmdbd.conf](slurmdbd.conf.html)(5) for a more complete
+See [slurmdbd.conf](slurmdbd.conf.md)(5) for a more complete
 description of the configuration parameters.
 Some of the more important parameters include:
 
@@ -642,7 +642,7 @@ to retain data, and try to set the relevant configuration options before you
 reach that time.
 
 Archive and Purge options come in the form of **Archive${\*}** and
-**Purge${\*}After**. See [slurmdbd.conf](slurmdbd.conf.html)(5)
+**Purge${\*}After**. See [slurmdbd.conf](slurmdbd.conf.md)(5)
 for more details on the available configuration parameters.
 
 The units for the purge options are important. For example:
@@ -844,14 +844,14 @@ options are available:
 ## Limit Enforcement
 
 Various limits and limit enforcement are described in
-the [Resource Limits](resource_limits.html) web page.
+the [Resource Limits](resource_limits.md) web page.
 
 To enable any limit enforcement you must at least have
 **AccountingStorageEnforce=limits** in your slurm.conf.
 Otherwise, even if you have limits set, they will not be enforced.
 Other options for AccountingStorageEnforce and the explanation for
 each are found on the [Resource
-Limits](resource_limits.html) document.
+Limits](resource_limits.md) document.
 
 ## Modifying Entities
 
@@ -908,9 +908,9 @@ gathers statistics at a "task level". A task is a set of user processes which
 run in a step, which is part of a job. A user can submit a step with many
 parallel tasks, e.g. by calling `srun -n`.
 
-The [JobAcctGather](slurm.conf.html#OPT_JobAcctGatherType) plugin
-gathers metrics for some [Trackable Resources (TRES)](tres.html),
-like cpu, memory, energy, etc., at a given interval in the [JobAcctGatherFrequency](slurm.conf.html#OPT_JobAcctGatherFrequency)
+The [JobAcctGather](slurm.conf.md#OPT_JobAcctGatherType) plugin
+gathers metrics for some [Trackable Resources (TRES)](tres.md),
+like cpu, memory, energy, etc., at a given interval in the [JobAcctGatherFrequency](slurm.conf.md#OPT_JobAcctGatherFrequency)
 defined in slurm.conf, or by using the `--acct-freq` option in the
 command line. A poll of data is also triggered at the start or the end of a
 step.
@@ -919,7 +919,7 @@ Depending on the nature of the metric, the values will be recorded as
 standalone values or aggregated/calculated into a data structure.
 
 For example, the **TresUsageInTot** field can be queried with
-[sstat](sstat.html) during job runtime, and for every TRES, it
+[sstat](sstat.md) during job runtime, and for every TRES, it
 stores the sum of the gathered metrics of all tasks. For example, if we have 5
 tasks, all of them consuming 1GB of memory, then the **TresUsageInTot**
 would read "memory=5G". With the same example, and for the
@@ -937,7 +937,7 @@ consumption at the time of running will be affected by all the processes in the
 node.
 
 After the job is done, the data will be stored in the database, and can be
-queried with other tools, like [sacct](sacct.html). In that case the
+queried with other tools, like [sacct](sacct.md). In that case the
 **TresUsage\*** fields could have different meanings. For example in the case
 of memory, **TresUsageInTot** will now store the sum of all peaks of memory
 of all tasks of the step seen at any time. This value is not useful per-se, but
@@ -950,5 +950,5 @@ Note that for single task processes, **TresUsageInTot** could be used as the
 maximum memory that the step consumed at any time, which will be equal to
 **MaxRSS** and effectively represent the step memory peak.
 Profiling works similarly, and we provide
-[plugins](slurm.conf.html#OPT_AcctGatherProfileType) like HDF5
+[plugins](slurm.conf.md#OPT_AcctGatherProfileType) like HDF5
 and InfluxDB that can help to visualize accounting data in other ways.

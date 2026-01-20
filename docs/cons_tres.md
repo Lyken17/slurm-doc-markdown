@@ -73,7 +73,7 @@ This option is required in the environments where Memory is a consumable
 resource. It is important to specify enough memory since Slurm will not allow
 the application to use more than the requested amount of real memory. The
 default value for --mem is inherited from **DefMemPerNode**. See
-[srun](srun.html#OPT_mem)(1) for more details.
+[srun](srun.md#OPT_mem)(1) for more details.
 
 Using *--overcommit* or *-O* is allowed. When the process to
 logical processor pinning is enabled by using an appropriate TaskPlugin
@@ -106,7 +106,7 @@ same way as when using the default node selection scheme.
 
 The *--exclusive* srun option allows users to request nodes in
 exclusive mode even when consumable resources is enabled. See
-[srun](srun.html#OPT_exclusive)(1) for details.
+[srun](srun.md#OPT_exclusive)(1) for details.
 
 srun's *-s* or *--oversubscribe* is incompatible with the consumable
 resource environment and will therefore not be honored. Since this
@@ -321,7 +321,7 @@ increasing the overall efficiency of the use of the cluster. The drawback is
 that users do not have entire nodes dedicated to their jobs by default.
 
 We have added the *--exclusive* option to srun (see
-[srun](srun.html#OPT_exclusive)(1) for more details),
+[srun](srun.md#OPT_exclusive)(1) for more details),
 which allows users to specify that they would like
 their nodes to be allocated in exclusive mode.
 This is to accommodate users who might have mpi/threaded/openMP

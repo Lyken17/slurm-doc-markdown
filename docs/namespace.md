@@ -30,7 +30,7 @@ directory as slurm.conf.
 ### namespace/linux plugin
 
 The **namespace/linux** plugin (added 25.11) uses the configuration file
-[namespace.yaml](namespace.yaml.html). This plugin can be configured
+[namespace.yaml](namespace.yaml.md). This plugin can be configured
 to create user and PID namespaces in addition to a temporary filesystem
 namespace. Namespaces can be configured for all nodes or for a subset of nodes.
 As an example, if all nodes will be configured the same way, you could put the
@@ -46,12 +46,12 @@ defaults:
 
 * This plugin requires **cgroup/v2** to operate correctly.
 * When using user namespaces, bpf token support (added in kernel 6.9) is
-  required to use [ConstrainDevices](cgroup.conf.html#OPT_ConstrainDevices) in **cgroup.conf**.
+  required to use [ConstrainDevices](cgroup.conf.md#OPT_ConstrainDevices) in **cgroup.conf**.
 
 ### namespace/tmpfs plugin
 
 The **namespace/tmpfs** plugin (formerly job\_container/tmpfs) uses the
-configuration file [job\_container.conf](job_container.conf.html).
+configuration file [job\_container.conf](job_container.conf.md).
 Namespaces can be configured for all nodes, or for a subset of nodes. As an
 example, if all nodes will be configured the same way, you could put the
 following in your job\_container.conf:

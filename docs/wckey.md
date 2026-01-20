@@ -69,4 +69,4 @@ just remove the cluster= option.
 ## sreport
 
 Information about reports available for WCKeys can be
-found on the [sreport manpage](sreport.html).
+found on the [sreport manpage](sreport.md).

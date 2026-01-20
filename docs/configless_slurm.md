@@ -15,13 +15,13 @@ config files will be pulled to the node. This slurmctld can be identified by
 either an explicit option, or — preferably — through DNS SRV
 records defined within the cluster itself.
 
-If you have a [login node](quickstart_admin.html#login) you
+If you have a [login node](quickstart_admin.md#login) you
 will be running client commands
 from, those client commands will have to use the DNS record to get the
 configuration information from the controller when they run.
 If you expect to have a lot of traffic from a login node, this
 can generate a lot of requests for the configuration files. In cases like
-this, [sackd](sackd.html) can be used to manage configuration files
+this, [sackd](sackd.md) can be used to manage configuration files
 for the node reducing network requests.
 
 ## Installation

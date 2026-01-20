@@ -22,7 +22,7 @@ A more comprehensive scheduling attempt is typically done by the backfill
 scheduling plugin, which considers job run time and resources required to
 determine if lower-priority jobs would actually take resources needed by
 higher-priority jobs. This allows the backfill scheduler to assign more specific
-[reasons](job_reason_codes.html) to pending jobs, or to start jobs
+[reasons](job_reason_codes.md) to pending jobs, or to start jobs
 that were previously pending.
 
 ## Scheduling Configuration
@@ -36,7 +36,7 @@ each partition/queue.
 There is also a **SchedulerParameters** configuration parameter which
 can specify a wide range of parameters as described below.
 This first set of parameters applies to all scheduling configurations.
-See the [slurm.conf(5)](slurm.conf.html) man page for more details.
+See the [slurm.conf(5)](slurm.conf.md) man page for more details.
 
 * **default\_queue\_depth=#** - Specifies the number of jobs to consider for
   scheduling on each event that may result in a job being scheduled.
@@ -67,9 +67,9 @@ for backfill scheduling to work well.
 Slurm's backfill scheduler takes into consideration every running job.
 It then considers pending jobs in priority order, determining when and where
 each will start, taking into consideration the possibility of
-[job preemption](preempt.html),
-[gang scheduling](gang_scheduling.html),
-[generic resource (GRES) requirements](gres.html),
+[job preemption](preempt.md),
+[gang scheduling](gang_scheduling.md),
+[generic resource (GRES) requirements](gres.md),
 memory requirements, etc.
 If the job under consideration can start immediately without impacting the
 expected start time of any higher priority job, then it does so.
@@ -114,7 +114,7 @@ scheduling of newly submitted jobs.
 A partial list of **SchedulerParameters** configuration parameters related to
 backfill scheduling follows.
 For more details and a complete list of the backfill related SchedulerParameters
-see the [slurm.conf(5)](slurm.conf.html) man page.
+see the [slurm.conf(5)](slurm.conf.md) man page.
 
 * **bf\_continue** - If set, then continue backfill scheduling after
   periodically releasing locks for other operations.

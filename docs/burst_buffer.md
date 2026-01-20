@@ -85,7 +85,7 @@ explains how a job can request using the burst buffer APIs.
   logging from the burst buffer plugin. This will result in very verbose logging
   and is not intended for prolonged use in a production system, but this may be
   useful for debugging.
-* [TRES limits](resource_limits.html) for burst buffers can be
+* [TRES limits](resource_limits.md) for burst buffers can be
   configured by association or QOS in the same way that TRES limits can be
   configured for nodes, CPUs, or any GRES. To make Slurm track burst buffer
   resources, add `bb/datawarp` (for the datawarp plugin) or
@@ -93,18 +93,18 @@ explains how a job can request using the burst buffer APIs.
   in slurm.conf.
 * The size of a job's burst buffer requirements can be used as a factor in
   setting the job priority as described in the
-  [multifactor priority document](priority_multifactor.html).
+  [multifactor priority document](priority_multifactor.md).
   The [Burst Buffer Resources](#resources) section explains how
   these resources are defined.
 * Burst-buffer-specific configurations can be set in burst\_buffer.conf.
   Configuration settings include things like which users may use burst buffers,
   timeouts, paths to burst buffer scripts, etc. See the
-  [burst\_buffer.conf](burst_buffer.conf.html) manual
+  [burst\_buffer.conf](burst_buffer.conf.md) manual
   for more information.
 * The JSON-C library must be installed in order to build Slurm's
   `burst_buffer/datawarp` and `burst_buffer/lua` plugins,
   which must parse JSON format data. See Slurm's
-  [JSON installation information](related_software.html#json) for
+  [JSON installation information](related_software.md#json) for
   details.
 
 ### Datawarp
@@ -478,9 +478,9 @@ allocations.
 
 **NOTE**: The ability to create and destroy persistent burst buffers may
 be limited by the `Flags` option in the burst\_buffer.conf file.
-See the [burst\_buffer.conf](burst_buffer.conf.html) man page for
+See the [burst\_buffer.conf](burst_buffer.conf.md) man page for
 more information.
-By default only [privileged users](user_permissions.html)
+By default only [privileged users](user_permissions.md)
 (i.e. Slurm operators and administrators)
 can create or destroy persistent burst buffers.
 
@@ -492,7 +492,7 @@ heterogeneous job has three components and two of them have burst buffer
 directives, the burst buffer hooks will run once for each of the two components
 with burst buffer directives, but not for the third component without burst
 buffer directives. Further information and examples can be found in the
-[heterogeneous jobs](heterogeneous_jobs.html#burst_buffer) page.
+[heterogeneous jobs](heterogeneous_jobs.md#burst_buffer) page.
 
 ## Command-line Job Options
 

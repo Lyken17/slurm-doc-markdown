@@ -61,9 +61,9 @@ directory that has read/write permission only for the user.
 ### Configuration parameters
 
 The profile plugin is enabled in the
-[slurm.conf](slurm.conf.html) file and it is internally
+[slurm.conf](slurm.conf.md) file and it is internally
 configured in the
-[acct\_gather.conf](acct_gather.conf.html) file.
+[acct\_gather.conf](acct_gather.conf.md) file.
 
 ### slurm.conf parameters
 
@@ -100,7 +100,7 @@ Other plugins add time series data to the HDF5 collection. They typically
 have a default polling frequency specified in slurm.conf in the
 JobAcctGatherFrequency parameter. The polling frequency can be overridden
 using the --acctg-freq
-[srun](srun.html) parameter.
+[srun](srun.md) parameter.
 They are both of the form task=sec,energy=sec,filesystem=sec,network=sec.
 
 The IPMI energy plugin also needs the EnergyIPMIFrequency value set
@@ -154,7 +154,7 @@ any value specified in the configuration file.
 ### Data Consolidation
 
 The node-step files are merged into one HDF5 file for the job using the
-[sh5util](sh5util.html).
+[sh5util](sh5util.md).
 
 If the job is started with sbatch, the command line may added to the normal
 launch script, For example:
@@ -165,7 +165,7 @@ sbatch -n1 -d$SLURM_JOB_ID --wrap="sh5util -j $SLURM_JOB_ID"
 
 ### Data Extraction
 
-The [sh5util](sh5util.html) program can also be used to extract
+The [sh5util](sh5util.md) program can also be used to extract
 specific data from the HDF5 file and write it in *comma separated value (csv)*
 form for importation into other analysis tools such as spreadsheets.
 

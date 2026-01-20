@@ -87,13 +87,13 @@ gres/gpumem and gres/gpuutil can be set individually when gres/gpu is not set.
   Comma-separated list of `<TRES Type>=<Numeric Weight>`
   pairs defining the billing weights of one or more tracked TRES types that will
   be used in calculating the usage of a job in each partition. The resulting usage
-  amount is used when calculating [fairshare](priority_multifactor.html#fairshare) and when enforcing any [resource
-  limits](resource_limits.html) that are configured for the **billing** TRES. See also
-  [PriorityWeightTRES](slurm.conf.html#OPT_PriorityWeightTRES) to
+  amount is used when calculating [fairshare](priority_multifactor.md#fairshare) and when enforcing any [resource
+  limits](resource_limits.md) that are configured for the **billing** TRES. See also
+  [PriorityWeightTRES](slurm.conf.md#OPT_PriorityWeightTRES) to
   adjust job priority directly based on TRES usage.
 
   Any TRES type tracked by
-  [AccountingStorageTRES](slurm.conf.html#OPT_AccountingStorageTRES)
+  [AccountingStorageTRES](slurm.conf.md#OPT_AccountingStorageTRES)
   is available for billing, except the **billing** TRES which is ignored since
   it is the result of this weighted calculation.
 
@@ -173,7 +173,7 @@ system. *sacctmgr show tres* will do this.
 sreport reports on different TRES. Simply using the comma separated input
 option *--tres=* will have sreport generate reports available
 for the requested TRES types. More information about these reports
-can be found on the [sreport manpage](sreport.html).
+can be found on the [sreport manpage](sreport.md).
 
 In *sreport*, the "Reported" Billing TRES is calculated from the largest
 Billing TRES of each node multiplied by the time frame. For example, if a node

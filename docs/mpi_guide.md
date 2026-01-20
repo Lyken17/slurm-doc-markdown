@@ -34,7 +34,7 @@ variable *SLURM\_MPI\_TYPE*) can be used to specify when a
 different PMI implementation is to be used for an individual job.
 
 There are parameters that can be set in the
-[mpi.conf](mpi.conf.html) file that allow you to modify
+[mpi.conf](mpi.conf.md) file that allow you to modify
 the behavior of the PMI plugins.
 
 **NOTE**: Use of an MPI implementation without the appropriate Slurm
@@ -271,7 +271,7 @@ OpenMPI configure script provides the options
 match what PMIx was built against.
 
 A set of parameters are available to control the behavior of the
-Slurm PMIx plugin, read [mpi.conf](mpi.conf.html) for more
+Slurm PMIx plugin, read [mpi.conf](mpi.conf.md) for more
 information.
 
 **NOTE**: OpenMPI has a limitation that does not support calls to

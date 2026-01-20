@@ -18,7 +18,7 @@ The file must be located in the same directory as **slurm.conf**. Any text
 following a "#" in this file is treated as a comment through the end of that
 line.
 
-Additional details are available in **[topology.conf](topology.conf.html)**(5) and in the
+Additional details are available in **[topology.conf](topology.conf.md)**(5) and in the
 Topology Guide: <<https://slurm.schedmd.com/topology.html>>
 
 **NOTE**: Slurm will first check for topology.yaml.
@@ -112,7 +112,7 @@ details.
 
 ## SEE ALSO
 
-**[slurm.conf](slurm.conf.html)**(5), **[topology.conf](topology.conf.html)**(5)
+**[slurm.conf](slurm.conf.md)**(5), **[topology.conf](topology.conf.md)**(5)
 
 ---
 

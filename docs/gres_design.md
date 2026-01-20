@@ -10,7 +10,7 @@ GRES use would be GPUs. GRES are identified by a specific name and use an
 optional plugin to provide device-specific support. This document is meant
 to provide details about Slurm's implementation of GRES support including the
 relevant data structures. For an overview of GRES configuration and use, see
-[Generic Resource (GRES) Scheduling](gres.html).
+[Generic Resource (GRES) Scheduling](gres.md).
 
 ## Data Structures
 

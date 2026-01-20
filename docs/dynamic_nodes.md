@@ -19,13 +19,13 @@ communicate, and even fanout, to other nodes.
 
 ## Slurm Configuration
 
-**MaxNodeCount=#**: Set to the number of possible nodes that can be active in a system at a time. See the slurm.conf [man](slurm.conf.html#OPT_MaxNodeCount) page for more details. **SelectType=select/cons\_tres**: Dynamic nodes are only supported with cons\_tres.
+**MaxNodeCount=#**: Set to the number of possible nodes that can be active in a system at a time. See the slurm.conf [man](slurm.conf.md#OPT_MaxNodeCount) page for more details. **SelectType=select/cons\_tres**: Dynamic nodes are only supported with cons\_tres.
 
 ### Partition Assignment
 
 Dynamic nodes can be automatically assigned to partitions at creation by using
-the partition's nodes [ALL](slurm.conf.html#OPT_Nodes_1) keyword or
-[NodeSets](slurm.conf.html#SECTION_NODESET-CONFIGURATION) and
+the partition's nodes [ALL](slurm.conf.md#OPT_Nodes_1) keyword or
+[NodeSets](slurm.conf.md#SECTION_NODESET-CONFIGURATION) and
 specifying a feature on the nodes.
 
 e.g.
@@ -44,8 +44,8 @@ PartitionName=dyn3 Nodes=ns1,ns2
 
 Nodes can be created two ways:
 
-1. **Dynamic slurmd registration**: Using the slurmd [-Z](slurmd.html#OPT_-Z) and [--conf](slurmd.html#OPT_conf-<node-parameters>) options a slurmd will register with the controller and will automatically be added to the system. e.g. ``` slurmd -Z --conf "RealMemory=80000 Gres=gpu:2 Feature=f1" ```
-2. **scontrol create NodeName= ...**: Create nodes using scontrol by specifying the same **NodeName** line that you would define in the slurm.conf. See slurm.conf [man](slurm.conf.html#SECTION_NODE-CONFIGURATION) page for node options. Only **State=CLOUD** and **State=FUTURE** are supported. The node configuration should match what the slurmd will register with (e.g. slurmd -C) plus any additional attributes.
+1. **Dynamic slurmd registration**: Using the slurmd [-Z](slurmd.md#OPT_-Z) and [--conf](slurmd.md#OPT_conf-<node-parameters>) options a slurmd will register with the controller and will automatically be added to the system. e.g. ``` slurmd -Z --conf "RealMemory=80000 Gres=gpu:2 Feature=f1" ```
+2. **scontrol create NodeName= ...**: Create nodes using scontrol by specifying the same **NodeName** line that you would define in the slurm.conf. See slurm.conf [man](slurm.conf.md#SECTION_NODE-CONFIGURATION) page for node options. Only **State=CLOUD** and **State=FUTURE** are supported. The node configuration should match what the slurmd will register with (e.g. slurmd -C) plus any additional attributes.
 
 e.g.
 
@@ -62,7 +62,7 @@ reservation can be deleted.
 ## Topology
 
 Nodes can be dynamically added to and removed from topologies as described in
-the [Topology Guide](topology.html).
+the [Topology Guide](topology.md).
 
 ## Limitations
 

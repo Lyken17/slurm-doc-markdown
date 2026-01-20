@@ -4,7 +4,7 @@
 
 This guide is meant as a tool to help system administrators
 or operators troubleshoot Slurm failures and restore services.
-The [Frequently Asked Questions](faq.html) document
+The [Frequently Asked Questions](faq.md) document
 may also prove useful.
 
 * [Slurm is not responding](#resp)
@@ -64,7 +64,7 @@ command "*scontrol show job*".
   The backfill scheduler does not alter job specifications of required
   or excluded nodes, so jobs which specify nodes will substantially
   reduce the effectiveness of backfill scheduling.
-  See the [backfill documentation](faq.html#backfill)
+  See the [backfill documentation](faq.md#backfill)
   for more details.
 
 ## Jobs and nodes are stuck in COMPLETING state

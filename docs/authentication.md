@@ -172,7 +172,7 @@ of the slurm.key file.
 
 If the cluster does not have access to consistent user ids from LDAP or
 the operating system, you can use the
-[use\_client\_ids](slurm.conf.html#OPT_use_client_ids) option to
+[use\_client\_ids](slurm.conf.md#OPT_use_client_ids) option to
 allow it to use the Slurm authentication mechanism.
 
 #### SACK
@@ -187,18 +187,18 @@ need to run a separate daemon.
 For login nodes not running one of these Slurm daemons, the **sackd**
 daemon should be run to allow the Slurm client commands to authenticate to
 the rest of the cluster. This daemon can also manage cached configuration files
-for [configless](configless_slurm.html) environments.
+for [configless](configless_slurm.md) environments.
 
 Beginning with version 25.05, it's possible for multiple **sackd** daemons
 to co-exist on the same login node by changing the RuntimeDirectory option in
 separate systemd service files. Clients can authenticate against different sackd
 daemons on the same login node by managing the **SLURM\_CONF** environment
 variable to point at the different cluster configuration files. Refer to the
-[sackd(8)](sackd.html) manual for more information.
+[sackd(8)](sackd.md) manual for more information.
 
 ## JWT
 
 Slurm can be configured to use JSON Web Tokens (JWT) for authentication
 purposes. This is configured with the AuthAltType parameter and is used only
 for client to server communication. You can read more about this authentication
-mechanism and how to install it [here](jwt.html).
+mechanism and how to install it [here](jwt.md).

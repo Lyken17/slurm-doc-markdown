@@ -18,21 +18,21 @@ consumes its API, thus the library development files are another prerequisite.
 
 * [librdkafka](https://github.com/confluentinc/librdkafka)
   development files
-* [libjson-c](related_software.html#json) development
+* [libjson-c](related_software.md#json) development
   files
 
 ## Configuration
 
 The plugin is configured with the following
-[slurm.conf](slurm.conf.html) options:
+[slurm.conf](slurm.conf.md) options:
 
-* [**JobCompType**](slurm.conf.html#OPT_JobCompType)
+* [**JobCompType**](slurm.conf.md#OPT_JobCompType)
   Should be set to **jobcomp/kafka**.
 
   ```
   JobCompType=jobcomp/kafka
   ```
-* [**JobCompLoc**](slurm.conf.html#OPT_JobCompLoc) This string
+* [**JobCompLoc**](slurm.conf.md#OPT_JobCompLoc) This string
   represents an absolute path to a file containing 'key=value' pairs configuring
   [librdkafka properties](https://github.com/confluentinc/librdkafka/blob/master/CONFIGURATION.md). For the plugin to work properly, this file
   needs to exist and at least the **bootstrap.servers** property needs to be
@@ -60,7 +60,7 @@ The plugin is configured with the following
   linger.ms=400
   log_level=7
   ```
-* [**JobCompParams**](slurm.conf.html#OPT_JobCompParams) Comma
+* [**JobCompParams**](slurm.conf.md#OPT_JobCompParams) Comma
   separated list of extra configurable parameters. Please refer to the slurm.conf
   man page for specific details. Example:
 
@@ -73,7 +73,7 @@ The plugin is configured with the following
   Reconfiguration or SIGHUP is sufficient for them to take effect.
 
   **NOTE**: Please, refer to the man page to configure job start events.
-* [**DebugFlags**](slurm.conf.html#OPT_DebugFlags) Optional
+* [**DebugFlags**](slurm.conf.md#OPT_DebugFlags) Optional
   **JobComp** debug flag for extra plugin specific logging.
 
   ```

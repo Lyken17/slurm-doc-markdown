@@ -13,14 +13,14 @@ monitoring work (normally a parallel job) on the set of allocated nodes.
 Finally, it arbitrates contention for resources by managing a queue of
 pending work.
 Optional plugins can be used for
-[accounting](accounting.html),
-[advanced reservation](reservations.html),
-[gang scheduling](gang_scheduling.html) (time sharing for
+[accounting](accounting.md),
+[advanced reservation](reservations.md),
+[gang scheduling](gang_scheduling.md) (time sharing for
 parallel jobs), backfill scheduling,
-[topology optimized resource selection](topology.html),
-[resource limits](resource_limits.html) by user or account,
+[topology optimized resource selection](topology.md),
+[resource limits](resource_limits.md) by user or account,
 and sophisticated  [multifactor job
-prioritization](priority_multifactor.html) algorithms.
+prioritization](priority_multifactor.md) algorithms.
 
 ## Architecture
 
@@ -34,7 +34,7 @@ There is an optional **slurmdbd** (Slurm DataBase Daemon) which can be used
 to record accounting information for multiple Slurm-managed clusters in a
 single database.
 There is an optional
-[**slurmrestd** (Slurm REST API Daemon)](rest.html)
+[**slurmrestd** (Slurm REST API Daemon)](rest.md)
 which can be used to interact with Slurm through its
 [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer).
 User tools include **srun** to initiate jobs,
@@ -67,7 +67,7 @@ building block approach. These plugins presently include:
   Accounting Storage and Job Account Gather plugins.
 * Authentication of communications:
   Provides authentication mechanism between various components of Slurm.
-* [Containers](containers.html):
+* [Containers](containers.md):
   HPC workload container support and implementations.
 * Credential (Digital Signature Generation):
   Mechanism used to generate a digital signature, which is used to validate
@@ -77,9 +77,9 @@ building block approach. These plugins presently include:
   request is sent from the user's srun command rather than directly from the
   slurmctld daemon, which generates the job step credential and its
   digital signature.
-* [Generic Resources](gres.html): Provide interface to
+* [Generic Resources](gres.md): Provide interface to
   control generic resources, including Graphical Processing Units (GPUs).
-* [Job Submit](job_submit_plugins.html):
+* [Job Submit](job_submit_plugins.md):
   Custom plugin to allow site specific control over job requirements at
   submission and update.
 * Job Accounting Gather:
@@ -88,12 +88,12 @@ building block approach. These plugins presently include:
   Log a job's termination data. This is typically a subset of data stored by
   an Accounting Storage Plugin.
 * Launchers:
-  Controls the mechanism used by the ['srun'](srun.html) command
+  Controls the mechanism used by the ['srun'](srun.md) command
   to launch the tasks.
 * MPI:
   Provides different hooks for the various MPI implementations.
   For example, this can set MPI specific environment variables.
-* [Preempt](preempt.html):
+* [Preempt](preempt.md):
   Determines which jobs can preempt other jobs and the preemption mechanism
   to be used.
 * Priority:
@@ -106,7 +106,7 @@ building block approach. These plugins presently include:
   Plugin determines how and when Slurm schedules jobs.
 * Node selection:
   Plugin used to determine the resources used for a job allocation.
-* [Site Factor (Priority)](site_factor.html):
+* [Site Factor (Priority)](site_factor.md):
   Assigns a specific site\_factor component of a job's multifactor priority to
   jobs upon submission and on an ongoing basis (e.g. as they age).
 * Switch or interconnect:

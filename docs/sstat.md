@@ -77,7 +77,7 @@ environment variables, along with their corresponding options, are listed below.
 **SLURM\_CONF**
 :   The location of the Slurm configuration file.
 
-    : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for sstat to use. See DebugFlags in the **[slurm.conf](slurm.conf.html)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf.
+    : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for sstat to use. See DebugFlags in the **[slurm.conf](slurm.conf.md)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf.
 
 ## EXAMPLES
 
@@ -105,7 +105,7 @@ details.
 
 ## SEE ALSO
 
-**[sacct](sacct.html)**(1)
+**[sacct](sacct.md)**(1)
 
 ---
 
