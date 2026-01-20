@@ -3,9 +3,13 @@
 This directory contains a local copy of the [Slurm Workload Manager documentation](https://slurm.schedmd.com/), scraped and converted to Markdown for MCP / Skills related LLM usage. The copyright still belongs to the original slurm team.
 
 **Generated on:** 2026-01-20
+
 **SLURM version:** 25.11
+
 **Source Domain:** `slurm.schedmd.com`
+
 **File Count:** ~134 files
+
 **Scrappred:** Google Antigravity Agent
 
 ## Contents
