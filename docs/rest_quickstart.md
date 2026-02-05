@@ -1,4 +1,34 @@
-# Source: https://slurm.schedmd.com/rest_quickstart.html
+# Slurm Workload Manager - REST API Quick Start Guide
+
+# [Slurm Workload Manager](/)
+
+[SchedMD](https://www.schedmd.com/)
+
+## Navigation
+
+[Slurm Workload Manager](/)
+
+Version 25.11
+
+* About
+
+  + [Overview](overview.md)
+  + [Release Notes](release_notes.md)
+* Using
+
+  + [Documentation](documentation.md)
+  + [FAQ](faq.md)
+  + [Publications](https://www.schedmd.com/publications/)
+* Installing
+
+  + [Download](https://www.schedmd.com/download-slurm/)
+  + [Related Software](related_software.md)
+  + [Installation Guide](quickstart_admin.md)
+* Getting Help
+
+  + [Mailing Lists](mail.md)
+  + [Support and Training](https://www.schedmd.com/slurm-support/our-services/)
+  + [Troubleshooting](troubleshoot.md)
 
 # REST API Quick Start Guide
 
@@ -40,7 +70,7 @@ The following development libraries are required at compile time
 in order for slurmrestd to be compiled (minimum versions are on the related
 software page linked below):
 
-* [HTTP Parser](related_software.html#httpparser)
+* [HTTP Parser](related_software.md#httpparser)
 * [JSON-C](related_software.md#json)
 
 The following development libraries are optional; if present at compile time

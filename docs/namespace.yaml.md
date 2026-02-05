@@ -1,4 +1,34 @@
-# Source: https://slurm.schedmd.com/namespace.yaml.html
+# Slurm Workload Manager - namespace.yaml
+
+# [Slurm Workload Manager](/)
+
+[SchedMD](https://www.schedmd.com/)
+
+## Navigation
+
+[Slurm Workload Manager](/)
+
+Version 25.11
+
+* About
+
+  + [Overview](overview.md)
+  + [Release Notes](release_notes.md)
+* Using
+
+  + [Documentation](documentation.md)
+  + [FAQ](faq.md)
+  + [Publications](https://www.schedmd.com/publications/)
+* Installing
+
+  + [Download](https://www.schedmd.com/download-slurm/)
+  + [Related Software](related_software.md)
+  + [Installation Guide](quickstart_admin.md)
+* Getting Help
+
+  + [Mailing Lists](mail.md)
+  + [Support and Training](https://www.schedmd.com/slurm-support/our-services/)
+  + [Troubleshooting](troubleshoot.md)
 
 # namespace.yaml
 

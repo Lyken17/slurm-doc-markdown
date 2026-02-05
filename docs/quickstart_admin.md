@@ -1,4 +1,34 @@
-# Source: https://slurm.schedmd.com/quickstart_admin.html
+# Slurm Workload Manager - Quick Start Administrator Guide
+
+# [Slurm Workload Manager](/)
+
+[SchedMD](https://www.schedmd.com/)
+
+## Navigation
+
+[Slurm Workload Manager](/)
+
+Version 25.11
+
+* About
+
+  + [Overview](overview.md)
+  + [Release Notes](release_notes.md)
+* Using
+
+  + [Documentation](documentation.md)
+  + [FAQ](faq.md)
+  + [Publications](https://www.schedmd.com/publications/)
+* Installing
+
+  + [Download](https://www.schedmd.com/download-slurm/)
+  + [Related Software](related_software.md)
+  + [Installation Guide](quickstart_admin.md)
+* Getting Help
+
+  + [Mailing Lists](mail.md)
+  + [Support and Training](https://www.schedmd.com/slurm-support/our-services/)
+  + [Troubleshooting](troubleshoot.md)
 
 # Quick Start Administrator Guide
 
@@ -105,7 +135,7 @@ the convention on Debian-based distros is **libNAME-dev**.
 | **PAM support** | *PAM* |
 | **PMIx support** (requires `--with-pmix` at build time) | *pmix* |
 | **Readline support** in `scontrol` and `sacctmgr` interactive modes | *readline* |
-| `slurmrestd`([restd node](#restd)) | *[http\_parser](related_software.html#httpparser)*  *[json-c](related_software.md#json)*  *[yaml](related_software.md#yaml)* (optional)  *[jwt](related_software.md#jwt)* (optional)  *[s2n](tls.md#s2n)* (optional) |
+| `slurmrestd`([restd node](#restd)) | *[http\_parser](related_software.md#httpparser)*  *[json-c](related_software.md#json)*  *[yaml](related_software.md#yaml)* (optional)  *[jwt](related_software.md#jwt)* (optional)  *[s2n](tls.md#s2n)* (optional) |
 | `sview` ([man page](sview.md)) | *gtk+-2.0* |
 | `switch/hpe_slingshot` | *cray-libcxi*  *curl*  *json-c* |
 | NUMA support with `task/affinity` | *numa* |
