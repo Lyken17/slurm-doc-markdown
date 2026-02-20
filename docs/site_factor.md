@@ -40,8 +40,8 @@ Slurm site\_factor plugins.
 
 Slurm site\_factor plugins are Slurm plugins that implement the Slurm
 site\_factor API described herein. They are designed to provide the site a
-way to build a custom multifactor priority factor, and will only be loaded
-and operation alongside
+way to build a custom [multifactor priority](priority_multifactor.md)
+factor, and will only be loaded and operated alongside
 PriorityType=priority/multifactor.
 
 The plugins are meant to set and update the

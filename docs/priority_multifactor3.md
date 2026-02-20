@@ -44,9 +44,8 @@ Version 25.11
 The depth-oblivious fair-share factor is a variant of the default
 fair-share factor which increases usable priority ranges and improves
 fairness between accounts in deep and/or irregular hierarchies. The
-reader is assumed to be familiar with the priority/multifactor plugin
-and only the specifics of the depth-oblivious factor are documented
-here
+reader is assumed to be familiar with the [priority/multifactor plugin](priority_multifactor.md) as only the specifics of the depth-oblivious
+fair-share factor are documented here.
 
 ## Depth-Oblivious Fair-Share Formula
 

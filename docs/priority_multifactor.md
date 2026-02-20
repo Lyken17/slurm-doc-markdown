@@ -79,7 +79,9 @@ example, a site could configure fair-share to be the dominant factor
 
 ## Job Priority Factors In General
 
-The job's priority at any given time will be a weighted sum of all the factors that have been enabled in the slurm.conf file. Job priority can be expressed as:
+The job's priority at any given time will be a weighted sum of all the
+factors that have been enabled in the slurm.conf file. Job priority can be
+expressed as:
 
 ```
 Job_priority =
@@ -154,9 +156,15 @@ so for those factors you want to make predominant.
 and operation of the [Slurm Accounting
 Database](accounting.md).
 
-The age factor represents the length of time a job has been sitting in the queue and eligible to run. In general, the longer a job waits in the queue, the larger its age factor grows. However, the age factor for a dependent job will not change while it waits for the job it depends on to complete. Also, the age factor will not change when scheduling is withheld for a job whose node or time limits exceed the cluster's current limits.
+The age factor represents the length of time a job has been sitting in the
+queue and eligible to run. In general, the longer a job waits in the queue, the
+larger its age factor grows. However, the age factor for a dependent job will
+not change while it waits for the job it depends on to complete. Also, the age
+factor will not change when scheduling is withheld for a job whose node or time
+limits exceed the cluster's current limits.
 
-At some configurable length of time (*PriorityMaxAge*), the age factor will max out to 1.0.
+At some configurable length of time (*PriorityMaxAge*), the age factor
+will max out to 1.0.
 
 ## Association Factor
 
@@ -207,9 +215,10 @@ priority of all the QOSs to become the QOS factor.
 ## Site Factor
 
 The site factor is a factor that can be set either using scontrol,
-through a job\_submit or site\_factor plugin. An example use case, might be a
-job\_submit plugin
-that sets a specific priority based on how many resources are requested.
+through a [job\_submit](job_submit_plugins.md) or
+[site\_factor](site_factor.md) plugin. An example use case might be
+a job\_submit plugin that sets a specific priority based on how many resources
+are requested.
 
 ## TRES Factors
 
@@ -226,15 +235,25 @@ and operation of the [Slurm Accounting
 Database](accounting.md) to provide the assigned shares and the consumed,
 computing resources described below.
 
-The fair-share component to a job's priority influences the order in which a user's queued jobs are scheduled to run based on the portion of the computing resources they have been allocated and the resources their jobs have already consumed. The fair-share factor does not involve a fixed allotment, whereby a user's access to a machine is cut off once that allotment is reached.
+The fair-share component to a job's priority influences the order in which a
+user's queued jobs are scheduled to run based on the portion of the computing
+resources they have been allocated and the resources their jobs have already
+consumed. The fair-share factor does not involve a fixed allotment, whereby a
+user's access to a machine is cut off once that allotment is reached.
 
-Instead, the fair-share factor serves to prioritize queued jobs such that those jobs charging accounts that are under-serviced are scheduled first, while jobs charging accounts that are over-serviced are scheduled when the machine would otherwise go idle.
+Instead, the fair-share factor serves to prioritize queued jobs such that
+those jobs charging accounts that are under-serviced are scheduled first, while
+jobs charging accounts that are over-serviced are scheduled when the machine
+would otherwise go idle.
 
-Slurm's fair-share factor is a floating point number between 0.0 and 1.0 that reflects the shares of a computing resource that a user has been allocated and the amount of computing resources the user's jobs have consumed. The higher the value, the higher is the placement in the queue of jobs waiting to be scheduled.
+Slurm's fair-share factor is a floating point number between 0.0 and 1.0 that
+reflects the shares of a computing resource that a user has been allocated and
+the amount of computing resources the user's jobs have consumed. The higher the
+value, the higher is the placement in the queue of jobs waiting to be scheduled.
 
 By default, the computing resource is the computing cycles delivered by a
-machine in the units of allocated\_cpus\*seconds. Other resources can be taken into
-account by configuring a partition's TRESBillingWeights option. The
+machine in the units of allocated\_cpus\*seconds. Other resources can be taken
+into account by configuring a partition's TRESBillingWeights option. The
 TRESBillingWeights option allows you to account for consumed resources other
 than just CPUs by assigning different billing weights to different Trackable
 Resources (TRES) such as CPUs, nodes, memory, licenses and generic resources
@@ -303,11 +322,16 @@ factor as it is currently configured.
 
 ## Configuration
 
-The following slurm.conf parameters are used to configure the Multifactor Job Priority Plugin. See slurm.conf(5) man page for more details.
+The following slurm.conf parameters are used to configure the Multifactor Job
+Priority Plugin. See slurm.conf(5) man page for more details.
 
 PriorityType: Set this value to "priority/multifactor" to enable the Multifactor Job Priority Plugin. PriorityDecayHalfLife: This determines the contribution of historical usage on the composite usage value. The larger the number, the longer past usage affects fair-share. If set to 0 no decay will be applied. This is helpful if you want to enforce hard time limits per association. If set to 0 PriorityUsageResetPeriod must be set to some interval. The unit is a time string (i.e. min, hr:min:00, days-hr:min:00, or days-hr). The default value is 7-0 (7 days). PriorityCalcPeriod: The period of time in minutes in which the half-life decay will be re-calculated. The default value is 5 (minutes). PriorityUsageResetPeriod: At this interval the usage of associations will be reset to 0. This is used if you want to enforce hard limits of time usage per association. If PriorityDecayHalfLife is set to be 0 no decay will happen and this is the only way to reset the usage accumulated by running jobs. By default this is turned off and it is advised to use the PriorityDecayHalfLife option to avoid not having anything running on your cluster, but if your schema is set up to only allow certain amounts of time on your system this is the way to do it. Applicable only if PriorityType=priority/multifactor. The unit is a time string (i.e. NONE, NOW, DAILY, WEEKLY). The default is NONE. * NONE: Never clear historic usage. The default value. * NOW: Clear the historic usage now. Executed at startup and reconfiguration time. * DAILY: Cleared every day at midnight. * WEEKLY: Cleared every week on Sunday at time 00:00. * MONTHLY: Cleared on the first day of each month at time 00:00. * QUARTERLY: Cleared on the first day of each quarter at time 00:00. * YEARLY: Cleared on the first day of each year at time 00:00. PriorityFavorSmall: A boolean that sets the polarity of the job size factor. The default setting is NO which results in larger node sizes having a larger job size factor. Setting this parameter to YES means that the smaller the job, the greater the job size factor will be. PriorityMaxAge: Specifies the queue wait time at which the age factor maxes out. The unit is a time string (i.e. min, hr:min:00, days-hr:min:00, or days-hr). The default value is 7-0 (7 days). PriorityWeightAge: An unsigned integer that scales the contribution of the age factor. PriorityWeightAssoc: An unsigned integer that scales the contribution of the association factor. PriorityWeightFairshare: An unsigned integer that scales the contribution of the fair-share factor. PriorityWeightJobSize: An unsigned integer that scales the contribution of the job size factor. PriorityWeightPartition: An unsigned integer that scales the contribution of the partition factor. PriorityWeightQOS: An unsigned integer that scales the contribution of the quality of service factor. PriorityWeightTRES: A list of TRES Types and weights that scales the contribution of each TRES Type's factor. PriorityFlags: Flags to modify priority behavior. Applicable only if PriorityType=priority/multifactor. * ACCRUE\_ALWAYS: If set, priority age factor will be increased despite job dependencies or holds. Accrue limits are ignored. * CALCULATE\_RUNNING: If set, priorities will be recalculated not only for pending jobs, but also running and suspended jobs. * DEPTH\_OBLIVIOUS: If set, priority will be calculated based similar to the normal multifactor calculation, but depth of the associations in the tree do not adversely effect their priority. This option automatically enables NO\_FAIR\_TREE. * NO\_FAIR\_TREE: Disables the "fair tree" algorithm, and reverts to "classic" fair share priority scheduling. * INCR\_ONLY: If set, priority values will only increase in value. Job priority will never decrease in value. * MAX\_TRES: If set, the weighted TRES value (e.g. TRESBillingWeights) is calculated as the MAX of individual TRESs on a node (e.g. cpus, mem, gres) plus the sum of all global TRESs (e.g. licenses). * NO\_NORMAL\_ALL: If set, all NO\_NORMAL\_\* flags are set. * NO\_NORMAL\_ASSOC: If set, the association factor is not normalized against the highest association priority. * NO\_NORMAL\_PART: If set, the partition factor is not normalized against the highest partition PriorityJobFactor. * NO\_NORMAL\_QOS: If set, the QOS factor is not normalized against the highest qos priority. * NO\_NORMAL\_TRES: If set, the TRES factor is not normalized against the job's partition TRES counts. * SMALL\_RELATIVE\_TO\_TIME: If set, the job's size component will be based upon not the job size alone, but the job's size divided by its time limit.
 
-Note: As stated above, the six priority factors range from 0.0 to 1.0. As such, the PriorityWeight terms may need to be set to a high enough value (say, 1000) to resolve very tiny differences in priority factors. This is especially true with the fair-share factor, where two jobs may differ in priority by as little as .001. (or even less!)
+**NOTE**: As stated above, the six priority factors range from 0.0 to 1.0.
+As such, the PriorityWeight terms may need to be set to a high enough value
+(say, 1000) to resolve very tiny differences in priority factors. This is
+especially true with the fair-share factor, where two jobs may differ in
+priority by as little as .001 (or less).
 
 ## Configuration Example
 

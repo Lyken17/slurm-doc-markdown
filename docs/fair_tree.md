@@ -45,9 +45,15 @@ Version 25.11
 
 ## Introduction
 
-Fair Tree prioritizes users such that if accounts A and B are siblings and A has
-a higher fairshare factor than B, all children of A will have higher fairshare
-factors than all children of B.
+Starting with Slurm 19.05, the Fair-share factor in the
+[priority/multifactor plugin](priority_multifactor.md) will
+default to the **Fair Tree** algorithm described on this page. The previously
+used [Classic algorithm](classic_fair_share.md) can be manually
+configured.
+
+Fair Tree prioritizes users such that if accounts A and B are siblings and A
+has a higher fairshare factor than B, all children of A will have higher
+fairshare factors than all children of B.
 
 Some of the benefits include:
 

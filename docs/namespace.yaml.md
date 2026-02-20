@@ -78,7 +78,7 @@ namespace.yaml contains the following attributes:
 :   Default namespace configuration. If specified this contains the fields described
     in options.
 
-    : **node\_confs** : List of node namespace configurations. The list element attributes are described below.
+    : **disable\_bpf\_token** : If specified this disables the use of bpf tokens in the namespace plugin. Use of this option when ConstrainDevices is set in the cgroup.conf file will result in devices only being constrained at the job level, individual steps won't actually be constrained if requesting fewer devices than the job does. This will also permit ConstrainDevices to work on kernels where bpf tokens are not available. : **node\_confs** : List of node namespace configurations. The list element attributes are described below.
 
 ### node\_confs list element definitions
 
@@ -184,4 +184,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 20:36:11 GMT, January 15, 2026
+Time: 21:24:25 GMT, February 19, 2026
