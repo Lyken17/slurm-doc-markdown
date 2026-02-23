@@ -34,9 +34,12 @@ Version 25.11
 
 ## Overview
 
-As of the 19.05 release, the Fair Tree algorithm is now the default, and the
-classic fair share algorithm is only available if
-*PriorityFlags=NO\_FAIR\_TREE* has been explicitly configured.
+Starting with Slurm 19.05, the Fair-share factor in the
+[priority/multifactor plugin](priority_multifactor.md) will
+default to the [Fair Tree algorithm](fair_tree.md). The previously
+used **Classic algorithm**, that is described on this page, can be manually
+configured by setting `PriorityFlags=NO_FAIR_TREE` in
+[slurm.conf](slurm.conf.md#OPT_PriorityFlags).
 
 ## Normalized Shares
 
