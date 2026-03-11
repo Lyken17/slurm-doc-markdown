@@ -18,7 +18,7 @@ Version 25.11
 
   + [Documentation](documentation.md)
   + [FAQ](faq.md)
-  + [Publications](https://www.schedmd.com/publications/)
+  + [Publications](publications.md)
 * Installing
 
   + [Download](https://www.schedmd.com/download-slurm/)

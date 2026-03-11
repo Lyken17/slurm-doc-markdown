@@ -18,7 +18,7 @@ Version 25.11
 
   + [Documentation](documentation.md)
   + [FAQ](faq.md)
-  + [Publications](https://www.schedmd.com/publications/)
+  + [Publications](publications.md)
 * Installing
 
   + [Download](https://www.schedmd.com/download-slurm/)
@@ -924,12 +924,13 @@ sacctmgr remove user brian where account=physics
 will remove user "brian" from account "physics". If user "brian" has
 access to other accounts, those user records will remain.
 
-Note: In most cases, removed entities are preserved in the slurm database,
+Note: In most cases, removed entities are preserved in the Slurm database,
 but flagged as deleted.
-If an entity has existed for less than 1 day, the entity will be removed
-completely. This is meant to clean up after typographical errors.
-Removing user associations or accounts, however, will cause slurmctld to lose
-track of usage data for that user/account.
+If a deleted entity has existed for less than 1 day and has accrued no usage
+data, the entity will be removed completely. This is meant to clean up after
+typographical errors.
+If a deleted entity has accrued usage data, that data will be rolled into its
+parent. If the deleted entity is later recreated, it will have no usage data.
 
 ## Accounting Interpretation
 

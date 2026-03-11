@@ -18,7 +18,7 @@ Version 25.11
 
   + [Documentation](documentation.md)
   + [FAQ](faq.md)
-  + [Publications](https://www.schedmd.com/publications/)
+  + [Publications](publications.md)
 * Installing
 
   + [Download](https://www.schedmd.com/download-slurm/)
@@ -245,7 +245,7 @@ administrators.
 * [**JWT library**](https://github.com/benmcollins/libjwt)
 
   [JWT authentication](jwt.md) requires **libjwt
-  (>= v1.10.0)**. Instructions for the build are as follows:
+  (>= v1.10.0 and < v2)**. Instructions for the build are as follows:
 
   ```
   git clone --depth 1 --single-branch -b v1.12.0 https://github.com/benmcollins/libjwt.git libjwt
