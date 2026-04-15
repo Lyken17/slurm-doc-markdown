@@ -160,7 +160,9 @@ is as follows:
   changes to the configuration file through an
   scontrol reconfig or a slurmd restart.
 
-Supported configuration files are:
+The following configuration files are supported. In addition, some
+admin-defined files (e.g., Prolog) may be included as described in
+the [limitations](#LIMITATIONS) section.
 
 * slurm.conf
 * acct\_gather.conf

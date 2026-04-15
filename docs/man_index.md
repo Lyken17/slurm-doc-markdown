@@ -72,7 +72,7 @@ Refer to [this page](slurm.md) for an overview of Slurm.
 | [cgroup.conf](cgroup.conf.md) | Slurm configuration file for the cgroup support. |
 | [gres.conf](gres.conf.md) | Slurm configuration file for generic resource management. |
 | [helpers.conf](helpers.conf.md) | Slurm configuration file for the node\_features/helpers plugin. |
-| [job\_container.conf](job_container.conf.md) | Slurm configuration file for configuring the tmpfs job container plugin. |
+| [job\_container.conf](job_container.conf.md) | Slurm configuration file for configuring the namespace/tmpfs plugin. |
 | [mpi.conf](mpi.conf.md) | Slurm configuration file to allow the configuration of MPI plugins. |
 | [namespace.yaml](namespace.yaml.md) | Slurm configuration file for the namespace/linux plugin. |
 | [oci.conf](oci.conf.md) | Slurm configuration file for OCI Containers. |

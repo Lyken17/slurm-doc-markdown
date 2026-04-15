@@ -381,6 +381,7 @@ When SPANK plugin results in a non-zero result, the following changes will resul
 |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- |
 | Command | Function | Context | Exitcode | Drains Node | Fails job |
+| --- | | | | | |
 | srun | slurm\_spank\_init | local | 1 | no | yes |
 | srun | slurm\_spank\_init\_post\_opt | local | 1 | no | yes |
 | srun | slurm\_spank\_local\_user\_init | local | 1 | no | yes |
@@ -391,7 +392,7 @@ When SPANK plugin results in a non-zero result, the following changes will resul
 | srun | slurm\_spank\_task\_init | remote | 1 | no | yes |
 | srun | slurm\_spank\_task\_exit | remote | 0 | no | no |
 | srun | slurm\_spank\_exit | local | 0 | no | yes |
-| ---  --- | | | | | |
+| --- | | | | | |
 | salloc | slurm\_spank\_init | allocator | 1 | no | yes |
 | salloc | slurm\_spank\_init\_post\_opt | allocator | 1 | no | yes |
 | salloc | slurm\_spank\_init | remote | 1 | no | no |
@@ -401,7 +402,7 @@ When SPANK plugin results in a non-zero result, the following changes will resul
 | salloc | slurm\_spank\_task\_init | remote | 1 | no | yes |
 | salloc | slurm\_spank\_task\_exit | remote | 0 | no | no |
 | salloc | slurm\_spank\_exit | allocator | 0 | no | yes |
-| ---  --- | | | | | |
+| --- | | | | | |
 | sbatch | slurm\_spank\_init | allocator | 1 | no | yes |
 | sbatch | slurm\_spank\_init\_post\_opt | allocator | 1 | no | yes |
 | sbatch | slurm\_spank\_init | remote | 1 | yes | no |
@@ -411,7 +412,7 @@ When SPANK plugin results in a non-zero result, the following changes will resul
 | sbatch | slurm\_spank\_task\_init | remote | 1 | no | yes |
 | sbatch | slurm\_spank\_task\_exit | remote | 0 | no | no |
 | sbatch | slurm\_spank\_exit | allocator | 0 | no | no |
-| ---  --- | | | | | |
+| --- | | | | | |
 | scrontab | slurm\_spank\_init | allocator | 1 | no | no |
 | scrontab | slurm\_spank\_exit | allocator | 0 | no | no |
 
@@ -463,4 +464,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 20:41:14 GMT, March 12, 2026
+Time: 21:00:33 GMT, April 14, 2026

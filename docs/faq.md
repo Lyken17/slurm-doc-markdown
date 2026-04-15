@@ -234,7 +234,7 @@ Version 25.11
 * [Can the salloc command be configured to
   launch a shell on a node in the job's allocation?](#salloc_default_command)
 * [How can I set up a private /tmp and /dev/shm for
-  jobs on my machine?](#tmpfs_jobcontainer)
+  jobs on my machine?](#job_tmp_files)
 * [How do I configure Slurm to work with System V IPC
   enabled applications?](#sysv_memory)
 
@@ -2017,8 +2017,8 @@ configuration option in slurm.conf.
 **How can I set up a private /tmp and /dev/shm for
 jobs on my machine?**
   
-Tmpfs job container plugin can be used by including
-*JobContainerType=job\_container/tmpfs*
+The namespace/tmpfs plugin can be used by including
+*NamespaceType=namespace/tmpfs*
 in your slurm.conf file. It additionally requires a
 [job\_container.conf](job_container.conf.md) file to be
 set up which is further described in the man page.

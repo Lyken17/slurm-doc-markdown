@@ -78,8 +78,9 @@ directly into these files
     The default value of 5, which results in a timeout of passive TCP connections
     of approximately 180 seconds and is generally satisfactory.* **/proc/sys/net/core/somaxconn**:
       Limit of socket listen() backlog, known in userspace as SOMAXCONN. Defaults to
-      128. The value should be raised substantially to support bursts of request.
-      For example, to support a burst of 1024 requests, set somaxconn to 1024.
+      128 or more depending on OS version. Sites should consider a minimum value of
+      4096 or 8192, or a higher value that is greater the sum of all nodes plus all
+      active clients in the cluster.
     * **/proc/sys/net/ipv4/ip\_local\_port\_range**:
       Identify the ephemeral ports available, which are used for many Slurm
       communications. The value may be raised to support a high volume of
@@ -251,12 +252,6 @@ options that you may want to consider for higher throughput.
       and eliminates logic used to sort the queue by priority.* **SlurmctldDebug**:
         More detailed logging will decrease system throughput. Set to *error* or
         *info* for regular operations with high throughput workload.
-      * **SlurmctldPort**:
-        It is desirable to configure the **slurmctld** daemon to accept incoming
-        messages on more than one port in order to avoid having incoming messages
-        discarded by the operating system due to exceeding the SOMAXCONN limit
-        described above. Using between two and ten ports is suggested when large
-        numbers of simultaneous requests are to be supported.
       * **SlurmdDebug**:
         More detailed logging will decrease system throughput. Set to *error* or
         *info* for regular operations with high throughput workload.

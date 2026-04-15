@@ -34,10 +34,15 @@ Version 25.11
 
 ## Overview
 
-It is important to know that the Remote Procedure Calls (RPCs) that are
-received by Slurm are coming from trusted sources. There are a few different
+It is important for Slurm to know that the Remote Procedure Calls (RPCs)
+that it receives are coming from trusted sources. There are a few different
 authentication mechanisms available within Slurm to verify the legitimacy and
 integrity of the requests.
+
+If you plan to change the authentication type, you will need to drain the
+cluster of running jobs and stop all Slurm daemons before making the change.
+Otherwise, requests can be made with the new type while the running daemons
+still operate with the old type that was present when they started.
 
 ## MUNGE
 

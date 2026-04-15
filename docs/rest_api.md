@@ -38,7 +38,7 @@ More information: <https://www.schedmd.com/>
 
 Contact Info: <sales@schedmd.com>
 
-Version: Slurm-25.11.4
+Version: Slurm-25.11.5
 
 BasePath:
 
