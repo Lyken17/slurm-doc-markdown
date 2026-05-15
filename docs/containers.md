@@ -97,7 +97,8 @@ implementation.
 
 ## Prerequisites
 
-The host kernel must be configured to allow user land containers:
+The host kernel must be configured to allow user land containers. The
+following settings are required for systems using AppArmor:
 
 ```
 sudo sysctl -w kernel.unprivileged_userns_clone=1
@@ -105,6 +106,8 @@ sudo sysctl -w kernel.apparmor_restrict_unprivileged_unconfined=0
 sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
 ```
 
+Other systems can skip the above steps, but if your system is using SELinux
+you will need to [configure it](selinux.md) to work with Slurm.
 Docker also provides a tool to verify the kernel configuration:
 
 ```

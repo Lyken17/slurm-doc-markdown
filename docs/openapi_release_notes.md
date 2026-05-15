@@ -50,6 +50,48 @@ any target slurmrestd daemon. Development of clients should always be designed
 to use the highest version of the plugins available to avoid needing to port
 clients sooner than would be otherwise required.
 
+## Slurm 25.11.6
+
+### data\_parser/v0.0.44
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .info.version = "Slurm-25.11.6"; |
+| Replaced | .info["x-slurm"].release = "25.11.6"; |
+| Replaced | .info["x-slurm"].version.micro = "6"; |
+
+### data\_parser/v0.0.43
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .info.version = "Slurm-25.11.6"; |
+| Replaced | .info["x-slurm"].release = "25.11.6"; |
+| Replaced | .info["x-slurm"].version.micro = "6"; |
+
+### data\_parser/v0.0.42
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .info.version = "Slurm-25.11.6"; |
+| Replaced | .info["x-slurm"].release = "25.11.6"; |
+| Replaced | .info["x-slurm"].version.micro = "6"; |
+
+### data\_parser/v0.0.41
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .info.version = "Slurm-25.11.6"; |
+| Replaced | .info["x-slurm"].release = "25.11.6"; |
+| Replaced | .info["x-slurm"].version.micro = "6"; |
+
 ## Slurm 25.11.5
 
 ### data\_parser/v0.0.44
@@ -1024,6 +1066,48 @@ The v0.0.41 plugin has now been marked as deprecated.
 #### Removal notice
 
 The v0.0.40 plugin has now been removed.
+
+## Slurm 25.05.8
+
+### data\_parser/v0.0.43
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .info.version = "Slurm-25.05.8"; |
+| Replaced | .info["x-slurm"].release = "25.05.8"; |
+| Replaced | .info["x-slurm"].version.micro = "8"; |
+
+### data\_parser/v0.0.42
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .info.version = "Slurm-25.05.8"; |
+| Replaced | .info["x-slurm"].release = "25.05.8"; |
+| Replaced | .info["x-slurm"].version.micro = "8"; |
+
+### data\_parser/v0.0.41
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .info.version = "Slurm-25.05.8"; |
+| Replaced | .info["x-slurm"].release = "25.05.8"; |
+| Replaced | .info["x-slurm"].version.micro = "8"; |
+
+### data\_parser/v0.0.40
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .info.version = "Slurm-25.05.8"; |
+| Replaced | .info["x-slurm"].release = "25.05.8"; |
+| Replaced | .info["x-slurm"].version.micro = "8"; |
 
 ## Slurm 25.05.7
 

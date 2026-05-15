@@ -698,7 +698,7 @@ communication ports (no change in Slurm behavior).
 ## Heterogeneous Steps
 
 Slurm version 20.11 introduces the ability to request heterogeneous job
-steps from within a non-homogeneous job allocation. This allows you the
+steps from within a non-heterogeneous job allocation. This allows you the
 flexibility to have different layouts for job steps without requiring the
 use of heterogeneous jobs, where having separate jobs for the components
 may be undesirable.

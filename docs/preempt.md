@@ -162,6 +162,12 @@ There are several important configuration parameters relating to preemption:
     resources with the Gang scheduler (time-slicing). If not (i.e. if the
     preemptees and preemptor are on different partitions) then the preempted jobs
     will remain suspended until the preemptor ends.
+  + *PRIORITY*: Allow preemption only if the preemptor's job priority is higher
+    than the preemptee's job priority.
+  + *WITHIN*: For *PreemptType=preempt/qos*, allow jobs within the same
+    qos to preempt one another. While this can be set globally, it is recommend
+    that this only be set directly on a relevant subset of the system qos values
+    instead.
 * **PreemptType**: Specifies the plugin used to identify which jobs can be
   preempted in order to start a pending job.
   + *preempt/none*: Job preemption is disabled (default).
