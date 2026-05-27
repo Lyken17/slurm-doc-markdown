@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -41,9 +41,10 @@ Slurm's **OverSubscribe** option controls the ability of a partition to
 execute more than one job at a time on each resource, no matter "what type"
 of job. Slurm job submission clients can also use the **--exclusive** and
 **--oversubscribe** parameters to request how the job can be
-[shared](cons_tres_share.md). The **ExclusiveUser**
-slurm.conf parameter and the --exclusive=**user** client parameter value
-modifies the exclusivity functionality. With this parameter enabled, the
+[shared](cons_tres_share.md). The partition **Exclusive**
+parameter (e.g., **Exclusive=USER** in slurm.conf) and the
+--exclusive=**user** client parameter value
+modify the exclusivity functionality. With this parameter enabled, the
 "type of job" now matters when considering exclusivity, so jobs can share
 resources **based on** job users, meaning that only jobs whose user is the
 same can share resources. This indeed adds a new dimension to how Slurm manages

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -38,7 +38,7 @@ More information: <https://www.schedmd.com/>
 
 Contact Info: <sales@schedmd.com>
 
-Version: Slurm-25.11.6
+Version: Slurm-26.05.0
 
 BasePath:
 
@@ -60,85 +60,91 @@ https://www.apache.org/licenses/LICENSE-2.0.html
 
 #### [Slurm](#Slurm)
 
-* [`delete /slurm/v0.0.44/job/{job_id}`](#slurmV0044DeleteJob)
-* [`delete /slurm/v0.0.44/jobs/`](#slurmV0044DeleteJobs)
-* [`delete /slurm/v0.0.44/node/{node_name}`](#slurmV0044DeleteNode)
-* [`delete /slurm/v0.0.44/reservation/{reservation_name}`](#slurmV0044DeleteReservation)
-* [`get /slurm/v0.0.44/diag/`](#slurmV0044GetDiag)
-* [`get /slurm/v0.0.44/job/{job_id}`](#slurmV0044GetJob)
-* [`get /slurm/v0.0.44/jobs/`](#slurmV0044GetJobs)
-* [`get /slurm/v0.0.44/jobs/state/`](#slurmV0044GetJobsState)
-* [`get /slurm/v0.0.44/licenses/`](#slurmV0044GetLicenses)
-* [`get /slurm/v0.0.44/node/{node_name}`](#slurmV0044GetNode)
-* [`get /slurm/v0.0.44/nodes/`](#slurmV0044GetNodes)
-* [`get /slurm/v0.0.44/partition/{partition_name}`](#slurmV0044GetPartition)
-* [`get /slurm/v0.0.44/partitions/`](#slurmV0044GetPartitions)
-* [`get /slurm/v0.0.44/ping/`](#slurmV0044GetPing)
-* [`get /slurm/v0.0.44/reconfigure/`](#slurmV0044GetReconfigure)
-* [`get /slurm/v0.0.44/reservation/{reservation_name}`](#slurmV0044GetReservation)
-* [`get /slurm/v0.0.44/reservations/`](#slurmV0044GetReservations)
-* [`get /slurm/v0.0.44/resources/{job_id}`](#slurmV0044GetResources)
-* [`get /slurm/v0.0.44/shares`](#slurmV0044GetShares)
-* [`post /slurm/v0.0.44/job/{job_id}`](#slurmV0044PostJob)
-* [`post /slurm/v0.0.44/job/allocate`](#slurmV0044PostJobAllocate)
-* [`post /slurm/v0.0.44/job/submit`](#slurmV0044PostJobSubmit)
-* [`post /slurm/v0.0.44/new/node/`](#slurmV0044PostNewNode)
-* [`post /slurm/v0.0.44/node/{node_name}`](#slurmV0044PostNode)
-* [`post /slurm/v0.0.44/nodes/`](#slurmV0044PostNodes)
-* [`post /slurm/v0.0.44/reservation`](#slurmV0044PostReservation)
-* [`post /slurm/v0.0.44/reservations/`](#slurmV0044PostReservations)
+* [`delete /slurm/v0.0.45/job/{job_id}`](#slurmV0045DeleteJob)
+* [`delete /slurm/v0.0.45/jobs/`](#slurmV0045DeleteJobs)
+* [`delete /slurm/v0.0.45/node/{node_name}`](#slurmV0045DeleteNode)
+* [`delete /slurm/v0.0.45/partition/{partition_name}`](#slurmV0045DeletePartition)
+* [`delete /slurm/v0.0.45/reservation/{reservation_name}`](#slurmV0045DeleteReservation)
+* [`get /slurm/v0.0.45/conf`](#slurmV0045GetConf)
+* [`get /slurm/v0.0.45/diag/`](#slurmV0045GetDiag)
+* [`get /slurm/v0.0.45/job/{job_id}`](#slurmV0045GetJob)
+* [`get /slurm/v0.0.45/job/{job_id}/requeue`](#slurmV0045GetJobRequeue)
+* [`get /slurm/v0.0.45/jobs/`](#slurmV0045GetJobs)
+* [`get /slurm/v0.0.45/jobs/state/`](#slurmV0045GetJobsState)
+* [`get /slurm/v0.0.45/licenses/`](#slurmV0045GetLicenses)
+* [`get /slurm/v0.0.45/node/{node_name}`](#slurmV0045GetNode)
+* [`get /slurm/v0.0.45/nodes/`](#slurmV0045GetNodes)
+* [`get /slurm/v0.0.45/partition/{partition_name}`](#slurmV0045GetPartition)
+* [`get /slurm/v0.0.45/partitions/`](#slurmV0045GetPartitions)
+* [`get /slurm/v0.0.45/ping/`](#slurmV0045GetPing)
+* [`get /slurm/v0.0.45/reconfigure/`](#slurmV0045GetReconfigure)
+* [`get /slurm/v0.0.45/reservation/{reservation_name}`](#slurmV0045GetReservation)
+* [`get /slurm/v0.0.45/reservations/`](#slurmV0045GetReservations)
+* [`get /slurm/v0.0.45/resources/{job_id}`](#slurmV0045GetResources)
+* [`get /slurm/v0.0.45/shares`](#slurmV0045GetShares)
+* [`post /slurm/v0.0.45/job/{job_id}`](#slurmV0045PostJob)
+* [`post /slurm/v0.0.45/job/allocate`](#slurmV0045PostJobAllocate)
+* [`post /slurm/v0.0.45/job/submit`](#slurmV0045PostJobSubmit)
+* [`post /slurm/v0.0.45/jobs/requeue`](#slurmV0045PostJobsRequeue)
+* [`post /slurm/v0.0.45/new/node/`](#slurmV0045PostNewNode)
+* [`post /slurm/v0.0.45/node/{node_name}`](#slurmV0045PostNode)
+* [`post /slurm/v0.0.45/nodes/`](#slurmV0045PostNodes)
+* [`post /slurm/v0.0.45/partitions/`](#slurmV0045PostPartitions)
+* [`post /slurm/v0.0.45/reservation`](#slurmV0045PostReservation)
+* [`post /slurm/v0.0.45/reservations/`](#slurmV0045PostReservations)
 
 #### [Slurmdb](#Slurmdb)
 
-* [`delete /slurmdb/v0.0.44/account/{account_name}`](#slurmdbV0044DeleteAccount)
-* [`delete /slurmdb/v0.0.44/association/`](#slurmdbV0044DeleteAssociation)
-* [`delete /slurmdb/v0.0.44/associations/`](#slurmdbV0044DeleteAssociations)
-* [`delete /slurmdb/v0.0.44/cluster/{cluster_name}`](#slurmdbV0044DeleteCluster)
-* [`delete /slurmdb/v0.0.44/qos/{qos}`](#slurmdbV0044DeleteSingleQos)
-* [`delete /slurmdb/v0.0.44/user/{name}`](#slurmdbV0044DeleteUser)
-* [`delete /slurmdb/v0.0.44/wckey/{id}`](#slurmdbV0044DeleteWckey)
-* [`get /slurmdb/v0.0.44/account/{account_name}`](#slurmdbV0044GetAccount)
-* [`get /slurmdb/v0.0.44/accounts/`](#slurmdbV0044GetAccounts)
-* [`get /slurmdb/v0.0.44/association/`](#slurmdbV0044GetAssociation)
-* [`get /slurmdb/v0.0.44/associations/`](#slurmdbV0044GetAssociations)
-* [`get /slurmdb/v0.0.44/cluster/{cluster_name}`](#slurmdbV0044GetCluster)
-* [`get /slurmdb/v0.0.44/clusters/`](#slurmdbV0044GetClusters)
-* [`get /slurmdb/v0.0.44/config`](#slurmdbV0044GetConfig)
-* [`get /slurmdb/v0.0.44/diag/`](#slurmdbV0044GetDiag)
-* [`get /slurmdb/v0.0.44/instance/`](#slurmdbV0044GetInstance)
-* [`get /slurmdb/v0.0.44/instances/`](#slurmdbV0044GetInstances)
-* [`get /slurmdb/v0.0.44/job/{job_id}`](#slurmdbV0044GetJob)
-* [`get /slurmdb/v0.0.44/jobs/`](#slurmdbV0044GetJobs)
-* [`get /slurmdb/v0.0.44/ping/`](#slurmdbV0044GetPing)
-* [`get /slurmdb/v0.0.44/qos/`](#slurmdbV0044GetQos)
-* [`get /slurmdb/v0.0.44/qos/{qos}`](#slurmdbV0044GetSingleQos)
-* [`get /slurmdb/v0.0.44/tres/`](#slurmdbV0044GetTres)
-* [`get /slurmdb/v0.0.44/user/{name}`](#slurmdbV0044GetUser)
-* [`get /slurmdb/v0.0.44/users/`](#slurmdbV0044GetUsers)
-* [`get /slurmdb/v0.0.44/wckey/{id}`](#slurmdbV0044GetWckey)
-* [`get /slurmdb/v0.0.44/wckeys/`](#slurmdbV0044GetWckeys)
-* [`post /slurmdb/v0.0.44/accounts/`](#slurmdbV0044PostAccounts)
-* [`post /slurmdb/v0.0.44/accounts_association/`](#slurmdbV0044PostAccountsAssociation)
-* [`post /slurmdb/v0.0.44/associations/`](#slurmdbV0044PostAssociations)
-* [`post /slurmdb/v0.0.44/clusters/`](#slurmdbV0044PostClusters)
-* [`post /slurmdb/v0.0.44/config`](#slurmdbV0044PostConfig)
-* [`post /slurmdb/v0.0.44/job/{job_id}`](#slurmdbV0044PostJob)
-* [`post /slurmdb/v0.0.44/jobs/`](#slurmdbV0044PostJobs)
-* [`post /slurmdb/v0.0.44/qos/`](#slurmdbV0044PostQos)
-* [`post /slurmdb/v0.0.44/tres/`](#slurmdbV0044PostTres)
-* [`post /slurmdb/v0.0.44/users/`](#slurmdbV0044PostUsers)
-* [`post /slurmdb/v0.0.44/users_association/`](#slurmdbV0044PostUsersAssociation)
-* [`post /slurmdb/v0.0.44/wckeys/`](#slurmdbV0044PostWckeys)
+* [`delete /slurmdb/v0.0.45/account/{account_name}`](#slurmdbV0045DeleteAccount)
+* [`delete /slurmdb/v0.0.45/association/`](#slurmdbV0045DeleteAssociation)
+* [`delete /slurmdb/v0.0.45/associations/`](#slurmdbV0045DeleteAssociations)
+* [`delete /slurmdb/v0.0.45/cluster/{cluster_name}`](#slurmdbV0045DeleteCluster)
+* [`delete /slurmdb/v0.0.45/qos/{qos}`](#slurmdbV0045DeleteSingleQos)
+* [`delete /slurmdb/v0.0.45/user/{name}`](#slurmdbV0045DeleteUser)
+* [`delete /slurmdb/v0.0.45/wckey/{id}`](#slurmdbV0045DeleteWckey)
+* [`get /slurmdb/v0.0.45/account/{account_name}`](#slurmdbV0045GetAccount)
+* [`get /slurmdb/v0.0.45/accounts/`](#slurmdbV0045GetAccounts)
+* [`get /slurmdb/v0.0.45/association/`](#slurmdbV0045GetAssociation)
+* [`get /slurmdb/v0.0.45/associations/`](#slurmdbV0045GetAssociations)
+* [`get /slurmdb/v0.0.45/cluster/{cluster_name}`](#slurmdbV0045GetCluster)
+* [`get /slurmdb/v0.0.45/clusters/`](#slurmdbV0045GetClusters)
+* [`get /slurmdb/v0.0.45/conf`](#slurmdbV0045GetConf)
+* [`get /slurmdb/v0.0.45/config`](#slurmdbV0045GetConfig)
+* [`get /slurmdb/v0.0.45/diag/`](#slurmdbV0045GetDiag)
+* [`get /slurmdb/v0.0.45/instance/`](#slurmdbV0045GetInstance)
+* [`get /slurmdb/v0.0.45/instances/`](#slurmdbV0045GetInstances)
+* [`get /slurmdb/v0.0.45/job/{job_id}`](#slurmdbV0045GetJob)
+* [`get /slurmdb/v0.0.45/jobs/`](#slurmdbV0045GetJobs)
+* [`get /slurmdb/v0.0.45/ping/`](#slurmdbV0045GetPing)
+* [`get /slurmdb/v0.0.45/qos/`](#slurmdbV0045GetQos)
+* [`get /slurmdb/v0.0.45/qos/{qos}`](#slurmdbV0045GetSingleQos)
+* [`get /slurmdb/v0.0.45/tres/`](#slurmdbV0045GetTres)
+* [`get /slurmdb/v0.0.45/user/{name}`](#slurmdbV0045GetUser)
+* [`get /slurmdb/v0.0.45/users/`](#slurmdbV0045GetUsers)
+* [`get /slurmdb/v0.0.45/wckey/{id}`](#slurmdbV0045GetWckey)
+* [`get /slurmdb/v0.0.45/wckeys/`](#slurmdbV0045GetWckeys)
+* [`post /slurmdb/v0.0.45/accounts/`](#slurmdbV0045PostAccounts)
+* [`post /slurmdb/v0.0.45/accounts_association/`](#slurmdbV0045PostAccountsAssociation)
+* [`post /slurmdb/v0.0.45/associations/`](#slurmdbV0045PostAssociations)
+* [`post /slurmdb/v0.0.45/clusters/`](#slurmdbV0045PostClusters)
+* [`post /slurmdb/v0.0.45/config`](#slurmdbV0045PostConfig)
+* [`post /slurmdb/v0.0.45/job/{job_id}`](#slurmdbV0045PostJob)
+* [`post /slurmdb/v0.0.45/jobs/`](#slurmdbV0045PostJobs)
+* [`post /slurmdb/v0.0.45/qos/`](#slurmdbV0045PostQos)
+* [`post /slurmdb/v0.0.45/tres/`](#slurmdbV0045PostTres)
+* [`post /slurmdb/v0.0.45/users/`](#slurmdbV0045PostUsers)
+* [`post /slurmdb/v0.0.45/users_association/`](#slurmdbV0045PostUsersAssociation)
+* [`post /slurmdb/v0.0.45/wckeys/`](#slurmdbV0045PostWckeys)
 
 # Slurm
 
 [Up](#__Methods)
 
 ```
-delete /slurm/v0.0.44/job/{job_id}
+delete /slurm/v0.0.45/job/{job_id}
 ```
 
-cancel or signal job (slurmV0044DeleteJob)
+cancel or signal job (slurmV0045DeleteJob)
 
 ### Path parameters
 
@@ -158,7 +164,7 @@ Query Parameter — Signalling flags default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_kill\_job\_resp](#v0.0.44_openapi_kill_job_resp)
+[v0.0.45\_openapi\_kill\_job\_resp](#v0.0.45_openapi_kill_job_resp)
 
 ### Example data
 
@@ -253,12 +259,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 job signal result
-[v0.0.44\_openapi\_kill\_job\_resp](#v0.0.44_openapi_kill_job_resp)
+[v0.0.45\_openapi\_kill\_job\_resp](#v0.0.45_openapi_kill_job_resp)
 
 #### default
 
 job signal result
-[v0.0.44\_openapi\_kill\_job\_resp](#v0.0.44_openapi_kill_job_resp)
+[v0.0.45\_openapi\_kill\_job\_resp](#v0.0.45_openapi_kill_job_resp)
 
 
 
@@ -267,10 +273,10 @@ job signal result
 [Up](#__Methods)
 
 ```
-delete /slurm/v0.0.44/jobs/
+delete /slurm/v0.0.45/jobs/
 ```
 
-send signal to list of jobs (slurmV0044DeleteJobs)
+send signal to list of jobs (slurmV0045DeleteJobs)
 
 ### Consumes
 
@@ -280,13 +286,13 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_kill\_jobs\_msg [v0.0.44\_kill\_jobs\_msg](#v0.0.44_kill_jobs_msg) (optional)
+v0.0.45\_kill\_jobs\_msg [v0.0.45\_kill\_jobs\_msg](#v0.0.45_kill_jobs_msg) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_kill\_jobs\_resp](#v0.0.44_openapi_kill_jobs_resp)
+[v0.0.45\_openapi\_kill\_jobs\_resp](#v0.0.45_openapi_kill_jobs_resp)
 
 ### Example data
 
@@ -381,12 +387,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 description of jobs to signal
-[v0.0.44\_openapi\_kill\_jobs\_resp](#v0.0.44_openapi_kill_jobs_resp)
+[v0.0.45\_openapi\_kill\_jobs\_resp](#v0.0.45_openapi_kill_jobs_resp)
 
 #### default
 
 description of jobs to signal
-[v0.0.44\_openapi\_kill\_jobs\_resp](#v0.0.44_openapi_kill_jobs_resp)
+[v0.0.45\_openapi\_kill\_jobs\_resp](#v0.0.45_openapi_kill_jobs_resp)
 
 
 
@@ -395,10 +401,10 @@ description of jobs to signal
 [Up](#__Methods)
 
 ```
-delete /slurm/v0.0.44/node/{node_name}
+delete /slurm/v0.0.45/node/{node_name}
 ```
 
-delete node (slurmV0044DeleteNode)
+delete node (slurmV0045DeleteNode)
 
 ### Path parameters
 
@@ -408,7 +414,7 @@ Path Parameter — Node name default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 ### Example data
 
@@ -472,12 +478,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 node delete request result
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 #### default
 
 node delete request result
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 
 
@@ -486,10 +492,101 @@ node delete request result
 [Up](#__Methods)
 
 ```
-delete /slurm/v0.0.44/reservation/{reservation_name}
+delete /slurm/v0.0.45/partition/{partition_name}
 ```
 
-delete a reservation (slurmV0044DeleteReservation)
+delete partition (slurmV0045DeletePartition)
+
+### Path parameters
+
+partition\_name (required)
+
+Path Parameter — Partition name default: null
+
+### Return type
+
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
+
+### Example data
+
+Content-Type: application/json
+
+```
+{
+  "meta" : {
+    "slurm" : {
+      "cluster" : "cluster",
+      "release" : "release",
+      "version" : {
+        "major" : "major",
+        "minor" : "minor",
+        "micro" : "micro"
+      }
+    },
+    "plugin" : {
+      "accounting_storage" : "accounting_storage",
+      "name" : "name",
+      "type" : "type",
+      "data_parser" : "data_parser"
+    },
+    "client" : {
+      "source" : "source",
+      "user" : "user",
+      "group" : "group"
+    },
+    "command" : [ "command", "command" ]
+  },
+  "warnings" : [ {
+    "description" : "description",
+    "source" : "source"
+  }, {
+    "description" : "description",
+    "source" : "source"
+  } ],
+  "errors" : [ {
+    "description" : "description",
+    "source" : "source",
+    "error" : "error",
+    "error_number" : 7
+  }, {
+    "description" : "description",
+    "source" : "source",
+    "error" : "error",
+    "error_number" : 7
+  } ]
+}
+```
+
+### Produces
+
+This API call produces the following media types according to the Accept request header;
+the media type will be conveyed by the Content-Type response header.
+
+* `application/json`
+
+### Responses
+
+#### 200
+
+partition deletion result
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
+
+#### default
+
+partition deletion result
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
+
+
+
+---
+
+[Up](#__Methods)
+
+```
+delete /slurm/v0.0.45/reservation/{reservation_name}
+```
+
+delete a reservation (slurmV0045DeleteReservation)
 
 ### Path parameters
 
@@ -499,7 +596,7 @@ Path Parameter — Reservation name default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 ### Example data
 
@@ -563,12 +660,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 reservation delete request result
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 #### default
 
 reservation delete request result
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 
 
@@ -577,14 +674,384 @@ reservation delete request result
 [Up](#__Methods)
 
 ```
-get /slurm/v0.0.44/diag/
+get /slurm/v0.0.45/conf
 ```
 
-get diagnostics (slurmV0044GetDiag)
+Dump slurm configuration (slurmV0045GetConf)
+
+### Query parameters
+
+update\_time (optional)
+
+Query Parameter — Query config updated more recently than this time (UNIX timestamp) default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_diag\_resp](#v0.0.44_openapi_diag_resp)
+[v0.0.45\_openapi\_conf\_resp](#v0.0.45_openapi_conf_resp)
+
+### Example data
+
+Content-Type: application/json
+
+```
+{
+  "meta" : {
+    "slurm" : {
+      "cluster" : "cluster",
+      "release" : "release",
+      "version" : {
+        "major" : "major",
+        "minor" : "minor",
+        "micro" : "micro"
+      }
+    },
+    "plugin" : {
+      "accounting_storage" : "accounting_storage",
+      "name" : "name",
+      "type" : "type",
+      "data_parser" : "data_parser"
+    },
+    "client" : {
+      "source" : "source",
+      "user" : "user",
+      "group" : "group"
+    },
+    "command" : [ "command", "command" ]
+  },
+  "warnings" : [ {
+    "description" : "description",
+    "source" : "source"
+  }, {
+    "description" : "description",
+    "source" : "source"
+  } ],
+  "slurm_conf" : {
+    "GroupUpdateForce" : true,
+    "InactiveLimit" : 1,
+    "JobAcctGatherType" : "JobAcctGatherType",
+    "EpilogSlurmctld" : [ "EpilogSlurmctld", "EpilogSlurmctld" ],
+    "JobCompUser" : "JobCompUser",
+    "SuspendProgram" : "SuspendProgram",
+    "MaxJobCount" : 8,
+    "CpuFreqGovernors" : [ "Unset", "Unset" ],
+    "RebootProgram" : "RebootProgram",
+    "SlurmctldLogFile" : "SlurmctldLogFile",
+    "SlurmctldPortCount" : 3,
+    "SlurmctldHttpAuthParams" : [ "SlurmctldHttpAuthParams", "SlurmctldHttpAuthParams" ],
+    "SlurmdHttpAuthParams" : [ "SlurmdHttpAuthParams", "SlurmdHttpAuthParams" ],
+    "UnkillableStepTimeout" : 7,
+    "SuspendExcNodes" : [ "SuspendExcNodes", "SuspendExcNodes" ],
+    "ResvEpilog" : "ResvEpilog",
+    "AuthType" : "AuthType",
+    "ReturnToService" : "ReturnToService",
+    "TaskProlog" : "TaskProlog",
+    "KillOnBadExit" : true,
+    "SlurmctldDebug" : "SlurmctldDebug",
+    "SrunPortRange" : {
+      "set" : true,
+      "maximum" : 0,
+      "minimum" : 4
+    },
+    "DataParserParameters" : "DataParserParameters",
+    "JobCompHost" : "JobCompHost",
+    "SlurmdDebug" : "SlurmdDebug",
+    "PrologSlurmctld" : [ "PrologSlurmctld", "PrologSlurmctld" ],
+    "SuspendTime" : {
+      "number" : 5,
+      "set" : true,
+      "infinite" : true
+    },
+    "BatchStartTimeout" : 1,
+    "GresTypes" : [ "GresTypes", "GresTypes" ],
+    "TaskPlugin" : [ "TaskPlugin", "TaskPlugin" ],
+    "GroupUpdateTime" : 2,
+    "MaxBatchRequeue" : 9,
+    "JobAcctGatherFrequency" : [ "JobAcctGatherFrequency", "JobAcctGatherFrequency" ],
+    "SuspendRate" : 6,
+    "ConfFlags" : [ "DisableRootJobs", "DisableRootJobs" ],
+    "SlurmSchedLogLevel" : 0,
+    "SchedulerParameters" : [ "SchedulerParameters", "SchedulerParameters" ],
+    "PriorityWeightTRES" : "PriorityWeightTRES",
+    "TreeWidth" : 4,
+    "AcctGatherEnergyType" : [ "AcctGatherEnergyType", "AcctGatherEnergyType" ],
+    "SuspendExcParts" : [ "SuspendExcParts", "SuspendExcParts" ],
+    "RequeueExit" : [ "RequeueExit", "RequeueExit" ],
+    "JobSubmitPlugins" : [ "JobSubmitPlugins", "JobSubmitPlugins" ],
+    "SlurmdLogFile" : "SlurmdLogFile",
+    "JobAcctOomKill" : true,
+    "MaxNodeCount" : 6,
+    "PriorityWeightJobSize" : 3,
+    "SelectType" : "SelectType",
+    "MaxTasksPerNode" : 6,
+    "ResumeProgram" : "ResumeProgram",
+    "MCSParameters" : [ "MCSParameters", "MCSParameters" ],
+    "MessageTimeout" : 2,
+    "DefMemPerCPU" : {
+      "number" : 2,
+      "set" : true,
+      "infinite" : true
+    },
+    "PrEpPlugins" : [ "PrEpPlugins", "PrEpPlugins" ],
+    "PriorityFavorSmall" : true,
+    "VSizeFactor" : 9,
+    "WaitTime" : 0,
+    "SlurmctldPidFile" : "SlurmctldPidFile",
+    "DependencyParameters" : [ "DependencyParameters", "DependencyParameters" ],
+    "ReconfigFlags" : [ "KeepPartInfo", "KeepPartInfo" ],
+    "FairShareDampeningFactor" : 9,
+    "SlurmctldAddr" : "SlurmctldAddr",
+    "AccountingStorageEnforce" : [ "associations", "associations" ],
+    "AcctGatherNodeFreq" : 6,
+    "SlurmdUser" : "SlurmdUser",
+    "TopologyPlugin" : "TopologyPlugin",
+    "MetricsType" : "MetricsType",
+    "BurstBufferType" : "BurstBufferType",
+    "PriorityMaxAge" : "PriorityMaxAge",
+    "PriorityDecayHalfLife" : "PriorityDecayHalfLife",
+    "HealthCheckProgram" : "HealthCheckProgram",
+    "MaxMemPerCPU" : {
+      "number" : 2,
+      "set" : true,
+      "infinite" : true
+    },
+    "HealthCheckInterval" : 4,
+    "InteractiveStepOptions" : "InteractiveStepOptions",
+    "CliFilterPlugins" : [ "CliFilterPlugins", "CliFilterPlugins" ],
+    "HostUnreachRetryCount" : 1,
+    "ResvOverRun" : 6,
+    "NamespaceType" : "NamespaceType",
+    "SwitchType" : "SwitchType",
+    "GetNameInfoCacheTimeout" : 3,
+    "AcctGatherProfileType" : "AcctGatherProfileType",
+    "AccountingStoragePort" : 0,
+    "AcctGatherInterconnectType" : "AcctGatherInterconnectType",
+    "MCSPlugin" : "MCSPlugin",
+    "MetricsParameters" : [ "MetricsParameters", "MetricsParameters" ],
+    "ResvProlog" : "ResvProlog",
+    "MaxDBDMsgs" : 6,
+    "JobCompPort" : 1,
+    "CommunicationParametersFlags" : [ "IPv4", "IPv4" ],
+    "TmpFS" : "TmpFS",
+    "PriorityWeightPartition" : 3,
+    "BcastParameters" : [ "BcastParameters", "BcastParameters" ],
+    "ClusterName" : "ClusterName",
+    "UrlParserType" : "UrlParserType",
+    "PriorityWeightQOS" : 7,
+    "CertgenParameters" : [ "CertgenParameters", "CertgenParameters" ],
+    "SelectTypeParameters" : [ "NONE", "NONE" ],
+    "PropagateResourceLimits" : [ "PropagateResourceLimits", "PropagateResourceLimits" ],
+    "MailProg" : "MailProg",
+    "SchedulerType" : "SchedulerType",
+    "SlurmdUserId" : 7,
+    "HashPlugin" : "HashPlugin",
+    "SrunProlog" : "SrunProlog",
+    "AccountingStorageExternalHost" : "AccountingStorageExternalHost",
+    "JobCompParams" : "JobCompParams",
+    "MpiDefault" : "MpiDefault",
+    "PrEpParameters" : "PrEpParameters",
+    "LaunchParameters" : [ "LaunchParameters", "LaunchParameters" ],
+    "PreemptExemptTime" : {
+      "number" : 5,
+      "set" : true,
+      "infinite" : true
+    },
+    "ResumeFailProgram" : "ResumeFailProgram",
+    "SlurmdParameters" : [ "SlurmdParameters", "SlurmdParameters" ],
+    "EpilogTimeout" : {
+      "number" : 2,
+      "set" : true,
+      "infinite" : true
+    },
+    "SlurmctldPort" : 3,
+    "TaskPluginParam" : [ "None", "None" ],
+    "MaxArraySize" : 9,
+    "SlurmdTimeout" : 3,
+    "CliFilterParameters" : [ "CliFilterParameters", "CliFilterParameters" ],
+    "FirstJobId" : 7,
+    "CertmgrType" : "CertmgrType",
+    "TopologyParam" : [ "TopologyParam", "TopologyParam" ],
+    "CertmgrParameters" : "CertmgrParameters",
+    "SlurmctldPrimaryOnProg" : "SlurmctldPrimaryOnProg",
+    "PrioritySiteFactorPlugin" : "PrioritySiteFactorPlugin",
+    "TCPTimeout" : 1,
+    "MaxStepCount" : 3,
+    "PriorityUsageResetPeriod" : "PriorityUsageResetPeriod",
+    "JobAcctGatherParams" : [ "JobAcctGatherParams", "JobAcctGatherParams" ],
+    "KeepaliveInterval" : 7,
+    "TLSParameters" : [ "TLSParameters", "TLSParameters" ],
+    "CompleteWait" : 5,
+    "EnforcePartLimits" : [ "NO", "NO" ],
+    "CommunicationParameters" : [ "CommunicationParameters", "CommunicationParameters" ],
+    "SlurmUserId" : 8,
+    "GpuFreqDef" : "GpuFreqDef",
+    "PreemptType" : "PreemptType",
+    "SwitchParameters" : [ "SwitchParameters", "SwitchParameters" ],
+    "SchedulerTimeSlice" : 4,
+    "TLSType" : "TLSType",
+    "AccountingStorageType" : "AccountingStorageType",
+    "PriorityFlags" : [ "ACCRUE_ALWAYS", "ACCRUE_ALWAYS" ],
+    "SuspendTimeout" : 4,
+    "PreemptMode" : [ "DISABLED", "DISABLED" ],
+    "BcastExclude" : [ "BcastExclude", "BcastExclude" ],
+    "PrivateData" : [ "accounts", "accounts" ],
+    "PrologFlags" : [ "Alloc", "Alloc" ],
+    "AccountingStoreFlags" : [ "job_comment", "job_comment" ],
+    "MetricsAuthUsers" : [ "MetricsAuthUsers", "MetricsAuthUsers" ],
+    "ResumeRate" : 0,
+    "RequeueExitHold" : [ "RequeueExitHold", "RequeueExitHold" ],
+    "UnkillableStepProgram" : "UnkillableStepProgram",
+    "SlurmdParametersFlags" : [ "config_overrides", "config_overrides" ],
+    "CertgenType" : "CertgenType",
+    "PluginDir" : "PluginDir",
+    "JobDefaults" : [ {
+      "type" : [ "DefCpuPerGPU", "DefCpuPerGPU" ],
+      "value" : 6
+    }, {
+      "type" : [ "DefCpuPerGPU", "DefCpuPerGPU" ],
+      "value" : 6
+    } ],
+    "PropagatePrioProcess" : "PropagatePrioProcess",
+    "SlurmctldTimeout" : 7,
+    "HttpParserType" : "HttpParserType",
+    "Prolog" : [ "Prolog", "Prolog" ],
+    "ResumeTimeout" : 7,
+    "AccountingStorageBackupHost" : "AccountingStorageBackupHost",
+    "ProctrackType" : "ProctrackType",
+    "SlurmctldSyslogDebug" : "SlurmctldSyslogDebug",
+    "KeepaliveTime" : 4,
+    "X11Parameters" : [ "X11Parameters", "X11Parameters" ],
+    "AcctGatherFilesystemType" : "AcctGatherFilesystemType",
+    "SlurmdPidFile" : "SlurmdPidFile",
+    "PriorityType" : "PriorityType",
+    "SlurmctldPrimaryOffProg" : "SlurmctldPrimaryOffProg",
+    "JobFileAppend" : true,
+    "Licenses" : [ "Licenses", "Licenses" ],
+    "OverTimeLimit" : 6,
+    "PlugStackConfig" : "PlugStackConfig",
+    "PreemptParameters" : [ "PreemptParameters", "PreemptParameters" ],
+    "AccountingStorageTRES" : [ "AccountingStorageTRES", "AccountingStorageTRES" ],
+    "PrologTimeout" : {
+      "number" : 2,
+      "set" : true,
+      "infinite" : true
+    },
+    "CpuFreqDef" : "CpuFreqDef",
+    "PriorityCalcPeriod" : "PriorityCalcPeriod",
+    "controllers" : [ {
+      "address" : "address",
+      "machine" : "machine"
+    }, {
+      "address" : "address",
+      "machine" : "machine"
+    } ],
+    "Epilog" : [ "Epilog", "Epilog" ],
+    "JobCompType" : "JobCompType",
+    "ScronParameters" : [ "ScronParameters", "ScronParameters" ],
+    "SlurmdSpoolDir" : "SlurmdSpoolDir",
+    "StateSaveLocation" : "StateSaveLocation",
+    "MailDomain" : "MailDomain",
+    "AuthInfo" : "AuthInfo",
+    "DebugFlags" : [ "Accrue", "Accrue" ],
+    "HealthCheckTimeout" : 7,
+    "JobCompLoc" : "JobCompLoc",
+    "PriorityWeightFairshare" : 6,
+    "KeepaliveProbes" : 1,
+    "MinJobAge" : 1,
+    "SuspendExcStates" : [ "SuspendExcStates", "SuspendExcStates" ],
+    "MpiParams" : [ "MpiParams", "MpiParams" ],
+    "PriorityParameters" : "PriorityParameters",
+    "CredType" : "CredType",
+    "JobRequeue" : true,
+    "SlurmdPort" : 5,
+    "PropagateResourceLimitsExcept" : [ "PropagateResourceLimitsExcept", "PropagateResourceLimitsExcept" ],
+    "EioTimeout" : 5,
+    "AccountingStorageHost" : "AccountingStorageHost",
+    "HealthCheckNodeState" : [ "START_ONLY", "START_ONLY" ],
+    "MaxJobId" : 9,
+    "NodeFeaturesPlugins" : [ "NodeFeaturesPlugins", "NodeFeaturesPlugins" ],
+    "AuthAltParameters" : "AuthAltParameters",
+    "AccountingStorageParameters" : [ "AccountingStorageParameters", "AccountingStorageParameters" ],
+    "SlurmUser" : "SlurmUser",
+    "PriorityWeightAssoc" : 5,
+    "KillWait" : 5,
+    "SrunEpilog" : "SrunEpilog",
+    "TaskEpilog" : "TaskEpilog",
+    "FederationParameters" : [ "FederationParameters", "FederationParameters" ],
+    "SlurmctldParameters" : [ "SlurmctldParameters", "SlurmctldParameters" ],
+    "EpilogMsgTime" : 2,
+    "LicenseParameters" : [ "LicenseParameters", "LicenseParameters" ],
+    "AuthAltTypes" : [ "AuthAltTypes", "AuthAltTypes" ],
+    "SlurmSchedLogFile" : "SlurmSchedLogFile",
+    "PriorityWeightAge" : 6,
+    "SlurmdSyslogDebug" : "SlurmdSyslogDebug",
+    "LogTimeFormat" : "LogTimeFormat",
+    "PrioritySiteFactorParameters" : "PrioritySiteFactorParameters"
+  },
+  "slurm_conf_meta" : {
+    "SLURM_VERSION" : "SLURM_VERSION",
+    "LastUpdate" : 9,
+    "ClusterId" : {
+      "number" : 2,
+      "set" : true,
+      "infinite" : true
+    },
+    "NEXT_JOB_ID" : {
+      "number" : 5,
+      "set" : true,
+      "infinite" : true
+    },
+    "BOOT_TIME" : 0,
+    "HashValue" : 7,
+    "SLURM_CONF" : "SLURM_CONF"
+  },
+  "errors" : [ {
+    "description" : "description",
+    "source" : "source",
+    "error" : "error",
+    "error_number" : 7
+  }, {
+    "description" : "description",
+    "source" : "source",
+    "error" : "error",
+    "error_number" : 7
+  } ]
+}
+```
+
+### Produces
+
+This API call produces the following media types according to the Accept request header;
+the media type will be conveyed by the Content-Type response header.
+
+* `application/json`
+
+### Responses
+
+#### 200
+
+slurm configuration
+[v0.0.45\_openapi\_conf\_resp](#v0.0.45_openapi_conf_resp)
+
+#### default
+
+slurm configuration
+[v0.0.45\_openapi\_conf\_resp](#v0.0.45_openapi_conf_resp)
+
+
+
+---
+
+[Up](#__Methods)
+
+```
+get /slurm/v0.0.45/diag/
+```
+
+get diagnostics (slurmV0045GetDiag)
+
+### Return type
+
+[v0.0.45\_openapi\_diag\_resp](#v0.0.45_openapi_diag_resp)
 
 ### Example data
 
@@ -634,107 +1101,107 @@ Content-Type: application/json
     "error_number" : 7
   } ],
   "statistics" : {
-    "bf_cycle_max" : 7,
+    "bf_cycle_max" : 0,
     "rpcs_by_message_type" : [ {
-      "cycle_last" : 0,
+      "cycle_last" : 9,
       "average_time" : {
         "number" : 2,
         "set" : true,
         "infinite" : true
       },
-      "type_id" : 7,
-      "queued" : 0,
-      "count" : 9,
-      "dropped" : 9,
+      "type_id" : 4,
+      "queued" : 9,
+      "count" : 7,
+      "dropped" : 0,
       "message_type" : "message_type",
-      "total_time" : 5,
-      "cycle_max" : 7
+      "total_time" : 7,
+      "cycle_max" : 0
     }, {
-      "cycle_last" : 0,
+      "cycle_last" : 9,
       "average_time" : {
         "number" : 2,
         "set" : true,
         "infinite" : true
       },
-      "type_id" : 7,
-      "queued" : 0,
-      "count" : 9,
-      "dropped" : 9,
+      "type_id" : 4,
+      "queued" : 9,
+      "count" : 7,
+      "dropped" : 0,
       "message_type" : "message_type",
-      "total_time" : 5,
-      "cycle_max" : 7
+      "total_time" : 7,
+      "cycle_max" : 0
     } ],
     "bf_backfilled_het_jobs" : 6,
-    "bf_table_size" : 4,
+    "bf_table_size" : 6,
     "schedule_cycle_depth" : 1,
-    "bf_depth_sum" : 5,
+    "bf_depth_sum" : 7,
     "job_states_ts" : {
       "number" : 2,
       "set" : true,
       "infinite" : true
     },
-    "bf_queue_len" : 4,
-    "jobs_started" : 8,
-    "schedule_cycle_max" : 9,
-    "server_thread_count" : 6,
-    "bf_queue_len_sum" : 6,
-    "bf_cycle_last" : 0,
+    "bf_queue_len" : 3,
+    "jobs_started" : 6,
+    "schedule_cycle_max" : 7,
+    "server_thread_count" : 0,
+    "bf_queue_len_sum" : 0,
+    "bf_cycle_last" : 7,
     "bf_exit" : {
-      "state_changed" : 3,
-      "bf_max_time" : 8,
-      "bf_max_job_start" : 0,
-      "bf_node_space_size" : 7,
-      "end_job_queue" : 6,
-      "bf_max_job_test" : 4
+      "state_changed" : 7,
+      "bf_max_time" : 4,
+      "bf_max_job_start" : 6,
+      "bf_node_space_size" : 8,
+      "end_job_queue" : 7,
+      "bf_max_job_test" : 0
     },
     "agent_thread_count" : 5,
-    "jobs_completed" : 9,
-    "bf_depth_mean" : 3,
-    "bf_depth_try_sum" : 3,
-    "schedule_cycle_mean" : 7,
-    "bf_table_size_sum" : 1,
-    "agent_queue_size" : 1,
-    "jobs_failed" : 3,
-    "bf_last_depth_try" : 7,
+    "jobs_completed" : 8,
+    "bf_depth_mean" : 6,
+    "bf_depth_try_sum" : 5,
+    "schedule_cycle_mean" : 4,
+    "bf_table_size_sum" : 4,
+    "agent_queue_size" : 6,
+    "jobs_failed" : 6,
+    "bf_last_depth_try" : 3,
     "req_time" : {
       "number" : 2,
       "set" : true,
       "infinite" : true
     },
-    "bf_cycle_counter" : 5,
+    "bf_cycle_counter" : 6,
     "schedule_queue_length" : 9,
-    "bf_queue_len_mean" : 0,
+    "bf_queue_len_mean" : 4,
     "schedule_exit" : {
-      "max_sched_time" : 5,
-      "licenses" : 9,
-      "default_queue_depth" : 7,
-      "max_job_start" : 1,
-      "max_rpc_cnt" : 4,
-      "end_job_queue" : 6
+      "max_sched_time" : 4,
+      "licenses" : 5,
+      "default_queue_depth" : 6,
+      "max_job_start" : 7,
+      "max_rpc_cnt" : 1,
+      "end_job_queue" : 1
     },
-    "jobs_canceled" : 6,
-    "schedule_cycle_sum" : 2,
-    "jobs_submitted" : 6,
-    "schedule_cycle_mean_depth" : 1,
+    "jobs_canceled" : 9,
+    "schedule_cycle_sum" : 3,
+    "jobs_submitted" : 9,
+    "schedule_cycle_mean_depth" : 7,
     "schedule_cycle_per_minute" : 1,
     "req_time_start" : {
       "number" : 2,
       "set" : true,
       "infinite" : true
     },
-    "jobs_running" : 1,
-    "bf_last_backfilled_jobs" : 6,
+    "jobs_running" : 6,
+    "bf_last_backfilled_jobs" : 2,
     "bf_last_depth" : 3,
-    "bf_backfilled_jobs" : 2,
+    "bf_backfilled_jobs" : 1,
     "rpcs_by_user" : [ {
       "average_time" : {
         "number" : 2,
         "set" : true,
         "infinite" : true
       },
-      "user_id" : 4,
-      "count" : 6,
-      "total_time" : 8,
+      "user_id" : 5,
+      "count" : 4,
+      "total_time" : 6,
       "user" : "user"
     }, {
       "average_time" : {
@@ -742,46 +1209,45 @@ Content-Type: application/json
         "set" : true,
         "infinite" : true
       },
-      "user_id" : 4,
-      "count" : 6,
-      "total_time" : 8,
+      "user_id" : 5,
+      "count" : 4,
+      "total_time" : 6,
       "user" : "user"
     } ],
-    "bf_cycle_mean" : 6,
+    "bf_cycle_mean" : 5,
     "pending_rpcs_by_hostlist" : [ {
-      "type_id" : 0,
+      "type_id" : 3,
       "count" : [ "count", "count" ],
       "message_type" : "message_type"
     }, {
-      "type_id" : 0,
+      "type_id" : 3,
       "count" : [ "count", "count" ],
       "message_type" : "message_type"
     } ],
-    "dbd_agent_queue_size" : 2,
-    "bf_table_size_mean" : 4,
-    "jobs_pending" : 6,
-    "agent_count" : 5,
-    "bf_cycle_sum" : 7,
-    "parts_packed" : 0,
+    "dbd_agent_queue_size" : 5,
+    "bf_table_size_mean" : 1,
+    "jobs_pending" : 3,
+    "agent_count" : 1,
+    "bf_cycle_sum" : 3,
     "bf_active" : true,
     "bf_depth_mean_try" : 3,
-    "gettimeofday_latency" : 7,
+    "gettimeofday_latency" : 2,
     "pending_rpcs" : [ {
-      "type_id" : 4,
-      "count" : 3,
+      "type_id" : 8,
+      "count" : 4,
       "message_type" : "message_type"
     }, {
-      "type_id" : 4,
-      "count" : 3,
+      "type_id" : 8,
+      "count" : 4,
       "message_type" : "message_type"
     } ],
-    "schedule_cycle_total" : 4,
+    "schedule_cycle_total" : 2,
     "bf_when_last_cycle" : {
       "number" : 2,
       "set" : true,
       "infinite" : true
     },
-    "schedule_cycle_last" : 3
+    "schedule_cycle_last" : 9
   }
 }
 ```
@@ -798,12 +1264,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 diagnostic results
-[v0.0.44\_openapi\_diag\_resp](#v0.0.44_openapi_diag_resp)
+[v0.0.45\_openapi\_diag\_resp](#v0.0.45_openapi_diag_resp)
 
 #### default
 
 diagnostic results
-[v0.0.44\_openapi\_diag\_resp](#v0.0.44_openapi_diag_resp)
+[v0.0.45\_openapi\_diag\_resp](#v0.0.45_openapi_diag_resp)
 
 
 
@@ -812,10 +1278,10 @@ diagnostic results
 [Up](#__Methods)
 
 ```
-get /slurm/v0.0.44/job/{job_id}
+get /slurm/v0.0.45/job/{job_id}
 ```
 
-get job info (slurmV0044GetJob)
+get job info (slurmV0045GetJob)
 
 ### Path parameters
 
@@ -835,7 +1301,7 @@ Query Parameter — Query flags default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_job\_info\_resp](#v0.0.44_openapi_job_info_resp)
+[v0.0.45\_openapi\_job\_info\_resp](#v0.0.45_openapi_job_info_resp)
 
 ### Example data
 
@@ -949,18 +1415,19 @@ Content-Type: application/json
     },
     "priority_by_partition" : [ {
       "partition" : "partition",
-      "priority" : 6
+      "priority" : 1
     }, {
       "partition" : "partition",
-      "priority" : 6
+      "priority" : 1
     } ],
-    "maximum_switch_wait_time" : 9,
+    "maximum_switch_wait_time" : 8,
     "core_spec" : 6,
     "mcs_label" : "mcs_label",
     "required_nodes" : "required_nodes",
     "tres_bind" : "tres_bind",
-    "user_id" : 9,
+    "user_id" : 6,
     "selinux_context" : "selinux_context",
+    "container_type" : "container_type",
     "exit_code" : {
       "return_code" : {
         "number" : 5,
@@ -1023,13 +1490,15 @@ Content-Type: application/json
       "infinite" : true
     },
     "cluster_features" : "cluster_features",
+    "memory_update_margin" : 6,
     "partition" : "partition",
-    "segment_size" : 4,
+    "segment_size" : 9,
     "threads_per_core" : {
       "number" : 2,
       "set" : true,
       "infinite" : true
     },
+    "memory_update_delay" : 1,
     "tres_alloc_str" : "tres_alloc_str",
     "memory_per_cpu" : {
       "number" : 2,
@@ -1045,9 +1514,6 @@ Content-Type: application/json
       "number" : 5,
       "set" : true,
       "infinite" : true
-    },
-    "power" : {
-      "flags" : [ "", "" ]
     },
     "deadline" : {
       "number" : 2,
@@ -1071,8 +1537,8 @@ Content-Type: application/json
       "set" : true,
       "infinite" : true
     },
-    "sockets_per_board" : 5,
-    "nice" : 1,
+    "sockets_per_board" : 9,
+    "nice" : 7,
     "last_sched_evaluation" : {
       "number" : 2,
       "set" : true,
@@ -1245,7 +1711,7 @@ Content-Type: application/json
         "infinite" : true
       },
       "cpus" : 1,
-      "select_type" : [ "CPU", "CPU" ]
+      "select_type" : [ "NONE", "NONE" ]
     },
     "billable_tres" : {
       "number" : 4.145608029883936,
@@ -1268,7 +1734,7 @@ Content-Type: application/json
     "gres_detail" : [ "gres_detail", "gres_detail" ],
     "stdout_expanded" : "stdout_expanded",
     "network" : "network",
-    "restart_cnt" : 1,
+    "restart_cnt" : 5,
     "resv_name" : "resv_name",
     "extra" : "extra",
     "delay_boot" : {
@@ -1304,7 +1770,7 @@ Content-Type: application/json
     "job_id" : 5,
     "comment" : "comment",
     "account" : "account",
-    "required_switches" : 7
+    "required_switches" : 4
   }, {
     "container" : "container",
     "cluster" : "cluster",
@@ -1383,18 +1849,19 @@ Content-Type: application/json
     },
     "priority_by_partition" : [ {
       "partition" : "partition",
-      "priority" : 6
+      "priority" : 1
     }, {
       "partition" : "partition",
-      "priority" : 6
+      "priority" : 1
     } ],
-    "maximum_switch_wait_time" : 9,
+    "maximum_switch_wait_time" : 8,
     "core_spec" : 6,
     "mcs_label" : "mcs_label",
     "required_nodes" : "required_nodes",
     "tres_bind" : "tres_bind",
-    "user_id" : 9,
+    "user_id" : 6,
     "selinux_context" : "selinux_context",
+    "container_type" : "container_type",
     "exit_code" : {
       "return_code" : {
         "number" : 5,
@@ -1457,13 +1924,15 @@ Content-Type: application/json
       "infinite" : true
     },
     "cluster_features" : "cluster_features",
+    "memory_update_margin" : 6,
     "partition" : "partition",
-    "segment_size" : 4,
+    "segment_size" : 9,
     "threads_per_core" : {
       "number" : 2,
       "set" : true,
       "infinite" : true
     },
+    "memory_update_delay" : 1,
     "tres_alloc_str" : "tres_alloc_str",
     "memory_per_cpu" : {
       "number" : 2,
@@ -1479,9 +1948,6 @@ Content-Type: application/json
       "number" : 5,
       "set" : true,
       "infinite" : true
-    },
-    "power" : {
-      "flags" : [ "", "" ]
     },
     "deadline" : {
       "number" : 2,
@@ -1505,8 +1971,8 @@ Content-Type: application/json
       "set" : true,
       "infinite" : true
     },
-    "sockets_per_board" : 5,
-    "nice" : 1,
+    "sockets_per_board" : 9,
+    "nice" : 7,
     "last_sched_evaluation" : {
       "number" : 2,
       "set" : true,
@@ -1679,7 +2145,7 @@ Content-Type: application/json
         "infinite" : true
       },
       "cpus" : 1,
-      "select_type" : [ "CPU", "CPU" ]
+      "select_type" : [ "NONE", "NONE" ]
     },
     "billable_tres" : {
       "number" : 4.145608029883936,
@@ -1702,7 +2168,7 @@ Content-Type: application/json
     "gres_detail" : [ "gres_detail", "gres_detail" ],
     "stdout_expanded" : "stdout_expanded",
     "network" : "network",
-    "restart_cnt" : 1,
+    "restart_cnt" : 5,
     "resv_name" : "resv_name",
     "extra" : "extra",
     "delay_boot" : {
@@ -1738,7 +2204,7 @@ Content-Type: application/json
     "job_id" : 5,
     "comment" : "comment",
     "account" : "account",
-    "required_switches" : 7
+    "required_switches" : 4
   } ],
   "last_update" : {
     "number" : 2,
@@ -1778,12 +2244,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 job(s) information
-[v0.0.44\_openapi\_job\_info\_resp](#v0.0.44_openapi_job_info_resp)
+[v0.0.45\_openapi\_job\_info\_resp](#v0.0.45_openapi_job_info_resp)
 
 #### default
 
 job(s) information
-[v0.0.44\_openapi\_job\_info\_resp](#v0.0.44_openapi_job_info_resp)
+[v0.0.45\_openapi\_job\_info\_resp](#v0.0.45_openapi_job_info_resp)
 
 
 
@@ -1792,10 +2258,128 @@ job(s) information
 [Up](#__Methods)
 
 ```
-get /slurm/v0.0.44/jobs/
+get /slurm/v0.0.45/job/{job_id}/requeue
 ```
 
-get list of jobs (slurmV0044GetJobs)
+request job requeue (slurmV0045GetJobRequeue)
+
+### Path parameters
+
+job\_id (required)
+
+Path Parameter — Job ID default: null
+
+### Query parameters
+
+Incomplete (optional)
+
+Query Parameter — Operate only on jobs (or tasks of a job array) which have not completed default: null
+
+Hold (optional)
+
+Query Parameter — Hold job after requeue, will require manual release to run again default: null
+
+SpecialExit (optional)
+
+Query Parameter — Set SPECIAL\_EXIT state after requeue; must also specify the Hold flag default: null
+
+### Return type
+
+[v0.0.45\_openapi\_job\_requeue\_resp](#v0.0.45_openapi_job_requeue_resp)
+
+### Example data
+
+Content-Type: application/json
+
+```
+{
+  "meta" : {
+    "slurm" : {
+      "cluster" : "cluster",
+      "release" : "release",
+      "version" : {
+        "major" : "major",
+        "minor" : "minor",
+        "micro" : "micro"
+      }
+    },
+    "plugin" : {
+      "accounting_storage" : "accounting_storage",
+      "name" : "name",
+      "type" : "type",
+      "data_parser" : "data_parser"
+    },
+    "client" : {
+      "source" : "source",
+      "user" : "user",
+      "group" : "group"
+    },
+    "command" : [ "command", "command" ]
+  },
+  "warnings" : [ {
+    "description" : "description",
+    "source" : "source"
+  }, {
+    "description" : "description",
+    "source" : "source"
+  } ],
+  "errors" : [ {
+    "description" : "description",
+    "source" : "source",
+    "error" : "error",
+    "error_number" : 7
+  }, {
+    "description" : "description",
+    "source" : "source",
+    "error" : "error",
+    "error_number" : 7
+  } ],
+  "status" : [ {
+    "job_id" : 0,
+    "why" : "why",
+    "error_code" : 6,
+    "step_id" : "step_id",
+    "error" : "error"
+  }, {
+    "job_id" : 0,
+    "why" : "why",
+    "error_code" : 6,
+    "step_id" : "step_id",
+    "error" : "error"
+  } ]
+}
+```
+
+### Produces
+
+This API call produces the following media types according to the Accept request header;
+the media type will be conveyed by the Content-Type response header.
+
+* `application/json`
+
+### Responses
+
+#### 200
+
+job requeue result
+[v0.0.45\_openapi\_job\_requeue\_resp](#v0.0.45_openapi_job_requeue_resp)
+
+#### default
+
+job requeue result
+[v0.0.45\_openapi\_job\_requeue\_resp](#v0.0.45_openapi_job_requeue_resp)
+
+
+
+---
+
+[Up](#__Methods)
+
+```
+get /slurm/v0.0.45/jobs/
+```
+
+get list of jobs (slurmV0045GetJobs)
 
 ### Query parameters
 
@@ -1809,7 +2393,7 @@ Query Parameter — Query flags default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_job\_info\_resp](#v0.0.44_openapi_job_info_resp)
+[v0.0.45\_openapi\_job\_info\_resp](#v0.0.45_openapi_job_info_resp)
 
 ### Example data
 
@@ -1923,18 +2507,19 @@ Content-Type: application/json
     },
     "priority_by_partition" : [ {
       "partition" : "partition",
-      "priority" : 6
+      "priority" : 1
     }, {
       "partition" : "partition",
-      "priority" : 6
+      "priority" : 1
     } ],
-    "maximum_switch_wait_time" : 9,
+    "maximum_switch_wait_time" : 8,
     "core_spec" : 6,
     "mcs_label" : "mcs_label",
     "required_nodes" : "required_nodes",
     "tres_bind" : "tres_bind",
-    "user_id" : 9,
+    "user_id" : 6,
     "selinux_context" : "selinux_context",
+    "container_type" : "container_type",
     "exit_code" : {
       "return_code" : {
         "number" : 5,
@@ -1997,13 +2582,15 @@ Content-Type: application/json
       "infinite" : true
     },
     "cluster_features" : "cluster_features",
+    "memory_update_margin" : 6,
     "partition" : "partition",
-    "segment_size" : 4,
+    "segment_size" : 9,
     "threads_per_core" : {
       "number" : 2,
       "set" : true,
       "infinite" : true
     },
+    "memory_update_delay" : 1,
     "tres_alloc_str" : "tres_alloc_str",
     "memory_per_cpu" : {
       "number" : 2,
@@ -2019,9 +2606,6 @@ Content-Type: application/json
       "number" : 5,
       "set" : true,
       "infinite" : true
-    },
-    "power" : {
-      "flags" : [ "", "" ]
     },
     "deadline" : {
       "number" : 2,
@@ -2045,8 +2629,8 @@ Content-Type: application/json
       "set" : true,
       "infinite" : true
     },
-    "sockets_per_board" : 5,
-    "nice" : 1,
+    "sockets_per_board" : 9,
+    "nice" : 7,
     "last_sched_evaluation" : {
       "number" : 2,
       "set" : true,
@@ -2219,7 +2803,7 @@ Content-Type: application/json
         "infinite" : true
       },
       "cpus" : 1,
-      "select_type" : [ "CPU", "CPU" ]
+      "select_type" : [ "NONE", "NONE" ]
     },
     "billable_tres" : {
       "number" : 4.145608029883936,
@@ -2242,7 +2826,7 @@ Content-Type: application/json
     "gres_detail" : [ "gres_detail", "gres_detail" ],
     "stdout_expanded" : "stdout_expanded",
     "network" : "network",
-    "restart_cnt" : 1,
+    "restart_cnt" : 5,
     "resv_name" : "resv_name",
     "extra" : "extra",
     "delay_boot" : {
@@ -2278,7 +2862,7 @@ Content-Type: application/json
     "job_id" : 5,
     "comment" : "comment",
     "account" : "account",
-    "required_switches" : 7
+    "required_switches" : 4
   }, {
     "container" : "container",
     "cluster" : "cluster",
@@ -2357,18 +2941,19 @@ Content-Type: application/json
     },
     "priority_by_partition" : [ {
       "partition" : "partition",
-      "priority" : 6
+      "priority" : 1
     }, {
       "partition" : "partition",
-      "priority" : 6
+      "priority" : 1
     } ],
-    "maximum_switch_wait_time" : 9,
+    "maximum_switch_wait_time" : 8,
     "core_spec" : 6,
     "mcs_label" : "mcs_label",
     "required_nodes" : "required_nodes",
     "tres_bind" : "tres_bind",
-    "user_id" : 9,
+    "user_id" : 6,
     "selinux_context" : "selinux_context",
+    "container_type" : "container_type",
     "exit_code" : {
       "return_code" : {
         "number" : 5,
@@ -2431,13 +3016,15 @@ Content-Type: application/json
       "infinite" : true
     },
     "cluster_features" : "cluster_features",
+    "memory_update_margin" : 6,
     "partition" : "partition",
-    "segment_size" : 4,
+    "segment_size" : 9,
     "threads_per_core" : {
       "number" : 2,
       "set" : true,
       "infinite" : true
     },
+    "memory_update_delay" : 1,
     "tres_alloc_str" : "tres_alloc_str",
     "memory_per_cpu" : {
       "number" : 2,
@@ -2453,9 +3040,6 @@ Content-Type: application/json
       "number" : 5,
       "set" : true,
       "infinite" : true
-    },
-    "power" : {
-      "flags" : [ "", "" ]
     },
     "deadline" : {
       "number" : 2,
@@ -2479,8 +3063,8 @@ Content-Type: application/json
       "set" : true,
       "infinite" : true
     },
-    "sockets_per_board" : 5,
-    "nice" : 1,
+    "sockets_per_board" : 9,
+    "nice" : 7,
     "last_sched_evaluation" : {
       "number" : 2,
       "set" : true,
@@ -2653,7 +3237,7 @@ Content-Type: application/json
         "infinite" : true
       },
       "cpus" : 1,
-      "select_type" : [ "CPU", "CPU" ]
+      "select_type" : [ "NONE", "NONE" ]
     },
     "billable_tres" : {
       "number" : 4.145608029883936,
@@ -2676,7 +3260,7 @@ Content-Type: application/json
     "gres_detail" : [ "gres_detail", "gres_detail" ],
     "stdout_expanded" : "stdout_expanded",
     "network" : "network",
-    "restart_cnt" : 1,
+    "restart_cnt" : 5,
     "resv_name" : "resv_name",
     "extra" : "extra",
     "delay_boot" : {
@@ -2712,7 +3296,7 @@ Content-Type: application/json
     "job_id" : 5,
     "comment" : "comment",
     "account" : "account",
-    "required_switches" : 7
+    "required_switches" : 4
   } ],
   "last_update" : {
     "number" : 2,
@@ -2752,12 +3336,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 job(s) information
-[v0.0.44\_openapi\_job\_info\_resp](#v0.0.44_openapi_job_info_resp)
+[v0.0.45\_openapi\_job\_info\_resp](#v0.0.45_openapi_job_info_resp)
 
 #### default
 
 job(s) information
-[v0.0.44\_openapi\_job\_info\_resp](#v0.0.44_openapi_job_info_resp)
+[v0.0.45\_openapi\_job\_info\_resp](#v0.0.45_openapi_job_info_resp)
 
 
 
@@ -2766,10 +3350,10 @@ job(s) information
 [Up](#__Methods)
 
 ```
-get /slurm/v0.0.44/jobs/state/
+get /slurm/v0.0.45/jobs/state/
 ```
 
-get list of job states (slurmV0044GetJobsState)
+get list of job states (slurmV0045GetJobsState)
 
 ### Query parameters
 
@@ -2779,7 +3363,7 @@ Query Parameter — CSV list of Job IDs to search for default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_job\_info\_resp](#v0.0.44_openapi_job_info_resp)
+[v0.0.45\_openapi\_job\_info\_resp](#v0.0.45_openapi_job_info_resp)
 
 ### Example data
 
@@ -2893,18 +3477,19 @@ Content-Type: application/json
     },
     "priority_by_partition" : [ {
       "partition" : "partition",
-      "priority" : 6
+      "priority" : 1
     }, {
       "partition" : "partition",
-      "priority" : 6
+      "priority" : 1
     } ],
-    "maximum_switch_wait_time" : 9,
+    "maximum_switch_wait_time" : 8,
     "core_spec" : 6,
     "mcs_label" : "mcs_label",
     "required_nodes" : "required_nodes",
     "tres_bind" : "tres_bind",
-    "user_id" : 9,
+    "user_id" : 6,
     "selinux_context" : "selinux_context",
+    "container_type" : "container_type",
     "exit_code" : {
       "return_code" : {
         "number" : 5,
@@ -2967,13 +3552,15 @@ Content-Type: application/json
       "infinite" : true
     },
     "cluster_features" : "cluster_features",
+    "memory_update_margin" : 6,
     "partition" : "partition",
-    "segment_size" : 4,
+    "segment_size" : 9,
     "threads_per_core" : {
       "number" : 2,
       "set" : true,
       "infinite" : true
     },
+    "memory_update_delay" : 1,
     "tres_alloc_str" : "tres_alloc_str",
     "memory_per_cpu" : {
       "number" : 2,
@@ -2989,9 +3576,6 @@ Content-Type: application/json
       "number" : 5,
       "set" : true,
       "infinite" : true
-    },
-    "power" : {
-      "flags" : [ "", "" ]
     },
     "deadline" : {
       "number" : 2,
@@ -3015,8 +3599,8 @@ Content-Type: application/json
       "set" : true,
       "infinite" : true
     },
-    "sockets_per_board" : 5,
-    "nice" : 1,
+    "sockets_per_board" : 9,
+    "nice" : 7,
     "last_sched_evaluation" : {
       "number" : 2,
       "set" : true,
@@ -3189,7 +3773,7 @@ Content-Type: application/json
         "infinite" : true
       },
       "cpus" : 1,
-      "select_type" : [ "CPU", "CPU" ]
+      "select_type" : [ "NONE", "NONE" ]
     },
     "billable_tres" : {
       "number" : 4.145608029883936,
@@ -3212,7 +3796,7 @@ Content-Type: application/json
     "gres_detail" : [ "gres_detail", "gres_detail" ],
     "stdout_expanded" : "stdout_expanded",
     "network" : "network",
-    "restart_cnt" : 1,
+    "restart_cnt" : 5,
     "resv_name" : "resv_name",
     "extra" : "extra",
     "delay_boot" : {
@@ -3248,7 +3832,7 @@ Content-Type: application/json
     "job_id" : 5,
     "comment" : "comment",
     "account" : "account",
-    "required_switches" : 7
+    "required_switches" : 4
   }, {
     "container" : "container",
     "cluster" : "cluster",
@@ -3327,18 +3911,19 @@ Content-Type: application/json
     },
     "priority_by_partition" : [ {
       "partition" : "partition",
-      "priority" : 6
+      "priority" : 1
     }, {
       "partition" : "partition",
-      "priority" : 6
+      "priority" : 1
     } ],
-    "maximum_switch_wait_time" : 9,
+    "maximum_switch_wait_time" : 8,
     "core_spec" : 6,
     "mcs_label" : "mcs_label",
     "required_nodes" : "required_nodes",
     "tres_bind" : "tres_bind",
-    "user_id" : 9,
+    "user_id" : 6,
     "selinux_context" : "selinux_context",
+    "container_type" : "container_type",
     "exit_code" : {
       "return_code" : {
         "number" : 5,
@@ -3401,13 +3986,15 @@ Content-Type: application/json
       "infinite" : true
     },
     "cluster_features" : "cluster_features",
+    "memory_update_margin" : 6,
     "partition" : "partition",
-    "segment_size" : 4,
+    "segment_size" : 9,
     "threads_per_core" : {
       "number" : 2,
       "set" : true,
       "infinite" : true
     },
+    "memory_update_delay" : 1,
     "tres_alloc_str" : "tres_alloc_str",
     "memory_per_cpu" : {
       "number" : 2,
@@ -3423,9 +4010,6 @@ Content-Type: application/json
       "number" : 5,
       "set" : true,
       "infinite" : true
-    },
-    "power" : {
-      "flags" : [ "", "" ]
     },
     "deadline" : {
       "number" : 2,
@@ -3449,8 +4033,8 @@ Content-Type: application/json
       "set" : true,
       "infinite" : true
     },
-    "sockets_per_board" : 5,
-    "nice" : 1,
+    "sockets_per_board" : 9,
+    "nice" : 7,
     "last_sched_evaluation" : {
       "number" : 2,
       "set" : true,
@@ -3623,7 +4207,7 @@ Content-Type: application/json
         "infinite" : true
       },
       "cpus" : 1,
-      "select_type" : [ "CPU", "CPU" ]
+      "select_type" : [ "NONE", "NONE" ]
     },
     "billable_tres" : {
       "number" : 4.145608029883936,
@@ -3646,7 +4230,7 @@ Content-Type: application/json
     "gres_detail" : [ "gres_detail", "gres_detail" ],
     "stdout_expanded" : "stdout_expanded",
     "network" : "network",
-    "restart_cnt" : 1,
+    "restart_cnt" : 5,
     "resv_name" : "resv_name",
     "extra" : "extra",
     "delay_boot" : {
@@ -3682,7 +4266,7 @@ Content-Type: application/json
     "job_id" : 5,
     "comment" : "comment",
     "account" : "account",
-    "required_switches" : 7
+    "required_switches" : 4
   } ],
   "last_update" : {
     "number" : 2,
@@ -3722,12 +4306,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 job(s) state information
-[v0.0.44\_openapi\_job\_info\_resp](#v0.0.44_openapi_job_info_resp)
+[v0.0.45\_openapi\_job\_info\_resp](#v0.0.45_openapi_job_info_resp)
 
 #### default
 
 job(s) state information
-[v0.0.44\_openapi\_job\_info\_resp](#v0.0.44_openapi_job_info_resp)
+[v0.0.45\_openapi\_job\_info\_resp](#v0.0.45_openapi_job_info_resp)
 
 
 
@@ -3736,14 +4320,14 @@ job(s) state information
 [Up](#__Methods)
 
 ```
-get /slurm/v0.0.44/licenses/
+get /slurm/v0.0.45/licenses/
 ```
 
-get all Slurm tracked license info (slurmV0044GetLicenses)
+get all Slurm tracked license info (slurmV0045GetLicenses)
 
 ### Return type
 
-[v0.0.44\_openapi\_licenses\_resp](#v0.0.44_openapi_licenses_resp)
+[v0.0.45\_openapi\_licenses\_resp](#v0.0.45_openapi_licenses_resp)
 
 ### Example data
 
@@ -3835,12 +4419,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 results of get all licenses
-[v0.0.44\_openapi\_licenses\_resp](#v0.0.44_openapi_licenses_resp)
+[v0.0.45\_openapi\_licenses\_resp](#v0.0.45_openapi_licenses_resp)
 
 #### default
 
 results of get all licenses
-[v0.0.44\_openapi\_licenses\_resp](#v0.0.44_openapi_licenses_resp)
+[v0.0.45\_openapi\_licenses\_resp](#v0.0.45_openapi_licenses_resp)
 
 
 
@@ -3849,10 +4433,10 @@ results of get all licenses
 [Up](#__Methods)
 
 ```
-get /slurm/v0.0.44/node/{node_name}
+get /slurm/v0.0.45/node/{node_name}
 ```
 
-get node info (slurmV0044GetNode)
+get node info (slurmV0045GetNode)
 
 ### Path parameters
 
@@ -3872,7 +4456,7 @@ Query Parameter — Query flags default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_nodes\_resp](#v0.0.44_openapi_nodes_resp)
+[v0.0.45\_openapi\_nodes\_resp](#v0.0.45_openapi_nodes_resp)
 
 ### Example data
 
@@ -3900,7 +4484,7 @@ Content-Type: application/json
     "tres" : "tres",
     "cpu_binding" : 5,
     "state" : [ "INVALID", "INVALID" ],
-    "sockets" : 9,
+    "sockets" : 5,
     "energy" : {
       "current_watts" : {
         "number" : 5,
@@ -3916,7 +4500,7 @@ Content-Type: application/json
     "partitions" : [ "partitions", "partitions" ],
     "topology" : "topology",
     "gres_drained" : "gres_drained",
-    "weight" : 8,
+    "weight" : 6,
     "version" : "version",
     "gres_used" : "gres_used",
     "mcs_label" : "mcs_label",
@@ -3930,11 +4514,10 @@ Content-Type: application/json
       "set" : true,
       "infinite" : true
     },
-    "temporary_disk" : 6,
+    "temporary_disk" : 9,
     "tres_used" : "tres_used",
     "effective_cpus" : 7,
     "instance_type" : "instance_type",
-    "external_sensors" : "{}",
     "cert_flags" : [ "TOKEN_SET", "TOKEN_SET" ],
     "res_cores_per_gpu" : 6,
     "boards" : 0,
@@ -3949,7 +4532,6 @@ Content-Type: application/json
     "alloc_idle_cpus" : 4,
     "extra" : "extra",
     "operating_system" : "operating_system",
-    "power" : "{}",
     "tls_cert_last_renewal" : {
       "number" : 2,
       "set" : true,
@@ -3960,9 +4542,13 @@ Content-Type: application/json
     "cluster_name" : "cluster_name",
     "address" : "address",
     "cpus" : 2,
-    "tres_weighted" : 5.025004791520295,
     "gres" : "gres",
     "threads" : 9,
+    "suspend_time" : {
+      "number" : 5,
+      "set" : true,
+      "infinite" : true
+    },
     "boot_time" : {
       "number" : 2,
       "set" : true,
@@ -4000,7 +4586,7 @@ Content-Type: application/json
     "tres" : "tres",
     "cpu_binding" : 5,
     "state" : [ "INVALID", "INVALID" ],
-    "sockets" : 9,
+    "sockets" : 5,
     "energy" : {
       "current_watts" : {
         "number" : 5,
@@ -4016,7 +4602,7 @@ Content-Type: application/json
     "partitions" : [ "partitions", "partitions" ],
     "topology" : "topology",
     "gres_drained" : "gres_drained",
-    "weight" : 8,
+    "weight" : 6,
     "version" : "version",
     "gres_used" : "gres_used",
     "mcs_label" : "mcs_label",
@@ -4030,11 +4616,10 @@ Content-Type: application/json
       "set" : true,
       "infinite" : true
     },
-    "temporary_disk" : 6,
+    "temporary_disk" : 9,
     "tres_used" : "tres_used",
     "effective_cpus" : 7,
     "instance_type" : "instance_type",
-    "external_sensors" : "{}",
     "cert_flags" : [ "TOKEN_SET", "TOKEN_SET" ],
     "res_cores_per_gpu" : 6,
     "boards" : 0,
@@ -4049,7 +4634,6 @@ Content-Type: application/json
     "alloc_idle_cpus" : 4,
     "extra" : "extra",
     "operating_system" : "operating_system",
-    "power" : "{}",
     "tls_cert_last_renewal" : {
       "number" : 2,
       "set" : true,
@@ -4060,9 +4644,13 @@ Content-Type: application/json
     "cluster_name" : "cluster_name",
     "address" : "address",
     "cpus" : 2,
-    "tres_weighted" : 5.025004791520295,
     "gres" : "gres",
     "threads" : 9,
+    "suspend_time" : {
+      "number" : 5,
+      "set" : true,
+      "infinite" : true
+    },
     "boot_time" : {
       "number" : 2,
       "set" : true,
@@ -4142,12 +4730,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 node information
-[v0.0.44\_openapi\_nodes\_resp](#v0.0.44_openapi_nodes_resp)
+[v0.0.45\_openapi\_nodes\_resp](#v0.0.45_openapi_nodes_resp)
 
 #### default
 
 node information
-[v0.0.44\_openapi\_nodes\_resp](#v0.0.44_openapi_nodes_resp)
+[v0.0.45\_openapi\_nodes\_resp](#v0.0.45_openapi_nodes_resp)
 
 
 
@@ -4156,10 +4744,10 @@ node information
 [Up](#__Methods)
 
 ```
-get /slurm/v0.0.44/nodes/
+get /slurm/v0.0.45/nodes/
 ```
 
-get node(s) info (slurmV0044GetNodes)
+get node(s) info (slurmV0045GetNodes)
 
 ### Query parameters
 
@@ -4173,7 +4761,7 @@ Query Parameter — Query flags default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_nodes\_resp](#v0.0.44_openapi_nodes_resp)
+[v0.0.45\_openapi\_nodes\_resp](#v0.0.45_openapi_nodes_resp)
 
 ### Example data
 
@@ -4201,7 +4789,7 @@ Content-Type: application/json
     "tres" : "tres",
     "cpu_binding" : 5,
     "state" : [ "INVALID", "INVALID" ],
-    "sockets" : 9,
+    "sockets" : 5,
     "energy" : {
       "current_watts" : {
         "number" : 5,
@@ -4217,7 +4805,7 @@ Content-Type: application/json
     "partitions" : [ "partitions", "partitions" ],
     "topology" : "topology",
     "gres_drained" : "gres_drained",
-    "weight" : 8,
+    "weight" : 6,
     "version" : "version",
     "gres_used" : "gres_used",
     "mcs_label" : "mcs_label",
@@ -4231,11 +4819,10 @@ Content-Type: application/json
       "set" : true,
       "infinite" : true
     },
-    "temporary_disk" : 6,
+    "temporary_disk" : 9,
     "tres_used" : "tres_used",
     "effective_cpus" : 7,
     "instance_type" : "instance_type",
-    "external_sensors" : "{}",
     "cert_flags" : [ "TOKEN_SET", "TOKEN_SET" ],
     "res_cores_per_gpu" : 6,
     "boards" : 0,
@@ -4250,7 +4837,6 @@ Content-Type: application/json
     "alloc_idle_cpus" : 4,
     "extra" : "extra",
     "operating_system" : "operating_system",
-    "power" : "{}",
     "tls_cert_last_renewal" : {
       "number" : 2,
       "set" : true,
@@ -4261,9 +4847,13 @@ Content-Type: application/json
     "cluster_name" : "cluster_name",
     "address" : "address",
     "cpus" : 2,
-    "tres_weighted" : 5.025004791520295,
     "gres" : "gres",
     "threads" : 9,
+    "suspend_time" : {
+      "number" : 5,
+      "set" : true,
+      "infinite" : true
+    },
     "boot_time" : {
       "number" : 2,
       "set" : true,
@@ -4301,7 +4891,7 @@ Content-Type: application/json
     "tres" : "tres",
     "cpu_binding" : 5,
     "state" : [ "INVALID", "INVALID" ],
-    "sockets" : 9,
+    "sockets" : 5,
     "energy" : {
       "current_watts" : {
         "number" : 5,
@@ -4317,7 +4907,7 @@ Content-Type: application/json
     "partitions" : [ "partitions", "partitions" ],
     "topology" : "topology",
     "gres_drained" : "gres_drained",
-    "weight" : 8,
+    "weight" : 6,
     "version" : "version",
     "gres_used" : "gres_used",
     "mcs_label" : "mcs_label",
@@ -4331,11 +4921,10 @@ Content-Type: application/json
       "set" : true,
       "infinite" : true
     },
-    "temporary_disk" : 6,
+    "temporary_disk" : 9,
     "tres_used" : "tres_used",
     "effective_cpus" : 7,
     "instance_type" : "instance_type",
-    "external_sensors" : "{}",
     "cert_flags" : [ "TOKEN_SET", "TOKEN_SET" ],
     "res_cores_per_gpu" : 6,
     "boards" : 0,
@@ -4350,7 +4939,6 @@ Content-Type: application/json
     "alloc_idle_cpus" : 4,
     "extra" : "extra",
     "operating_system" : "operating_system",
-    "power" : "{}",
     "tls_cert_last_renewal" : {
       "number" : 2,
       "set" : true,
@@ -4361,9 +4949,13 @@ Content-Type: application/json
     "cluster_name" : "cluster_name",
     "address" : "address",
     "cpus" : 2,
-    "tres_weighted" : 5.025004791520295,
     "gres" : "gres",
     "threads" : 9,
+    "suspend_time" : {
+      "number" : 5,
+      "set" : true,
+      "infinite" : true
+    },
     "boot_time" : {
       "number" : 2,
       "set" : true,
@@ -4443,12 +5035,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 node(s) information
-[v0.0.44\_openapi\_nodes\_resp](#v0.0.44_openapi_nodes_resp)
+[v0.0.45\_openapi\_nodes\_resp](#v0.0.45_openapi_nodes_resp)
 
 #### default
 
 node(s) information
-[v0.0.44\_openapi\_nodes\_resp](#v0.0.44_openapi_nodes_resp)
+[v0.0.45\_openapi\_nodes\_resp](#v0.0.45_openapi_nodes_resp)
 
 
 
@@ -4457,10 +5049,10 @@ node(s) information
 [Up](#__Methods)
 
 ```
-get /slurm/v0.0.44/partition/{partition_name}
+get /slurm/v0.0.45/partition/{partition_name}
 ```
 
-get partition info (slurmV0044GetPartition)
+get partition info (slurmV0045GetPartition)
 
 ### Path parameters
 
@@ -4480,7 +5072,7 @@ Query Parameter — Query flags default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_partition\_resp](#v0.0.44_openapi_partition_resp)
+[v0.0.45\_openapi\_partition\_resp](#v0.0.45_openapi_partition_resp)
 
 ### Example data
 
@@ -4491,10 +5083,11 @@ Content-Type: application/json
   "partitions" : [ {
     "cluster" : "cluster",
     "cpus" : {
-      "task_binding" : 6,
-      "total" : 1
+      "task_binding" : [ "CPU_BIND_TO_THREADS", "CPU_BIND_TO_THREADS" ],
+      "total" : 6
     },
     "topology" : "topology",
+    "flags" : [ "DEFAULT", "DEFAULT" ],
     "timeouts" : {
       "resume" : {
         "number" : 2,
@@ -4511,19 +5104,19 @@ Content-Type: application/json
       "allowed" : "allowed"
     },
     "alternate" : "alternate",
-    "select_type" : [ "CPU", "CPU" ],
+    "select_type" : [ "NONE", "NONE" ],
     "suspend_time" : {
       "number" : 5,
       "set" : true,
       "infinite" : true
     },
     "priority" : {
-      "tier" : 4,
-      "job_factor" : 2
+      "tier" : 2,
+      "job_factor" : 3
     },
     "node_sets" : "node_sets",
     "maximums" : {
-      "shares" : 7,
+      "shares" : 2,
       "nodes" : {
         "number" : 5,
         "set" : true,
@@ -4550,10 +5143,10 @@ Content-Type: application/json
         "infinite" : true
       },
       "oversubscribe" : {
-        "jobs" : 9,
+        "jobs" : 7,
         "flags" : [ "force", "force" ]
       },
-      "memory_per_cpu" : 2,
+      "memory_per_cpu" : 5,
       "time" : {
         "number" : 5,
         "set" : true,
@@ -4565,12 +5158,15 @@ Content-Type: application/json
         "infinite" : true
       }
     },
+    "preempt_mode" : [ "CLUSTER_GLOBAL", "CLUSTER_GLOBAL" ],
     "nodes" : {
       "configured" : "configured",
       "total" : 0,
       "allowed_allocation" : "allowed_allocation"
     },
     "partition" : {
+      "oversubscribe" : "oversubscribe",
+      "exclusive" : "exclusive",
       "state" : [ "INACTIVE", "INACTIVE" ]
     },
     "qos" : {
@@ -4584,7 +5180,7 @@ Content-Type: application/json
         "set" : true,
         "infinite" : true
       },
-      "memory_per_cpu" : 5,
+      "memory_per_cpu" : 1,
       "time" : {
         "number" : 5,
         "set" : true,
@@ -4607,16 +5203,17 @@ Content-Type: application/json
       "allowed" : "allowed"
     },
     "minimums" : {
-      "nodes" : 3
+      "nodes" : 9
     },
     "grace_time" : 5
   }, {
     "cluster" : "cluster",
     "cpus" : {
-      "task_binding" : 6,
-      "total" : 1
+      "task_binding" : [ "CPU_BIND_TO_THREADS", "CPU_BIND_TO_THREADS" ],
+      "total" : 6
     },
     "topology" : "topology",
+    "flags" : [ "DEFAULT", "DEFAULT" ],
     "timeouts" : {
       "resume" : {
         "number" : 2,
@@ -4633,19 +5230,19 @@ Content-Type: application/json
       "allowed" : "allowed"
     },
     "alternate" : "alternate",
-    "select_type" : [ "CPU", "CPU" ],
+    "select_type" : [ "NONE", "NONE" ],
     "suspend_time" : {
       "number" : 5,
       "set" : true,
       "infinite" : true
     },
     "priority" : {
-      "tier" : 4,
-      "job_factor" : 2
+      "tier" : 2,
+      "job_factor" : 3
     },
     "node_sets" : "node_sets",
     "maximums" : {
-      "shares" : 7,
+      "shares" : 2,
       "nodes" : {
         "number" : 5,
         "set" : true,
@@ -4672,10 +5269,10 @@ Content-Type: application/json
         "infinite" : true
       },
       "oversubscribe" : {
-        "jobs" : 9,
+        "jobs" : 7,
         "flags" : [ "force", "force" ]
       },
-      "memory_per_cpu" : 2,
+      "memory_per_cpu" : 5,
       "time" : {
         "number" : 5,
         "set" : true,
@@ -4687,12 +5284,15 @@ Content-Type: application/json
         "infinite" : true
       }
     },
+    "preempt_mode" : [ "CLUSTER_GLOBAL", "CLUSTER_GLOBAL" ],
     "nodes" : {
       "configured" : "configured",
       "total" : 0,
       "allowed_allocation" : "allowed_allocation"
     },
     "partition" : {
+      "oversubscribe" : "oversubscribe",
+      "exclusive" : "exclusive",
       "state" : [ "INACTIVE", "INACTIVE" ]
     },
     "qos" : {
@@ -4706,7 +5306,7 @@ Content-Type: application/json
         "set" : true,
         "infinite" : true
       },
-      "memory_per_cpu" : 5,
+      "memory_per_cpu" : 1,
       "time" : {
         "number" : 5,
         "set" : true,
@@ -4729,7 +5329,7 @@ Content-Type: application/json
       "allowed" : "allowed"
     },
     "minimums" : {
-      "nodes" : 3
+      "nodes" : 9
     },
     "grace_time" : 5
   } ],
@@ -4794,12 +5394,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 partition information
-[v0.0.44\_openapi\_partition\_resp](#v0.0.44_openapi_partition_resp)
+[v0.0.45\_openapi\_partition\_resp](#v0.0.45_openapi_partition_resp)
 
 #### default
 
 partition information
-[v0.0.44\_openapi\_partition\_resp](#v0.0.44_openapi_partition_resp)
+[v0.0.45\_openapi\_partition\_resp](#v0.0.45_openapi_partition_resp)
 
 
 
@@ -4808,10 +5408,10 @@ partition information
 [Up](#__Methods)
 
 ```
-get /slurm/v0.0.44/partitions/
+get /slurm/v0.0.45/partitions/
 ```
 
-get all partition info (slurmV0044GetPartitions)
+get all partition info (slurmV0045GetPartitions)
 
 ### Query parameters
 
@@ -4825,7 +5425,7 @@ Query Parameter — Query flags default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_partition\_resp](#v0.0.44_openapi_partition_resp)
+[v0.0.45\_openapi\_partition\_resp](#v0.0.45_openapi_partition_resp)
 
 ### Example data
 
@@ -4836,10 +5436,11 @@ Content-Type: application/json
   "partitions" : [ {
     "cluster" : "cluster",
     "cpus" : {
-      "task_binding" : 6,
-      "total" : 1
+      "task_binding" : [ "CPU_BIND_TO_THREADS", "CPU_BIND_TO_THREADS" ],
+      "total" : 6
     },
     "topology" : "topology",
+    "flags" : [ "DEFAULT", "DEFAULT" ],
     "timeouts" : {
       "resume" : {
         "number" : 2,
@@ -4856,19 +5457,19 @@ Content-Type: application/json
       "allowed" : "allowed"
     },
     "alternate" : "alternate",
-    "select_type" : [ "CPU", "CPU" ],
+    "select_type" : [ "NONE", "NONE" ],
     "suspend_time" : {
       "number" : 5,
       "set" : true,
       "infinite" : true
     },
     "priority" : {
-      "tier" : 4,
-      "job_factor" : 2
+      "tier" : 2,
+      "job_factor" : 3
     },
     "node_sets" : "node_sets",
     "maximums" : {
-      "shares" : 7,
+      "shares" : 2,
       "nodes" : {
         "number" : 5,
         "set" : true,
@@ -4895,10 +5496,10 @@ Content-Type: application/json
         "infinite" : true
       },
       "oversubscribe" : {
-        "jobs" : 9,
+        "jobs" : 7,
         "flags" : [ "force", "force" ]
       },
-      "memory_per_cpu" : 2,
+      "memory_per_cpu" : 5,
       "time" : {
         "number" : 5,
         "set" : true,
@@ -4910,12 +5511,15 @@ Content-Type: application/json
         "infinite" : true
       }
     },
+    "preempt_mode" : [ "CLUSTER_GLOBAL", "CLUSTER_GLOBAL" ],
     "nodes" : {
       "configured" : "configured",
       "total" : 0,
       "allowed_allocation" : "allowed_allocation"
     },
     "partition" : {
+      "oversubscribe" : "oversubscribe",
+      "exclusive" : "exclusive",
       "state" : [ "INACTIVE", "INACTIVE" ]
     },
     "qos" : {
@@ -4929,7 +5533,7 @@ Content-Type: application/json
         "set" : true,
         "infinite" : true
       },
-      "memory_per_cpu" : 5,
+      "memory_per_cpu" : 1,
       "time" : {
         "number" : 5,
         "set" : true,
@@ -4952,16 +5556,17 @@ Content-Type: application/json
       "allowed" : "allowed"
     },
     "minimums" : {
-      "nodes" : 3
+      "nodes" : 9
     },
     "grace_time" : 5
   }, {
     "cluster" : "cluster",
     "cpus" : {
-      "task_binding" : 6,
-      "total" : 1
+      "task_binding" : [ "CPU_BIND_TO_THREADS", "CPU_BIND_TO_THREADS" ],
+      "total" : 6
     },
     "topology" : "topology",
+    "flags" : [ "DEFAULT", "DEFAULT" ],
     "timeouts" : {
       "resume" : {
         "number" : 2,
@@ -4978,19 +5583,19 @@ Content-Type: application/json
       "allowed" : "allowed"
     },
     "alternate" : "alternate",
-    "select_type" : [ "CPU", "CPU" ],
+    "select_type" : [ "NONE", "NONE" ],
     "suspend_time" : {
       "number" : 5,
       "set" : true,
       "infinite" : true
     },
     "priority" : {
-      "tier" : 4,
-      "job_factor" : 2
+      "tier" : 2,
+      "job_factor" : 3
     },
     "node_sets" : "node_sets",
     "maximums" : {
-      "shares" : 7,
+      "shares" : 2,
       "nodes" : {
         "number" : 5,
         "set" : true,
@@ -5017,10 +5622,10 @@ Content-Type: application/json
         "infinite" : true
       },
       "oversubscribe" : {
-        "jobs" : 9,
+        "jobs" : 7,
         "flags" : [ "force", "force" ]
       },
-      "memory_per_cpu" : 2,
+      "memory_per_cpu" : 5,
       "time" : {
         "number" : 5,
         "set" : true,
@@ -5032,12 +5637,15 @@ Content-Type: application/json
         "infinite" : true
       }
     },
+    "preempt_mode" : [ "CLUSTER_GLOBAL", "CLUSTER_GLOBAL" ],
     "nodes" : {
       "configured" : "configured",
       "total" : 0,
       "allowed_allocation" : "allowed_allocation"
     },
     "partition" : {
+      "oversubscribe" : "oversubscribe",
+      "exclusive" : "exclusive",
       "state" : [ "INACTIVE", "INACTIVE" ]
     },
     "qos" : {
@@ -5051,7 +5659,7 @@ Content-Type: application/json
         "set" : true,
         "infinite" : true
       },
-      "memory_per_cpu" : 5,
+      "memory_per_cpu" : 1,
       "time" : {
         "number" : 5,
         "set" : true,
@@ -5074,7 +5682,7 @@ Content-Type: application/json
       "allowed" : "allowed"
     },
     "minimums" : {
-      "nodes" : 3
+      "nodes" : 9
     },
     "grace_time" : 5
   } ],
@@ -5139,12 +5747,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 partition information
-[v0.0.44\_openapi\_partition\_resp](#v0.0.44_openapi_partition_resp)
+[v0.0.45\_openapi\_partition\_resp](#v0.0.45_openapi_partition_resp)
 
 #### default
 
 partition information
-[v0.0.44\_openapi\_partition\_resp](#v0.0.44_openapi_partition_resp)
+[v0.0.45\_openapi\_partition\_resp](#v0.0.45_openapi_partition_resp)
 
 
 
@@ -5153,14 +5761,14 @@ partition information
 [Up](#__Methods)
 
 ```
-get /slurm/v0.0.44/ping/
+get /slurm/v0.0.45/ping/
 ```
 
-ping test (slurmV0044GetPing)
+ping test (slurmV0045GetPing)
 
 ### Return type
 
-[v0.0.44\_openapi\_ping\_array\_resp](#v0.0.44_openapi_ping_array_resp)
+[v0.0.45\_openapi\_ping\_array\_resp](#v0.0.45_openapi_ping_array_resp)
 
 ### Example data
 
@@ -5199,19 +5807,17 @@ Content-Type: application/json
     "source" : "source"
   } ],
   "pings" : [ {
-    "mode" : "mode",
     "responding" : true,
     "hostname" : "hostname",
     "latency" : 0,
-    "pinged" : "pinged",
-    "primary" : true
+    "primary" : true,
+    "status" : "status"
   }, {
-    "mode" : "mode",
     "responding" : true,
     "hostname" : "hostname",
     "latency" : 0,
-    "pinged" : "pinged",
-    "primary" : true
+    "primary" : true,
+    "status" : "status"
   } ],
   "errors" : [ {
     "description" : "description",
@@ -5239,12 +5845,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 results of ping test
-[v0.0.44\_openapi\_ping\_array\_resp](#v0.0.44_openapi_ping_array_resp)
+[v0.0.45\_openapi\_ping\_array\_resp](#v0.0.45_openapi_ping_array_resp)
 
 #### default
 
 results of ping test
-[v0.0.44\_openapi\_ping\_array\_resp](#v0.0.44_openapi_ping_array_resp)
+[v0.0.45\_openapi\_ping\_array\_resp](#v0.0.45_openapi_ping_array_resp)
 
 
 
@@ -5253,14 +5859,14 @@ results of ping test
 [Up](#__Methods)
 
 ```
-get /slurm/v0.0.44/reconfigure/
+get /slurm/v0.0.45/reconfigure/
 ```
 
-request slurmctld reconfigure (slurmV0044GetReconfigure)
+request slurmctld reconfigure (slurmV0045GetReconfigure)
 
 ### Return type
 
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 ### Example data
 
@@ -5324,12 +5930,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 reconfigure request result
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 #### default
 
 reconfigure request result
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 
 
@@ -5338,10 +5944,10 @@ reconfigure request result
 [Up](#__Methods)
 
 ```
-get /slurm/v0.0.44/reservation/{reservation_name}
+get /slurm/v0.0.45/reservation/{reservation_name}
 ```
 
-get reservation info (slurmV0044GetReservation)
+get reservation info (slurmV0045GetReservation)
 
 ### Path parameters
 
@@ -5357,7 +5963,7 @@ Query Parameter — Query reservations updated more recently than this time (UNI
 
 ### Return type
 
-[v0.0.44\_openapi\_reservation\_resp](#v0.0.44_openapi_reservation_resp)
+[v0.0.45\_openapi\_reservation\_resp](#v0.0.45_openapi_reservation_resp)
 
 ### Example data
 
@@ -5384,11 +5990,6 @@ Content-Type: application/json
     "burst_buffer" : "burst_buffer",
     "licenses" : "licenses",
     "partition" : "partition",
-    "watts" : {
-      "number" : 5,
-      "set" : true,
-      "infinite" : true
-    },
     "core_specializations" : [ {
       "node" : "node",
       "core" : "core"
@@ -5428,11 +6029,6 @@ Content-Type: application/json
     "burst_buffer" : "burst_buffer",
     "licenses" : "licenses",
     "partition" : "partition",
-    "watts" : {
-      "number" : 5,
-      "set" : true,
-      "infinite" : true
-    },
     "core_specializations" : [ {
       "node" : "node",
       "core" : "core"
@@ -5515,12 +6111,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 reservation information
-[v0.0.44\_openapi\_reservation\_resp](#v0.0.44_openapi_reservation_resp)
+[v0.0.45\_openapi\_reservation\_resp](#v0.0.45_openapi_reservation_resp)
 
 #### default
 
 reservation information
-[v0.0.44\_openapi\_reservation\_resp](#v0.0.44_openapi_reservation_resp)
+[v0.0.45\_openapi\_reservation\_resp](#v0.0.45_openapi_reservation_resp)
 
 
 
@@ -5529,10 +6125,10 @@ reservation information
 [Up](#__Methods)
 
 ```
-get /slurm/v0.0.44/reservations/
+get /slurm/v0.0.45/reservations/
 ```
 
-get all reservation info (slurmV0044GetReservations)
+get all reservation info (slurmV0045GetReservations)
 
 ### Query parameters
 
@@ -5542,7 +6138,7 @@ Query Parameter — Query reservations updated more recently than this time (UNI
 
 ### Return type
 
-[v0.0.44\_openapi\_reservation\_resp](#v0.0.44_openapi_reservation_resp)
+[v0.0.45\_openapi\_reservation\_resp](#v0.0.45_openapi_reservation_resp)
 
 ### Example data
 
@@ -5569,11 +6165,6 @@ Content-Type: application/json
     "burst_buffer" : "burst_buffer",
     "licenses" : "licenses",
     "partition" : "partition",
-    "watts" : {
-      "number" : 5,
-      "set" : true,
-      "infinite" : true
-    },
     "core_specializations" : [ {
       "node" : "node",
       "core" : "core"
@@ -5613,11 +6204,6 @@ Content-Type: application/json
     "burst_buffer" : "burst_buffer",
     "licenses" : "licenses",
     "partition" : "partition",
-    "watts" : {
-      "number" : 5,
-      "set" : true,
-      "infinite" : true
-    },
     "core_specializations" : [ {
       "node" : "node",
       "core" : "core"
@@ -5700,12 +6286,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 reservation information
-[v0.0.44\_openapi\_reservation\_resp](#v0.0.44_openapi_reservation_resp)
+[v0.0.45\_openapi\_reservation\_resp](#v0.0.45_openapi_reservation_resp)
 
 #### default
 
 reservation information
-[v0.0.44\_openapi\_reservation\_resp](#v0.0.44_openapi_reservation_resp)
+[v0.0.45\_openapi\_reservation\_resp](#v0.0.45_openapi_reservation_resp)
 
 
 
@@ -5714,10 +6300,10 @@ reservation information
 [Up](#__Methods)
 
 ```
-get /slurm/v0.0.44/resources/{job_id}
+get /slurm/v0.0.45/resources/{job_id}
 ```
 
-get resource layout info (slurmV0044GetResources)
+get resource layout info (slurmV0045GetResources)
 
 ### Path parameters
 
@@ -5727,7 +6313,7 @@ Path Parameter — Job ID default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_resource\_layout\_resp](#v0.0.44_openapi_resource_layout_resp)
+[v0.0.45\_openapi\_resource\_layout\_resp](#v0.0.45_openapi_resource_layout_resp)
 
 ### Example data
 
@@ -5836,12 +6422,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 resource layout information
-[v0.0.44\_openapi\_resource\_layout\_resp](#v0.0.44_openapi_resource_layout_resp)
+[v0.0.45\_openapi\_resource\_layout\_resp](#v0.0.45_openapi_resource_layout_resp)
 
 #### default
 
 resource layout information
-[v0.0.44\_openapi\_resource\_layout\_resp](#v0.0.44_openapi_resource_layout_resp)
+[v0.0.45\_openapi\_resource\_layout\_resp](#v0.0.45_openapi_resource_layout_resp)
 
 
 
@@ -5850,10 +6436,10 @@ resource layout information
 [Up](#__Methods)
 
 ```
-get /slurm/v0.0.44/shares
+get /slurm/v0.0.45/shares
 ```
 
-get fairshare info (slurmV0044GetShares)
+get fairshare info (slurmV0045GetShares)
 
 ### Query parameters
 
@@ -5867,7 +6453,7 @@ Query Parameter — Users to query default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_shares\_resp](#v0.0.44_openapi_shares_resp)
+[v0.0.45\_openapi\_shares\_resp](#v0.0.45_openapi_shares_resp)
 
 ### Example data
 
@@ -6093,12 +6679,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 shares information
-[v0.0.44\_openapi\_shares\_resp](#v0.0.44_openapi_shares_resp)
+[v0.0.45\_openapi\_shares\_resp](#v0.0.45_openapi_shares_resp)
 
 #### default
 
 shares information
-[v0.0.44\_openapi\_shares\_resp](#v0.0.44_openapi_shares_resp)
+[v0.0.45\_openapi\_shares\_resp](#v0.0.45_openapi_shares_resp)
 
 
 
@@ -6107,10 +6693,10 @@ shares information
 [Up](#__Methods)
 
 ```
-post /slurm/v0.0.44/job/{job_id}
+post /slurm/v0.0.45/job/{job_id}
 ```
 
-update job (slurmV0044PostJob)
+update job (slurmV0045PostJob)
 
 ### Path parameters
 
@@ -6126,13 +6712,13 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_job\_desc\_msg [v0.0.44\_job\_desc\_msg](#v0.0.44_job_desc_msg) (optional)
+v0.0.45\_job\_desc\_msg [v0.0.45\_job\_desc\_msg](#v0.0.45_job_desc_msg) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_job\_post\_response](#v0.0.44_openapi_job_post_response)
+[v0.0.45\_openapi\_job\_post\_response](#v0.0.45_openapi_job_post_response)
 
 ### Example data
 
@@ -6209,12 +6795,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 job update result
-[v0.0.44\_openapi\_job\_post\_response](#v0.0.44_openapi_job_post_response)
+[v0.0.45\_openapi\_job\_post\_response](#v0.0.45_openapi_job_post_response)
 
 #### default
 
 job update result
-[v0.0.44\_openapi\_job\_post\_response](#v0.0.44_openapi_job_post_response)
+[v0.0.45\_openapi\_job\_post\_response](#v0.0.45_openapi_job_post_response)
 
 
 
@@ -6223,10 +6809,10 @@ job update result
 [Up](#__Methods)
 
 ```
-post /slurm/v0.0.44/job/allocate
+post /slurm/v0.0.45/job/allocate
 ```
 
-submit new job allocation without any steps that must be signaled to stop (slurmV0044PostJobAllocate)
+submit new job allocation without any steps that must be signaled to stop (slurmV0045PostJobAllocate)
 
 ### Consumes
 
@@ -6236,13 +6822,13 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_job\_alloc\_req [v0.0.44\_job\_alloc\_req](#v0.0.44_job_alloc_req) (optional)
+v0.0.45\_job\_alloc\_req [v0.0.45\_job\_alloc\_req](#v0.0.45_job_alloc_req) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_job\_alloc\_resp](#v0.0.44_openapi_job_alloc_resp)
+[v0.0.45\_openapi\_job\_alloc\_resp](#v0.0.45_openapi_job_alloc_resp)
 
 ### Example data
 
@@ -6308,12 +6894,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 job allocation response
-[v0.0.44\_openapi\_job\_alloc\_resp](#v0.0.44_openapi_job_alloc_resp)
+[v0.0.45\_openapi\_job\_alloc\_resp](#v0.0.45_openapi_job_alloc_resp)
 
 #### default
 
 job allocation response
-[v0.0.44\_openapi\_job\_alloc\_resp](#v0.0.44_openapi_job_alloc_resp)
+[v0.0.45\_openapi\_job\_alloc\_resp](#v0.0.45_openapi_job_alloc_resp)
 
 
 
@@ -6322,10 +6908,10 @@ job allocation response
 [Up](#__Methods)
 
 ```
-post /slurm/v0.0.44/job/submit
+post /slurm/v0.0.45/job/submit
 ```
 
-submit new job (slurmV0044PostJobSubmit)
+submit new job (slurmV0045PostJobSubmit)
 
 ### Consumes
 
@@ -6335,13 +6921,13 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_job\_submit\_req [v0.0.44\_job\_submit\_req](#v0.0.44_job_submit_req) (optional)
+v0.0.45\_job\_submit\_req [v0.0.45\_job\_submit\_req](#v0.0.45_job_submit_req) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_job\_submit\_response](#v0.0.44_openapi_job_submit_response)
+[v0.0.45\_openapi\_job\_submit\_response](#v0.0.45_openapi_job_submit_response)
 
 ### Example data
 
@@ -6408,12 +6994,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 job submission response
-[v0.0.44\_openapi\_job\_submit\_response](#v0.0.44_openapi_job_submit_response)
+[v0.0.45\_openapi\_job\_submit\_response](#v0.0.45_openapi_job_submit_response)
 
 #### default
 
 job submission response
-[v0.0.44\_openapi\_job\_submit\_response](#v0.0.44_openapi_job_submit_response)
+[v0.0.45\_openapi\_job\_submit\_response](#v0.0.45_openapi_job_submit_response)
 
 
 
@@ -6422,10 +7008,10 @@ job submission response
 [Up](#__Methods)
 
 ```
-post /slurm/v0.0.44/new/node/
+post /slurm/v0.0.45/jobs/requeue
 ```
 
-create node (slurmV0044PostNewNode)
+batch requeue job(s) (slurmV0045PostJobsRequeue)
 
 ### Consumes
 
@@ -6435,13 +7021,111 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_openapi\_create\_node\_req [v0.0.44\_openapi\_create\_node\_req](#v0.0.44_openapi_create_node_req) (optional)
+v0.0.45\_openapi\_jobs\_requeue\_query [v0.0.45\_openapi\_jobs\_requeue\_query](#v0.0.45_openapi_jobs_requeue_query) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_jobs\_requeue\_resp](#v0.0.45_openapi_jobs_requeue_resp)
+
+### Example data
+
+Content-Type: application/json
+
+```
+{
+  "meta" : {
+    "slurm" : {
+      "cluster" : "cluster",
+      "release" : "release",
+      "version" : {
+        "major" : "major",
+        "minor" : "minor",
+        "micro" : "micro"
+      }
+    },
+    "plugin" : {
+      "accounting_storage" : "accounting_storage",
+      "name" : "name",
+      "type" : "type",
+      "data_parser" : "data_parser"
+    },
+    "client" : {
+      "source" : "source",
+      "user" : "user",
+      "group" : "group"
+    },
+    "command" : [ "command", "command" ]
+  },
+  "warnings" : [ {
+    "description" : "description",
+    "source" : "source"
+  }, {
+    "description" : "description",
+    "source" : "source"
+  } ],
+  "errors" : [ {
+    "description" : "description",
+    "source" : "source",
+    "error" : "error",
+    "error_number" : 7
+  }, {
+    "description" : "description",
+    "source" : "source",
+    "error" : "error",
+    "error_number" : 7
+  } ],
+  "status" : [ null, null ]
+}
+```
+
+### Produces
+
+This API call produces the following media types according to the Accept request header;
+the media type will be conveyed by the Content-Type response header.
+
+* `application/json`
+
+### Responses
+
+#### 200
+
+batch job requeue request result
+[v0.0.45\_openapi\_jobs\_requeue\_resp](#v0.0.45_openapi_jobs_requeue_resp)
+
+#### default
+
+batch job requeue request result
+[v0.0.45\_openapi\_jobs\_requeue\_resp](#v0.0.45_openapi_jobs_requeue_resp)
+
+
+
+---
+
+[Up](#__Methods)
+
+```
+post /slurm/v0.0.45/new/node/
+```
+
+create node (slurmV0045PostNewNode)
+
+### Consumes
+
+This API call consumes the following media types via the Content-Type request header:
+
+* `application/json`
+
+### Request body
+
+v0.0.45\_openapi\_create\_node\_req [v0.0.45\_openapi\_create\_node\_req](#v0.0.45_openapi_create_node_req) (optional)
+
+Body Parameter —
+
+### Return type
+
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 ### Example data
 
@@ -6505,12 +7189,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 node create request result
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 #### default
 
 node create request result
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 
 
@@ -6519,10 +7203,10 @@ node create request result
 [Up](#__Methods)
 
 ```
-post /slurm/v0.0.44/node/{node_name}
+post /slurm/v0.0.45/node/{node_name}
 ```
 
-update node properties (slurmV0044PostNode)
+update node properties (slurmV0045PostNode)
 
 ### Path parameters
 
@@ -6538,13 +7222,13 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_update\_node\_msg [v0.0.44\_update\_node\_msg](#v0.0.44_update_node_msg) (optional)
+v0.0.45\_update\_node\_msg [v0.0.45\_update\_node\_msg](#v0.0.45_update_node_msg) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 ### Example data
 
@@ -6608,12 +7292,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 node update request result
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 #### default
 
 node update request result
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 
 
@@ -6622,10 +7306,10 @@ node update request result
 [Up](#__Methods)
 
 ```
-post /slurm/v0.0.44/nodes/
+post /slurm/v0.0.45/nodes/
 ```
 
-batch update node(s) (slurmV0044PostNodes)
+batch update node(s) (slurmV0045PostNodes)
 
 ### Consumes
 
@@ -6635,13 +7319,13 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_update\_node\_msg [v0.0.44\_update\_node\_msg](#v0.0.44_update_node_msg) (optional)
+v0.0.45\_update\_node\_msg [v0.0.45\_update\_node\_msg](#v0.0.45_update_node_msg) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 ### Example data
 
@@ -6705,12 +7389,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 batch node update request result
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 #### default
 
 batch node update request result
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 
 
@@ -6719,10 +7403,10 @@ batch node update request result
 [Up](#__Methods)
 
 ```
-post /slurm/v0.0.44/reservation
+post /slurm/v0.0.45/partitions/
 ```
 
-create or update a reservation (slurmV0044PostReservation)
+create or update partitions (slurmV0045PostPartitions)
 
 ### Consumes
 
@@ -6732,13 +7416,110 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_reservation\_desc\_msg [v0.0.44\_reservation\_desc\_msg](#v0.0.44_reservation_desc_msg) (optional)
+v0.0.45\_openapi\_partitions\_mod\_req [v0.0.45\_openapi\_partitions\_mod\_req](#v0.0.45_openapi_partitions_mod_req) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_reservation\_mod\_resp](#v0.0.44_openapi_reservation_mod_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
+
+### Example data
+
+Content-Type: application/json
+
+```
+{
+  "meta" : {
+    "slurm" : {
+      "cluster" : "cluster",
+      "release" : "release",
+      "version" : {
+        "major" : "major",
+        "minor" : "minor",
+        "micro" : "micro"
+      }
+    },
+    "plugin" : {
+      "accounting_storage" : "accounting_storage",
+      "name" : "name",
+      "type" : "type",
+      "data_parser" : "data_parser"
+    },
+    "client" : {
+      "source" : "source",
+      "user" : "user",
+      "group" : "group"
+    },
+    "command" : [ "command", "command" ]
+  },
+  "warnings" : [ {
+    "description" : "description",
+    "source" : "source"
+  }, {
+    "description" : "description",
+    "source" : "source"
+  } ],
+  "errors" : [ {
+    "description" : "description",
+    "source" : "source",
+    "error" : "error",
+    "error_number" : 7
+  }, {
+    "description" : "description",
+    "source" : "source",
+    "error" : "error",
+    "error_number" : 7
+  } ]
+}
+```
+
+### Produces
+
+This API call produces the following media types according to the Accept request header;
+the media type will be conveyed by the Content-Type response header.
+
+* `application/json`
+
+### Responses
+
+#### 200
+
+partition update or create request results
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
+
+#### default
+
+partition update or create request results
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
+
+
+
+---
+
+[Up](#__Methods)
+
+```
+post /slurm/v0.0.45/reservation
+```
+
+create or update a reservation (slurmV0045PostReservation)
+
+### Consumes
+
+This API call consumes the following media types via the Content-Type request header:
+
+* `application/json`
+
+### Request body
+
+v0.0.45\_reservation\_desc\_msg [v0.0.45\_reservation\_desc\_msg](#v0.0.45_reservation_desc_msg) (optional)
+
+Body Parameter —
+
+### Return type
+
+[v0.0.45\_openapi\_reservation\_mod\_resp](#v0.0.45_openapi_reservation_mod_resp)
 
 ### Example data
 
@@ -6923,12 +7704,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 reservation description
-[v0.0.44\_openapi\_reservation\_mod\_resp](#v0.0.44_openapi_reservation_mod_resp)
+[v0.0.45\_openapi\_reservation\_mod\_resp](#v0.0.45_openapi_reservation_mod_resp)
 
 #### default
 
 reservation description
-[v0.0.44\_openapi\_reservation\_mod\_resp](#v0.0.44_openapi_reservation_mod_resp)
+[v0.0.45\_openapi\_reservation\_mod\_resp](#v0.0.45_openapi_reservation_mod_resp)
 
 
 
@@ -6937,10 +7718,10 @@ reservation description
 [Up](#__Methods)
 
 ```
-post /slurm/v0.0.44/reservations/
+post /slurm/v0.0.45/reservations/
 ```
 
-create or update reservations (slurmV0044PostReservations)
+create or update reservations (slurmV0045PostReservations)
 
 ### Consumes
 
@@ -6950,13 +7731,13 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_reservation\_mod\_req [v0.0.44\_reservation\_mod\_req](#v0.0.44_reservation_mod_req) (optional)
+v0.0.45\_reservation\_mod\_req [v0.0.45\_reservation\_mod\_req](#v0.0.45_reservation_mod_req) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_reservation\_mod\_resp](#v0.0.44_openapi_reservation_mod_resp)
+[v0.0.45\_openapi\_reservation\_mod\_resp](#v0.0.45_openapi_reservation_mod_resp)
 
 ### Example data
 
@@ -7141,12 +7922,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 reservation descriptions
-[v0.0.44\_openapi\_reservation\_mod\_resp](#v0.0.44_openapi_reservation_mod_resp)
+[v0.0.45\_openapi\_reservation\_mod\_resp](#v0.0.45_openapi_reservation_mod_resp)
 
 #### default
 
 reservation descriptions
-[v0.0.44\_openapi\_reservation\_mod\_resp](#v0.0.44_openapi_reservation_mod_resp)
+[v0.0.45\_openapi\_reservation\_mod\_resp](#v0.0.45_openapi_reservation_mod_resp)
 
 
 
@@ -7157,10 +7938,10 @@ reservation descriptions
 [Up](#__Methods)
 
 ```
-delete /slurmdb/v0.0.44/account/{account_name}
+delete /slurmdb/v0.0.45/account/{account_name}
 ```
 
-Delete account (slurmdbV0044DeleteAccount)
+Delete account (slurmdbV0045DeleteAccount)
 
 ### Path parameters
 
@@ -7170,7 +7951,7 @@ Path Parameter — Account name default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_accounts\_removed\_resp](#v0.0.44_openapi_accounts_removed_resp)
+[v0.0.45\_openapi\_accounts\_removed\_resp](#v0.0.45_openapi_accounts_removed_resp)
 
 ### Example data
 
@@ -7235,12 +8016,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Status of account deletion request
-[v0.0.44\_openapi\_accounts\_removed\_resp](#v0.0.44_openapi_accounts_removed_resp)
+[v0.0.45\_openapi\_accounts\_removed\_resp](#v0.0.45_openapi_accounts_removed_resp)
 
 #### default
 
 Status of account deletion request
-[v0.0.44\_openapi\_accounts\_removed\_resp](#v0.0.44_openapi_accounts_removed_resp)
+[v0.0.45\_openapi\_accounts\_removed\_resp](#v0.0.45_openapi_accounts_removed_resp)
 
 
 
@@ -7249,10 +8030,10 @@ Status of account deletion request
 [Up](#__Methods)
 
 ```
-delete /slurmdb/v0.0.44/association/
+delete /slurmdb/v0.0.45/association/
 ```
 
-Delete association (slurmdbV0044DeleteAssociation)
+Delete association (slurmdbV0045DeleteAssociation)
 
 ### Query parameters
 
@@ -7296,10 +8077,6 @@ Exclude limits from parents (optional)
 
 Query Parameter — default: null
 
-format (optional)
-
-Query Parameter — Ignored; process JSON manually to control output format default: null
-
 id (optional)
 
 Query Parameter — CSV ID list default: null
@@ -7330,7 +8107,7 @@ Query Parameter — CSV user list default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_assocs\_removed\_resp](#v0.0.44_openapi_assocs_removed_resp)
+[v0.0.45\_openapi\_assocs\_removed\_resp](#v0.0.45_openapi_assocs_removed_resp)
 
 ### Example data
 
@@ -7395,12 +8172,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Status of associations delete request
-[v0.0.44\_openapi\_assocs\_removed\_resp](#v0.0.44_openapi_assocs_removed_resp)
+[v0.0.45\_openapi\_assocs\_removed\_resp](#v0.0.45_openapi_assocs_removed_resp)
 
 #### default
 
 Status of associations delete request
-[v0.0.44\_openapi\_assocs\_removed\_resp](#v0.0.44_openapi_assocs_removed_resp)
+[v0.0.45\_openapi\_assocs\_removed\_resp](#v0.0.45_openapi_assocs_removed_resp)
 
 
 
@@ -7409,10 +8186,10 @@ Status of associations delete request
 [Up](#__Methods)
 
 ```
-delete /slurmdb/v0.0.44/associations/
+delete /slurmdb/v0.0.45/associations/
 ```
 
-Delete associations (slurmdbV0044DeleteAssociations)
+Delete associations (slurmdbV0045DeleteAssociations)
 
 ### Query parameters
 
@@ -7456,10 +8233,6 @@ Exclude limits from parents (optional)
 
 Query Parameter — default: null
 
-format (optional)
-
-Query Parameter — Ignored; process JSON manually to control output format default: null
-
 id (optional)
 
 Query Parameter — CSV ID list default: null
@@ -7490,7 +8263,7 @@ Query Parameter — CSV user list default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_assocs\_removed\_resp](#v0.0.44_openapi_assocs_removed_resp)
+[v0.0.45\_openapi\_assocs\_removed\_resp](#v0.0.45_openapi_assocs_removed_resp)
 
 ### Example data
 
@@ -7555,12 +8328,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 List of associations deleted
-[v0.0.44\_openapi\_assocs\_removed\_resp](#v0.0.44_openapi_assocs_removed_resp)
+[v0.0.45\_openapi\_assocs\_removed\_resp](#v0.0.45_openapi_assocs_removed_resp)
 
 #### default
 
 List of associations deleted
-[v0.0.44\_openapi\_assocs\_removed\_resp](#v0.0.44_openapi_assocs_removed_resp)
+[v0.0.45\_openapi\_assocs\_removed\_resp](#v0.0.45_openapi_assocs_removed_resp)
 
 
 
@@ -7569,10 +8342,10 @@ List of associations deleted
 [Up](#__Methods)
 
 ```
-delete /slurmdb/v0.0.44/cluster/{cluster_name}
+delete /slurmdb/v0.0.45/cluster/{cluster_name}
 ```
 
-Delete cluster (slurmdbV0044DeleteCluster)
+Delete cluster (slurmdbV0045DeleteCluster)
 
 ### Path parameters
 
@@ -7598,10 +8371,6 @@ flags (optional)
 
 Query Parameter — Query flags default: null
 
-format (optional)
-
-Query Parameter — Ignored; process JSON manually to control output format default: null
-
 rpc\_version (optional)
 
 Query Parameter — CSV RPC version list default: null
@@ -7624,7 +8393,7 @@ Query Parameter — Include usage default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_clusters\_removed\_resp](#v0.0.44_openapi_clusters_removed_resp)
+[v0.0.45\_openapi\_clusters\_removed\_resp](#v0.0.45_openapi_clusters_removed_resp)
 
 ### Example data
 
@@ -7689,12 +8458,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Result of delete cluster request
-[v0.0.44\_openapi\_clusters\_removed\_resp](#v0.0.44_openapi_clusters_removed_resp)
+[v0.0.45\_openapi\_clusters\_removed\_resp](#v0.0.45_openapi_clusters_removed_resp)
 
 #### default
 
 Result of delete cluster request
-[v0.0.44\_openapi\_clusters\_removed\_resp](#v0.0.44_openapi_clusters_removed_resp)
+[v0.0.45\_openapi\_clusters\_removed\_resp](#v0.0.45_openapi_clusters_removed_resp)
 
 
 
@@ -7703,10 +8472,10 @@ Result of delete cluster request
 [Up](#__Methods)
 
 ```
-delete /slurmdb/v0.0.44/qos/{qos}
+delete /slurmdb/v0.0.45/qos/{qos}
 ```
 
-Delete QOS (slurmdbV0044DeleteSingleQos)
+Delete QOS (slurmdbV0045DeleteSingleQos)
 
 ### Path parameters
 
@@ -7716,7 +8485,7 @@ Path Parameter — QOS name default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_slurmdbd\_qos\_removed\_resp](#v0.0.44_openapi_slurmdbd_qos_removed_resp)
+[v0.0.45\_openapi\_slurmdbd\_qos\_removed\_resp](#v0.0.45_openapi_slurmdbd_qos_removed_resp)
 
 ### Example data
 
@@ -7781,12 +8550,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 results of ping test
-[v0.0.44\_openapi\_slurmdbd\_qos\_removed\_resp](#v0.0.44_openapi_slurmdbd_qos_removed_resp)
+[v0.0.45\_openapi\_slurmdbd\_qos\_removed\_resp](#v0.0.45_openapi_slurmdbd_qos_removed_resp)
 
 #### default
 
 results of ping test
-[v0.0.44\_openapi\_slurmdbd\_qos\_removed\_resp](#v0.0.44_openapi_slurmdbd_qos_removed_resp)
+[v0.0.45\_openapi\_slurmdbd\_qos\_removed\_resp](#v0.0.45_openapi_slurmdbd_qos_removed_resp)
 
 
 
@@ -7795,10 +8564,10 @@ results of ping test
 [Up](#__Methods)
 
 ```
-delete /slurmdb/v0.0.44/user/{name}
+delete /slurmdb/v0.0.45/user/{name}
 ```
 
-Delete user (slurmdbV0044DeleteUser)
+Delete user (slurmdbV0045DeleteUser)
 
 ### Path parameters
 
@@ -7808,7 +8577,7 @@ Path Parameter — User name default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 ### Example data
 
@@ -7872,12 +8641,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Result of user delete request
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 #### default
 
 Result of user delete request
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 
 
@@ -7886,10 +8655,10 @@ Result of user delete request
 [Up](#__Methods)
 
 ```
-delete /slurmdb/v0.0.44/wckey/{id}
+delete /slurmdb/v0.0.45/wckey/{id}
 ```
 
-Delete wckey (slurmdbV0044DeleteWckey)
+Delete wckey (slurmdbV0045DeleteWckey)
 
 ### Path parameters
 
@@ -7899,7 +8668,7 @@ Path Parameter — WCKey ID default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_wckey\_removed\_resp](#v0.0.44_openapi_wckey_removed_resp)
+[v0.0.45\_openapi\_wckey\_removed\_resp](#v0.0.45_openapi_wckey_removed_resp)
 
 ### Example data
 
@@ -7964,12 +8733,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Result of wckey deletion request
-[v0.0.44\_openapi\_wckey\_removed\_resp](#v0.0.44_openapi_wckey_removed_resp)
+[v0.0.45\_openapi\_wckey\_removed\_resp](#v0.0.45_openapi_wckey_removed_resp)
 
 #### default
 
 Result of wckey deletion request
-[v0.0.44\_openapi\_wckey\_removed\_resp](#v0.0.44_openapi_wckey_removed_resp)
+[v0.0.45\_openapi\_wckey\_removed\_resp](#v0.0.45_openapi_wckey_removed_resp)
 
 
 
@@ -7978,10 +8747,10 @@ Result of wckey deletion request
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/account/{account_name}
+get /slurmdb/v0.0.45/account/{account_name}
 ```
 
-Get account info (slurmdbV0044GetAccount)
+Get account info (slurmdbV0045GetAccount)
 
 ### Path parameters
 
@@ -8005,7 +8774,7 @@ Query Parameter — Include deleted default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_accounts\_resp](#v0.0.44_openapi_accounts_resp)
+[v0.0.45\_openapi\_accounts\_resp](#v0.0.45_openapi_accounts_resp)
 
 ### Example data
 
@@ -8120,12 +8889,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 List of accounts
-[v0.0.44\_openapi\_accounts\_resp](#v0.0.44_openapi_accounts_resp)
+[v0.0.45\_openapi\_accounts\_resp](#v0.0.45_openapi_accounts_resp)
 
 #### default
 
 List of accounts
-[v0.0.44\_openapi\_accounts\_resp](#v0.0.44_openapi_accounts_resp)
+[v0.0.45\_openapi\_accounts\_resp](#v0.0.45_openapi_accounts_resp)
 
 
 
@@ -8134,10 +8903,10 @@ List of accounts
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/accounts/
+get /slurmdb/v0.0.45/accounts/
 ```
 
-Get account list (slurmdbV0044GetAccounts)
+Get account list (slurmdbV0045GetAccounts)
 
 ### Query parameters
 
@@ -8167,7 +8936,7 @@ Query Parameter — users are coordinators default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_accounts\_resp](#v0.0.44_openapi_accounts_resp)
+[v0.0.45\_openapi\_accounts\_resp](#v0.0.45_openapi_accounts_resp)
 
 ### Example data
 
@@ -8282,12 +9051,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 List of accounts
-[v0.0.44\_openapi\_accounts\_resp](#v0.0.44_openapi_accounts_resp)
+[v0.0.45\_openapi\_accounts\_resp](#v0.0.45_openapi_accounts_resp)
 
 #### default
 
 List of accounts
-[v0.0.44\_openapi\_accounts\_resp](#v0.0.44_openapi_accounts_resp)
+[v0.0.45\_openapi\_accounts\_resp](#v0.0.45_openapi_accounts_resp)
 
 
 
@@ -8296,10 +9065,10 @@ List of accounts
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/association/
+get /slurmdb/v0.0.45/association/
 ```
 
-Get association info (slurmdbV0044GetAssociation)
+Get association info (slurmdbV0045GetAssociation)
 
 ### Query parameters
 
@@ -8343,10 +9112,6 @@ Exclude limits from parents (optional)
 
 Query Parameter — default: null
 
-format (optional)
-
-Query Parameter — Ignored; process JSON manually to control output format default: null
-
 id (optional)
 
 Query Parameter — CSV ID list default: null
@@ -8377,7 +9142,7 @@ Query Parameter — CSV user list default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_assocs\_resp](#v0.0.44_openapi_assocs_resp)
+[v0.0.45\_openapi\_assocs\_resp](#v0.0.45_openapi_assocs_resp)
 
 ### Example data
 
@@ -8826,12 +9591,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 List of associations
-[v0.0.44\_openapi\_assocs\_resp](#v0.0.44_openapi_assocs_resp)
+[v0.0.45\_openapi\_assocs\_resp](#v0.0.45_openapi_assocs_resp)
 
 #### default
 
 List of associations
-[v0.0.44\_openapi\_assocs\_resp](#v0.0.44_openapi_assocs_resp)
+[v0.0.45\_openapi\_assocs\_resp](#v0.0.45_openapi_assocs_resp)
 
 
 
@@ -8840,10 +9605,10 @@ List of associations
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/associations/
+get /slurmdb/v0.0.45/associations/
 ```
 
-Get association list (slurmdbV0044GetAssociations)
+Get association list (slurmdbV0045GetAssociations)
 
 ### Query parameters
 
@@ -8887,10 +9652,6 @@ Exclude limits from parents (optional)
 
 Query Parameter — default: null
 
-format (optional)
-
-Query Parameter — Ignored; process JSON manually to control output format default: null
-
 id (optional)
 
 Query Parameter — CSV ID list default: null
@@ -8921,7 +9682,7 @@ Query Parameter — CSV user list default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_assocs\_resp](#v0.0.44_openapi_assocs_resp)
+[v0.0.45\_openapi\_assocs\_resp](#v0.0.45_openapi_assocs_resp)
 
 ### Example data
 
@@ -9370,12 +10131,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 List of associations
-[v0.0.44\_openapi\_assocs\_resp](#v0.0.44_openapi_assocs_resp)
+[v0.0.45\_openapi\_assocs\_resp](#v0.0.45_openapi_assocs_resp)
 
 #### default
 
 List of associations
-[v0.0.44\_openapi\_assocs\_resp](#v0.0.44_openapi_assocs_resp)
+[v0.0.45\_openapi\_assocs\_resp](#v0.0.45_openapi_assocs_resp)
 
 
 
@@ -9384,10 +10145,10 @@ List of associations
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/cluster/{cluster_name}
+get /slurmdb/v0.0.45/cluster/{cluster_name}
 ```
 
-Get cluster info (slurmdbV0044GetCluster)
+Get cluster info (slurmdbV0045GetCluster)
 
 ### Path parameters
 
@@ -9413,10 +10174,6 @@ flags (optional)
 
 Query Parameter — Query flags default: null
 
-format (optional)
-
-Query Parameter — Ignored; process JSON manually to control output format default: null
-
 rpc\_version (optional)
 
 Query Parameter — CSV RPC version list default: null
@@ -9439,7 +10196,7 @@ Query Parameter — Include usage default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_clusters\_resp](#v0.0.44_openapi_clusters_resp)
+[v0.0.45\_openapi\_clusters\_resp](#v0.0.45_openapi_clusters_resp)
 
 ### Example data
 
@@ -9505,8 +10262,7 @@ Content-Type: application/json
       "count" : 0,
       "id" : 7,
       "type" : "type"
-    } ],
-    "select_plugin" : "select_plugin"
+    } ]
   }, {
     "associations" : {
       "root" : {
@@ -9535,8 +10291,7 @@ Content-Type: application/json
       "count" : 0,
       "id" : 7,
       "type" : "type"
-    } ],
-    "select_plugin" : "select_plugin"
+    } ]
   } ],
   "errors" : [ {
     "description" : "description",
@@ -9564,12 +10319,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Cluster information
-[v0.0.44\_openapi\_clusters\_resp](#v0.0.44_openapi_clusters_resp)
+[v0.0.45\_openapi\_clusters\_resp](#v0.0.45_openapi_clusters_resp)
 
 #### default
 
 Cluster information
-[v0.0.44\_openapi\_clusters\_resp](#v0.0.44_openapi_clusters_resp)
+[v0.0.45\_openapi\_clusters\_resp](#v0.0.45_openapi_clusters_resp)
 
 
 
@@ -9578,10 +10333,10 @@ Cluster information
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/clusters/
+get /slurmdb/v0.0.45/clusters/
 ```
 
-Get cluster list (slurmdbV0044GetClusters)
+Get cluster list (slurmdbV0045GetClusters)
 
 ### Query parameters
 
@@ -9591,7 +10346,7 @@ Query Parameter — Query reservations updated more recently than this time (UNI
 
 ### Return type
 
-[v0.0.44\_openapi\_clusters\_resp](#v0.0.44_openapi_clusters_resp)
+[v0.0.45\_openapi\_clusters\_resp](#v0.0.45_openapi_clusters_resp)
 
 ### Example data
 
@@ -9657,8 +10412,7 @@ Content-Type: application/json
       "count" : 0,
       "id" : 7,
       "type" : "type"
-    } ],
-    "select_plugin" : "select_plugin"
+    } ]
   }, {
     "associations" : {
       "root" : {
@@ -9687,8 +10441,7 @@ Content-Type: application/json
       "count" : 0,
       "id" : 7,
       "type" : "type"
-    } ],
-    "select_plugin" : "select_plugin"
+    } ]
   } ],
   "errors" : [ {
     "description" : "description",
@@ -9716,12 +10469,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 List of clusters
-[v0.0.44\_openapi\_clusters\_resp](#v0.0.44_openapi_clusters_resp)
+[v0.0.45\_openapi\_clusters\_resp](#v0.0.45_openapi_clusters_resp)
 
 #### default
 
 List of clusters
-[v0.0.44\_openapi\_clusters\_resp](#v0.0.44_openapi_clusters_resp)
+[v0.0.45\_openapi\_clusters\_resp](#v0.0.45_openapi_clusters_resp)
 
 
 
@@ -9730,14 +10483,186 @@ List of clusters
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/config
+get /slurmdb/v0.0.45/conf
 ```
 
-Dump all configuration information (slurmdbV0044GetConfig)
+Dump slurmdbd configuration (slurmdbV0045GetConf)
 
 ### Return type
 
-[v0.0.44\_openapi\_slurmdbd\_config\_resp](#v0.0.44_openapi_slurmdbd_config_resp)
+[v0.0.45\_openapi\_slurmdbd\_conf\_resp](#v0.0.45_openapi_slurmdbd_conf_resp)
+
+### Example data
+
+Content-Type: application/json
+
+```
+{
+  "slurmdbd_conf" : {
+    "PurgeEventAfter" : {
+      "hours" : 5,
+      "set" : true,
+      "months" : 2,
+      "days" : 5,
+      "archive" : true
+    },
+    "PurgeResvAfter" : {
+      "hours" : 5,
+      "set" : true,
+      "months" : 2,
+      "days" : 5,
+      "archive" : true
+    },
+    "TrackSlurmctldDown" : true,
+    "TrackWCKey" : true,
+    "PersistConnFlags" : [ "PreserveCaseUser", "PreserveCaseUser" ],
+    "PidFile" : "PidFile",
+    "DbdHost" : "DbdHost",
+    "PurgeUsageAfter" : {
+      "hours" : 5,
+      "set" : true,
+      "months" : 2,
+      "days" : 5,
+      "archive" : true
+    },
+    "LogFile" : "LogFile",
+    "StorageUser" : "StorageUser",
+    "PurgeJobEnvAfter" : {
+      "hours" : 5,
+      "set" : true,
+      "months" : 2,
+      "days" : 5,
+      "archive" : true
+    },
+    "DbdAddr" : "DbdAddr",
+    "PurgeTXNAfter" : {
+      "hours" : 5,
+      "set" : true,
+      "months" : 2,
+      "days" : 5,
+      "archive" : true
+    },
+    "StoragePassScript" : "StoragePassScript",
+    "ArchiveDir" : "ArchiveDir",
+    "DebugLevel" : "DebugLevel",
+    "PurgeStepAfter" : {
+      "hours" : 5,
+      "set" : true,
+      "months" : 2,
+      "days" : 5,
+      "archive" : true
+    },
+    "Parameters" : [ "Parameters", "Parameters" ],
+    "MaxQueryTimeRange" : "MaxQueryTimeRange",
+    "CommitDelay" : 0,
+    "Flags" : [ "AllowNoDefAcct", "AllowNoDefAcct" ],
+    "ArchiveScript" : "ArchiveScript",
+    "DbdPort" : 6,
+    "PurgeJobScriptAfter" : {
+      "hours" : 5,
+      "set" : true,
+      "months" : 2,
+      "days" : 5,
+      "archive" : true
+    },
+    "DefaultQOS" : "DefaultQOS",
+    "DbdBackupHost" : "DbdBackupHost",
+    "PurgeSuspendAfter" : {
+      "hours" : 5,
+      "set" : true,
+      "months" : 2,
+      "days" : 5,
+      "archive" : true
+    },
+    "PurgeJobAfter" : {
+      "hours" : 5,
+      "set" : true,
+      "months" : 2,
+      "days" : 5,
+      "archive" : true
+    },
+    "MaxPurgeLimit" : 1,
+    "DebugLevelSyslog" : "DebugLevelSyslog",
+    "StorageLoc" : "StorageLoc"
+  },
+  "meta" : {
+    "slurm" : {
+      "cluster" : "cluster",
+      "release" : "release",
+      "version" : {
+        "major" : "major",
+        "minor" : "minor",
+        "micro" : "micro"
+      }
+    },
+    "plugin" : {
+      "accounting_storage" : "accounting_storage",
+      "name" : "name",
+      "type" : "type",
+      "data_parser" : "data_parser"
+    },
+    "client" : {
+      "source" : "source",
+      "user" : "user",
+      "group" : "group"
+    },
+    "command" : [ "command", "command" ]
+  },
+  "warnings" : [ {
+    "description" : "description",
+    "source" : "source"
+  }, {
+    "description" : "description",
+    "source" : "source"
+  } ],
+  "errors" : [ {
+    "description" : "description",
+    "source" : "source",
+    "error" : "error",
+    "error_number" : 7
+  }, {
+    "description" : "description",
+    "source" : "source",
+    "error" : "error",
+    "error_number" : 7
+  } ]
+}
+```
+
+### Produces
+
+This API call produces the following media types according to the Accept request header;
+the media type will be conveyed by the Content-Type response header.
+
+* `application/json`
+
+### Responses
+
+#### 200
+
+slurmdbd configuration
+[v0.0.45\_openapi\_slurmdbd\_conf\_resp](#v0.0.45_openapi_slurmdbd_conf_resp)
+
+#### default
+
+slurmdbd configuration
+[v0.0.45\_openapi\_slurmdbd\_conf\_resp](#v0.0.45_openapi_slurmdbd_conf_resp)
+
+
+
+---
+
+[Up](#__Methods)
+
+```
+get /slurmdb/v0.0.45/config
+```
+
+Dump all configuration information (slurmdbV0045GetConfig)
+
+### Return type
+
+[v0.0.45\_openapi\_slurmdbd\_config\_resp](#v0.0.45_openapi_slurmdbd_config_resp)
 
 ### Example data
 
@@ -10702,27 +11627,6 @@ Content-Type: application/json
     "id" : 9,
     "user" : "user"
   } ],
-  "instances" : [ {
-    "cluster" : "cluster",
-    "instance_id" : "instance_id",
-    "extra" : "extra",
-    "node_name" : "node_name",
-    "time" : {
-      "time_start" : 1,
-      "time_end" : 1
-    },
-    "instance_type" : "instance_type"
-  }, {
-    "cluster" : "cluster",
-    "instance_id" : "instance_id",
-    "extra" : "extra",
-    "node_name" : "node_name",
-    "time" : {
-      "time_start" : 1,
-      "time_end" : 1
-    },
-    "instance_type" : "instance_type"
-  } ],
   "meta" : {
     "slurm" : {
       "cluster" : "cluster",
@@ -10843,8 +11747,7 @@ Content-Type: application/json
       "count" : 0,
       "id" : 7,
       "type" : "type"
-    } ],
-    "select_plugin" : "select_plugin"
+    } ]
   }, {
     "associations" : {
       "root" : {
@@ -10873,8 +11776,7 @@ Content-Type: application/json
       "count" : 0,
       "id" : 7,
       "type" : "type"
-    } ],
-    "select_plugin" : "select_plugin"
+    } ]
   } ],
   "users" : [ {
     "associations" : [ {
@@ -11097,12 +11999,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 slurmdbd configuration
-[v0.0.44\_openapi\_slurmdbd\_config\_resp](#v0.0.44_openapi_slurmdbd_config_resp)
+[v0.0.45\_openapi\_slurmdbd\_config\_resp](#v0.0.45_openapi_slurmdbd_config_resp)
 
 #### default
 
 slurmdbd configuration
-[v0.0.44\_openapi\_slurmdbd\_config\_resp](#v0.0.44_openapi_slurmdbd_config_resp)
+[v0.0.45\_openapi\_slurmdbd\_config\_resp](#v0.0.45_openapi_slurmdbd_config_resp)
 
 
 
@@ -11111,14 +12013,14 @@ slurmdbd configuration
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/diag/
+get /slurmdb/v0.0.45/diag/
 ```
 
-Get slurmdb diagnostics (slurmdbV0044GetDiag)
+Get slurmdb diagnostics (slurmdbV0045GetDiag)
 
 ### Return type
 
-[v0.0.44\_openapi\_slurmdbd\_stats\_resp](#v0.0.44_openapi_slurmdbd_stats_resp)
+[v0.0.45\_openapi\_slurmdbd\_stats\_resp](#v0.0.45_openapi_slurmdbd_stats_resp)
 
 ### Example data
 
@@ -11244,12 +12146,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Dictionary of statistics
-[v0.0.44\_openapi\_slurmdbd\_stats\_resp](#v0.0.44_openapi_slurmdbd_stats_resp)
+[v0.0.45\_openapi\_slurmdbd\_stats\_resp](#v0.0.45_openapi_slurmdbd_stats_resp)
 
 #### default
 
 Dictionary of statistics
-[v0.0.44\_openapi\_slurmdbd\_stats\_resp](#v0.0.44_openapi_slurmdbd_stats_resp)
+[v0.0.45\_openapi\_slurmdbd\_stats\_resp](#v0.0.45_openapi_slurmdbd_stats_resp)
 
 
 
@@ -11258,10 +12160,10 @@ Dictionary of statistics
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/instance/
+get /slurmdb/v0.0.45/instance/
 ```
 
-Get instance info (slurmdbV0044GetInstance)
+Get instance info (slurmdbV0045GetInstance)
 
 ### Query parameters
 
@@ -11272,10 +12174,6 @@ Query Parameter — CSV clusters list default: null
 extra (optional)
 
 Query Parameter — CSV extra list default: null
-
-format (optional)
-
-Query Parameter — Ignored; process JSON manually to control output format default: null
 
 instance\_id (optional)
 
@@ -11299,7 +12197,7 @@ Query Parameter — Time start (UNIX timestamp) default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_instances\_resp](#v0.0.44_openapi_instances_resp)
+[v0.0.45\_openapi\_instances\_resp](#v0.0.45_openapi_instances_resp)
 
 ### Example data
 
@@ -11313,8 +12211,8 @@ Content-Type: application/json
     "extra" : "extra",
     "node_name" : "node_name",
     "time" : {
-      "time_start" : 1,
-      "time_end" : 1
+      "time_start" : 6,
+      "time_end" : 0
     },
     "instance_type" : "instance_type"
   }, {
@@ -11323,8 +12221,8 @@ Content-Type: application/json
     "extra" : "extra",
     "node_name" : "node_name",
     "time" : {
-      "time_start" : 1,
-      "time_end" : 1
+      "time_start" : 6,
+      "time_end" : 0
     },
     "instance_type" : "instance_type"
   } ],
@@ -11384,12 +12282,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 List of instances
-[v0.0.44\_openapi\_instances\_resp](#v0.0.44_openapi_instances_resp)
+[v0.0.45\_openapi\_instances\_resp](#v0.0.45_openapi_instances_resp)
 
 #### default
 
 List of instances
-[v0.0.44\_openapi\_instances\_resp](#v0.0.44_openapi_instances_resp)
+[v0.0.45\_openapi\_instances\_resp](#v0.0.45_openapi_instances_resp)
 
 
 
@@ -11398,10 +12296,10 @@ List of instances
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/instances/
+get /slurmdb/v0.0.45/instances/
 ```
 
-Get instance list (slurmdbV0044GetInstances)
+Get instance list (slurmdbV0045GetInstances)
 
 ### Query parameters
 
@@ -11412,10 +12310,6 @@ Query Parameter — CSV clusters list default: null
 extra (optional)
 
 Query Parameter — CSV extra list default: null
-
-format (optional)
-
-Query Parameter — Ignored; process JSON manually to control output format default: null
 
 instance\_id (optional)
 
@@ -11439,7 +12333,7 @@ Query Parameter — Time start (UNIX timestamp) default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_instances\_resp](#v0.0.44_openapi_instances_resp)
+[v0.0.45\_openapi\_instances\_resp](#v0.0.45_openapi_instances_resp)
 
 ### Example data
 
@@ -11453,8 +12347,8 @@ Content-Type: application/json
     "extra" : "extra",
     "node_name" : "node_name",
     "time" : {
-      "time_start" : 1,
-      "time_end" : 1
+      "time_start" : 6,
+      "time_end" : 0
     },
     "instance_type" : "instance_type"
   }, {
@@ -11463,8 +12357,8 @@ Content-Type: application/json
     "extra" : "extra",
     "node_name" : "node_name",
     "time" : {
-      "time_start" : 1,
-      "time_end" : 1
+      "time_start" : 6,
+      "time_end" : 0
     },
     "instance_type" : "instance_type"
   } ],
@@ -11524,12 +12418,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 List of instances
-[v0.0.44\_openapi\_instances\_resp](#v0.0.44_openapi_instances_resp)
+[v0.0.45\_openapi\_instances\_resp](#v0.0.45_openapi_instances_resp)
 
 #### default
 
 List of instances
-[v0.0.44\_openapi\_instances\_resp](#v0.0.44_openapi_instances_resp)
+[v0.0.45\_openapi\_instances\_resp](#v0.0.45_openapi_instances_resp)
 
 
 
@@ -11538,10 +12432,10 @@ List of instances
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/job/{job_id}
+get /slurmdb/v0.0.45/job/{job_id}
 ```
 
-Get job info (slurmdbV0044GetJob)
+Get job info (slurmdbV0045GetJob)
 
 This endpoint may return multiple job entries since job\_id is not a unique key - only the tuple (cluster, job\_id, start\_time) is unique. If the requested job\_id is a component of a heterogeneous job all components are returned.
 
@@ -11553,7 +12447,7 @@ Path Parameter — Job ID default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_slurmdbd\_jobs\_resp](#v0.0.44_openapi_slurmdbd_jobs_resp)
+[v0.0.45\_openapi\_slurmdbd\_jobs\_resp](#v0.0.45_openapi_slurmdbd_jobs_resp)
 
 ### Example data
 
@@ -11590,19 +12484,6 @@ Content-Type: application/json
     "stdin_expanded" : "stdin_expanded",
     "stdin" : "stdin",
     "stdout" : "stdout",
-    "stderr_expanded" : "stderr_expanded",
-    "flags" : [ "NONE", "NONE" ],
-    "used_gres" : "used_gres",
-    "association" : {
-      "cluster" : "cluster",
-      "partition" : "partition",
-      "id" : 5,
-      "user" : "user",
-      "account" : "account"
-    },
-    "allocation_nodes" : 0,
-    "working_directory" : "working_directory",
-    "qosreq" : "qosreq",
     "constraints" : "constraints",
     "required" : {
       "memory_per_node" : {
@@ -11617,28 +12498,8 @@ Content-Type: application/json
         "infinite" : true
       }
     },
-    "stdout_expanded" : "stdout_expanded",
     "hold" : true,
-    "restart_cnt" : 6,
-    "partition" : "partition",
-    "segment_size" : 9,
     "qos" : "qos",
-    "array" : {
-      "task" : "task",
-      "job_id" : 6,
-      "task_id" : {
-        "number" : 5,
-        "set" : true,
-        "infinite" : true
-      },
-      "limits" : {
-        "max" : {
-          "running" : {
-            "tasks" : 1
-          }
-        }
-      }
-    },
     "het" : {
       "job_id" : 5,
       "job_offset" : {
@@ -11648,7 +12509,7 @@ Content-Type: application/json
       }
     },
     "submit_line" : "submit_line",
-    "extra" : "extra",
+    "exclusive" : "exclusive",
     "reservation" : {
       "requested" : "requested",
       "name" : "name",
@@ -11687,6 +12548,7 @@ Content-Type: application/json
       "label" : "label"
     },
     "group" : "group",
+    "oversubscribe" : "oversubscribe",
     "wckey" : {
       "wckey" : "wckey",
       "flags" : [ "ASSIGNED_DEFAULT", "ASSIGNED_DEFAULT" ]
@@ -11706,6 +12568,7 @@ Content-Type: application/json
       "task" : {
         "distribution" : "distribution"
       },
+      "submit_line" : "submit_line",
       "exit_code" : {
         "return_code" : {
           "number" : 5,
@@ -11738,7 +12601,6 @@ Content-Type: application/json
           }
         }
       },
-      "pid" : "pid",
       "step" : {
         "stdin_expanded" : "stdin_expanded",
         "stdin" : "stdin",
@@ -11910,6 +12772,7 @@ Content-Type: application/json
       "task" : {
         "distribution" : "distribution"
       },
+      "submit_line" : "submit_line",
       "exit_code" : {
         "return_code" : {
           "number" : 5,
@@ -11942,7 +12805,6 @@ Content-Type: application/json
           }
         }
       },
-      "pid" : "pid",
       "step" : {
         "stdin_expanded" : "stdin_expanded",
         "stdin" : "stdin",
@@ -12124,9 +12986,6 @@ Content-Type: application/json
       },
       "status" : [ "INVALID", "INVALID" ]
     },
-    "licenses" : "licenses",
-    "nodes" : "nodes",
-    "job_id" : 9,
     "exit_code" : {
       "return_code" : {
         "number" : 5,
@@ -12144,6 +13003,45 @@ Content-Type: application/json
       "status" : [ "INVALID", "INVALID" ]
     },
     "name" : "name",
+    "stderr_expanded" : "stderr_expanded",
+    "flags" : [ "NONE", "NONE" ],
+    "used_gres" : "used_gres",
+    "association" : {
+      "cluster" : "cluster",
+      "partition" : "partition",
+      "id" : 5,
+      "user" : "user",
+      "account" : "account"
+    },
+    "allocation_nodes" : 0,
+    "working_directory" : "working_directory",
+    "qosreq" : "qosreq",
+    "stdout_expanded" : "stdout_expanded",
+    "sluid" : "sluid",
+    "restart_cnt" : 6,
+    "partition" : "partition",
+    "segment_size" : 9,
+    "array" : {
+      "task" : "task",
+      "job_id" : 6,
+      "task_id" : {
+        "number" : 5,
+        "set" : true,
+        "infinite" : true
+      },
+      "limits" : {
+        "max" : {
+          "running" : {
+            "tasks" : 1
+          }
+        }
+      }
+    },
+    "extra" : "extra",
+    "original_sluid" : "original_sluid",
+    "licenses" : "licenses",
+    "nodes" : "nodes",
+    "job_id" : 9,
     "kill_request_user" : "kill_request_user",
     "comment" : {
       "administrator" : "administrator",
@@ -12188,19 +13086,6 @@ Content-Type: application/json
     "stdin_expanded" : "stdin_expanded",
     "stdin" : "stdin",
     "stdout" : "stdout",
-    "stderr_expanded" : "stderr_expanded",
-    "flags" : [ "NONE", "NONE" ],
-    "used_gres" : "used_gres",
-    "association" : {
-      "cluster" : "cluster",
-      "partition" : "partition",
-      "id" : 5,
-      "user" : "user",
-      "account" : "account"
-    },
-    "allocation_nodes" : 0,
-    "working_directory" : "working_directory",
-    "qosreq" : "qosreq",
     "constraints" : "constraints",
     "required" : {
       "memory_per_node" : {
@@ -12215,28 +13100,8 @@ Content-Type: application/json
         "infinite" : true
       }
     },
-    "stdout_expanded" : "stdout_expanded",
     "hold" : true,
-    "restart_cnt" : 6,
-    "partition" : "partition",
-    "segment_size" : 9,
     "qos" : "qos",
-    "array" : {
-      "task" : "task",
-      "job_id" : 6,
-      "task_id" : {
-        "number" : 5,
-        "set" : true,
-        "infinite" : true
-      },
-      "limits" : {
-        "max" : {
-          "running" : {
-            "tasks" : 1
-          }
-        }
-      }
-    },
     "het" : {
       "job_id" : 5,
       "job_offset" : {
@@ -12246,7 +13111,7 @@ Content-Type: application/json
       }
     },
     "submit_line" : "submit_line",
-    "extra" : "extra",
+    "exclusive" : "exclusive",
     "reservation" : {
       "requested" : "requested",
       "name" : "name",
@@ -12285,6 +13150,7 @@ Content-Type: application/json
       "label" : "label"
     },
     "group" : "group",
+    "oversubscribe" : "oversubscribe",
     "wckey" : {
       "wckey" : "wckey",
       "flags" : [ "ASSIGNED_DEFAULT", "ASSIGNED_DEFAULT" ]
@@ -12304,6 +13170,7 @@ Content-Type: application/json
       "task" : {
         "distribution" : "distribution"
       },
+      "submit_line" : "submit_line",
       "exit_code" : {
         "return_code" : {
           "number" : 5,
@@ -12336,7 +13203,6 @@ Content-Type: application/json
           }
         }
       },
-      "pid" : "pid",
       "step" : {
         "stdin_expanded" : "stdin_expanded",
         "stdin" : "stdin",
@@ -12508,6 +13374,7 @@ Content-Type: application/json
       "task" : {
         "distribution" : "distribution"
       },
+      "submit_line" : "submit_line",
       "exit_code" : {
         "return_code" : {
           "number" : 5,
@@ -12540,7 +13407,6 @@ Content-Type: application/json
           }
         }
       },
-      "pid" : "pid",
       "step" : {
         "stdin_expanded" : "stdin_expanded",
         "stdin" : "stdin",
@@ -12722,9 +13588,6 @@ Content-Type: application/json
       },
       "status" : [ "INVALID", "INVALID" ]
     },
-    "licenses" : "licenses",
-    "nodes" : "nodes",
-    "job_id" : 9,
     "exit_code" : {
       "return_code" : {
         "number" : 5,
@@ -12742,6 +13605,45 @@ Content-Type: application/json
       "status" : [ "INVALID", "INVALID" ]
     },
     "name" : "name",
+    "stderr_expanded" : "stderr_expanded",
+    "flags" : [ "NONE", "NONE" ],
+    "used_gres" : "used_gres",
+    "association" : {
+      "cluster" : "cluster",
+      "partition" : "partition",
+      "id" : 5,
+      "user" : "user",
+      "account" : "account"
+    },
+    "allocation_nodes" : 0,
+    "working_directory" : "working_directory",
+    "qosreq" : "qosreq",
+    "stdout_expanded" : "stdout_expanded",
+    "sluid" : "sluid",
+    "restart_cnt" : 6,
+    "partition" : "partition",
+    "segment_size" : 9,
+    "array" : {
+      "task" : "task",
+      "job_id" : 6,
+      "task_id" : {
+        "number" : 5,
+        "set" : true,
+        "infinite" : true
+      },
+      "limits" : {
+        "max" : {
+          "running" : {
+            "tasks" : 1
+          }
+        }
+      }
+    },
+    "extra" : "extra",
+    "original_sluid" : "original_sluid",
+    "licenses" : "licenses",
+    "nodes" : "nodes",
+    "job_id" : 9,
     "kill_request_user" : "kill_request_user",
     "comment" : {
       "administrator" : "administrator",
@@ -12814,12 +13716,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Job description
-[v0.0.44\_openapi\_slurmdbd\_jobs\_resp](#v0.0.44_openapi_slurmdbd_jobs_resp)
+[v0.0.45\_openapi\_slurmdbd\_jobs\_resp](#v0.0.45_openapi_slurmdbd_jobs_resp)
 
 #### default
 
 Job description
-[v0.0.44\_openapi\_slurmdbd\_jobs\_resp](#v0.0.44_openapi_slurmdbd_jobs_resp)
+[v0.0.45\_openapi\_slurmdbd\_jobs\_resp](#v0.0.45_openapi_slurmdbd_jobs_resp)
 
 
 
@@ -12828,10 +13730,10 @@ Job description
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/jobs/
+get /slurmdb/v0.0.45/jobs/
 ```
 
-Get job list (slurmdbV0044GetJobs)
+Get job list (slurmdbV0045GetJobs)
 
 ### Query parameters
 
@@ -12915,10 +13817,6 @@ show\_job\_environment (optional)
 
 Query Parameter — Include job environment default: null
 
-format (optional)
-
-Query Parameter — Ignored; process JSON manually to control output format default: null
-
 groups (optional)
 
 Query Parameter — CSV group list default: null
@@ -12977,7 +13875,7 @@ Query Parameter — CSV WCKey list default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_slurmdbd\_jobs\_resp](#v0.0.44_openapi_slurmdbd_jobs_resp)
+[v0.0.45\_openapi\_slurmdbd\_jobs\_resp](#v0.0.45_openapi_slurmdbd_jobs_resp)
 
 ### Example data
 
@@ -13014,19 +13912,6 @@ Content-Type: application/json
     "stdin_expanded" : "stdin_expanded",
     "stdin" : "stdin",
     "stdout" : "stdout",
-    "stderr_expanded" : "stderr_expanded",
-    "flags" : [ "NONE", "NONE" ],
-    "used_gres" : "used_gres",
-    "association" : {
-      "cluster" : "cluster",
-      "partition" : "partition",
-      "id" : 5,
-      "user" : "user",
-      "account" : "account"
-    },
-    "allocation_nodes" : 0,
-    "working_directory" : "working_directory",
-    "qosreq" : "qosreq",
     "constraints" : "constraints",
     "required" : {
       "memory_per_node" : {
@@ -13041,28 +13926,8 @@ Content-Type: application/json
         "infinite" : true
       }
     },
-    "stdout_expanded" : "stdout_expanded",
     "hold" : true,
-    "restart_cnt" : 6,
-    "partition" : "partition",
-    "segment_size" : 9,
     "qos" : "qos",
-    "array" : {
-      "task" : "task",
-      "job_id" : 6,
-      "task_id" : {
-        "number" : 5,
-        "set" : true,
-        "infinite" : true
-      },
-      "limits" : {
-        "max" : {
-          "running" : {
-            "tasks" : 1
-          }
-        }
-      }
-    },
     "het" : {
       "job_id" : 5,
       "job_offset" : {
@@ -13072,7 +13937,7 @@ Content-Type: application/json
       }
     },
     "submit_line" : "submit_line",
-    "extra" : "extra",
+    "exclusive" : "exclusive",
     "reservation" : {
       "requested" : "requested",
       "name" : "name",
@@ -13111,6 +13976,7 @@ Content-Type: application/json
       "label" : "label"
     },
     "group" : "group",
+    "oversubscribe" : "oversubscribe",
     "wckey" : {
       "wckey" : "wckey",
       "flags" : [ "ASSIGNED_DEFAULT", "ASSIGNED_DEFAULT" ]
@@ -13130,6 +13996,7 @@ Content-Type: application/json
       "task" : {
         "distribution" : "distribution"
       },
+      "submit_line" : "submit_line",
       "exit_code" : {
         "return_code" : {
           "number" : 5,
@@ -13162,7 +14029,6 @@ Content-Type: application/json
           }
         }
       },
-      "pid" : "pid",
       "step" : {
         "stdin_expanded" : "stdin_expanded",
         "stdin" : "stdin",
@@ -13334,6 +14200,7 @@ Content-Type: application/json
       "task" : {
         "distribution" : "distribution"
       },
+      "submit_line" : "submit_line",
       "exit_code" : {
         "return_code" : {
           "number" : 5,
@@ -13366,7 +14233,6 @@ Content-Type: application/json
           }
         }
       },
-      "pid" : "pid",
       "step" : {
         "stdin_expanded" : "stdin_expanded",
         "stdin" : "stdin",
@@ -13548,9 +14414,6 @@ Content-Type: application/json
       },
       "status" : [ "INVALID", "INVALID" ]
     },
-    "licenses" : "licenses",
-    "nodes" : "nodes",
-    "job_id" : 9,
     "exit_code" : {
       "return_code" : {
         "number" : 5,
@@ -13568,6 +14431,45 @@ Content-Type: application/json
       "status" : [ "INVALID", "INVALID" ]
     },
     "name" : "name",
+    "stderr_expanded" : "stderr_expanded",
+    "flags" : [ "NONE", "NONE" ],
+    "used_gres" : "used_gres",
+    "association" : {
+      "cluster" : "cluster",
+      "partition" : "partition",
+      "id" : 5,
+      "user" : "user",
+      "account" : "account"
+    },
+    "allocation_nodes" : 0,
+    "working_directory" : "working_directory",
+    "qosreq" : "qosreq",
+    "stdout_expanded" : "stdout_expanded",
+    "sluid" : "sluid",
+    "restart_cnt" : 6,
+    "partition" : "partition",
+    "segment_size" : 9,
+    "array" : {
+      "task" : "task",
+      "job_id" : 6,
+      "task_id" : {
+        "number" : 5,
+        "set" : true,
+        "infinite" : true
+      },
+      "limits" : {
+        "max" : {
+          "running" : {
+            "tasks" : 1
+          }
+        }
+      }
+    },
+    "extra" : "extra",
+    "original_sluid" : "original_sluid",
+    "licenses" : "licenses",
+    "nodes" : "nodes",
+    "job_id" : 9,
     "kill_request_user" : "kill_request_user",
     "comment" : {
       "administrator" : "administrator",
@@ -13612,19 +14514,6 @@ Content-Type: application/json
     "stdin_expanded" : "stdin_expanded",
     "stdin" : "stdin",
     "stdout" : "stdout",
-    "stderr_expanded" : "stderr_expanded",
-    "flags" : [ "NONE", "NONE" ],
-    "used_gres" : "used_gres",
-    "association" : {
-      "cluster" : "cluster",
-      "partition" : "partition",
-      "id" : 5,
-      "user" : "user",
-      "account" : "account"
-    },
-    "allocation_nodes" : 0,
-    "working_directory" : "working_directory",
-    "qosreq" : "qosreq",
     "constraints" : "constraints",
     "required" : {
       "memory_per_node" : {
@@ -13639,28 +14528,8 @@ Content-Type: application/json
         "infinite" : true
       }
     },
-    "stdout_expanded" : "stdout_expanded",
     "hold" : true,
-    "restart_cnt" : 6,
-    "partition" : "partition",
-    "segment_size" : 9,
     "qos" : "qos",
-    "array" : {
-      "task" : "task",
-      "job_id" : 6,
-      "task_id" : {
-        "number" : 5,
-        "set" : true,
-        "infinite" : true
-      },
-      "limits" : {
-        "max" : {
-          "running" : {
-            "tasks" : 1
-          }
-        }
-      }
-    },
     "het" : {
       "job_id" : 5,
       "job_offset" : {
@@ -13670,7 +14539,7 @@ Content-Type: application/json
       }
     },
     "submit_line" : "submit_line",
-    "extra" : "extra",
+    "exclusive" : "exclusive",
     "reservation" : {
       "requested" : "requested",
       "name" : "name",
@@ -13709,6 +14578,7 @@ Content-Type: application/json
       "label" : "label"
     },
     "group" : "group",
+    "oversubscribe" : "oversubscribe",
     "wckey" : {
       "wckey" : "wckey",
       "flags" : [ "ASSIGNED_DEFAULT", "ASSIGNED_DEFAULT" ]
@@ -13728,6 +14598,7 @@ Content-Type: application/json
       "task" : {
         "distribution" : "distribution"
       },
+      "submit_line" : "submit_line",
       "exit_code" : {
         "return_code" : {
           "number" : 5,
@@ -13760,7 +14631,6 @@ Content-Type: application/json
           }
         }
       },
-      "pid" : "pid",
       "step" : {
         "stdin_expanded" : "stdin_expanded",
         "stdin" : "stdin",
@@ -13932,6 +14802,7 @@ Content-Type: application/json
       "task" : {
         "distribution" : "distribution"
       },
+      "submit_line" : "submit_line",
       "exit_code" : {
         "return_code" : {
           "number" : 5,
@@ -13964,7 +14835,6 @@ Content-Type: application/json
           }
         }
       },
-      "pid" : "pid",
       "step" : {
         "stdin_expanded" : "stdin_expanded",
         "stdin" : "stdin",
@@ -14146,9 +15016,6 @@ Content-Type: application/json
       },
       "status" : [ "INVALID", "INVALID" ]
     },
-    "licenses" : "licenses",
-    "nodes" : "nodes",
-    "job_id" : 9,
     "exit_code" : {
       "return_code" : {
         "number" : 5,
@@ -14166,6 +15033,45 @@ Content-Type: application/json
       "status" : [ "INVALID", "INVALID" ]
     },
     "name" : "name",
+    "stderr_expanded" : "stderr_expanded",
+    "flags" : [ "NONE", "NONE" ],
+    "used_gres" : "used_gres",
+    "association" : {
+      "cluster" : "cluster",
+      "partition" : "partition",
+      "id" : 5,
+      "user" : "user",
+      "account" : "account"
+    },
+    "allocation_nodes" : 0,
+    "working_directory" : "working_directory",
+    "qosreq" : "qosreq",
+    "stdout_expanded" : "stdout_expanded",
+    "sluid" : "sluid",
+    "restart_cnt" : 6,
+    "partition" : "partition",
+    "segment_size" : 9,
+    "array" : {
+      "task" : "task",
+      "job_id" : 6,
+      "task_id" : {
+        "number" : 5,
+        "set" : true,
+        "infinite" : true
+      },
+      "limits" : {
+        "max" : {
+          "running" : {
+            "tasks" : 1
+          }
+        }
+      }
+    },
+    "extra" : "extra",
+    "original_sluid" : "original_sluid",
+    "licenses" : "licenses",
+    "nodes" : "nodes",
+    "job_id" : 9,
     "kill_request_user" : "kill_request_user",
     "comment" : {
       "administrator" : "administrator",
@@ -14238,12 +15144,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 List of jobs
-[v0.0.44\_openapi\_slurmdbd\_jobs\_resp](#v0.0.44_openapi_slurmdbd_jobs_resp)
+[v0.0.45\_openapi\_slurmdbd\_jobs\_resp](#v0.0.45_openapi_slurmdbd_jobs_resp)
 
 #### default
 
 List of jobs
-[v0.0.44\_openapi\_slurmdbd\_jobs\_resp](#v0.0.44_openapi_slurmdbd_jobs_resp)
+[v0.0.45\_openapi\_slurmdbd\_jobs\_resp](#v0.0.45_openapi_slurmdbd_jobs_resp)
 
 
 
@@ -14252,14 +15158,14 @@ List of jobs
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/ping/
+get /slurmdb/v0.0.45/ping/
 ```
 
-ping test (slurmdbV0044GetPing)
+ping test (slurmdbV0045GetPing)
 
 ### Return type
 
-[v0.0.44\_openapi\_slurmdbd\_ping\_resp](#v0.0.44_openapi_slurmdbd_ping_resp)
+[v0.0.45\_openapi\_slurmdbd\_ping\_resp](#v0.0.45_openapi_slurmdbd_ping_resp)
 
 ### Example data
 
@@ -14301,12 +15207,14 @@ Content-Type: application/json
     "responding" : true,
     "hostname" : "hostname",
     "latency" : 0,
-    "primary" : true
+    "primary" : true,
+    "status" : "status"
   }, {
     "responding" : true,
     "hostname" : "hostname",
     "latency" : 0,
-    "primary" : true
+    "primary" : true,
+    "status" : "status"
   } ],
   "errors" : [ {
     "description" : "description",
@@ -14334,12 +15242,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 results of ping test
-[v0.0.44\_openapi\_slurmdbd\_ping\_resp](#v0.0.44_openapi_slurmdbd_ping_resp)
+[v0.0.45\_openapi\_slurmdbd\_ping\_resp](#v0.0.45_openapi_slurmdbd_ping_resp)
 
 #### default
 
 results of ping test
-[v0.0.44\_openapi\_slurmdbd\_ping\_resp](#v0.0.44_openapi_slurmdbd_ping_resp)
+[v0.0.45\_openapi\_slurmdbd\_ping\_resp](#v0.0.45_openapi_slurmdbd_ping_resp)
 
 
 
@@ -14348,10 +15256,10 @@ results of ping test
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/qos/
+get /slurmdb/v0.0.45/qos/
 ```
 
-Get QOS list (slurmdbV0044GetQos)
+Get QOS list (slurmdbV0045GetQos)
 
 ### Query parameters
 
@@ -14367,10 +15275,6 @@ id (optional)
 
 Query Parameter — CSV QOS id list default: null
 
-format (optional)
-
-Query Parameter — Ignored; process JSON manually to control output format default: null
-
 name (optional)
 
 Query Parameter — CSV QOS name list default: null
@@ -14381,7 +15285,7 @@ Query Parameter — PreemptMode used when jobs in this QOS are preempted default
 
 ### Return type
 
-[v0.0.44\_openapi\_slurmdbd\_qos\_resp](#v0.0.44_openapi_slurmdbd_qos_resp)
+[v0.0.45\_openapi\_slurmdbd\_qos\_resp](#v0.0.45_openapi_slurmdbd_qos_resp)
 
 ### Example data
 
@@ -14950,12 +15854,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 List of QOS
-[v0.0.44\_openapi\_slurmdbd\_qos\_resp](#v0.0.44_openapi_slurmdbd_qos_resp)
+[v0.0.45\_openapi\_slurmdbd\_qos\_resp](#v0.0.45_openapi_slurmdbd_qos_resp)
 
 #### default
 
 List of QOS
-[v0.0.44\_openapi\_slurmdbd\_qos\_resp](#v0.0.44_openapi_slurmdbd_qos_resp)
+[v0.0.45\_openapi\_slurmdbd\_qos\_resp](#v0.0.45_openapi_slurmdbd_qos_resp)
 
 
 
@@ -14964,10 +15868,10 @@ List of QOS
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/qos/{qos}
+get /slurmdb/v0.0.45/qos/{qos}
 ```
 
-Get QOS info (slurmdbV0044GetSingleQos)
+Get QOS info (slurmdbV0045GetSingleQos)
 
 ### Path parameters
 
@@ -14983,7 +15887,7 @@ Query Parameter — Query includes deleted QOS default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_slurmdbd\_qos\_resp](#v0.0.44_openapi_slurmdbd_qos_resp)
+[v0.0.45\_openapi\_slurmdbd\_qos\_resp](#v0.0.45_openapi_slurmdbd_qos_resp)
 
 ### Example data
 
@@ -15552,12 +16456,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 QOS information
-[v0.0.44\_openapi\_slurmdbd\_qos\_resp](#v0.0.44_openapi_slurmdbd_qos_resp)
+[v0.0.45\_openapi\_slurmdbd\_qos\_resp](#v0.0.45_openapi_slurmdbd_qos_resp)
 
 #### default
 
 QOS information
-[v0.0.44\_openapi\_slurmdbd\_qos\_resp](#v0.0.44_openapi_slurmdbd_qos_resp)
+[v0.0.45\_openapi\_slurmdbd\_qos\_resp](#v0.0.45_openapi_slurmdbd_qos_resp)
 
 
 
@@ -15566,14 +16470,14 @@ QOS information
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/tres/
+get /slurmdb/v0.0.45/tres/
 ```
 
-Get TRES info (slurmdbV0044GetTres)
+Get TRES info (slurmdbV0045GetTres)
 
 ### Return type
 
-[v0.0.44\_openapi\_tres\_resp](#v0.0.44_openapi_tres_resp)
+[v0.0.45\_openapi\_tres\_resp](#v0.0.45_openapi_tres_resp)
 
 ### Example data
 
@@ -15648,12 +16552,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 List of TRES
-[v0.0.44\_openapi\_tres\_resp](#v0.0.44_openapi_tres_resp)
+[v0.0.45\_openapi\_tres\_resp](#v0.0.45_openapi_tres_resp)
 
 #### default
 
 List of TRES
-[v0.0.44\_openapi\_tres\_resp](#v0.0.44_openapi_tres_resp)
+[v0.0.45\_openapi\_tres\_resp](#v0.0.45_openapi_tres_resp)
 
 
 
@@ -15662,10 +16566,10 @@ List of TRES
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/user/{name}
+get /slurmdb/v0.0.45/user/{name}
 ```
 
-Get user info (slurmdbV0044GetUser)
+Get user info (slurmdbV0045GetUser)
 
 ### Path parameters
 
@@ -15693,7 +16597,7 @@ Query Parameter — Include WCKeys default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_users\_resp](#v0.0.44_openapi_users_resp)
+[v0.0.45\_openapi\_users\_resp](#v0.0.45_openapi_users_resp)
 
 ### Example data
 
@@ -15952,12 +16856,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 List of users
-[v0.0.44\_openapi\_users\_resp](#v0.0.44_openapi_users_resp)
+[v0.0.45\_openapi\_users\_resp](#v0.0.45_openapi_users_resp)
 
 #### default
 
 List of users
-[v0.0.44\_openapi\_users\_resp](#v0.0.44_openapi_users_resp)
+[v0.0.45\_openapi\_users\_resp](#v0.0.45_openapi_users_resp)
 
 
 
@@ -15966,10 +16870,10 @@ List of users
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/users/
+get /slurmdb/v0.0.45/users/
 ```
 
-Get user list (slurmdbV0044GetUsers)
+Get user list (slurmdbV0045GetUsers)
 
 ### Query parameters
 
@@ -16007,7 +16911,7 @@ Query Parameter — Exclude defaults default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_users\_resp](#v0.0.44_openapi_users_resp)
+[v0.0.45\_openapi\_users\_resp](#v0.0.45_openapi_users_resp)
 
 ### Example data
 
@@ -16266,12 +17170,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 List of users
-[v0.0.44\_openapi\_users\_resp](#v0.0.44_openapi_users_resp)
+[v0.0.45\_openapi\_users\_resp](#v0.0.45_openapi_users_resp)
 
 #### default
 
 List of users
-[v0.0.44\_openapi\_users\_resp](#v0.0.44_openapi_users_resp)
+[v0.0.45\_openapi\_users\_resp](#v0.0.45_openapi_users_resp)
 
 
 
@@ -16280,10 +17184,10 @@ List of users
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/wckey/{id}
+get /slurmdb/v0.0.45/wckey/{id}
 ```
 
-Get wckey info (slurmdbV0044GetWckey)
+Get wckey info (slurmdbV0045GetWckey)
 
 ### Path parameters
 
@@ -16293,7 +17197,7 @@ Path Parameter — WCKey ID default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_wckey\_resp](#v0.0.44_openapi_wckey_resp)
+[v0.0.45\_openapi\_wckey\_resp](#v0.0.45_openapi_wckey_resp)
 
 ### Example data
 
@@ -16424,12 +17328,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Description of wckey
-[v0.0.44\_openapi\_wckey\_resp](#v0.0.44_openapi_wckey_resp)
+[v0.0.45\_openapi\_wckey\_resp](#v0.0.45_openapi_wckey_resp)
 
 #### default
 
 Description of wckey
-[v0.0.44\_openapi\_wckey\_resp](#v0.0.44_openapi_wckey_resp)
+[v0.0.45\_openapi\_wckey\_resp](#v0.0.45_openapi_wckey_resp)
 
 
 
@@ -16438,20 +17342,16 @@ Description of wckey
 [Up](#__Methods)
 
 ```
-get /slurmdb/v0.0.44/wckeys/
+get /slurmdb/v0.0.45/wckeys/
 ```
 
-Get wckey list (slurmdbV0044GetWckeys)
+Get wckey list (slurmdbV0045GetWckeys)
 
 ### Query parameters
 
 cluster (optional)
 
 Query Parameter — CSV cluster name list default: null
-
-format (optional)
-
-Query Parameter — Ignored; process JSON manually to control output format default: null
 
 id (optional)
 
@@ -16487,7 +17387,7 @@ Query Parameter — Include deleted WCKeys default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_wckey\_resp](#v0.0.44_openapi_wckey_resp)
+[v0.0.45\_openapi\_wckey\_resp](#v0.0.45_openapi_wckey_resp)
 
 ### Example data
 
@@ -16618,12 +17518,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 List of wckeys
-[v0.0.44\_openapi\_wckey\_resp](#v0.0.44_openapi_wckey_resp)
+[v0.0.45\_openapi\_wckey\_resp](#v0.0.45_openapi_wckey_resp)
 
 #### default
 
 List of wckeys
-[v0.0.44\_openapi\_wckey\_resp](#v0.0.44_openapi_wckey_resp)
+[v0.0.45\_openapi\_wckey\_resp](#v0.0.45_openapi_wckey_resp)
 
 
 
@@ -16632,10 +17532,10 @@ List of wckeys
 [Up](#__Methods)
 
 ```
-post /slurmdb/v0.0.44/accounts/
+post /slurmdb/v0.0.45/accounts/
 ```
 
-Add/update list of accounts (slurmdbV0044PostAccounts)
+Add/update list of accounts (slurmdbV0045PostAccounts)
 
 ### Consumes
 
@@ -16645,13 +17545,13 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_openapi\_accounts\_resp [v0.0.44\_openapi\_accounts\_resp](#v0.0.44_openapi_accounts_resp) (optional)
+v0.0.45\_openapi\_accounts\_resp [v0.0.45\_openapi\_accounts\_resp](#v0.0.45_openapi_accounts_resp) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 ### Example data
 
@@ -16715,12 +17615,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Status of account update request
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 #### default
 
 Status of account update request
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 
 
@@ -16729,10 +17629,10 @@ Status of account update request
 [Up](#__Methods)
 
 ```
-post /slurmdb/v0.0.44/accounts_association/
+post /slurmdb/v0.0.45/accounts_association/
 ```
 
-Add accounts with conditional association (slurmdbV0044PostAccountsAssociation)
+Add accounts with conditional association (slurmdbV0045PostAccountsAssociation)
 
 ### Consumes
 
@@ -16742,13 +17642,13 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_openapi\_accounts\_add\_cond\_resp [v0.0.44\_openapi\_accounts\_add\_cond\_resp](#v0.0.44_openapi_accounts_add_cond_resp) (optional)
+v0.0.45\_openapi\_accounts\_add\_cond\_resp [v0.0.45\_openapi\_accounts\_add\_cond\_resp](#v0.0.45_openapi_accounts_add_cond_resp) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_accounts\_add\_cond\_resp\_str](#v0.0.44_openapi_accounts_add_cond_resp_str)
+[v0.0.45\_openapi\_accounts\_add\_cond\_resp\_str](#v0.0.45_openapi_accounts_add_cond_resp_str)
 
 ### Example data
 
@@ -16813,12 +17713,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Status of account addition request
-[v0.0.44\_openapi\_accounts\_add\_cond\_resp\_str](#v0.0.44_openapi_accounts_add_cond_resp_str)
+[v0.0.45\_openapi\_accounts\_add\_cond\_resp\_str](#v0.0.45_openapi_accounts_add_cond_resp_str)
 
 #### default
 
 Status of account addition request
-[v0.0.44\_openapi\_accounts\_add\_cond\_resp\_str](#v0.0.44_openapi_accounts_add_cond_resp_str)
+[v0.0.45\_openapi\_accounts\_add\_cond\_resp\_str](#v0.0.45_openapi_accounts_add_cond_resp_str)
 
 
 
@@ -16827,10 +17727,10 @@ Status of account addition request
 [Up](#__Methods)
 
 ```
-post /slurmdb/v0.0.44/associations/
+post /slurmdb/v0.0.45/associations/
 ```
 
-Set associations info (slurmdbV0044PostAssociations)
+Set associations info (slurmdbV0045PostAssociations)
 
 ### Consumes
 
@@ -16840,13 +17740,13 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_openapi\_assocs\_resp [v0.0.44\_openapi\_assocs\_resp](#v0.0.44_openapi_assocs_resp) (optional)
+v0.0.45\_openapi\_assocs\_resp [v0.0.45\_openapi\_assocs\_resp](#v0.0.45_openapi_assocs_resp) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 ### Example data
 
@@ -16910,12 +17810,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 status of associations update
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 #### default
 
 status of associations update
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 
 
@@ -16924,10 +17824,10 @@ status of associations update
 [Up](#__Methods)
 
 ```
-post /slurmdb/v0.0.44/clusters/
+post /slurmdb/v0.0.45/clusters/
 ```
 
-Get cluster list (slurmdbV0044PostClusters)
+Get cluster list (slurmdbV0045PostClusters)
 
 ### Consumes
 
@@ -16937,7 +17837,7 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_openapi\_clusters\_resp [v0.0.44\_openapi\_clusters\_resp](#v0.0.44_openapi_clusters_resp) (optional)
+v0.0.45\_openapi\_clusters\_resp [v0.0.45\_openapi\_clusters\_resp](#v0.0.45_openapi_clusters_resp) (optional)
 
 Body Parameter —
 
@@ -16949,7 +17849,7 @@ Query Parameter — Query reservations updated more recently than this time (UNI
 
 ### Return type
 
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 ### Example data
 
@@ -17013,12 +17913,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Result of modify clusters request
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 #### default
 
 Result of modify clusters request
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 
 
@@ -17027,10 +17927,10 @@ Result of modify clusters request
 [Up](#__Methods)
 
 ```
-post /slurmdb/v0.0.44/config
+post /slurmdb/v0.0.45/config
 ```
 
-Load all configuration information (slurmdbV0044PostConfig)
+Load all configuration information (slurmdbV0045PostConfig)
 
 ### Consumes
 
@@ -17040,13 +17940,13 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_openapi\_slurmdbd\_config\_resp [v0.0.44\_openapi\_slurmdbd\_config\_resp](#v0.0.44_openapi_slurmdbd_config_resp) (optional)
+v0.0.45\_openapi\_slurmdbd\_config\_resp [v0.0.45\_openapi\_slurmdbd\_config\_resp](#v0.0.45_openapi_slurmdbd_config_resp) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 ### Example data
 
@@ -17110,12 +18010,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 slurmdbd configuration
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 #### default
 
 slurmdbd configuration
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 
 
@@ -17124,10 +18024,10 @@ slurmdbd configuration
 [Up](#__Methods)
 
 ```
-post /slurmdb/v0.0.44/job/{job_id}
+post /slurmdb/v0.0.45/job/{job_id}
 ```
 
-Update job (slurmdbV0044PostJob)
+Update job (slurmdbV0045PostJob)
 
 ### Path parameters
 
@@ -17143,13 +18043,13 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_job\_modify [v0.0.44\_job\_modify](#v0.0.44_job_modify) (optional)
+v0.0.45\_job\_modify [v0.0.45\_job\_modify](#v0.0.45_job_modify) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_job\_modify\_resp](#v0.0.44_openapi_job_modify_resp)
+[v0.0.45\_openapi\_job\_modify\_resp](#v0.0.45_openapi_job_modify_resp)
 
 ### Example data
 
@@ -17214,12 +18114,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Job update results
-[v0.0.44\_openapi\_job\_modify\_resp](#v0.0.44_openapi_job_modify_resp)
+[v0.0.45\_openapi\_job\_modify\_resp](#v0.0.45_openapi_job_modify_resp)
 
 #### default
 
 Job update results
-[v0.0.44\_openapi\_job\_modify\_resp](#v0.0.44_openapi_job_modify_resp)
+[v0.0.45\_openapi\_job\_modify\_resp](#v0.0.45_openapi_job_modify_resp)
 
 
 
@@ -17228,10 +18128,10 @@ Job update results
 [Up](#__Methods)
 
 ```
-post /slurmdb/v0.0.44/jobs/
+post /slurmdb/v0.0.45/jobs/
 ```
 
-Update jobs (slurmdbV0044PostJobs)
+Update jobs (slurmdbV0045PostJobs)
 
 ### Consumes
 
@@ -17241,13 +18141,13 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_openapi\_job\_modify\_req [v0.0.44\_openapi\_job\_modify\_req](#v0.0.44_openapi_job_modify_req) (optional)
+v0.0.45\_openapi\_job\_modify\_req [v0.0.45\_openapi\_job\_modify\_req](#v0.0.45_openapi_job_modify_req) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_job\_modify\_resp](#v0.0.44_openapi_job_modify_resp)
+[v0.0.45\_openapi\_job\_modify\_resp](#v0.0.45_openapi_job_modify_resp)
 
 ### Example data
 
@@ -17312,12 +18212,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Job update results
-[v0.0.44\_openapi\_job\_modify\_resp](#v0.0.44_openapi_job_modify_resp)
+[v0.0.45\_openapi\_job\_modify\_resp](#v0.0.45_openapi_job_modify_resp)
 
 #### default
 
 Job update results
-[v0.0.44\_openapi\_job\_modify\_resp](#v0.0.44_openapi_job_modify_resp)
+[v0.0.45\_openapi\_job\_modify\_resp](#v0.0.45_openapi_job_modify_resp)
 
 
 
@@ -17326,10 +18226,10 @@ Job update results
 [Up](#__Methods)
 
 ```
-post /slurmdb/v0.0.44/qos/
+post /slurmdb/v0.0.45/qos/
 ```
 
-Add or update QOSs (slurmdbV0044PostQos)
+Add or update QOSs (slurmdbV0045PostQos)
 
 ### Consumes
 
@@ -17339,7 +18239,7 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_openapi\_slurmdbd\_qos\_resp [v0.0.44\_openapi\_slurmdbd\_qos\_resp](#v0.0.44_openapi_slurmdbd_qos_resp) (optional)
+v0.0.45\_openapi\_slurmdbd\_qos\_resp [v0.0.45\_openapi\_slurmdbd\_qos\_resp](#v0.0.45_openapi_slurmdbd_qos_resp) (optional)
 
 Body Parameter —
 
@@ -17357,10 +18257,6 @@ id (optional)
 
 Query Parameter — CSV QOS id list default: null
 
-format (optional)
-
-Query Parameter — Ignored; process JSON manually to control output format default: null
-
 name (optional)
 
 Query Parameter — CSV QOS name list default: null
@@ -17371,7 +18267,7 @@ Query Parameter — PreemptMode used when jobs in this QOS are preempted default
 
 ### Return type
 
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 ### Example data
 
@@ -17435,12 +18331,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 QOS update response
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 #### default
 
 QOS update response
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 
 
@@ -17449,10 +18345,10 @@ QOS update response
 [Up](#__Methods)
 
 ```
-post /slurmdb/v0.0.44/tres/
+post /slurmdb/v0.0.45/tres/
 ```
 
-Add TRES (slurmdbV0044PostTres)
+Add TRES (slurmdbV0045PostTres)
 
 ### Consumes
 
@@ -17462,13 +18358,13 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_openapi\_tres\_resp [v0.0.44\_openapi\_tres\_resp](#v0.0.44_openapi_tres_resp) (optional)
+v0.0.45\_openapi\_tres\_resp [v0.0.45\_openapi\_tres\_resp](#v0.0.45_openapi_tres_resp) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 ### Example data
 
@@ -17532,12 +18428,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 TRES update result
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 #### default
 
 TRES update result
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 
 
@@ -17546,10 +18442,10 @@ TRES update result
 [Up](#__Methods)
 
 ```
-post /slurmdb/v0.0.44/users/
+post /slurmdb/v0.0.45/users/
 ```
 
-Update users (slurmdbV0044PostUsers)
+Update users (slurmdbV0045PostUsers)
 
 ### Consumes
 
@@ -17559,13 +18455,13 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_openapi\_users\_resp [v0.0.44\_openapi\_users\_resp](#v0.0.44_openapi_users_resp) (optional)
+v0.0.45\_openapi\_users\_resp [v0.0.45\_openapi\_users\_resp](#v0.0.45_openapi_users_resp) (optional)
 
 Body Parameter —
 
 ### Return type
 
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 ### Example data
 
@@ -17629,12 +18525,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Status of user update request
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 #### default
 
 Status of user update request
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 
 
@@ -17643,10 +18539,10 @@ Status of user update request
 [Up](#__Methods)
 
 ```
-post /slurmdb/v0.0.44/users_association/
+post /slurmdb/v0.0.45/users_association/
 ```
 
-Add users with conditional association (slurmdbV0044PostUsersAssociation)
+Add users with conditional association (slurmdbV0045PostUsersAssociation)
 
 ### Consumes
 
@@ -17656,7 +18552,7 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_openapi\_users\_add\_cond\_resp [v0.0.44\_openapi\_users\_add\_cond\_resp](#v0.0.44_openapi_users_add_cond_resp) (optional)
+v0.0.45\_openapi\_users\_add\_cond\_resp [v0.0.45\_openapi\_users\_add\_cond\_resp](#v0.0.45_openapi_users_add_cond_resp) (optional)
 
 Body Parameter —
 
@@ -17672,7 +18568,7 @@ Query Parameter — Query flags default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_users\_add\_cond\_resp\_str](#v0.0.44_openapi_users_add_cond_resp_str)
+[v0.0.45\_openapi\_users\_add\_cond\_resp\_str](#v0.0.45_openapi_users_add_cond_resp_str)
 
 ### Example data
 
@@ -17737,12 +18633,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Add list of users with conditional association
-[v0.0.44\_openapi\_users\_add\_cond\_resp\_str](#v0.0.44_openapi_users_add_cond_resp_str)
+[v0.0.45\_openapi\_users\_add\_cond\_resp\_str](#v0.0.45_openapi_users_add_cond_resp_str)
 
 #### default
 
 Add list of users with conditional association
-[v0.0.44\_openapi\_users\_add\_cond\_resp\_str](#v0.0.44_openapi_users_add_cond_resp_str)
+[v0.0.45\_openapi\_users\_add\_cond\_resp\_str](#v0.0.45_openapi_users_add_cond_resp_str)
 
 
 
@@ -17751,10 +18647,10 @@ Add list of users with conditional association
 [Up](#__Methods)
 
 ```
-post /slurmdb/v0.0.44/wckeys/
+post /slurmdb/v0.0.45/wckeys/
 ```
 
-Add or update wckeys (slurmdbV0044PostWckeys)
+Add or update wckeys (slurmdbV0045PostWckeys)
 
 ### Consumes
 
@@ -17764,7 +18660,7 @@ This API call consumes the following media types via the Content-Type request he
 
 ### Request body
 
-v0.0.44\_openapi\_wckey\_resp [v0.0.44\_openapi\_wckey\_resp](#v0.0.44_openapi_wckey_resp) (optional)
+v0.0.45\_openapi\_wckey\_resp [v0.0.45\_openapi\_wckey\_resp](#v0.0.45_openapi_wckey_resp) (optional)
 
 Body Parameter —
 
@@ -17773,10 +18669,6 @@ Body Parameter —
 cluster (optional)
 
 Query Parameter — CSV cluster name list default: null
-
-format (optional)
-
-Query Parameter — Ignored; process JSON manually to control output format default: null
 
 id (optional)
 
@@ -17812,7 +18704,7 @@ Query Parameter — Include deleted WCKeys default: null
 
 ### Return type
 
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 ### Example data
 
@@ -17876,12 +18768,12 @@ the media type will be conveyed by the Content-Type response header.
 #### 200
 
 Result of wckey addition or update request
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 #### default
 
 Result of wckey addition or update request
-[v0.0.44\_openapi\_resp](#v0.0.44_openapi_resp)
+[v0.0.45\_openapi\_resp](#v0.0.45_openapi_resp)
 
 
 
@@ -17893,226 +18785,238 @@ Result of wckey addition or update request
 
 ### Table of Contents
 
-1. [`v0.0.44_account` -](#v0.0.44_account)
-2. [`v0.0.44_account_short` -](#v0.0.44_account_short)
-3. [`v0.0.44_accounting` -](#v0.0.44_accounting)
-4. [`v0.0.44_accounts_add_cond` -](#v0.0.44_accounts_add_cond)
-5. [`v0.0.44_acct_gather_energy` -](#v0.0.44_acct_gather_energy)
-6. [`v0.0.44_assoc` -](#v0.0.44_assoc)
-7. [`v0.0.44_assoc_rec_set` -](#v0.0.44_assoc_rec_set)
-8. [`v0.0.44_assoc_shares_obj_wrap` -](#v0.0.44_assoc_shares_obj_wrap)
-9. [`v0.0.44_assoc_short` -](#v0.0.44_assoc_short)
-10. [`v0.0.44_bf_exit_fields` -](#v0.0.44_bf_exit_fields)
-11. [`v0.0.44_cluster_rec` -](#v0.0.44_cluster_rec)
-12. [`v0.0.44_controller_ping` -](#v0.0.44_controller_ping)
-13. [`v0.0.44_coord` -](#v0.0.44_coord)
-14. [`v0.0.44_cron_entry` -](#v0.0.44_cron_entry)
-15. [`v0.0.44_float64_no_val_struct` -](#v0.0.44_float64_no_val_struct)
-16. [`v0.0.44_instance` -](#v0.0.44_instance)
-17. [`v0.0.44_job` -](#v0.0.44_job)
-18. [`v0.0.44_job_alloc_req` -](#v0.0.44_job_alloc_req)
-19. [`v0.0.44_job_array_response_msg_entry` -](#v0.0.44_job_array_response_msg_entry)
-20. [`v0.0.44_job_desc_msg` -](#v0.0.44_job_desc_msg)
-21. [`v0.0.44_job_info` -](#v0.0.44_job_info)
-22. [`v0.0.44_job_modify` -](#v0.0.44_job_modify)
-23. [`v0.0.44_job_res` -](#v0.0.44_job_res)
-24. [`v0.0.44_job_res_core` -](#v0.0.44_job_res_core)
-25. [`v0.0.44_job_res_node` -](#v0.0.44_job_res_node)
-26. [`v0.0.44_job_res_socket` -](#v0.0.44_job_res_socket)
-27. [`v0.0.44_job_submit_req` -](#v0.0.44_job_submit_req)
-28. [`v0.0.44_kill_jobs_msg` -](#v0.0.44_kill_jobs_msg)
-29. [`v0.0.44_kill_jobs_resp_job` -](#v0.0.44_kill_jobs_resp_job)
-30. [`v0.0.44_license` -](#v0.0.44_license)
-31. [`v0.0.44_node` -](#v0.0.44_node)
-32. [`v0.0.44_node_gres_layout` -](#v0.0.44_node_gres_layout)
-33. [`v0.0.44_node_resource_layout` -](#v0.0.44_node_resource_layout)
-34. [`v0.0.44_openapi_accounts_add_cond_resp` -](#v0.0.44_openapi_accounts_add_cond_resp)
-35. [`v0.0.44_openapi_accounts_add_cond_resp_str` -](#v0.0.44_openapi_accounts_add_cond_resp_str)
-36. [`v0.0.44_openapi_accounts_removed_resp` -](#v0.0.44_openapi_accounts_removed_resp)
-37. [`v0.0.44_openapi_accounts_resp` -](#v0.0.44_openapi_accounts_resp)
-38. [`v0.0.44_openapi_assocs_removed_resp` -](#v0.0.44_openapi_assocs_removed_resp)
-39. [`v0.0.44_openapi_assocs_resp` -](#v0.0.44_openapi_assocs_resp)
-40. [`v0.0.44_openapi_clusters_removed_resp` -](#v0.0.44_openapi_clusters_removed_resp)
-41. [`v0.0.44_openapi_clusters_resp` -](#v0.0.44_openapi_clusters_resp)
-42. [`v0.0.44_openapi_create_node_req` -](#v0.0.44_openapi_create_node_req)
-43. [`v0.0.44_openapi_diag_resp` -](#v0.0.44_openapi_diag_resp)
-44. [`v0.0.44_openapi_error` -](#v0.0.44_openapi_error)
-45. [`v0.0.44_openapi_instances_resp` -](#v0.0.44_openapi_instances_resp)
-46. [`v0.0.44_openapi_job_alloc_resp` -](#v0.0.44_openapi_job_alloc_resp)
-47. [`v0.0.44_openapi_job_info_resp` -](#v0.0.44_openapi_job_info_resp)
-48. [`v0.0.44_openapi_job_modify_req` -](#v0.0.44_openapi_job_modify_req)
-49. [`v0.0.44_openapi_job_modify_resp` -](#v0.0.44_openapi_job_modify_resp)
-50. [`v0.0.44_openapi_job_post_response` -](#v0.0.44_openapi_job_post_response)
-51. [`v0.0.44_openapi_job_submit_response` -](#v0.0.44_openapi_job_submit_response)
-52. [`v0.0.44_openapi_kill_job_resp` -](#v0.0.44_openapi_kill_job_resp)
-53. [`v0.0.44_openapi_kill_jobs_resp` -](#v0.0.44_openapi_kill_jobs_resp)
-54. [`v0.0.44_openapi_licenses_resp` -](#v0.0.44_openapi_licenses_resp)
-55. [`v0.0.44_openapi_meta` -](#v0.0.44_openapi_meta)
-56. [`v0.0.44_openapi_nodes_resp` -](#v0.0.44_openapi_nodes_resp)
-57. [`v0.0.44_openapi_partition_resp` -](#v0.0.44_openapi_partition_resp)
-58. [`v0.0.44_openapi_ping_array_resp` -](#v0.0.44_openapi_ping_array_resp)
-59. [`v0.0.44_openapi_reservation_mod_resp` -](#v0.0.44_openapi_reservation_mod_resp)
-60. [`v0.0.44_openapi_reservation_resp` -](#v0.0.44_openapi_reservation_resp)
-61. [`v0.0.44_openapi_resource_layout_resp` -](#v0.0.44_openapi_resource_layout_resp)
-62. [`v0.0.44_openapi_resp` -](#v0.0.44_openapi_resp)
-63. [`v0.0.44_openapi_shares_resp` -](#v0.0.44_openapi_shares_resp)
-64. [`v0.0.44_openapi_slurmdbd_config_resp` -](#v0.0.44_openapi_slurmdbd_config_resp)
-65. [`v0.0.44_openapi_slurmdbd_jobs_resp` -](#v0.0.44_openapi_slurmdbd_jobs_resp)
-66. [`v0.0.44_openapi_slurmdbd_ping_resp` -](#v0.0.44_openapi_slurmdbd_ping_resp)
-67. [`v0.0.44_openapi_slurmdbd_qos_removed_resp` -](#v0.0.44_openapi_slurmdbd_qos_removed_resp)
-68. [`v0.0.44_openapi_slurmdbd_qos_resp` -](#v0.0.44_openapi_slurmdbd_qos_resp)
-69. [`v0.0.44_openapi_slurmdbd_stats_resp` -](#v0.0.44_openapi_slurmdbd_stats_resp)
-70. [`v0.0.44_openapi_tres_resp` -](#v0.0.44_openapi_tres_resp)
-71. [`v0.0.44_openapi_users_add_cond_resp` -](#v0.0.44_openapi_users_add_cond_resp)
-72. [`v0.0.44_openapi_users_add_cond_resp_str` -](#v0.0.44_openapi_users_add_cond_resp_str)
-73. [`v0.0.44_openapi_users_resp` -](#v0.0.44_openapi_users_resp)
-74. [`v0.0.44_openapi_warning` -](#v0.0.44_openapi_warning)
-75. [`v0.0.44_openapi_wckey_removed_resp` -](#v0.0.44_openapi_wckey_removed_resp)
-76. [`v0.0.44_openapi_wckey_resp` -](#v0.0.44_openapi_wckey_resp)
-77. [`v0.0.44_part_prio` -](#v0.0.44_part_prio)
-78. [`v0.0.44_partition_info` -](#v0.0.44_partition_info)
-79. [`v0.0.44_process_exit_code_verbose` -](#v0.0.44_process_exit_code_verbose)
-80. [`v0.0.44_qos` -](#v0.0.44_qos)
-81. [`v0.0.44_reservation_core_spec` -](#v0.0.44_reservation_core_spec)
-82. [`v0.0.44_reservation_desc_msg` -](#v0.0.44_reservation_desc_msg)
-83. [`v0.0.44_reservation_info` -](#v0.0.44_reservation_info)
-84. [`v0.0.44_reservation_mod_req` -](#v0.0.44_reservation_mod_req)
-85. [`v0.0.44_rollup_stats` -](#v0.0.44_rollup_stats)
-86. [`v0.0.44_schedule_exit_fields` -](#v0.0.44_schedule_exit_fields)
-87. [`v0.0.44_shares_float128_tres` -](#v0.0.44_shares_float128_tres)
-88. [`v0.0.44_shares_resp_msg` -](#v0.0.44_shares_resp_msg)
-89. [`v0.0.44_shares_uint64_tres` -](#v0.0.44_shares_uint64_tres)
-90. [`v0.0.44_slurm_step_id` -](#v0.0.44_slurm_step_id)
-91. [`v0.0.44_slurmdbd_ping` -](#v0.0.44_slurmdbd_ping)
-92. [`v0.0.44_stats_msg` -](#v0.0.44_stats_msg)
-93. [`v0.0.44_stats_msg_rpc_dump` -](#v0.0.44_stats_msg_rpc_dump)
-94. [`v0.0.44_stats_msg_rpc_queue` -](#v0.0.44_stats_msg_rpc_queue)
-95. [`v0.0.44_stats_msg_rpc_type` -](#v0.0.44_stats_msg_rpc_type)
-96. [`v0.0.44_stats_msg_rpc_user` -](#v0.0.44_stats_msg_rpc_user)
-97. [`v0.0.44_stats_rec` -](#v0.0.44_stats_rec)
-98. [`v0.0.44_stats_rpc` -](#v0.0.44_stats_rpc)
-99. [`v0.0.44_stats_user` -](#v0.0.44_stats_user)
-100. [`v0.0.44_step` -](#v0.0.44_step)
-101. [`v0.0.44_tres` -](#v0.0.44_tres)
-102. [`v0.0.44_uint16_no_val_struct` -](#v0.0.44_uint16_no_val_struct)
-103. [`v0.0.44_uint32_no_val_struct` -](#v0.0.44_uint32_no_val_struct)
-104. [`v0.0.44_uint64_no_val_struct` -](#v0.0.44_uint64_no_val_struct)
-105. [`v0.0.44_update_node_msg` -](#v0.0.44_update_node_msg)
-106. [`v0.0.44_user` -](#v0.0.44_user)
-107. [`v0.0.44_user_short` -](#v0.0.44_user_short)
-108. [`v0.0.44_users_add_cond` -](#v0.0.44_users_add_cond)
-109. [`v0.0.44_wckey` -](#v0.0.44_wckey)
-110. [`v0.0.44_wckey_tag_struct` -](#v0.0.44_wckey_tag_struct)
-111. [`v0_0_44_accounting_allocated` -](#v0_0_44_accounting_allocated)
-112. [`v0_0_44_assoc_default` -](#v0_0_44_assoc_default)
-113. [`v0_0_44_assoc_max` -](#v0_0_44_assoc_max)
-114. [`v0_0_44_assoc_max_jobs` -](#v0_0_44_assoc_max_jobs)
-115. [`v0_0_44_assoc_max_jobs_per` -](#v0_0_44_assoc_max_jobs_per)
-116. [`v0_0_44_assoc_max_per` -](#v0_0_44_assoc_max_per)
-117. [`v0_0_44_assoc_max_per_account` -](#v0_0_44_assoc_max_per_account)
-118. [`v0_0_44_assoc_max_tres` -](#v0_0_44_assoc_max_tres)
-119. [`v0_0_44_assoc_max_tres_group` -](#v0_0_44_assoc_max_tres_group)
-120. [`v0_0_44_assoc_max_tres_minutes` -](#v0_0_44_assoc_max_tres_minutes)
-121. [`v0_0_44_assoc_max_tres_per` -](#v0_0_44_assoc_max_tres_per)
-122. [`v0_0_44_assoc_min` -](#v0_0_44_assoc_min)
-123. [`v0_0_44_assoc_shares_obj_wrap_fairshare` -](#v0_0_44_assoc_shares_obj_wrap_fairshare)
-124. [`v0_0_44_assoc_shares_obj_wrap_tres` -](#v0_0_44_assoc_shares_obj_wrap_tres)
-125. [`v0_0_44_cluster_rec_associations` -](#v0_0_44_cluster_rec_associations)
-126. [`v0_0_44_cluster_rec_controller` -](#v0_0_44_cluster_rec_controller)
-127. [`v0_0_44_cron_entry_line` -](#v0_0_44_cron_entry_line)
-128. [`v0_0_44_instance_time` -](#v0_0_44_instance_time)
-129. [`v0_0_44_job_array` -](#v0_0_44_job_array)
-130. [`v0_0_44_job_array_limits` -](#v0_0_44_job_array_limits)
-131. [`v0_0_44_job_array_limits_max` -](#v0_0_44_job_array_limits_max)
-132. [`v0_0_44_job_array_limits_max_running` -](#v0_0_44_job_array_limits_max_running)
-133. [`v0_0_44_job_comment` -](#v0_0_44_job_comment)
-134. [`v0_0_44_job_desc_msg_rlimits` -](#v0_0_44_job_desc_msg_rlimits)
-135. [`v0_0_44_job_het` -](#v0_0_44_job_het)
-136. [`v0_0_44_job_info_power` -](#v0_0_44_job_info_power)
-137. [`v0_0_44_job_mcs` -](#v0_0_44_job_mcs)
-138. [`v0_0_44_job_modify_tres` -](#v0_0_44_job_modify_tres)
-139. [`v0_0_44_job_required` -](#v0_0_44_job_required)
-140. [`v0_0_44_job_res_node_cpus` -](#v0_0_44_job_res_node_cpus)
-141. [`v0_0_44_job_res_node_memory` -](#v0_0_44_job_res_node_memory)
-142. [`v0_0_44_job_res_nodes` -](#v0_0_44_job_res_nodes)
-143. [`v0_0_44_job_reservation` -](#v0_0_44_job_reservation)
-144. [`v0_0_44_job_state` -](#v0_0_44_job_state)
-145. [`v0_0_44_job_time` -](#v0_0_44_job_time)
-146. [`v0_0_44_job_time_system` -](#v0_0_44_job_time_system)
-147. [`v0_0_44_job_time_total` -](#v0_0_44_job_time_total)
-148. [`v0_0_44_job_time_user` -](#v0_0_44_job_time_user)
-149. [`v0_0_44_job_tres` -](#v0_0_44_job_tres)
-150. [`v0_0_44_kill_jobs_resp_job_error` -](#v0_0_44_kill_jobs_resp_job_error)
-151. [`v0_0_44_kill_jobs_resp_job_federation` -](#v0_0_44_kill_jobs_resp_job_federation)
-152. [`v0_0_44_openapi_meta_client` -](#v0_0_44_openapi_meta_client)
-153. [`v0_0_44_openapi_meta_plugin` -](#v0_0_44_openapi_meta_plugin)
-154. [`v0_0_44_openapi_meta_slurm` -](#v0_0_44_openapi_meta_slurm)
-155. [`v0_0_44_openapi_meta_slurm_version` -](#v0_0_44_openapi_meta_slurm_version)
-156. [`v0_0_44_partition_info_accounts` -](#v0_0_44_partition_info_accounts)
-157. [`v0_0_44_partition_info_cpus` -](#v0_0_44_partition_info_cpus)
-158. [`v0_0_44_partition_info_defaults` -](#v0_0_44_partition_info_defaults)
-159. [`v0_0_44_partition_info_groups` -](#v0_0_44_partition_info_groups)
-160. [`v0_0_44_partition_info_maximums` -](#v0_0_44_partition_info_maximums)
-161. [`v0_0_44_partition_info_maximums_oversubscribe` -](#v0_0_44_partition_info_maximums_oversubscribe)
-162. [`v0_0_44_partition_info_minimums` -](#v0_0_44_partition_info_minimums)
-163. [`v0_0_44_partition_info_nodes` -](#v0_0_44_partition_info_nodes)
-164. [`v0_0_44_partition_info_partition` -](#v0_0_44_partition_info_partition)
-165. [`v0_0_44_partition_info_priority` -](#v0_0_44_partition_info_priority)
-166. [`v0_0_44_partition_info_qos` -](#v0_0_44_partition_info_qos)
-167. [`v0_0_44_partition_info_timeouts` -](#v0_0_44_partition_info_timeouts)
-168. [`v0_0_44_partition_info_tres` -](#v0_0_44_partition_info_tres)
-169. [`v0_0_44_process_exit_code_verbose_signal` -](#v0_0_44_process_exit_code_verbose_signal)
-170. [`v0_0_44_qos_limits` -](#v0_0_44_qos_limits)
-171. [`v0_0_44_qos_limits_max` -](#v0_0_44_qos_limits_max)
-172. [`v0_0_44_qos_limits_max_active_jobs` -](#v0_0_44_qos_limits_max_active_jobs)
-173. [`v0_0_44_qos_limits_max_jobs` -](#v0_0_44_qos_limits_max_jobs)
-174. [`v0_0_44_qos_limits_max_jobs_active_jobs` -](#v0_0_44_qos_limits_max_jobs_active_jobs)
-175. [`v0_0_44_qos_limits_max_jobs_active_jobs_per` -](#v0_0_44_qos_limits_max_jobs_active_jobs_per)
-176. [`v0_0_44_qos_limits_max_tres` -](#v0_0_44_qos_limits_max_tres)
-177. [`v0_0_44_qos_limits_max_tres_minutes` -](#v0_0_44_qos_limits_max_tres_minutes)
-178. [`v0_0_44_qos_limits_max_tres_minutes_per` -](#v0_0_44_qos_limits_max_tres_minutes_per)
-179. [`v0_0_44_qos_limits_max_tres_per` -](#v0_0_44_qos_limits_max_tres_per)
-180. [`v0_0_44_qos_limits_max_wall_clock` -](#v0_0_44_qos_limits_max_wall_clock)
-181. [`v0_0_44_qos_limits_max_wall_clock_per` -](#v0_0_44_qos_limits_max_wall_clock_per)
-182. [`v0_0_44_qos_limits_min` -](#v0_0_44_qos_limits_min)
-183. [`v0_0_44_qos_limits_min_tres` -](#v0_0_44_qos_limits_min_tres)
-184. [`v0_0_44_qos_limits_min_tres_per` -](#v0_0_44_qos_limits_min_tres_per)
-185. [`v0_0_44_qos_preempt` -](#v0_0_44_qos_preempt)
-186. [`v0_0_44_reservation_info_purge_completed` -](#v0_0_44_reservation_info_purge_completed)
-187. [`v0_0_44_rollup_stats_daily` -](#v0_0_44_rollup_stats_daily)
-188. [`v0_0_44_rollup_stats_daily_duration` -](#v0_0_44_rollup_stats_daily_duration)
-189. [`v0_0_44_rollup_stats_hourly` -](#v0_0_44_rollup_stats_hourly)
-190. [`v0_0_44_rollup_stats_hourly_duration` -](#v0_0_44_rollup_stats_hourly_duration)
-191. [`v0_0_44_rollup_stats_monthly` -](#v0_0_44_rollup_stats_monthly)
-192. [`v0_0_44_rollup_stats_monthly_duration` -](#v0_0_44_rollup_stats_monthly_duration)
-193. [`v0_0_44_stats_rpc_time` -](#v0_0_44_stats_rpc_time)
-194. [`v0_0_44_step_CPU` -](#v0_0_44_step_CPU)
-195. [`v0_0_44_step_CPU_requested_frequency` -](#v0_0_44_step_CPU_requested_frequency)
-196. [`v0_0_44_step_nodes` -](#v0_0_44_step_nodes)
-197. [`v0_0_44_step_statistics` -](#v0_0_44_step_statistics)
-198. [`v0_0_44_step_statistics_CPU` -](#v0_0_44_step_statistics_CPU)
-199. [`v0_0_44_step_statistics_energy` -](#v0_0_44_step_statistics_energy)
-200. [`v0_0_44_step_step` -](#v0_0_44_step_step)
-201. [`v0_0_44_step_task` -](#v0_0_44_step_task)
-202. [`v0_0_44_step_tasks` -](#v0_0_44_step_tasks)
-203. [`v0_0_44_step_time` -](#v0_0_44_step_time)
-204. [`v0_0_44_step_time_system` -](#v0_0_44_step_time_system)
-205. [`v0_0_44_step_time_total` -](#v0_0_44_step_time_total)
-206. [`v0_0_44_step_time_user` -](#v0_0_44_step_time_user)
-207. [`v0_0_44_step_tres` -](#v0_0_44_step_tres)
-208. [`v0_0_44_step_tres_consumed` -](#v0_0_44_step_tres_consumed)
-209. [`v0_0_44_step_tres_requested` -](#v0_0_44_step_tres_requested)
-210. [`v0_0_44_user_default` -](#v0_0_44_user_default)
+1. [`v0.0.45_account` -](#v0.0.45_account)
+2. [`v0.0.45_account_short` -](#v0.0.45_account_short)
+3. [`v0.0.45_accounting` -](#v0.0.45_accounting)
+4. [`v0.0.45_accounts_add_cond` -](#v0.0.45_accounts_add_cond)
+5. [`v0.0.45_acct_gather_energy` -](#v0.0.45_acct_gather_energy)
+6. [`v0.0.45_assoc` -](#v0.0.45_assoc)
+7. [`v0.0.45_assoc_rec_set` -](#v0.0.45_assoc_rec_set)
+8. [`v0.0.45_assoc_shares_obj_wrap` -](#v0.0.45_assoc_shares_obj_wrap)
+9. [`v0.0.45_assoc_short` -](#v0.0.45_assoc_short)
+10. [`v0.0.45_bf_exit_fields` -](#v0.0.45_bf_exit_fields)
+11. [`v0.0.45_cluster_rec` -](#v0.0.45_cluster_rec)
+12. [`v0.0.45_controller` -](#v0.0.45_controller)
+13. [`v0.0.45_controller_ping` -](#v0.0.45_controller_ping)
+14. [`v0.0.45_coord` -](#v0.0.45_coord)
+15. [`v0.0.45_cron_entry` -](#v0.0.45_cron_entry)
+16. [`v0.0.45_float64_no_val_struct` -](#v0.0.45_float64_no_val_struct)
+17. [`v0.0.45_instance` -](#v0.0.45_instance)
+18. [`v0.0.45_job` -](#v0.0.45_job)
+19. [`v0.0.45_job_alloc_req` -](#v0.0.45_job_alloc_req)
+20. [`v0.0.45_job_array_response_msg_entry` -](#v0.0.45_job_array_response_msg_entry)
+21. [`v0.0.45_job_defaults` -](#v0.0.45_job_defaults)
+22. [`v0.0.45_job_desc_msg` -](#v0.0.45_job_desc_msg)
+23. [`v0.0.45_job_info` -](#v0.0.45_job_info)
+24. [`v0.0.45_job_modify` -](#v0.0.45_job_modify)
+25. [`v0.0.45_job_res` -](#v0.0.45_job_res)
+26. [`v0.0.45_job_res_core` -](#v0.0.45_job_res_core)
+27. [`v0.0.45_job_res_node` -](#v0.0.45_job_res_node)
+28. [`v0.0.45_job_res_socket` -](#v0.0.45_job_res_socket)
+29. [`v0.0.45_job_submit_req` -](#v0.0.45_job_submit_req)
+30. [`v0.0.45_kill_jobs_msg` -](#v0.0.45_kill_jobs_msg)
+31. [`v0.0.45_kill_jobs_resp_job` -](#v0.0.45_kill_jobs_resp_job)
+32. [`v0.0.45_license` -](#v0.0.45_license)
+33. [`v0.0.45_node` -](#v0.0.45_node)
+34. [`v0.0.45_node_gres_layout` -](#v0.0.45_node_gres_layout)
+35. [`v0.0.45_node_resource_layout` -](#v0.0.45_node_resource_layout)
+36. [`v0.0.45_openapi_accounts_add_cond_resp` -](#v0.0.45_openapi_accounts_add_cond_resp)
+37. [`v0.0.45_openapi_accounts_add_cond_resp_str` -](#v0.0.45_openapi_accounts_add_cond_resp_str)
+38. [`v0.0.45_openapi_accounts_removed_resp` -](#v0.0.45_openapi_accounts_removed_resp)
+39. [`v0.0.45_openapi_accounts_resp` -](#v0.0.45_openapi_accounts_resp)
+40. [`v0.0.45_openapi_assocs_removed_resp` -](#v0.0.45_openapi_assocs_removed_resp)
+41. [`v0.0.45_openapi_assocs_resp` -](#v0.0.45_openapi_assocs_resp)
+42. [`v0.0.45_openapi_clusters_removed_resp` -](#v0.0.45_openapi_clusters_removed_resp)
+43. [`v0.0.45_openapi_clusters_resp` -](#v0.0.45_openapi_clusters_resp)
+44. [`v0.0.45_openapi_conf_resp` -](#v0.0.45_openapi_conf_resp)
+45. [`v0.0.45_openapi_create_node_req` -](#v0.0.45_openapi_create_node_req)
+46. [`v0.0.45_openapi_diag_resp` -](#v0.0.45_openapi_diag_resp)
+47. [`v0.0.45_openapi_error` -](#v0.0.45_openapi_error)
+48. [`v0.0.45_openapi_instances_resp` -](#v0.0.45_openapi_instances_resp)
+49. [`v0.0.45_openapi_job_alloc_resp` -](#v0.0.45_openapi_job_alloc_resp)
+50. [`v0.0.45_openapi_job_info_resp` -](#v0.0.45_openapi_job_info_resp)
+51. [`v0.0.45_openapi_job_modify_req` -](#v0.0.45_openapi_job_modify_req)
+52. [`v0.0.45_openapi_job_modify_resp` -](#v0.0.45_openapi_job_modify_resp)
+53. [`v0.0.45_openapi_job_post_response` -](#v0.0.45_openapi_job_post_response)
+54. [`v0.0.45_openapi_job_requeue_resp` -](#v0.0.45_openapi_job_requeue_resp)
+55. [`v0.0.45_openapi_job_submit_response` -](#v0.0.45_openapi_job_submit_response)
+56. [`v0.0.45_openapi_jobs_requeue_query` -](#v0.0.45_openapi_jobs_requeue_query)
+57. [`v0.0.45_openapi_jobs_requeue_resp` -](#v0.0.45_openapi_jobs_requeue_resp)
+58. [`v0.0.45_openapi_kill_job_resp` -](#v0.0.45_openapi_kill_job_resp)
+59. [`v0.0.45_openapi_kill_jobs_resp` -](#v0.0.45_openapi_kill_jobs_resp)
+60. [`v0.0.45_openapi_licenses_resp` -](#v0.0.45_openapi_licenses_resp)
+61. [`v0.0.45_openapi_meta` -](#v0.0.45_openapi_meta)
+62. [`v0.0.45_openapi_nodes_resp` -](#v0.0.45_openapi_nodes_resp)
+63. [`v0.0.45_openapi_partition_resp` -](#v0.0.45_openapi_partition_resp)
+64. [`v0.0.45_openapi_partitions_mod_req` -](#v0.0.45_openapi_partitions_mod_req)
+65. [`v0.0.45_openapi_ping_array_resp` -](#v0.0.45_openapi_ping_array_resp)
+66. [`v0.0.45_openapi_reservation_mod_resp` -](#v0.0.45_openapi_reservation_mod_resp)
+67. [`v0.0.45_openapi_reservation_resp` -](#v0.0.45_openapi_reservation_resp)
+68. [`v0.0.45_openapi_resource_layout_resp` -](#v0.0.45_openapi_resource_layout_resp)
+69. [`v0.0.45_openapi_resp` -](#v0.0.45_openapi_resp)
+70. [`v0.0.45_openapi_shares_resp` -](#v0.0.45_openapi_shares_resp)
+71. [`v0.0.45_openapi_slurmdbd_conf_resp` -](#v0.0.45_openapi_slurmdbd_conf_resp)
+72. [`v0.0.45_openapi_slurmdbd_config_resp` -](#v0.0.45_openapi_slurmdbd_config_resp)
+73. [`v0.0.45_openapi_slurmdbd_jobs_resp` -](#v0.0.45_openapi_slurmdbd_jobs_resp)
+74. [`v0.0.45_openapi_slurmdbd_ping_resp` -](#v0.0.45_openapi_slurmdbd_ping_resp)
+75. [`v0.0.45_openapi_slurmdbd_qos_removed_resp` -](#v0.0.45_openapi_slurmdbd_qos_removed_resp)
+76. [`v0.0.45_openapi_slurmdbd_qos_resp` -](#v0.0.45_openapi_slurmdbd_qos_resp)
+77. [`v0.0.45_openapi_slurmdbd_stats_resp` -](#v0.0.45_openapi_slurmdbd_stats_resp)
+78. [`v0.0.45_openapi_tres_resp` -](#v0.0.45_openapi_tres_resp)
+79. [`v0.0.45_openapi_users_add_cond_resp` -](#v0.0.45_openapi_users_add_cond_resp)
+80. [`v0.0.45_openapi_users_add_cond_resp_str` -](#v0.0.45_openapi_users_add_cond_resp_str)
+81. [`v0.0.45_openapi_users_resp` -](#v0.0.45_openapi_users_resp)
+82. [`v0.0.45_openapi_warning` -](#v0.0.45_openapi_warning)
+83. [`v0.0.45_openapi_wckey_removed_resp` -](#v0.0.45_openapi_wckey_removed_resp)
+84. [`v0.0.45_openapi_wckey_resp` -](#v0.0.45_openapi_wckey_resp)
+85. [`v0.0.45_part_prio` -](#v0.0.45_part_prio)
+86. [`v0.0.45_partition_info` -](#v0.0.45_partition_info)
+87. [`v0.0.45_port_range` -](#v0.0.45_port_range)
+88. [`v0.0.45_process_exit_code_verbose` -](#v0.0.45_process_exit_code_verbose)
+89. [`v0.0.45_qos` -](#v0.0.45_qos)
+90. [`v0.0.45_reservation_core_spec` -](#v0.0.45_reservation_core_spec)
+91. [`v0.0.45_reservation_desc_msg` -](#v0.0.45_reservation_desc_msg)
+92. [`v0.0.45_reservation_info` -](#v0.0.45_reservation_info)
+93. [`v0.0.45_reservation_mod_req` -](#v0.0.45_reservation_mod_req)
+94. [`v0.0.45_rollup_stats` -](#v0.0.45_rollup_stats)
+95. [`v0.0.45_schedule_exit_fields` -](#v0.0.45_schedule_exit_fields)
+96. [`v0.0.45_shares_float128_tres` -](#v0.0.45_shares_float128_tres)
+97. [`v0.0.45_shares_resp_msg` -](#v0.0.45_shares_resp_msg)
+98. [`v0.0.45_shares_uint64_tres` -](#v0.0.45_shares_uint64_tres)
+99. [`v0.0.45_slurm_conf` -](#v0.0.45_slurm_conf)
+100. [`v0.0.45_slurm_conf_meta` -](#v0.0.45_slurm_conf_meta)
+101. [`v0.0.45_slurm_step_id` -](#v0.0.45_slurm_step_id)
+102. [`v0.0.45_slurmdb_purge_units` -](#v0.0.45_slurmdb_purge_units)
+103. [`v0.0.45_slurmdbd_conf` -](#v0.0.45_slurmdbd_conf)
+104. [`v0.0.45_slurmdbd_ping` -](#v0.0.45_slurmdbd_ping)
+105. [`v0.0.45_stats_msg` -](#v0.0.45_stats_msg)
+106. [`v0.0.45_stats_msg_rpc_dump` -](#v0.0.45_stats_msg_rpc_dump)
+107. [`v0.0.45_stats_msg_rpc_queue` -](#v0.0.45_stats_msg_rpc_queue)
+108. [`v0.0.45_stats_msg_rpc_type` -](#v0.0.45_stats_msg_rpc_type)
+109. [`v0.0.45_stats_msg_rpc_user` -](#v0.0.45_stats_msg_rpc_user)
+110. [`v0.0.45_stats_rec` -](#v0.0.45_stats_rec)
+111. [`v0.0.45_stats_rpc` -](#v0.0.45_stats_rpc)
+112. [`v0.0.45_stats_user` -](#v0.0.45_stats_user)
+113. [`v0.0.45_step` -](#v0.0.45_step)
+114. [`v0.0.45_tres` -](#v0.0.45_tres)
+115. [`v0.0.45_uint16_no_val_struct` -](#v0.0.45_uint16_no_val_struct)
+116. [`v0.0.45_uint32_no_val_struct` -](#v0.0.45_uint32_no_val_struct)
+117. [`v0.0.45_uint64_no_val_struct` -](#v0.0.45_uint64_no_val_struct)
+118. [`v0.0.45_update_node_msg` -](#v0.0.45_update_node_msg)
+119. [`v0.0.45_user` -](#v0.0.45_user)
+120. [`v0.0.45_user_short` -](#v0.0.45_user_short)
+121. [`v0.0.45_users_add_cond` -](#v0.0.45_users_add_cond)
+122. [`v0.0.45_wckey` -](#v0.0.45_wckey)
+123. [`v0.0.45_wckey_tag_struct` -](#v0.0.45_wckey_tag_struct)
+124. [`v0_0_45_accounting_allocated` -](#v0_0_45_accounting_allocated)
+125. [`v0_0_45_assoc_default` -](#v0_0_45_assoc_default)
+126. [`v0_0_45_assoc_max` -](#v0_0_45_assoc_max)
+127. [`v0_0_45_assoc_max_jobs` -](#v0_0_45_assoc_max_jobs)
+128. [`v0_0_45_assoc_max_jobs_per` -](#v0_0_45_assoc_max_jobs_per)
+129. [`v0_0_45_assoc_max_per` -](#v0_0_45_assoc_max_per)
+130. [`v0_0_45_assoc_max_per_account` -](#v0_0_45_assoc_max_per_account)
+131. [`v0_0_45_assoc_max_tres` -](#v0_0_45_assoc_max_tres)
+132. [`v0_0_45_assoc_max_tres_group` -](#v0_0_45_assoc_max_tres_group)
+133. [`v0_0_45_assoc_max_tres_minutes` -](#v0_0_45_assoc_max_tres_minutes)
+134. [`v0_0_45_assoc_max_tres_per` -](#v0_0_45_assoc_max_tres_per)
+135. [`v0_0_45_assoc_min` -](#v0_0_45_assoc_min)
+136. [`v0_0_45_assoc_shares_obj_wrap_fairshare` -](#v0_0_45_assoc_shares_obj_wrap_fairshare)
+137. [`v0_0_45_assoc_shares_obj_wrap_tres` -](#v0_0_45_assoc_shares_obj_wrap_tres)
+138. [`v0_0_45_cluster_rec_associations` -](#v0_0_45_cluster_rec_associations)
+139. [`v0_0_45_cluster_rec_controller` -](#v0_0_45_cluster_rec_controller)
+140. [`v0_0_45_cron_entry_line` -](#v0_0_45_cron_entry_line)
+141. [`v0_0_45_instance_time` -](#v0_0_45_instance_time)
+142. [`v0_0_45_job_array` -](#v0_0_45_job_array)
+143. [`v0_0_45_job_array_limits` -](#v0_0_45_job_array_limits)
+144. [`v0_0_45_job_array_limits_max` -](#v0_0_45_job_array_limits_max)
+145. [`v0_0_45_job_array_limits_max_running` -](#v0_0_45_job_array_limits_max_running)
+146. [`v0_0_45_job_comment` -](#v0_0_45_job_comment)
+147. [`v0_0_45_job_desc_msg_rlimits` -](#v0_0_45_job_desc_msg_rlimits)
+148. [`v0_0_45_job_het` -](#v0_0_45_job_het)
+149. [`v0_0_45_job_mcs` -](#v0_0_45_job_mcs)
+150. [`v0_0_45_job_modify_tres` -](#v0_0_45_job_modify_tres)
+151. [`v0_0_45_job_required` -](#v0_0_45_job_required)
+152. [`v0_0_45_job_res_node_cpus` -](#v0_0_45_job_res_node_cpus)
+153. [`v0_0_45_job_res_node_memory` -](#v0_0_45_job_res_node_memory)
+154. [`v0_0_45_job_res_nodes` -](#v0_0_45_job_res_nodes)
+155. [`v0_0_45_job_reservation` -](#v0_0_45_job_reservation)
+156. [`v0_0_45_job_state` -](#v0_0_45_job_state)
+157. [`v0_0_45_job_time` -](#v0_0_45_job_time)
+158. [`v0_0_45_job_time_system` -](#v0_0_45_job_time_system)
+159. [`v0_0_45_job_time_total` -](#v0_0_45_job_time_total)
+160. [`v0_0_45_job_time_user` -](#v0_0_45_job_time_user)
+161. [`v0_0_45_job_tres` -](#v0_0_45_job_tres)
+162. [`v0_0_45_kill_jobs_resp_job_error` -](#v0_0_45_kill_jobs_resp_job_error)
+163. [`v0_0_45_kill_jobs_resp_job_federation` -](#v0_0_45_kill_jobs_resp_job_federation)
+164. [`v0_0_45_openapi_meta_client` -](#v0_0_45_openapi_meta_client)
+165. [`v0_0_45_openapi_meta_plugin` -](#v0_0_45_openapi_meta_plugin)
+166. [`v0_0_45_openapi_meta_slurm` -](#v0_0_45_openapi_meta_slurm)
+167. [`v0_0_45_openapi_meta_slurm_version` -](#v0_0_45_openapi_meta_slurm_version)
+168. [`v0_0_45_partition_info_accounts` -](#v0_0_45_partition_info_accounts)
+169. [`v0_0_45_partition_info_cpus` -](#v0_0_45_partition_info_cpus)
+170. [`v0_0_45_partition_info_defaults` -](#v0_0_45_partition_info_defaults)
+171. [`v0_0_45_partition_info_groups` -](#v0_0_45_partition_info_groups)
+172. [`v0_0_45_partition_info_maximums` -](#v0_0_45_partition_info_maximums)
+173. [`v0_0_45_partition_info_maximums_oversubscribe` -](#v0_0_45_partition_info_maximums_oversubscribe)
+174. [`v0_0_45_partition_info_minimums` -](#v0_0_45_partition_info_minimums)
+175. [`v0_0_45_partition_info_nodes` -](#v0_0_45_partition_info_nodes)
+176. [`v0_0_45_partition_info_partition` -](#v0_0_45_partition_info_partition)
+177. [`v0_0_45_partition_info_priority` -](#v0_0_45_partition_info_priority)
+178. [`v0_0_45_partition_info_qos` -](#v0_0_45_partition_info_qos)
+179. [`v0_0_45_partition_info_timeouts` -](#v0_0_45_partition_info_timeouts)
+180. [`v0_0_45_partition_info_tres` -](#v0_0_45_partition_info_tres)
+181. [`v0_0_45_process_exit_code_verbose_signal` -](#v0_0_45_process_exit_code_verbose_signal)
+182. [`v0_0_45_qos_limits` -](#v0_0_45_qos_limits)
+183. [`v0_0_45_qos_limits_max` -](#v0_0_45_qos_limits_max)
+184. [`v0_0_45_qos_limits_max_active_jobs` -](#v0_0_45_qos_limits_max_active_jobs)
+185. [`v0_0_45_qos_limits_max_jobs` -](#v0_0_45_qos_limits_max_jobs)
+186. [`v0_0_45_qos_limits_max_jobs_active_jobs` -](#v0_0_45_qos_limits_max_jobs_active_jobs)
+187. [`v0_0_45_qos_limits_max_jobs_active_jobs_per` -](#v0_0_45_qos_limits_max_jobs_active_jobs_per)
+188. [`v0_0_45_qos_limits_max_tres` -](#v0_0_45_qos_limits_max_tres)
+189. [`v0_0_45_qos_limits_max_tres_minutes` -](#v0_0_45_qos_limits_max_tres_minutes)
+190. [`v0_0_45_qos_limits_max_tres_minutes_per` -](#v0_0_45_qos_limits_max_tres_minutes_per)
+191. [`v0_0_45_qos_limits_max_tres_per` -](#v0_0_45_qos_limits_max_tres_per)
+192. [`v0_0_45_qos_limits_max_wall_clock` -](#v0_0_45_qos_limits_max_wall_clock)
+193. [`v0_0_45_qos_limits_max_wall_clock_per` -](#v0_0_45_qos_limits_max_wall_clock_per)
+194. [`v0_0_45_qos_limits_min` -](#v0_0_45_qos_limits_min)
+195. [`v0_0_45_qos_limits_min_tres` -](#v0_0_45_qos_limits_min_tres)
+196. [`v0_0_45_qos_limits_min_tres_per` -](#v0_0_45_qos_limits_min_tres_per)
+197. [`v0_0_45_qos_preempt` -](#v0_0_45_qos_preempt)
+198. [`v0_0_45_reservation_info_purge_completed` -](#v0_0_45_reservation_info_purge_completed)
+199. [`v0_0_45_rollup_stats_daily` -](#v0_0_45_rollup_stats_daily)
+200. [`v0_0_45_rollup_stats_daily_duration` -](#v0_0_45_rollup_stats_daily_duration)
+201. [`v0_0_45_rollup_stats_hourly` -](#v0_0_45_rollup_stats_hourly)
+202. [`v0_0_45_rollup_stats_hourly_duration` -](#v0_0_45_rollup_stats_hourly_duration)
+203. [`v0_0_45_rollup_stats_monthly` -](#v0_0_45_rollup_stats_monthly)
+204. [`v0_0_45_rollup_stats_monthly_duration` -](#v0_0_45_rollup_stats_monthly_duration)
+205. [`v0_0_45_stats_rpc_time` -](#v0_0_45_stats_rpc_time)
+206. [`v0_0_45_step_CPU` -](#v0_0_45_step_CPU)
+207. [`v0_0_45_step_CPU_requested_frequency` -](#v0_0_45_step_CPU_requested_frequency)
+208. [`v0_0_45_step_nodes` -](#v0_0_45_step_nodes)
+209. [`v0_0_45_step_statistics` -](#v0_0_45_step_statistics)
+210. [`v0_0_45_step_statistics_CPU` -](#v0_0_45_step_statistics_CPU)
+211. [`v0_0_45_step_statistics_energy` -](#v0_0_45_step_statistics_energy)
+212. [`v0_0_45_step_step` -](#v0_0_45_step_step)
+213. [`v0_0_45_step_task` -](#v0_0_45_step_task)
+214. [`v0_0_45_step_tasks` -](#v0_0_45_step_tasks)
+215. [`v0_0_45_step_time` -](#v0_0_45_step_time)
+216. [`v0_0_45_step_time_system` -](#v0_0_45_step_time_system)
+217. [`v0_0_45_step_time_total` -](#v0_0_45_step_time_total)
+218. [`v0_0_45_step_time_user` -](#v0_0_45_step_time_user)
+219. [`v0_0_45_step_tres` -](#v0_0_45_step_tres)
+220. [`v0_0_45_step_tres_consumed` -](#v0_0_45_step_tres_consumed)
+221. [`v0_0_45_step_tres_requested` -](#v0_0_45_step_tres_requested)
+222. [`v0_0_45_user_default` -](#v0_0_45_user_default)
 
-### `v0.0.44_account` - [Up](#__Models)
+### `v0.0.45_account` - [Up](#__Models)
 
 associations (optional)
 
-[array[v0.0.44\_assoc\_short]](#v0.0.44_assoc_short)
+[array[v0.0.45\_assoc\_short]](#v0.0.45_assoc_short)
 
 coordinators (optional)
 
-[array[v0.0.44\_coord]](#v0.0.44_coord)
+[array[v0.0.45\_coord]](#v0.0.45_coord)
 
 description
 
@@ -18132,7 +19036,7 @@ flags (optional)
 
 Enum:
 
-### `v0.0.44_account_short` - [Up](#__Models)
+### `v0.0.45_account_short` - [Up](#__Models)
 
 description (optional)
 
@@ -18142,11 +19046,11 @@ organization (optional)
 
 [String](#string) Organization to which the account belongs
 
-### `v0.0.44_accounting` - [Up](#__Models)
+### `v0.0.45_accounting` - [Up](#__Models)
 
 allocated (optional)
 
-[v0\_0\_44\_accounting\_allocated](#v0_0_44_accounting_allocated)
+[v0\_0\_45\_accounting\_allocated](#v0_0_45_accounting_allocated)
 
 id (optional)
 
@@ -18162,9 +19066,9 @@ start (optional)
 
 TRES (optional)
 
-[v0.0.44\_tres](#v0.0.44_tres)
+[v0.0.45\_tres](#v0.0.45_tres)
 
-### `v0.0.44_accounts_add_cond` - [Up](#__Models)
+### `v0.0.45_accounts_add_cond` - [Up](#__Models)
 
 accounts
 
@@ -18172,13 +19076,13 @@ accounts
 
 association (optional)
 
-[v0.0.44\_assoc\_rec\_set](#v0.0.44_assoc_rec_set)
+[v0.0.45\_assoc\_rec\_set](#v0.0.45_assoc_rec_set)
 
 clusters (optional)
 
 [array[String]](#string)
 
-### `v0.0.44_acct_gather_energy` - [Up](#__Models)
+### `v0.0.45_acct_gather_energy` - [Up](#__Models)
 
 average\_watts (optional)
 
@@ -18194,7 +19098,7 @@ consumed\_energy (optional)
 
 current\_watts (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 previous\_consumed\_energy (optional)
 
@@ -18204,11 +19108,11 @@ last\_collected (optional)
 
 [Long](#long) Time when energy data was last retrieved (UNIX timestamp) (UNIX timestamp or time string recognized by Slurm (e.g., '[MM/DD[/YY]-]HH:MM[:SS]')) format: int64
 
-### `v0.0.44_assoc` - [Up](#__Models)
+### `v0.0.45_assoc` - [Up](#__Models)
 
 accounting (optional)
 
-[array[v0.0.44\_accounting]](#v0.0.44_accounting)
+[array[v0.0.45\_accounting]](#v0.0.45_accounting)
 
 account (optional)
 
@@ -18224,7 +19128,7 @@ comment (optional)
 
 default (optional)
 
-[v0\_0\_44\_assoc\_default](#v0_0_44_assoc_default)
+[v0\_0\_45\_assoc\_default](#v0_0_45_assoc_default)
 
 flags (optional)
 
@@ -18234,7 +19138,7 @@ Enum:
 
 max (optional)
 
-[v0\_0\_44\_assoc\_max](#v0_0_44_assoc_max)
+[v0\_0\_45\_assoc\_max](#v0_0_45_assoc_max)
 
 id (optional)
 
@@ -18250,7 +19154,7 @@ lineage (optional)
 
 min (optional)
 
-[v0\_0\_44\_assoc\_min](#v0_0_44_assoc_min)
+[v0\_0\_45\_assoc\_min](#v0_0_45_assoc_min)
 
 parent\_account (optional)
 
@@ -18262,7 +19166,7 @@ partition (optional)
 
 priority (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 qos (optional)
 
@@ -18276,7 +19180,7 @@ user
 
 [String](#string) User name
 
-### `v0.0.44_assoc_rec_set` - [Up](#__Models)
+### `v0.0.45_assoc_rec_set` - [Up](#__Models)
 
 comment (optional)
 
@@ -18288,67 +19192,67 @@ defaultqos (optional)
 
 grpjobs (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 grpjobsaccrue (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 grpsubmitjobs (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 grptres (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 grptresmins (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 grptresrunmins (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 grpwall (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 maxjobs (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 maxjobsaccrue (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 maxsubmitjobs (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 maxtresminsperjob (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 maxtresrunmins (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 maxtresperjob (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 maxtrespernode (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 maxwalldurationperjob (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 minpriothresh (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 parent (optional)
 
@@ -18356,7 +19260,7 @@ parent (optional)
 
 priority (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 qoslevel (optional)
 
@@ -18366,7 +19270,7 @@ fairshare (optional)
 
 [Integer](#integer) Allocated shares used for fairshare calculation format: int32
 
-### `v0.0.44_assoc_shares_obj_wrap` - [Up](#__Models)
+### `v0.0.45_assoc_shares_obj_wrap` - [Up](#__Models)
 
 id (optional)
 
@@ -18390,23 +19294,23 @@ partition (optional)
 
 shares\_normalized (optional)
 
-[v0.0.44\_float64\_no\_val\_struct](#v0.0.44_float64_no_val_struct)
+[v0.0.45\_float64\_no\_val\_struct](#v0.0.45_float64_no_val_struct)
 
 shares (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 tres (optional)
 
-[v0\_0\_44\_assoc\_shares\_obj\_wrap\_tres](#v0_0_44_assoc_shares_obj_wrap_tres)
+[v0\_0\_45\_assoc\_shares\_obj\_wrap\_tres](#v0_0_45_assoc_shares_obj_wrap_tres)
 
 effective\_usage (optional)
 
-[v0.0.44\_float64\_no\_val\_struct](#v0.0.44_float64_no_val_struct)
+[v0.0.45\_float64\_no\_val\_struct](#v0.0.45_float64_no_val_struct)
 
 usage\_normalized (optional)
 
-[v0.0.44\_float64\_no\_val\_struct](#v0.0.44_float64_no_val_struct)
+[v0.0.45\_float64\_no\_val\_struct](#v0.0.45_float64_no_val_struct)
 
 usage (optional)
 
@@ -18414,7 +19318,7 @@ usage (optional)
 
 fairshare (optional)
 
-[v0\_0\_44\_assoc\_shares\_obj\_wrap\_fairshare](#v0_0_44_assoc_shares_obj_wrap_fairshare)
+[v0\_0\_45\_assoc\_shares\_obj\_wrap\_fairshare](#v0_0_45_assoc_shares_obj_wrap_fairshare)
 
 type (optional)
 
@@ -18422,7 +19326,7 @@ type (optional)
 
 Enum:
 
-### `v0.0.44_assoc_short` - [Up](#__Models)
+### `v0.0.45_assoc_short` - [Up](#__Models)
 
 account (optional)
 
@@ -18444,7 +19348,7 @@ id (optional)
 
 [Integer](#integer) Numeric association ID format: int32
 
-### `v0.0.44_bf_exit_fields` - [Up](#__Models)
+### `v0.0.45_bf_exit_fields` - [Up](#__Models)
 
 end\_job\_queue (optional)
 
@@ -18470,11 +19374,11 @@ state\_changed (optional)
 
 [Integer](#integer) System state changed format: int32
 
-### `v0.0.44_cluster_rec` - [Up](#__Models)
+### `v0.0.45_cluster_rec` - [Up](#__Models)
 
 controller (optional)
 
-[v0\_0\_44\_cluster\_rec\_controller](#v0_0_44_cluster_rec_controller)
+[v0\_0\_45\_cluster\_rec\_controller](#v0_0_45_cluster_rec_controller)
 
 flags (optional)
 
@@ -18490,13 +19394,9 @@ nodes (optional)
 
 [String](#string) Node names
 
-select\_plugin (optional)
-
-[String](#string)
-
 associations (optional)
 
-[v0\_0\_44\_cluster\_rec\_associations](#v0_0_44_cluster_rec_associations)
+[v0\_0\_45\_cluster\_rec\_associations](#v0_0_45_cluster_rec_associations)
 
 rpc\_version (optional)
 
@@ -18504,17 +19404,23 @@ rpc\_version (optional)
 
 tres (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
-### `v0.0.44_controller_ping` - [Up](#__Models)
+### `v0.0.45_controller` - [Up](#__Models)
+
+address (optional)
+
+[String](#string) Controller address (IP or hostname)
+
+machine (optional)
+
+[String](#string) Name of machine hosting controller
+
+### `v0.0.45_controller_ping` - [Up](#__Models)
 
 hostname (optional)
 
 [String](#string) Target for ping
-
-pinged (optional)
-
-[String](#string) Ping result
 
 responding
 
@@ -18524,15 +19430,15 @@ latency (optional)
 
 [Long](#long) Number of microseconds it took to successfully ping or timeout format: int64
 
-mode (optional)
-
-[String](#string) The operating mode of the responding slurmctld
-
 primary
 
 [Boolean](#boolean) Is responding slurmctld the primary controller (Is responding slurmctld the primary controller)
 
-### `v0.0.44_coord` - [Up](#__Models)
+status (optional)
+
+[String](#string) Ping status code
+
+### `v0.0.45_coord` - [Up](#__Models)
 
 name
 
@@ -18542,7 +19448,7 @@ direct (optional)
 
 [Boolean](#boolean) Indicates whether the coordinator was directly assigned to this account
 
-### `v0.0.44_cron_entry` - [Up](#__Models)
+### `v0.0.45_cron_entry` - [Up](#__Models)
 
 flags (optional)
 
@@ -18580,9 +19486,9 @@ command (optional)
 
 line (optional)
 
-[v0\_0\_44\_cron\_entry\_line](#v0_0_44_cron_entry_line)
+[v0\_0\_45\_cron\_entry\_line](#v0_0_45_cron_entry_line)
 
-### `v0.0.44_float64_no_val_struct` - [Up](#__Models)
+### `v0.0.45_float64_no_val_struct` - [Up](#__Models)
 
 set (optional)
 
@@ -18596,7 +19502,7 @@ number (optional)
 
 [Double](#double) If "set" is True the number will be set with value; otherwise ignore number contents format: double
 
-### `v0.0.44_instance` - [Up](#__Models)
+### `v0.0.45_instance` - [Up](#__Models)
 
 cluster (optional)
 
@@ -18620,9 +19526,9 @@ node\_name (optional)
 
 time (optional)
 
-[v0\_0\_44\_instance\_time](#v0_0_44_instance_time)
+[v0\_0\_45\_instance\_time](#v0_0_45_instance_time)
 
-### `v0.0.44_job` - [Up](#__Models)
+### `v0.0.45_job` - [Up](#__Models)
 
 account (optional)
 
@@ -18630,7 +19536,7 @@ account (optional)
 
 comment (optional)
 
-[v0\_0\_44\_job\_comment](#v0_0_44_job_comment)
+[v0\_0\_45\_job\_comment](#v0_0_45_job_comment)
 
 allocation\_nodes (optional)
 
@@ -18638,11 +19544,11 @@ allocation\_nodes (optional)
 
 array (optional)
 
-[v0\_0\_44\_job\_array](#v0_0_44_job_array)
+[v0\_0\_45\_job\_array](#v0_0_45_job_array)
 
 association (optional)
 
-[v0.0.44\_assoc\_short](#v0.0.44_assoc_short)
+[v0.0.45\_assoc\_short](#v0.0.45_assoc_short)
 
 block (optional)
 
@@ -18660,17 +19566,25 @@ container (optional)
 
 [String](#string) Absolute path to OCI container bundle
 
+sluid (optional)
+
+[String](#string) SLUID (Slurm Lexicographically-sortable Unique ID)
+
 derived\_exit\_code (optional)
 
-[v0.0.44\_process\_exit\_code\_verbose](#v0.0.44_process_exit_code_verbose)
+[v0.0.45\_process\_exit\_code\_verbose](#v0.0.45_process_exit_code_verbose)
 
 time (optional)
 
-[v0\_0\_44\_job\_time](#v0_0_44_job_time)
+[v0\_0\_45\_job\_time](#v0_0_45_job_time)
+
+exclusive (optional)
+
+[String](#string) Exclusive resource allocation mode requested for the job
 
 exit\_code (optional)
 
-[v0.0.44\_process\_exit\_code\_verbose](#v0.0.44_process_exit_code_verbose)
+[v0.0.45\_process\_exit\_code\_verbose](#v0.0.45_process_exit_code_verbose)
 
 extra (optional)
 
@@ -18692,7 +19606,7 @@ group (optional)
 
 het (optional)
 
-[v0\_0\_44\_job\_het](#v0_0_44_job_het)
+[v0\_0\_45\_job\_het](#v0_0_45_job_het)
 
 job\_id (optional)
 
@@ -18708,11 +19622,15 @@ licenses (optional)
 
 mcs (optional)
 
-[v0\_0\_44\_job\_mcs](#v0_0_44_job_mcs)
+[v0\_0\_45\_job\_mcs](#v0_0_45_job_mcs)
 
 nodes (optional)
 
 [String](#string) Node(s) allocated to the job
+
+oversubscribe (optional)
+
+[String](#string) Oversubscribe mode requested for the job
 
 partition (optional)
 
@@ -18724,7 +19642,7 @@ hold (optional)
 
 priority (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 qos (optional)
 
@@ -18736,7 +19654,7 @@ qosreq (optional)
 
 required (optional)
 
-[v0\_0\_44\_job\_required](#v0_0_44_job_required)
+[v0\_0\_45\_job\_required](#v0_0_45_job_required)
 
 kill\_request\_user (optional)
 
@@ -18748,7 +19666,7 @@ restart\_cnt (optional)
 
 reservation (optional)
 
-[v0\_0\_44\_job\_reservation](#v0_0_44_job_reservation)
+[v0\_0\_45\_job\_reservation](#v0_0_45_job_reservation)
 
 script (optional)
 
@@ -18757,6 +19675,10 @@ script (optional)
 segment\_size (optional)
 
 [Integer](#integer) Requested segment size format: int32
+
+original\_sluid (optional)
+
+[String](#string) Original SLUID (Slurm Lexicographically-sortable Unique ID)
 
 stdin\_expanded (optional)
 
@@ -18784,11 +19706,11 @@ stdin (optional)
 
 state (optional)
 
-[v0\_0\_44\_job\_state](#v0_0_44_job_state)
+[v0\_0\_45\_job\_state](#v0_0_45_job_state)
 
 steps (optional)
 
-[array[v0.0.44\_step]](#v0.0.44_step)
+[array[v0.0.45\_step]](#v0.0.45_step)
 
 submit\_line (optional)
 
@@ -18796,7 +19718,7 @@ submit\_line (optional)
 
 tres (optional)
 
-[v0\_0\_44\_job\_tres](#v0_0_44_job_tres)
+[v0\_0\_45\_job\_tres](#v0_0_45_job_tres)
 
 used\_gres (optional)
 
@@ -18808,23 +19730,23 @@ user (optional)
 
 wckey (optional)
 
-[v0.0.44\_wckey\_tag\_struct](#v0.0.44_wckey_tag_struct)
+[v0.0.45\_wckey\_tag\_struct](#v0.0.45_wckey_tag_struct)
 
 working\_directory (optional)
 
 [String](#string) Path to current working directory
 
-### `v0.0.44_job_alloc_req` - [Up](#__Models)
+### `v0.0.45_job_alloc_req` - [Up](#__Models)
 
 hetjob (optional)
 
-[array[v0.0.44\_job\_desc\_msg]](#v0.0.44_job_desc_msg)
+[array[v0.0.45\_job\_desc\_msg]](#v0.0.45_job_desc_msg)
 
 job (optional)
 
-[v0.0.44\_job\_desc\_msg](#v0.0.44_job_desc_msg)
+[v0.0.45\_job\_desc\_msg](#v0.0.45_job_desc_msg)
 
-### `v0.0.44_job_array_response_msg_entry` - [Up](#__Models)
+### `v0.0.45_job_array_response_msg_entry` - [Up](#__Models)
 
 job\_id (optional)
 
@@ -18846,7 +19768,19 @@ why (optional)
 
 [String](#string) Update response message
 
-### `v0.0.44_job_desc_msg` - [Up](#__Models)
+### `v0.0.45_job_defaults` - [Up](#__Models)
+
+type (optional)
+
+[array[String]](#string) Default Type
+
+Enum:
+
+value (optional)
+
+[Long](#long) Default value for the given type (e.g. CPUs per GPU or memory per GPU). format: int64
+
+### `v0.0.45_job_desc_msg` - [Up](#__Models)
 
 account (optional)
 
@@ -18882,7 +19816,7 @@ batch\_features (optional)
 
 begin\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 flags (optional)
 
@@ -18918,6 +19852,10 @@ container\_id (optional)
 
 [String](#string) OCI container ID
 
+container\_type (optional)
+
+[String](#string) Job container type
+
 core\_specification (optional)
 
 [Integer](#integer) Specialized core count format: int32
@@ -18946,7 +19884,7 @@ cpus\_per\_tres (optional)
 
 crontab (optional)
 
-[v0.0.44\_cron\_entry](#v0.0.44_cron_entry)
+[v0.0.45\_cron\_entry](#v0.0.45_cron_entry)
 
 deadline (optional)
 
@@ -18970,7 +19908,7 @@ environment (optional)
 
 rlimits (optional)
 
-[v0\_0\_44\_job\_desc\_msg\_rlimits](#v0_0_44_job_desc_msg_rlimits)
+[v0\_0\_45\_job\_desc\_msg\_rlimits](#v0_0_45_job_desc_msg_rlimits)
 
 excluded\_nodes (optional)
 
@@ -19036,6 +19974,14 @@ memory\_per\_tres (optional)
 
 [String](#string) Semicolon delimited list of TRES=# values indicating how much memory in megabytes should be allocated for each specified TRES (currently only used for gres/gpu)
 
+memory\_update\_margin (optional)
+
+[Integer](#integer) Auto-reduce memory margin percent format: int32
+
+memory\_update\_delay (optional)
+
+[Integer](#integer) Auto-reduce memory delay in minutes format: int32
+
 name (optional)
 
 [String](#string) Job name
@@ -19076,11 +20022,7 @@ partition (optional)
 
 distribution\_plane\_size (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
-
-power\_flags (optional)
-
-[array[oas\_any\_type\_not\_mapped]](#AnyType)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
 prefer (optional)
 
@@ -19092,7 +20034,7 @@ hold (optional)
 
 priority (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 profile (optional)
 
@@ -19140,7 +20082,7 @@ spank\_environment (optional)
 
 step\_id (optional)
 
-[v0.0.44\_slurm\_step\_id](#v0.0.44_slurm_step_id)
+[v0.0.45\_slurm\_step\_id](#v0.0.45_slurm_step_id)
 
 distribution (optional)
 
@@ -19148,11 +20090,11 @@ distribution (optional)
 
 time\_limit (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 time\_minimum (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 tres\_bind (optional)
 
@@ -19198,7 +20140,7 @@ kill\_warning\_signal (optional)
 
 kill\_warning\_delay (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
 current\_working\_directory (optional)
 
@@ -19240,6 +20182,10 @@ sockets\_per\_node (optional)
 
 [Integer](#integer) Sockets per node required format: int32
 
+cores\_per\_socket (optional)
+
+[Integer](#integer) Cores per sockets required format: int32
+
 threads\_per\_core (optional)
 
 [Integer](#integer) Threads per core required format: int32
@@ -19270,11 +20216,11 @@ minimum\_cpus\_per\_node (optional)
 
 memory\_per\_cpu (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 memory\_per\_node (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 temporary\_disk\_per\_node (optional)
 
@@ -19286,11 +20232,11 @@ selinux\_context (optional)
 
 required\_switches (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 segment\_size (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
 standard\_error (optional)
 
@@ -19330,7 +20276,7 @@ x11\_target\_port (optional)
 
 [Integer](#integer) TCP port format: int32
 
-### `v0.0.44_job_info` - [Up](#__Models)
+### `v0.0.45_job_info` - [Up](#__Models)
 
 account (optional)
 
@@ -19338,7 +20284,7 @@ account (optional)
 
 accrue\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 admin\_comment (optional)
 
@@ -19350,15 +20296,15 @@ allocating\_node (optional)
 
 array\_job\_id (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 array\_task\_id (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 array\_max\_tasks (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 array\_task\_string (optional)
 
@@ -19418,6 +20364,10 @@ container\_id (optional)
 
 [String](#string) OCI container ID
 
+container\_type (optional)
+
+[String](#string) Job container type
+
 contiguous (optional)
 
 [Boolean](#boolean) True if job requires contiguous nodes
@@ -19432,27 +20382,27 @@ thread\_spec (optional)
 
 cores\_per\_socket (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
 billable\_tres (optional)
 
-[v0.0.44\_float64\_no\_val\_struct](#v0.0.44_float64_no_val_struct)
+[v0.0.45\_float64\_no\_val\_struct](#v0.0.45_float64_no_val_struct)
 
 cpus\_per\_task (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
 cpu\_frequency\_minimum (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 cpu\_frequency\_maximum (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 cpu\_frequency\_governor (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 cpus\_per\_tres (optional)
 
@@ -19464,11 +20414,11 @@ cron (optional)
 
 deadline (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 delay\_boot (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 dependency (optional)
 
@@ -19476,15 +20426,15 @@ dependency (optional)
 
 derived\_exit\_code (optional)
 
-[v0.0.44\_process\_exit\_code\_verbose](#v0.0.44_process_exit_code_verbose)
+[v0.0.45\_process\_exit\_code\_verbose](#v0.0.45_process_exit_code_verbose)
 
 eligible\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 end\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 excluded\_nodes (optional)
 
@@ -19492,7 +20442,7 @@ excluded\_nodes (optional)
 
 exit\_code (optional)
 
-[v0.0.44\_process\_exit\_code\_verbose](#v0.0.44_process_exit_code_verbose)
+[v0.0.45\_process\_exit\_code\_verbose](#v0.0.45_process_exit_code_verbose)
 
 extra (optional)
 
@@ -19532,7 +20482,7 @@ group\_name (optional)
 
 het\_job\_id (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 het\_job\_id\_set (optional)
 
@@ -19540,7 +20490,7 @@ het\_job\_id\_set (optional)
 
 het\_job\_offset (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 job\_id (optional)
 
@@ -19548,7 +20498,7 @@ job\_id (optional)
 
 job\_resources (optional)
 
-[v0.0.44\_job\_res](#v0.0.44_job_res)
+[v0.0.45\_job\_res](#v0.0.45_job_res)
 
 job\_size\_str (optional)
 
@@ -19562,7 +20512,7 @@ Enum:
 
 last\_sched\_evaluation (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 licenses (optional)
 
@@ -19584,11 +20534,11 @@ mail\_user (optional)
 
 max\_cpus (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 max\_nodes (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 mcs\_label (optional)
 
@@ -19597,6 +20547,14 @@ mcs\_label (optional)
 memory\_per\_tres (optional)
 
 [String](#string) Semicolon delimited list of TRES=# values indicating how much memory in megabytes should be allocated for each specified TRES (currently only used for gres/gpu)
+
+memory\_update\_delay (optional)
+
+[Integer](#integer) Auto-reduce memory delay in minutes format: int32
+
+memory\_update\_margin (optional)
+
+[Integer](#integer) Auto-reduce memory margin percent format: int32
 
 name (optional)
 
@@ -19616,35 +20574,35 @@ nice (optional)
 
 tasks\_per\_core (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
 tasks\_per\_tres (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
 tasks\_per\_node (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
 tasks\_per\_socket (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
 tasks\_per\_board (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
 cpus (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 node\_count (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 tasks (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 partition (optional)
 
@@ -19656,35 +20614,31 @@ prefer (optional)
 
 memory\_per\_cpu (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 memory\_per\_node (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 minimum\_cpus\_per\_node (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
 minimum\_tmp\_disk\_per\_node (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
-
-power (optional)
-
-[v0\_0\_44\_job\_info\_power](#v0_0_44_job_info_power)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 preempt\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 preemptable\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 pre\_sus\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 hold (optional)
 
@@ -19692,11 +20646,11 @@ hold (optional)
 
 priority (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 priority\_by\_partition (optional)
 
-[array[v0.0.44\_part\_prio]](#v0.0.44_part_prio)
+[array[v0.0.45\_part\_prio]](#v0.0.45_part_prio)
 
 profile (optional)
 
@@ -19726,7 +20680,7 @@ requeue (optional)
 
 resize\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 restart\_cnt (optional)
 
@@ -19750,13 +20704,13 @@ selinux\_context (optional)
 
 shared (optional)
 
-[array[String]](#string) How the job can share resources with other jobs, if at all
+[array[String]](#string) Ignored. Was 'How the job can share resources with other jobs, if at all'. Replaced by 'oversubscribe' and 'exclusive'.
 
 Enum:
 
 step\_id (optional)
 
-[v0.0.44\_slurm\_step\_id](#v0.0.44_slurm_step_id)
+[v0.0.45\_slurm\_step\_id](#v0.0.45_slurm_step_id)
 
 sockets\_per\_board (optional)
 
@@ -19764,11 +20718,11 @@ sockets\_per\_board (optional)
 
 sockets\_per\_node (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
 start\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 state\_description (optional)
 
@@ -19804,7 +20758,7 @@ stderr\_expanded (optional)
 
 submit\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 submit\_line (optional)
 
@@ -19812,7 +20766,7 @@ submit\_line (optional)
 
 suspend\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 system\_comment (optional)
 
@@ -19820,15 +20774,15 @@ system\_comment (optional)
 
 time\_limit (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 time\_minimum (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 threads\_per\_core (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
 tres\_bind (optional)
 
@@ -19882,15 +20836,15 @@ current\_working\_directory (optional)
 
 [String](#string) Working directory to use for the job
 
-### `v0.0.44_job_modify` - [Up](#__Models)
+### `v0.0.45_job_modify` - [Up](#__Models)
 
 comment (optional)
 
-[v0\_0\_44\_job\_comment](#v0_0_44_job_comment)
+[v0\_0\_45\_job\_comment](#v0_0_45_job_comment)
 
 derived\_exit\_code (optional)
 
-[v0.0.44\_process\_exit\_code\_verbose](#v0.0.44_process_exit_code_verbose)
+[v0.0.45\_process\_exit\_code\_verbose](#v0.0.45_process_exit_code_verbose)
 
 extra (optional)
 
@@ -19898,13 +20852,13 @@ extra (optional)
 
 tres (optional)
 
-[v0\_0\_44\_job\_modify\_tres](#v0_0_44_job_modify_tres)
+[v0\_0\_45\_job\_modify\_tres](#v0_0_45_job_modify_tres)
 
 wckey (optional)
 
 [String](#string) Workload characterization key
 
-### `v0.0.44_job_res` - [Up](#__Models)
+### `v0.0.45_job_res` - [Up](#__Models)
 
 select\_type
 
@@ -19914,7 +20868,7 @@ Enum:
 
 nodes (optional)
 
-[v0\_0\_44\_job\_res\_nodes](#v0_0_44_job_res_nodes)
+[v0\_0\_45\_job\_res\_nodes](#v0_0_45_job_res_nodes)
 
 cpus
 
@@ -19922,9 +20876,9 @@ cpus
 
 threads\_per\_core
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
-### `v0.0.44_job_res_core` - [Up](#__Models)
+### `v0.0.45_job_res_core` - [Up](#__Models)
 
 index
 
@@ -19936,7 +20890,7 @@ status
 
 Enum:
 
-### `v0.0.44_job_res_node` - [Up](#__Models)
+### `v0.0.45_job_res_node` - [Up](#__Models)
 
 index
 
@@ -19948,17 +20902,17 @@ name
 
 cpus (optional)
 
-[v0\_0\_44\_job\_res\_node\_cpus](#v0_0_44_job_res_node_cpus)
+[v0\_0\_45\_job\_res\_node\_cpus](#v0_0_45_job_res_node_cpus)
 
 memory (optional)
 
-[v0\_0\_44\_job\_res\_node\_memory](#v0_0_44_job_res_node_memory)
+[v0\_0\_45\_job\_res\_node\_memory](#v0_0_45_job_res_node_memory)
 
 sockets
 
-[array[v0.0.44\_job\_res\_socket]](#v0.0.44_job_res_socket)
+[array[v0.0.45\_job\_res\_socket]](#v0.0.45_job_res_socket)
 
-### `v0.0.44_job_res_socket` - [Up](#__Models)
+### `v0.0.45_job_res_socket` - [Up](#__Models)
 
 index
 
@@ -19966,9 +20920,9 @@ index
 
 cores
 
-[array[v0.0.44\_job\_res\_core]](#v0.0.44_job_res_core)
+[array[v0.0.45\_job\_res\_core]](#v0.0.45_job_res_core)
 
-### `v0.0.44_job_submit_req` - [Up](#__Models)
+### `v0.0.45_job_submit_req` - [Up](#__Models)
 
 script (optional)
 
@@ -19976,13 +20930,13 @@ script (optional)
 
 jobs (optional)
 
-[array[v0.0.44\_job\_desc\_msg]](#v0.0.44_job_desc_msg)
+[array[v0.0.45\_job\_desc\_msg]](#v0.0.45_job_desc_msg)
 
 job (optional)
 
-[v0.0.44\_job\_desc\_msg](#v0.0.44_job_desc_msg)
+[v0.0.45\_job\_desc\_msg](#v0.0.45_job_desc_msg)
 
-### `v0.0.44_kill_jobs_msg` - [Up](#__Models)
+### `v0.0.45_kill_jobs_msg` - [Up](#__Models)
 
 account (optional)
 
@@ -20040,11 +20994,11 @@ nodes (optional)
 
 [array[String]](#string)
 
-### `v0.0.44_kill_jobs_resp_job` - [Up](#__Models)
+### `v0.0.45_kill_jobs_resp_job` - [Up](#__Models)
 
 error (optional)
 
-[v0\_0\_44\_kill\_jobs\_resp\_job\_error](#v0_0_44_kill_jobs_resp_job_error)
+[v0\_0\_45\_kill\_jobs\_resp\_job\_error](#v0_0_45_kill_jobs_resp_job_error)
 
 step\_id
 
@@ -20052,13 +21006,13 @@ step\_id
 
 job\_id
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 federation (optional)
 
-[v0\_0\_44\_kill\_jobs\_resp\_job\_federation](#v0_0_44_kill_jobs_resp_job_federation)
+[v0\_0\_45\_kill\_jobs\_resp\_job\_federation](#v0_0_45_kill_jobs_resp_job_federation)
 
-### `v0.0.44_license` - [Up](#__Models)
+### `v0.0.45_license` - [Up](#__Models)
 
 LicenseName (optional)
 
@@ -20100,7 +21054,7 @@ Nodes (optional)
 
 [String](#string) HRes nodes
 
-### `v0.0.44_node` - [Up](#__Models)
+### `v0.0.45_node` - [Up](#__Models)
 
 architecture (optional)
 
@@ -20116,11 +21070,11 @@ boards (optional)
 
 boot\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 tls\_cert\_last\_renewal (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 cert\_flags (optional)
 
@@ -20150,7 +21104,7 @@ cpu\_load (optional)
 
 free\_mem (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 cpus (optional)
 
@@ -20166,19 +21120,11 @@ specialized\_cpus (optional)
 
 energy (optional)
 
-[v0.0.44\_acct\_gather\_energy](#v0.0.44_acct_gather_energy)
-
-external\_sensors (optional)
-
-[Object](#)
+[v0.0.45\_acct\_gather\_energy](#v0.0.45_acct_gather_energy)
 
 extra (optional)
 
 [String](#string) Arbitrary string used for node filtering if extra constraints are enabled
-
-power (optional)
-
-[Object](#)
 
 features (optional)
 
@@ -20214,7 +21160,7 @@ instance\_type (optional)
 
 last\_busy (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 mcs\_label (optional)
 
@@ -20282,7 +21228,7 @@ reason (optional)
 
 reason\_changed\_at (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 reason\_set\_by\_user (optional)
 
@@ -20290,11 +21236,15 @@ reason\_set\_by\_user (optional)
 
 resume\_after (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 reservation (optional)
 
 [String](#string) Name of reservation containing this node
+
+suspend\_time (optional)
+
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 alloc\_memory (optional)
 
@@ -20312,13 +21262,9 @@ tres\_used (optional)
 
 [String](#string) Trackable resources currently allocated for jobs
 
-tres\_weighted (optional)
-
-[Double](#double) Ignored. Was weighted number of billable trackable resources allocated format: double
-
 slurmd\_start\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 sockets (optional)
 
@@ -20348,7 +21294,7 @@ version (optional)
 
 [String](#string) Slurmd version
 
-### `v0.0.44_node_gres_layout` - [Up](#__Models)
+### `v0.0.45_node_gres_layout` - [Up](#__Models)
 
 name
 
@@ -20366,7 +21312,7 @@ index (optional)
 
 [String](#string) Index
 
-### `v0.0.44_node_resource_layout` - [Up](#__Models)
+### `v0.0.45_node_resource_layout` - [Up](#__Models)
 
 node
 
@@ -20390,35 +21336,35 @@ core\_bitmap (optional)
 
 channel (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 gres (optional)
 
-[array[v0.0.44\_node\_gres\_layout]](#v0.0.44_node_gres_layout)
+[array[v0.0.45\_node\_gres\_layout]](#v0.0.45_node_gres_layout)
 
-### `v0.0.44_openapi_accounts_add_cond_resp` - [Up](#__Models)
+### `v0.0.45_openapi_accounts_add_cond_resp` - [Up](#__Models)
 
 association\_condition
 
-[v0.0.44\_accounts\_add\_cond](#v0.0.44_accounts_add_cond)
+[v0.0.45\_accounts\_add\_cond](#v0.0.45_accounts_add_cond)
 
 account (optional)
 
-[v0.0.44\_account\_short](#v0.0.44_account_short)
+[v0.0.45\_account\_short](#v0.0.45_account_short)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_accounts_add_cond_resp_str` - [Up](#__Models)
+### `v0.0.45_openapi_accounts_add_cond_resp_str` - [Up](#__Models)
 
 added\_accounts
 
@@ -20426,17 +21372,17 @@ added\_accounts
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_accounts_removed_resp` - [Up](#__Models)
+### `v0.0.45_openapi_accounts_removed_resp` - [Up](#__Models)
 
 removed\_accounts
 
@@ -20444,35 +21390,35 @@ removed\_accounts
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_accounts_resp` - [Up](#__Models)
+### `v0.0.45_openapi_accounts_resp` - [Up](#__Models)
 
 accounts
 
-[array[v0.0.44\_account]](#v0.0.44_account)
+[array[v0.0.45\_account]](#v0.0.45_account)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_assocs_removed_resp` - [Up](#__Models)
+### `v0.0.45_openapi_assocs_removed_resp` - [Up](#__Models)
 
 removed\_associations
 
@@ -20480,35 +21426,35 @@ removed\_associations
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_assocs_resp` - [Up](#__Models)
+### `v0.0.45_openapi_assocs_resp` - [Up](#__Models)
 
 associations
 
-[array[v0.0.44\_assoc]](#v0.0.44_assoc)
+[array[v0.0.45\_assoc]](#v0.0.45_assoc)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_clusters_removed_resp` - [Up](#__Models)
+### `v0.0.45_openapi_clusters_removed_resp` - [Up](#__Models)
 
 deleted\_clusters
 
@@ -20516,35 +21462,57 @@ deleted\_clusters
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_clusters_resp` - [Up](#__Models)
+### `v0.0.45_openapi_clusters_resp` - [Up](#__Models)
 
 clusters
 
-[array[v0.0.44\_cluster\_rec]](#v0.0.44_cluster_rec)
+[array[v0.0.45\_cluster\_rec]](#v0.0.45_cluster_rec)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_create_node_req` - [Up](#__Models)
+### `v0.0.45_openapi_conf_resp` - [Up](#__Models)
+
+slurm\_conf (optional)
+
+[v0.0.45\_slurm\_conf](#v0.0.45_slurm_conf)
+
+slurm\_conf\_meta (optional)
+
+[v0.0.45\_slurm\_conf\_meta](#v0.0.45_slurm_conf_meta)
+
+meta (optional)
+
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
+
+errors (optional)
+
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
+
+warnings (optional)
+
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
+
+### `v0.0.45_openapi_create_node_req` - [Up](#__Models)
 
 node\_conf
 
@@ -20552,35 +21520,35 @@ node\_conf
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_diag_resp` - [Up](#__Models)
+### `v0.0.45_openapi_diag_resp` - [Up](#__Models)
 
 statistics
 
-[v0.0.44\_stats\_msg](#v0.0.44_stats_msg)
+[v0.0.45\_stats\_msg](#v0.0.45_stats_msg)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_error` - [Up](#__Models)
+### `v0.0.45_openapi_error` - [Up](#__Models)
 
 description (optional)
 
@@ -20598,25 +21566,25 @@ source (optional)
 
 [String](#string) Source of error or where error was first detected
 
-### `v0.0.44_openapi_instances_resp` - [Up](#__Models)
+### `v0.0.45_openapi_instances_resp` - [Up](#__Models)
 
 instances
 
-[array[v0.0.44\_instance]](#v0.0.44_instance)
+[array[v0.0.45\_instance]](#v0.0.45_instance)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_job_alloc_resp` - [Up](#__Models)
+### `v0.0.45_openapi_job_alloc_resp` - [Up](#__Models)
 
 job\_id (optional)
 
@@ -20628,43 +21596,43 @@ job\_submit\_user\_msg (optional)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_job_info_resp` - [Up](#__Models)
+### `v0.0.45_openapi_job_info_resp` - [Up](#__Models)
 
 jobs
 
-[array[v0.0.44\_job\_info]](#v0.0.44_job_info)
+[array[v0.0.45\_job\_info]](#v0.0.45_job_info)
 
 last\_backfill
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 last\_update
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_job_modify_req` - [Up](#__Models)
+### `v0.0.45_openapi_job_modify_req` - [Up](#__Models)
 
 job\_id\_list (optional)
 
@@ -20672,21 +21640,21 @@ job\_id\_list (optional)
 
 job\_rec (optional)
 
-[v0.0.44\_job\_modify](#v0.0.44_job_modify)
+[v0.0.45\_job\_modify](#v0.0.45_job_modify)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_job_modify_resp` - [Up](#__Models)
+### `v0.0.45_openapi_job_modify_resp` - [Up](#__Models)
 
 results
 
@@ -20694,35 +21662,53 @@ results
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_job_post_response` - [Up](#__Models)
+### `v0.0.45_openapi_job_post_response` - [Up](#__Models)
 
 results (optional)
 
-[array[v0.0.44\_job\_array\_response\_msg\_entry]](#v0.0.44_job_array_response_msg_entry)
+[array[v0.0.45\_job\_array\_response\_msg\_entry]](#v0.0.45_job_array_response_msg_entry)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_job_submit_response` - [Up](#__Models)
+### `v0.0.45_openapi_job_requeue_resp` - [Up](#__Models)
+
+status
+
+[array[v0.0.45\_job\_array\_response\_msg\_entry]](#v0.0.45_job_array_response_msg_entry)
+
+meta (optional)
+
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
+
+errors (optional)
+
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
+
+warnings (optional)
+
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
+
+### `v0.0.45_openapi_job_submit_response` - [Up](#__Models)
 
 job\_id (optional)
 
@@ -20738,83 +21724,113 @@ job\_submit\_user\_msg (optional)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_kill_job_resp` - [Up](#__Models)
+### `v0.0.45_openapi_jobs_requeue_query` - [Up](#__Models)
+
+flags (optional)
+
+[array[String]](#string) Requeue flags
+
+Enum:
+
+jobs (optional)
+
+[array[String]](#string)
+
+### `v0.0.45_openapi_jobs_requeue_resp` - [Up](#__Models)
 
 status
 
-[array[v0.0.44\_kill\_jobs\_resp\_job]](#v0.0.44_kill_jobs_resp_job) List of jobs signal responses
+[array[List]](#array)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_kill_jobs_resp` - [Up](#__Models)
+### `v0.0.45_openapi_kill_job_resp` - [Up](#__Models)
 
 status
 
-[array[v0.0.44\_kill\_jobs\_resp\_job]](#v0.0.44_kill_jobs_resp_job) List of jobs signal responses
+[array[v0.0.45\_kill\_jobs\_resp\_job]](#v0.0.45_kill_jobs_resp_job) List of jobs signal responses
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_licenses_resp` - [Up](#__Models)
+### `v0.0.45_openapi_kill_jobs_resp` - [Up](#__Models)
+
+status
+
+[array[v0.0.45\_kill\_jobs\_resp\_job]](#v0.0.45_kill_jobs_resp_job) List of jobs signal responses
+
+meta (optional)
+
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
+
+errors (optional)
+
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
+
+warnings (optional)
+
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
+
+### `v0.0.45_openapi_licenses_resp` - [Up](#__Models)
 
 licenses
 
-[array[v0.0.44\_license]](#v0.0.44_license)
+[array[v0.0.45\_license]](#v0.0.45_license)
 
 last\_update
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_meta` - [Up](#__Models)
+### `v0.0.45_openapi_meta` - [Up](#__Models)
 
 plugin (optional)
 
-[v0\_0\_44\_openapi\_meta\_plugin](#v0_0_44_openapi_meta_plugin)
+[v0\_0\_45\_openapi\_meta\_plugin](#v0_0_45_openapi_meta_plugin)
 
 client (optional)
 
-[v0\_0\_44\_openapi\_meta\_client](#v0_0_44_openapi_meta_client)
+[v0\_0\_45\_openapi\_meta\_client](#v0_0_45_openapi_meta_client)
 
 command (optional)
 
@@ -20822,243 +21838,275 @@ command (optional)
 
 slurm (optional)
 
-[v0\_0\_44\_openapi\_meta\_slurm](#v0_0_44_openapi_meta_slurm)
+[v0\_0\_45\_openapi\_meta\_slurm](#v0_0_45_openapi_meta_slurm)
 
-### `v0.0.44_openapi_nodes_resp` - [Up](#__Models)
+### `v0.0.45_openapi_nodes_resp` - [Up](#__Models)
 
 nodes
 
-[array[v0.0.44\_node]](#v0.0.44_node)
+[array[v0.0.45\_node]](#v0.0.45_node)
 
 last\_update
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_partition_resp` - [Up](#__Models)
+### `v0.0.45_openapi_partition_resp` - [Up](#__Models)
 
 partitions
 
-[array[v0.0.44\_partition\_info]](#v0.0.44_partition_info)
+[array[v0.0.45\_partition\_info]](#v0.0.45_partition_info)
 
 last\_update
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_ping_array_resp` - [Up](#__Models)
+### `v0.0.45_openapi_partitions_mod_req` - [Up](#__Models)
+
+partitions
+
+[array[v0.0.45\_partition\_info]](#v0.0.45_partition_info)
+
+meta (optional)
+
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
+
+errors (optional)
+
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
+
+warnings (optional)
+
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
+
+### `v0.0.45_openapi_ping_array_resp` - [Up](#__Models)
 
 pings
 
-[array[v0.0.44\_controller\_ping]](#v0.0.44_controller_ping)
+[array[v0.0.45\_controller\_ping]](#v0.0.45_controller_ping)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_reservation_mod_resp` - [Up](#__Models)
+### `v0.0.45_openapi_reservation_mod_resp` - [Up](#__Models)
 
 reservations
 
-[array[v0.0.44\_reservation\_desc\_msg]](#v0.0.44_reservation_desc_msg)
+[array[v0.0.45\_reservation\_desc\_msg]](#v0.0.45_reservation_desc_msg)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_reservation_resp` - [Up](#__Models)
+### `v0.0.45_openapi_reservation_resp` - [Up](#__Models)
 
 reservations
 
-[array[v0.0.44\_reservation\_info]](#v0.0.44_reservation_info)
+[array[v0.0.45\_reservation\_info]](#v0.0.45_reservation_info)
 
 last\_update
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_resource_layout_resp` - [Up](#__Models)
+### `v0.0.45_openapi_resource_layout_resp` - [Up](#__Models)
 
 nodes
 
-[array[v0.0.44\_node\_resource\_layout]](#v0.0.44_node_resource_layout)
+[array[v0.0.45\_node\_resource\_layout]](#v0.0.45_node_resource_layout)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_resp` - [Up](#__Models)
+### `v0.0.45_openapi_resp` - [Up](#__Models)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_shares_resp` - [Up](#__Models)
+### `v0.0.45_openapi_shares_resp` - [Up](#__Models)
 
 shares
 
-[v0.0.44\_shares\_resp\_msg](#v0.0.44_shares_resp_msg)
+[v0.0.45\_shares\_resp\_msg](#v0.0.45_shares_resp_msg)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_slurmdbd_config_resp` - [Up](#__Models)
+### `v0.0.45_openapi_slurmdbd_conf_resp` - [Up](#__Models)
+
+slurmdbd\_conf
+
+[v0.0.45\_slurmdbd\_conf](#v0.0.45_slurmdbd_conf)
+
+meta (optional)
+
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
+
+errors (optional)
+
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
+
+warnings (optional)
+
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
+
+### `v0.0.45_openapi_slurmdbd_config_resp` - [Up](#__Models)
 
 clusters (optional)
 
-[array[v0.0.44\_cluster\_rec]](#v0.0.44_cluster_rec)
+[array[v0.0.45\_cluster\_rec]](#v0.0.45_cluster_rec)
 
 tres (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 accounts (optional)
 
-[array[v0.0.44\_account]](#v0.0.44_account)
+[array[v0.0.45\_account]](#v0.0.45_account)
 
 users (optional)
 
-[array[v0.0.44\_user]](#v0.0.44_user)
+[array[v0.0.45\_user]](#v0.0.45_user)
 
 qos (optional)
 
-[array[v0.0.44\_qos]](#v0.0.44_qos)
+[array[v0.0.45\_qos]](#v0.0.45_qos)
 
 wckeys (optional)
 
-[array[v0.0.44\_wckey]](#v0.0.44_wckey)
+[array[v0.0.45\_wckey]](#v0.0.45_wckey)
 
 associations (optional)
 
-[array[v0.0.44\_assoc]](#v0.0.44_assoc)
-
-instances (optional)
-
-[array[v0.0.44\_instance]](#v0.0.44_instance)
+[array[v0.0.45\_assoc]](#v0.0.45_assoc)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_slurmdbd_jobs_resp` - [Up](#__Models)
+### `v0.0.45_openapi_slurmdbd_jobs_resp` - [Up](#__Models)
 
 jobs
 
-[array[v0.0.44\_job]](#v0.0.44_job)
+[array[v0.0.45\_job]](#v0.0.45_job)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_slurmdbd_ping_resp` - [Up](#__Models)
+### `v0.0.45_openapi_slurmdbd_ping_resp` - [Up](#__Models)
 
 pings
 
-[array[v0.0.44\_slurmdbd\_ping]](#v0.0.44_slurmdbd_ping)
+[array[v0.0.45\_slurmdbd\_ping]](#v0.0.45_slurmdbd_ping)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_slurmdbd_qos_removed_resp` - [Up](#__Models)
+### `v0.0.45_openapi_slurmdbd_qos_removed_resp` - [Up](#__Models)
 
 removed\_qos
 
@@ -21066,93 +22114,93 @@ removed\_qos
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_slurmdbd_qos_resp` - [Up](#__Models)
+### `v0.0.45_openapi_slurmdbd_qos_resp` - [Up](#__Models)
 
 qos
 
-[array[v0.0.44\_qos]](#v0.0.44_qos)
+[array[v0.0.45\_qos]](#v0.0.45_qos)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_slurmdbd_stats_resp` - [Up](#__Models)
+### `v0.0.45_openapi_slurmdbd_stats_resp` - [Up](#__Models)
 
 statistics
 
-[v0.0.44\_stats\_rec](#v0.0.44_stats_rec)
+[v0.0.45\_stats\_rec](#v0.0.45_stats_rec)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_tres_resp` - [Up](#__Models)
+### `v0.0.45_openapi_tres_resp` - [Up](#__Models)
 
 TRES
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_users_add_cond_resp` - [Up](#__Models)
+### `v0.0.45_openapi_users_add_cond_resp` - [Up](#__Models)
 
 association\_condition
 
-[v0.0.44\_users\_add\_cond](#v0.0.44_users_add_cond)
+[v0.0.45\_users\_add\_cond](#v0.0.45_users_add_cond)
 
 user
 
-[v0.0.44\_user\_short](#v0.0.44_user_short)
+[v0.0.45\_user\_short](#v0.0.45_user_short)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_users_add_cond_resp_str` - [Up](#__Models)
+### `v0.0.45_openapi_users_add_cond_resp_str` - [Up](#__Models)
 
 added\_users
 
@@ -21160,35 +22208,35 @@ added\_users
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_users_resp` - [Up](#__Models)
+### `v0.0.45_openapi_users_resp` - [Up](#__Models)
 
 users
 
-[array[v0.0.44\_user]](#v0.0.44_user)
+[array[v0.0.45\_user]](#v0.0.45_user)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_warning` - [Up](#__Models)
+### `v0.0.45_openapi_warning` - [Up](#__Models)
 
 description (optional)
 
@@ -21198,7 +22246,7 @@ source (optional)
 
 [String](#string) Source of warning or where warning was first detected
 
-### `v0.0.44_openapi_wckey_removed_resp` - [Up](#__Models)
+### `v0.0.45_openapi_wckey_removed_resp` - [Up](#__Models)
 
 deleted\_wckeys
 
@@ -21206,35 +22254,35 @@ deleted\_wckeys
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_openapi_wckey_resp` - [Up](#__Models)
+### `v0.0.45_openapi_wckey_resp` - [Up](#__Models)
 
 wckeys
 
-[array[v0.0.44\_wckey]](#v0.0.44_wckey)
+[array[v0.0.45\_wckey]](#v0.0.45_wckey)
 
 meta (optional)
 
-[v0.0.44\_openapi\_meta](#v0.0.44_openapi_meta)
+[v0.0.45\_openapi\_meta](#v0.0.45_openapi_meta)
 
 errors (optional)
 
-[array[v0.0.44\_openapi\_error]](#v0.0.44_openapi_error)
+[array[v0.0.45\_openapi\_error]](#v0.0.45_openapi_error)
 
 warnings (optional)
 
-[array[v0.0.44\_openapi\_warning]](#v0.0.44_openapi_warning)
+[array[v0.0.45\_openapi\_warning]](#v0.0.45_openapi_warning)
 
-### `v0.0.44_part_prio` - [Up](#__Models)
+### `v0.0.45_part_prio` - [Up](#__Models)
 
 partition (optional)
 
@@ -21244,23 +22292,23 @@ priority (optional)
 
 [Integer](#integer) Prospective job priority if it runs in this partition format: int32
 
-### `v0.0.44_partition_info` - [Up](#__Models)
+### `v0.0.45_partition_info` - [Up](#__Models)
 
 nodes (optional)
 
-[v0\_0\_44\_partition\_info\_nodes](#v0_0_44_partition_info_nodes)
+[v0\_0\_45\_partition\_info\_nodes](#v0_0_45_partition_info_nodes)
 
 accounts (optional)
 
-[v0\_0\_44\_partition\_info\_accounts](#v0_0_44_partition_info_accounts)
+[v0\_0\_45\_partition\_info\_accounts](#v0_0_45_partition_info_accounts)
 
 groups (optional)
 
-[v0\_0\_44\_partition\_info\_groups](#v0_0_44_partition_info_groups)
+[v0\_0\_45\_partition\_info\_groups](#v0_0_45_partition_info_groups)
 
 qos (optional)
 
-[v0\_0\_44\_partition\_info\_qos](#v0_0_44_partition_info_qos)
+[v0\_0\_45\_partition\_info\_qos](#v0_0_45_partition_info_qos)
 
 alternate (optional)
 
@@ -21268,25 +22316,35 @@ alternate (optional)
 
 tres (optional)
 
-[v0\_0\_44\_partition\_info\_tres](#v0_0_44_partition_info_tres)
+[v0\_0\_45\_partition\_info\_tres](#v0_0_45_partition_info_tres)
 
 cluster (optional)
 
-[String](#string) Cluster name
+[String](#string) Cluster name (read-only)
 
 select\_type (optional)
 
-[array[String]](#string) Scheduler consumable resource selection type
+[array[String]](#string) Scheduler consumable resource selection type (read-only)
 
 Enum:
 
 cpus (optional)
 
-[v0\_0\_44\_partition\_info\_cpus](#v0_0_44_partition_info_cpus)
+[v0\_0\_45\_partition\_info\_cpus](#v0_0_45_partition_info_cpus)
 
 defaults (optional)
 
-[v0\_0\_44\_partition\_info\_defaults](#v0_0_44_partition_info_defaults)
+[v0\_0\_45\_partition\_info\_defaults](#v0_0_45_partition_info_defaults)
+
+flags (optional)
+
+[array[String]](#string) Partition flag options
+
+Enum:
+
+partition (optional)
+
+[v0\_0\_45\_partition\_info\_partition](#v0_0_45_partition_info_partition)
 
 grace\_time (optional)
 
@@ -21294,11 +22352,11 @@ grace\_time (optional)
 
 maximums (optional)
 
-[v0\_0\_44\_partition\_info\_maximums](#v0_0_44_partition_info_maximums)
+[v0\_0\_45\_partition\_info\_maximums](#v0_0_45_partition_info_maximums)
 
 minimums (optional)
 
-[v0\_0\_44\_partition\_info\_minimums](#v0_0_44_partition_info_minimums)
+[v0\_0\_45\_partition\_info\_minimums](#v0_0_45_partition_info_minimums)
 
 name (optional)
 
@@ -21308,27 +22366,43 @@ node\_sets (optional)
 
 [String](#string) NodeSets - Comma-separated list of nodesets which are associated with this partition
 
+preempt\_mode (optional)
+
+[array[String]](#string) PreemptMode - Mechanism used to preempt jobs for this partition when PreemptType=preempt/partition\_prio is configured (the "CLUSTER\_GLOBAL" flag will be ignored when updating a partition).
+
+Enum:
+
 priority (optional)
 
-[v0\_0\_44\_partition\_info\_priority](#v0_0_44_partition_info_priority)
+[v0\_0\_45\_partition\_info\_priority](#v0_0_45_partition_info_priority)
 
 timeouts (optional)
 
-[v0\_0\_44\_partition\_info\_timeouts](#v0_0_44_partition_info_timeouts)
+[v0\_0\_45\_partition\_info\_timeouts](#v0_0_45_partition_info_timeouts)
 
 topology (optional)
 
 [String](#string) Topology - Name of the topology, defined in topology.yaml, used by jobs in this partition
 
-partition (optional)
-
-[v0\_0\_44\_partition\_info\_partition](#v0_0_44_partition_info_partition)
-
 suspend\_time (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
-### `v0.0.44_process_exit_code_verbose` - [Up](#__Models)
+### `v0.0.45_port_range` - [Up](#__Models)
+
+minimum (optional)
+
+[Integer](#integer) Minimum port number format: int32
+
+maximum (optional)
+
+[Integer](#integer) Maximum port number format: int32
+
+set (optional)
+
+[Boolean](#boolean) True if minimum and maximum are set (or ignored on false)
+
+### `v0.0.45_process_exit_code_verbose` - [Up](#__Models)
 
 status (optional)
 
@@ -21338,13 +22412,13 @@ Enum:
 
 return\_code (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 signal (optional)
 
-[v0\_0\_44\_process\_exit\_code\_verbose\_signal](#v0_0_44_process_exit_code_verbose_signal)
+[v0\_0\_45\_process\_exit\_code\_verbose\_signal](#v0_0_45_process_exit_code_verbose_signal)
 
-### `v0.0.44_qos` - [Up](#__Models)
+### `v0.0.45_qos` - [Up](#__Models)
 
 description (optional)
 
@@ -21362,7 +22436,7 @@ id (optional)
 
 limits (optional)
 
-[v0\_0\_44\_qos\_limits](#v0_0_44_qos_limits)
+[v0\_0\_45\_qos\_limits](#v0_0_45_qos_limits)
 
 name (optional)
 
@@ -21370,21 +22444,21 @@ name (optional)
 
 preempt (optional)
 
-[v0\_0\_44\_qos\_preempt](#v0_0_44_qos_preempt)
+[v0\_0\_45\_qos\_preempt](#v0_0_45_qos_preempt)
 
 priority (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 usage\_factor (optional)
 
-[v0.0.44\_float64\_no\_val\_struct](#v0.0.44_float64_no_val_struct)
+[v0.0.45\_float64\_no\_val\_struct](#v0.0.45_float64_no_val_struct)
 
 usage\_threshold (optional)
 
-[v0.0.44\_float64\_no\_val\_struct](#v0.0.44_float64_no_val_struct)
+[v0.0.45\_float64\_no\_val\_struct](#v0.0.45_float64_no_val_struct)
 
-### `v0.0.44_reservation_core_spec` - [Up](#__Models)
+### `v0.0.45_reservation_core_spec` - [Up](#__Models)
 
 node (optional)
 
@@ -21394,7 +22468,7 @@ core (optional)
 
 [String](#string) IDs of reserved cores
 
-### `v0.0.44_reservation_desc_msg` - [Up](#__Models)
+### `v0.0.45_reservation_desc_msg` - [Up](#__Models)
 
 accounts (optional)
 
@@ -21410,15 +22484,15 @@ comment (optional)
 
 core\_count (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 duration (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 end\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 features (optional)
 
@@ -21440,7 +22514,7 @@ licenses (optional)
 
 max\_start\_delay (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 name (optional)
 
@@ -21448,7 +22522,7 @@ name (optional)
 
 node\_count (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 node\_list (optional)
 
@@ -21460,21 +22534,21 @@ partition (optional)
 
 purge\_completed (optional)
 
-[v0\_0\_44\_reservation\_info\_purge\_completed](#v0_0_44_reservation_info_purge_completed)
+[v0\_0\_45\_reservation\_info\_purge\_completed](#v0_0_45_reservation_info_purge_completed)
 
 start\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 tres (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 users (optional)
 
 [array[String]](#string)
 
-### `v0.0.44_reservation_info` - [Up](#__Models)
+### `v0.0.45_reservation_info` - [Up](#__Models)
 
 accounts (optional)
 
@@ -21490,11 +22564,11 @@ core\_count (optional)
 
 core\_specializations (optional)
 
-[array[v0.0.44\_reservation\_core\_spec]](#v0.0.44_reservation_core_spec)
+[array[v0.0.45\_reservation\_core\_spec]](#v0.0.45_reservation_core_spec)
 
 end\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 features (optional)
 
@@ -21536,15 +22610,11 @@ partition (optional)
 
 purge\_completed (optional)
 
-[v0\_0\_44\_reservation\_info\_purge\_completed](#v0_0_44_reservation_info_purge_completed)
+[v0\_0\_45\_reservation\_info\_purge\_completed](#v0_0_45_reservation_info_purge_completed)
 
 start\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
-
-watts (optional)
-
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 tres (optional)
 
@@ -21554,27 +22624,27 @@ users (optional)
 
 [String](#string) Comma-separated list of permitted users
 
-### `v0.0.44_reservation_mod_req` - [Up](#__Models)
+### `v0.0.45_reservation_mod_req` - [Up](#__Models)
 
 reservations (optional)
 
-[array[v0.0.44\_reservation\_desc\_msg]](#v0.0.44_reservation_desc_msg)
+[array[v0.0.45\_reservation\_desc\_msg]](#v0.0.45_reservation_desc_msg)
 
-### `v0.0.44_rollup_stats` - [Up](#__Models)
+### `v0.0.45_rollup_stats` - [Up](#__Models)
 
 hourly (optional)
 
-[v0\_0\_44\_rollup\_stats\_hourly](#v0_0_44_rollup_stats_hourly)
+[v0\_0\_45\_rollup\_stats\_hourly](#v0_0_45_rollup_stats_hourly)
 
 daily (optional)
 
-[v0\_0\_44\_rollup\_stats\_daily](#v0_0_44_rollup_stats_daily)
+[v0\_0\_45\_rollup\_stats\_daily](#v0_0_45_rollup_stats_daily)
 
 monthly (optional)
 
-[v0\_0\_44\_rollup\_stats\_monthly](#v0_0_44_rollup_stats_monthly)
+[v0\_0\_45\_rollup\_stats\_monthly](#v0_0_45_rollup_stats_monthly)
 
-### `v0.0.44_schedule_exit_fields` - [Up](#__Models)
+### `v0.0.45_schedule_exit_fields` - [Up](#__Models)
 
 end\_job\_queue (optional)
 
@@ -21600,7 +22670,7 @@ licenses (optional)
 
 [Integer](#integer) Blocked on licenses format: int32
 
-### `v0.0.44_shares_float128_tres` - [Up](#__Models)
+### `v0.0.45_shares_float128_tres` - [Up](#__Models)
 
 name (optional)
 
@@ -21610,17 +22680,17 @@ value (optional)
 
 [BigDecimal](#number) TRES value
 
-### `v0.0.44_shares_resp_msg` - [Up](#__Models)
+### `v0.0.45_shares_resp_msg` - [Up](#__Models)
 
 shares (optional)
 
-[array[v0.0.44\_assoc\_shares\_obj\_wrap]](#v0.0.44_assoc_shares_obj_wrap)
+[array[v0.0.45\_assoc\_shares\_obj\_wrap]](#v0.0.45_assoc_shares_obj_wrap)
 
 total\_shares (optional)
 
 [Long](#long) Total number of shares format: int64
 
-### `v0.0.44_shares_uint64_tres` - [Up](#__Models)
+### `v0.0.45_shares_uint64_tres` - [Up](#__Models)
 
 name (optional)
 
@@ -21628,9 +22698,953 @@ name (optional)
 
 value (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
-### `v0.0.44_slurm_step_id` - [Up](#__Models)
+### `v0.0.45_slurm_conf` - [Up](#__Models)
+
+AccountingStorageTRES (optional)
+
+[array[String]](#string)
+
+AccountingStorageBackupHost (optional)
+
+[String](#string) Accounting storage backup host
+
+AccountingStorageEnforce (optional)
+
+[array[String]](#string) Controls what level of association-based enforcement to impose on job submissions
+
+Enum:
+
+AccountingStorageExternalHost (optional)
+
+[String](#string) Accounting storage ext host
+
+AccountingStorageHost (optional)
+
+[String](#string) Accounting storage host
+
+AccountingStorageParameters (optional)
+
+[array[String]](#string)
+
+AccountingStoragePort (optional)
+
+[Integer](#integer) Node accounting storage port format: int32
+
+AccountingStorageType (optional)
+
+[String](#string) Accounting storage type
+
+AcctGatherEnergyType (optional)
+
+[array[String]](#string)
+
+AcctGatherProfileType (optional)
+
+[String](#string) Profile accounting type
+
+AcctGatherInterconnectType (optional)
+
+[String](#string) Interconnect accounting type
+
+AcctGatherFilesystemType (optional)
+
+[String](#string) Filesystem accounting type
+
+AcctGatherNodeFreq (optional)
+
+[Integer](#integer) Secs between node acct request format: int32
+
+ConfFlags (optional)
+
+[array[String]](#string) General configuration flags (DisableRootJobs, AllowSpecResourcesUsage, UsePAM, TrackWCKey)
+
+Enum:
+
+AuthAltTypes (optional)
+
+[array[String]](#string)
+
+AuthInfo (optional)
+
+[String](#string) Authentication info
+
+AuthAltParameters (optional)
+
+[String](#string) Alternate authentication parameters
+
+AuthType (optional)
+
+[String](#string) Authentication type
+
+BatchStartTimeout (optional)
+
+[Integer](#integer) Maximum seconds for batch job to start format: int32
+
+BurstBufferType (optional)
+
+[String](#string) Burst buffer plugin type
+
+BcastExclude (optional)
+
+[array[String]](#string)
+
+BcastParameters (optional)
+
+[array[String]](#string)
+
+CertgenParameters (optional)
+
+[array[String]](#string)
+
+CertgenType (optional)
+
+[String](#string) Certgen type
+
+CertmgrParameters (optional)
+
+[String](#string) Certmgr parameters
+
+CertmgrType (optional)
+
+[String](#string) Certmgr type
+
+CliFilterParameters (optional)
+
+[array[String]](#string)
+
+CliFilterPlugins (optional)
+
+[array[String]](#string)
+
+ClusterName (optional)
+
+[String](#string) General name of the entire cluster
+
+CommunicationParameters (optional)
+
+[array[String]](#string)
+
+CompleteWait (optional)
+
+[Integer](#integer) Seconds to wait for job completion before scheduling another job format: int32
+
+CommunicationParametersFlags (optional)
+
+[array[String]](#string) CommunicationParameters specific CONF\_FLAG\_\* flags
+
+Enum:
+
+AccountingStoreFlags (optional)
+
+[array[String]](#string) AccountingStoreFlags specific CONF\_FLAG\_\* flags
+
+Enum:
+
+SlurmdParametersFlags (optional)
+
+[array[String]](#string) SlurmdParameters specific CONF\_FLAG\_\* flags
+
+Enum:
+
+controllers (optional)
+
+[array[v0.0.45\_controller]](#v0.0.45_controller)
+
+CpuFreqDef (optional)
+
+[String](#string) Default CPU frequency or governor for job steps if not set via --cpu-freq
+
+CpuFreqGovernors (optional)
+
+[array[String]](#string) CPU frequency governors allowed via --cpu-freq
+
+Enum:
+
+CredType (optional)
+
+[String](#string) Credential signature plugin
+
+DataParserParameters (optional)
+
+[String](#string) Data parser parameters
+
+DebugFlags (optional)
+
+[array[String]](#string) Subsystems which provide more detailed event logging
+
+Enum:
+
+DefMemPerCPU (optional)
+
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
+
+DependencyParameters (optional)
+
+[array[String]](#string)
+
+EioTimeout (optional)
+
+[Integer](#integer) Seconds srun waits for slurmstepd to close the TCP/IP connection format: int32
+
+EnforcePartLimits (optional)
+
+[array[String]](#string) Controls whether partition limits are enforced at job submission time
+
+Enum:
+
+Epilog (optional)
+
+[array[String]](#string)
+
+EpilogMsgTime (optional)
+
+[Integer](#integer) Usecs for slurmctld to process an epilog complete message format: int32
+
+EpilogSlurmctld (optional)
+
+[array[String]](#string)
+
+EpilogTimeout (optional)
+
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
+
+FederationParameters (optional)
+
+[array[String]](#string)
+
+FirstJobId (optional)
+
+[Integer](#integer) First slurm generated job\_id to assign format: int32
+
+FairShareDampeningFactor (optional)
+
+[Integer](#integer) Dampening factor for the effect of exceeding fair share of resources format: int32
+
+GetNameInfoCacheTimeout (optional)
+
+[Integer](#integer) For getnameinfo() cache format: int32
+
+GresTypes (optional)
+
+[array[String]](#string)
+
+GroupUpdateTime (optional)
+
+[Integer](#integer) Interval in seconds between updates of user/group partition membership format: int32
+
+GroupUpdateForce (optional)
+
+[Boolean](#boolean) Update group/partition info even if no change detected
+
+GpuFreqDef (optional)
+
+[String](#string) Default GPU frequency for job steps if not set via --gpu-freq
+
+HashPlugin (optional)
+
+[String](#string) Hash plugin type
+
+HealthCheckInterval (optional)
+
+[Integer](#integer) Secs between health checks format: int32
+
+HealthCheckNodeState (optional)
+
+[array[String]](#string) Node states on which to execute the HealthCheckProgram
+
+Enum:
+
+HealthCheckProgram (optional)
+
+[String](#string) Pathname of health check program
+
+HealthCheckTimeout (optional)
+
+[Integer](#integer) Timeout for health check program format: int32
+
+HttpParserType (optional)
+
+[String](#string) Http\_parser plugin type
+
+HostUnreachRetryCount (optional)
+
+[Integer](#integer) Times to retry connecting if rc=EHOSTUNREACH format: int32
+
+InactiveLimit (optional)
+
+[Integer](#integer) Seconds of inactivity before a inactive resource allocation is released format: int32
+
+InteractiveStepOptions (optional)
+
+[String](#string) Options for srun when using LaunchParameters=use\_interactive\_step with salloc
+
+JobAcctGatherFrequency (optional)
+
+[array[String]](#string)
+
+JobAcctGatherType (optional)
+
+[String](#string) Job accounting gather type
+
+JobAcctGatherParams (optional)
+
+[array[String]](#string)
+
+JobAcctOomKill (optional)
+
+[Boolean](#boolean) Enforce mem limit at runtime y|n
+
+JobCompHost (optional)
+
+[String](#string) Job completion logging host
+
+JobCompLoc (optional)
+
+[String](#string) Job completion logging location
+
+JobCompParams (optional)
+
+[String](#string) Job completion parameters for plugin
+
+JobCompPort (optional)
+
+[Integer](#integer) Job completion storage port format: int32
+
+JobCompType (optional)
+
+[String](#string) Job completion storage type
+
+JobCompUser (optional)
+
+[String](#string) Job completion storage user
+
+JobDefaults (optional)
+
+[array[v0.0.45\_job\_defaults]](#v0.0.45_job_defaults)
+
+JobFileAppend (optional)
+
+[Boolean](#boolean) If set, append to stdout/err file
+
+JobRequeue (optional)
+
+[Boolean](#boolean) If set, jobs get requeued on node failure
+
+JobSubmitPlugins (optional)
+
+[array[String]](#string)
+
+KeepaliveInterval (optional)
+
+[Integer](#integer) Interval between keepalive probes format: int32
+
+KeepaliveProbes (optional)
+
+[Integer](#integer) Number of keepalive probe attempts format: int32
+
+KeepaliveTime (optional)
+
+[Integer](#integer) Keep alive time for srun I/O sockets format: int32
+
+KillOnBadExit (optional)
+
+[Boolean](#boolean) If set, the job will be terminated immediately when one of the processes is aborted or crashed
+
+KillWait (optional)
+
+[Integer](#integer) Seconds between SIGTERM and SIGKILL when a job reaches its time limit format: int32
+
+LaunchParameters (optional)
+
+[array[String]](#string)
+
+Licenses (optional)
+
+[array[String]](#string)
+
+LicenseParameters (optional)
+
+[array[String]](#string)
+
+LogTimeFormat (optional)
+
+[String](#string) Format of the timestamp in slurmctld and slurmd log files
+
+MailDomain (optional)
+
+[String](#string) Default domain to append to usernames
+
+MailProg (optional)
+
+[String](#string) Pathname of mail program
+
+MaxArraySize (optional)
+
+[Integer](#integer) Maximum job array size format: int32
+
+MaxBatchRequeue (optional)
+
+[Integer](#integer) Max times a batch job may be auto-requeued before being held format: int32
+
+MaxDBDMsgs (optional)
+
+[Integer](#integer) Maximum number of messages queued while DBD is not connected format: int32
+
+MaxJobCount (optional)
+
+[Integer](#integer) Maximum number of active jobs format: int32
+
+MaxJobId (optional)
+
+[Integer](#integer) Maximum job id before wrapping back to FirstJobId format: int32
+
+MaxMemPerCPU (optional)
+
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
+
+MaxNodeCount (optional)
+
+[Integer](#integer) Max number of static + dynamic nodes format: int32
+
+MaxStepCount (optional)
+
+[Integer](#integer) Maximum number of steps per job format: int32
+
+MaxTasksPerNode (optional)
+
+[Integer](#integer) Maximum tasks per node format: int32
+
+MCSPlugin (optional)
+
+[String](#string) Mcs plugin type
+
+MCSParameters (optional)
+
+[array[String]](#string)
+
+MetricsAuthUsers (optional)
+
+[array[String]](#string)
+
+MetricsParameters (optional)
+
+[array[String]](#string)
+
+MetricsType (optional)
+
+[String](#string) Metrics plugin type
+
+MinJobAge (optional)
+
+[Integer](#integer) COMPLETED jobs over this age (secs) purged from in memory records format: int32
+
+MpiDefault (optional)
+
+[String](#string) Default type of MPI to be used
+
+MpiParams (optional)
+
+[array[String]](#string)
+
+MessageTimeout (optional)
+
+[Integer](#integer) Seconds permitted for a round-trip communication to complete format: int32
+
+NamespaceType (optional)
+
+[String](#string) Job container plugin type
+
+NodeFeaturesPlugins (optional)
+
+[array[String]](#string)
+
+OverTimeLimit (optional)
+
+[Integer](#integer) Minutes by which a job can exceed its time limit before being canceled format: int32
+
+PluginDir (optional)
+
+[String](#string) Pathname to plugins
+
+PlugStackConfig (optional)
+
+[String](#string) Pathname to plugin stack config file
+
+PreemptExemptTime (optional)
+
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
+
+PreemptMode (optional)
+
+[array[String]](#string) Mechanism used to preempt jobs or enable gang scheduling
+
+Enum:
+
+PreemptParameters (optional)
+
+[array[String]](#string)
+
+PreemptType (optional)
+
+[String](#string) Job preemption selection plugin
+
+PrEpParameters (optional)
+
+[String](#string) PrEp parameters
+
+PrEpPlugins (optional)
+
+[array[String]](#string)
+
+PriorityDecayHalfLife (optional)
+
+[String](#string) How long prior resource use is considered in determining job priority (Time formatted as HH:MM:SS or D-HH:MM:SS)
+
+PriorityCalcPeriod (optional)
+
+[String](#string) Period in minutes between half-life decay recalculations (Time formatted as HH:MM:SS or D-HH:MM:SS)
+
+PriorityFavorSmall (optional)
+
+[Boolean](#boolean) If set, give small jobs preferential scheduling priority
+
+PriorityFlags (optional)
+
+[array[String]](#string) Flags controlling priority calculation behavior
+
+Enum:
+
+PriorityMaxAge (optional)
+
+[String](#string) Job age at which the maximum age priority factor is assigned (Time formatted as HH:MM:SS or D-HH:MM:SS)
+
+PriorityParameters (optional)
+
+[String](#string) Priority plugin parameters
+
+PriorityUsageResetPeriod (optional)
+
+[String](#string) Interval at which association usage is reset to zero
+
+PriorityType (optional)
+
+[String](#string) Priority type plugin
+
+PriorityWeightAge (optional)
+
+[Integer](#integer) Degree to which queue wait time contributes to job priority format: int32
+
+PriorityWeightAssoc (optional)
+
+[Integer](#integer) Degree to which association contributes to job priority format: int32
+
+PriorityWeightFairshare (optional)
+
+[Integer](#integer) Degree to which fair-share contributes to job priority format: int32
+
+PriorityWeightJobSize (optional)
+
+[Integer](#integer) Degree to which job size contributes to job priority format: int32
+
+PriorityWeightPartition (optional)
+
+[Integer](#integer) Degree to which partition contributes to job priority format: int32
+
+PriorityWeightQOS (optional)
+
+[Integer](#integer) Degree to which QOS contributes to job priority format: int32
+
+PriorityWeightTRES (optional)
+
+[String](#string) TRES types and weights controlling their contribution to job priority
+
+PrivateData (optional)
+
+[array[String]](#string) Controls what information is hidden from regular users
+
+Enum:
+
+ProctrackType (optional)
+
+[String](#string) Process tracking plugin type
+
+Prolog (optional)
+
+[array[String]](#string)
+
+PrologSlurmctld (optional)
+
+[array[String]](#string)
+
+PrologTimeout (optional)
+
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
+
+PropagatePrioProcess (optional)
+
+[String](#string) Controls scheduling priority (nice value) of user spawned tasks
+
+PrologFlags (optional)
+
+[array[String]](#string) Flags controlling Prolog and Epilog behavior
+
+Enum:
+
+PropagateResourceLimits (optional)
+
+[array[String]](#string)
+
+PropagateResourceLimitsExcept (optional)
+
+[array[String]](#string)
+
+RebootProgram (optional)
+
+[String](#string) Program to reboot the node
+
+ReconfigFlags (optional)
+
+[array[String]](#string) Flags controlling actions taken on scontrol reconfig
+
+Enum:
+
+RequeueExit (optional)
+
+[array[String]](#string)
+
+RequeueExitHold (optional)
+
+[array[String]](#string)
+
+ResumeFailProgram (optional)
+
+[String](#string) Program executed when nodes fail to resume by ResumeTimeout
+
+ResumeProgram (optional)
+
+[String](#string) Program to bring nodes out of power save mode when assigned work
+
+ResumeRate (optional)
+
+[Integer](#integer) Rate at which nodes are resumed from power save mode per minute format: int32
+
+ResumeTimeout (optional)
+
+[Integer](#integer) Max seconds between a resume request and node availability format: int32
+
+ResvEpilog (optional)
+
+[String](#string) Path of reservation epilog run by slurmctld
+
+ResvOverRun (optional)
+
+[Integer](#integer) Minutes a running job can continue after its reservation ends format: int32
+
+ResvProlog (optional)
+
+[String](#string) Path of reservation prolog run by slurmctld
+
+ReturnToService (optional)
+
+[String](#string) Controls when a DOWN node is returned to service
+
+SlurmSchedLogFile (optional)
+
+[String](#string) Where slurm Scheduler log gets written
+
+SlurmSchedLogLevel (optional)
+
+[Integer](#integer) Configured level of slurm Scheduler log format: int32
+
+SchedulerParameters (optional)
+
+[array[String]](#string)
+
+SchedulerTimeSlice (optional)
+
+[Integer](#integer) Time slice in seconds for gang scheduling format: int32
+
+SchedulerType (optional)
+
+[String](#string) Type of scheduler to use
+
+ScronParameters (optional)
+
+[array[String]](#string)
+
+SelectType (optional)
+
+[String](#string) Type of node selector to use
+
+SelectTypeParameters (optional)
+
+[array[String]](#string) Scheduler consumable resource selection type
+
+Enum:
+
+PrioritySiteFactorPlugin (optional)
+
+[String](#string) Plugin for computing site-specific priority factors
+
+PrioritySiteFactorParameters (optional)
+
+[String](#string) Parameters for the site-specific priority factor plugin
+
+SlurmUserId (optional)
+
+[Integer](#integer) Uid of slurm\_user\_name format: int32
+
+SlurmUser (optional)
+
+[String](#string) User that slurmctld runs as
+
+SlurmdUserId (optional)
+
+[Integer](#integer) Uid of slurmd\_user\_name format: int32
+
+SlurmdUser (optional)
+
+[String](#string) User that slurmd runs as
+
+SlurmctldAddr (optional)
+
+[String](#string) Address used for communications to the currently active slurmctld daemon
+
+SlurmctldDebug (optional)
+
+[String](#string) Slurmctld logging level
+
+SlurmctldHttpAuthParams (optional)
+
+[array[String]](#string)
+
+SlurmctldLogFile (optional)
+
+[String](#string) Where slurmctld error log gets written
+
+SlurmctldPidFile (optional)
+
+[String](#string) Where to put slurmctld pidfile
+
+SlurmctldPort (optional)
+
+[Integer](#integer) Default communications port to slurmctld format: int32
+
+SlurmctldPortCount (optional)
+
+[Integer](#integer) Number of slurmctld comm ports format: int32
+
+SlurmctldPrimaryOffProg (optional)
+
+[String](#string) Run when becomes slurmctld backup
+
+SlurmctldPrimaryOnProg (optional)
+
+[String](#string) Run when becomes slurmctld primary
+
+SlurmctldSyslogDebug (optional)
+
+[String](#string) Slurmctld output to local logfile and syslog
+
+SlurmctldTimeout (optional)
+
+[Integer](#integer) Seconds the backup controller waits for the primary before taking over format: int32
+
+SlurmctldParameters (optional)
+
+[array[String]](#string)
+
+SlurmdDebug (optional)
+
+[String](#string) Slurmd logging level
+
+SlurmdHttpAuthParams (optional)
+
+[array[String]](#string)
+
+SlurmdLogFile (optional)
+
+[String](#string) Where slurmd error log gets written
+
+SlurmdParameters (optional)
+
+[array[String]](#string)
+
+SlurmdPidFile (optional)
+
+[String](#string) Where to put slurmd pidfile
+
+SlurmdPort (optional)
+
+[Integer](#integer) Default communications port to slurmd format: int32
+
+SlurmdSpoolDir (optional)
+
+[String](#string) Where slurmd put temporary state info
+
+SlurmdSyslogDebug (optional)
+
+[String](#string) Slurmd output to local logfile and syslog
+
+SlurmdTimeout (optional)
+
+[Integer](#integer) Seconds slurmctld waits for slurmd before marking node DOWN format: int32
+
+SrunEpilog (optional)
+
+[String](#string) Srun epilog program
+
+SrunPortRange (optional)
+
+[v0.0.45\_port\_range](#v0.0.45_port_range)
+
+SrunProlog (optional)
+
+[String](#string) Srun prolog program
+
+StateSaveLocation (optional)
+
+[String](#string) Pathname of slurmctld state save directory
+
+SuspendExcNodes (optional)
+
+[array[String]](#string)
+
+SuspendExcParts (optional)
+
+[array[String]](#string)
+
+SuspendExcStates (optional)
+
+[array[String]](#string)
+
+SuspendProgram (optional)
+
+[String](#string) Program to place idle nodes into power save mode
+
+SuspendRate (optional)
+
+[Integer](#integer) Rate at which nodes are placed into power save mode per minute format: int32
+
+SuspendTime (optional)
+
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
+
+SuspendTimeout (optional)
+
+[Integer](#integer) Max seconds between a suspend request and node shutdown format: int32
+
+SwitchType (optional)
+
+[String](#string) Switch or interconnect type
+
+SwitchParameters (optional)
+
+[array[String]](#string)
+
+TaskEpilog (optional)
+
+[String](#string) Pathname of task launch epilog
+
+TaskPlugin (optional)
+
+[array[String]](#string)
+
+TaskPluginParam (optional)
+
+[array[String]](#string) Default task binding and distribution options
+
+Enum:
+
+TaskProlog (optional)
+
+[String](#string) Pathname of task launch prolog
+
+TLSParameters (optional)
+
+[array[String]](#string)
+
+TLSType (optional)
+
+[String](#string) Tls plugin type
+
+TCPTimeout (optional)
+
+[Integer](#integer) Seconds permitted for a TCP connection to be established format: int32
+
+TmpFS (optional)
+
+[String](#string) Pathname of temporary file system
+
+TopologyParam (optional)
+
+[array[String]](#string)
+
+TopologyPlugin (optional)
+
+[String](#string) Network topology plugin
+
+TreeWidth (optional)
+
+[Integer](#integer) Fanout of the slurmd communication tree format: int32
+
+UnkillableStepProgram (optional)
+
+[String](#string) Program run by the slurmstepd when processes in a job step are unkillable
+
+UnkillableStepTimeout (optional)
+
+[Integer](#integer) Time in seconds, after processes in a job step have been signaled, before they are considered "unkillable". format: int32
+
+UrlParserType (optional)
+
+[String](#string) Url\_parser plugin type
+
+VSizeFactor (optional)
+
+[Integer](#integer) Job virtual memory limit as a percentage of its real memory limit format: int32
+
+WaitTime (optional)
+
+[Integer](#integer) Default seconds srun waits after first task exits before terminating all format: int32
+
+X11Parameters (optional)
+
+[array[String]](#string)
+
+### `v0.0.45_slurm_conf_meta` - [Up](#__Models)
+
+LastUpdate (optional)
+
+[Long](#long) Last update time of the build parameters (UNIX timestamp or time string recognized by Slurm (e.g., '[MM/DD[/YY]-]HH:MM[:SS]')) format: int64
+
+BOOT\_TIME (optional)
+
+[Long](#long) Time slurmctld last booted (UNIX timestamp or time string recognized by Slurm (e.g., '[MM/DD[/YY]-]HH:MM[:SS]')) format: int64
+
+ClusterId (optional)
+
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
+
+HashValue (optional)
+
+[Integer](#integer) Hash value of the slurm.conf file format: int32
+
+NEXT\_JOB\_ID (optional)
+
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
+
+SLURM\_CONF (optional)
+
+[String](#string) Pathname of slurm config file
+
+SLURM\_VERSION (optional)
+
+[String](#string) Version of slurmctld
+
+### `v0.0.45_slurm_step_id` - [Up](#__Models)
 
 sluid (optional)
 
@@ -21638,17 +23652,169 @@ sluid (optional)
 
 job\_id (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 step\_het\_component (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 step\_id (optional)
 
 [String](#string) Job step ID
 
-### `v0.0.44_slurmdbd_ping` - [Up](#__Models)
+### `v0.0.45_slurmdb_purge_units` - [Up](#__Models)
+
+set (optional)
+
+[Boolean](#boolean) whether purge has been set
+
+hours (optional)
+
+[Integer](#integer) hours format: int32
+
+days (optional)
+
+[Integer](#integer) days format: int32
+
+months (optional)
+
+[Integer](#integer) months format: int32
+
+archive (optional)
+
+[Boolean](#boolean) whether to archive purged records
+
+### `v0.0.45_slurmdbd_conf` - [Up](#__Models)
+
+ArchiveDir (optional)
+
+[String](#string) location to locally store data if not using a script
+
+ArchiveScript (optional)
+
+[String](#string) script to archive old data
+
+CommitDelay (optional)
+
+[Integer](#integer) on busy systems, delay commits from slurmctld this many seconds format: int32
+
+DbdAddr (optional)
+
+[String](#string) network address of Slurm DBD
+
+DbdBackupHost (optional)
+
+[String](#string) hostname of Slurm DBD backup
+
+DbdHost (optional)
+
+[String](#string) hostname of Slurm DBD
+
+DbdPort (optional)
+
+[Integer](#integer) port number for RPCs to DBD format: int32
+
+DebugLevel (optional)
+
+[String](#string) debug level, default=3
+
+DefaultQOS (optional)
+
+[String](#string) default qos setting when adding clusters
+
+Flags (optional)
+
+[array[String]](#string) various flags, see DBD\_CONF\_FLAG\_\*
+
+Enum:
+
+LogFile (optional)
+
+[String](#string) fully qualified pathname of the slurmdbd log file (default unset; logs go to syslog)
+
+MaxPurgeLimit (optional)
+
+[Integer](#integer) max number of records that are purged in a single query so that locks can be periodically released format: int32
+
+MaxQueryTimeRange (optional)
+
+[String](#string) max time range for user queries (Time formatted as HH:MM:SS or D-HH:MM:SS)
+
+Parameters (optional)
+
+[array[String]](#string)
+
+PersistConnFlags (optional)
+
+[array[String]](#string) flags to be sent back on any persist connection init
+
+Enum:
+
+PidFile (optional)
+
+[String](#string) where to store current PID
+
+PurgeEventAfter (optional)
+
+[v0.0.45\_slurmdb\_purge\_units](#v0.0.45_slurmdb_purge_units)
+
+PurgeJobAfter (optional)
+
+[v0.0.45\_slurmdb\_purge\_units](#v0.0.45_slurmdb_purge_units)
+
+PurgeResvAfter (optional)
+
+[v0.0.45\_slurmdb\_purge\_units](#v0.0.45_slurmdb_purge_units)
+
+PurgeStepAfter (optional)
+
+[v0.0.45\_slurmdb\_purge\_units](#v0.0.45_slurmdb_purge_units)
+
+PurgeSuspendAfter (optional)
+
+[v0.0.45\_slurmdb\_purge\_units](#v0.0.45_slurmdb_purge_units)
+
+PurgeTXNAfter (optional)
+
+[v0.0.45\_slurmdb\_purge\_units](#v0.0.45_slurmdb_purge_units)
+
+PurgeUsageAfter (optional)
+
+[v0.0.45\_slurmdb\_purge\_units](#v0.0.45_slurmdb_purge_units)
+
+PurgeJobScriptAfter (optional)
+
+[v0.0.45\_slurmdb\_purge\_units](#v0.0.45_slurmdb_purge_units)
+
+PurgeJobEnvAfter (optional)
+
+[v0.0.45\_slurmdb\_purge\_units](#v0.0.45_slurmdb_purge_units)
+
+StorageLoc (optional)
+
+[String](#string) name of the database where accounting records are written (default slurm\_acct\_db)
+
+StoragePassScript (optional)
+
+[String](#string) path to executable script that emits ephemeral DB authentication tokens used in place of StoragePass
+
+StorageUser (optional)
+
+[String](#string) username used to connect to the accounting database (defaults to the user running slurmdbd)
+
+DebugLevelSyslog (optional)
+
+[String](#string) output to both log file and syslog
+
+TrackWCKey (optional)
+
+[Boolean](#boolean) whether or not to track WCKey
+
+TrackSlurmctldDown (optional)
+
+[Boolean](#boolean) whether or not to track when a slurmctld goes down
+
+### `v0.0.45_slurmdbd_ping` - [Up](#__Models)
 
 hostname
 
@@ -21666,19 +23832,19 @@ primary
 
 [Boolean](#boolean) Is responding slurmdbd the primary controller (Is responding slurmctld the primary controller)
 
-### `v0.0.44_stats_msg` - [Up](#__Models)
+status
 
-parts\_packed (optional)
+[String](#string) Ping status code
 
-[Integer](#integer) Zero if only RPC statistic included format: int32
+### `v0.0.45_stats_msg` - [Up](#__Models)
 
 req\_time (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 req\_time\_start (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 server\_thread\_count (optional)
 
@@ -21738,7 +23904,7 @@ schedule\_cycle\_depth (optional)
 
 schedule\_exit (optional)
 
-[v0.0.44\_schedule\_exit\_fields](#v0.0.44_schedule_exit_fields)
+[v0.0.45\_schedule\_exit\_fields](#v0.0.45_schedule_exit_fields)
 
 schedule\_queue\_length (optional)
 
@@ -21774,7 +23940,7 @@ jobs\_running (optional)
 
 job\_states\_ts (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 bf\_backfilled\_jobs (optional)
 
@@ -21818,7 +23984,7 @@ bf\_cycle\_max (optional)
 
 bf\_exit (optional)
 
-[v0.0.44\_bf\_exit\_fields](#v0.0.44_bf_exit_fields)
+[v0.0.45\_bf\_exit\_fields](#v0.0.45_bf_exit_fields)
 
 bf\_last\_depth (optional)
 
@@ -21862,7 +24028,7 @@ bf\_table\_size\_mean (optional)
 
 bf\_when\_last\_cycle (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 bf\_active (optional)
 
@@ -21870,21 +24036,21 @@ bf\_active (optional)
 
 rpcs\_by\_message\_type (optional)
 
-[array[v0.0.44\_stats\_msg\_rpc\_type]](#v0.0.44_stats_msg_rpc_type) RPCs by type
+[array[v0.0.45\_stats\_msg\_rpc\_type]](#v0.0.45_stats_msg_rpc_type) RPCs by type
 
 rpcs\_by\_user (optional)
 
-[array[v0.0.44\_stats\_msg\_rpc\_user]](#v0.0.44_stats_msg_rpc_user) RPCs by user
+[array[v0.0.45\_stats\_msg\_rpc\_user]](#v0.0.45_stats_msg_rpc_user) RPCs by user
 
 pending\_rpcs (optional)
 
-[array[v0.0.44\_stats\_msg\_rpc\_queue]](#v0.0.44_stats_msg_rpc_queue) Pending RPCs
+[array[v0.0.45\_stats\_msg\_rpc\_queue]](#v0.0.45_stats_msg_rpc_queue) Pending RPCs
 
 pending\_rpcs\_by\_hostlist (optional)
 
-[array[v0.0.44\_stats\_msg\_rpc\_dump]](#v0.0.44_stats_msg_rpc_dump) Pending RPCs by hostlist
+[array[v0.0.45\_stats\_msg\_rpc\_dump]](#v0.0.45_stats_msg_rpc_dump) Pending RPCs by hostlist
 
-### `v0.0.44_stats_msg_rpc_dump` - [Up](#__Models)
+### `v0.0.45_stats_msg_rpc_dump` - [Up](#__Models)
 
 type\_id
 
@@ -21898,7 +24064,7 @@ count
 
 [array[String]](#string)
 
-### `v0.0.44_stats_msg_rpc_queue` - [Up](#__Models)
+### `v0.0.45_stats_msg_rpc_queue` - [Up](#__Models)
 
 type\_id
 
@@ -21912,7 +24078,7 @@ count
 
 [Integer](#integer) Number of pending RPCs queued format: int32
 
-### `v0.0.44_stats_msg_rpc_type` - [Up](#__Models)
+### `v0.0.45_stats_msg_rpc_type` - [Up](#__Models)
 
 type\_id
 
@@ -21948,9 +24114,9 @@ total\_time
 
 average\_time
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
-### `v0.0.44_stats_msg_rpc_user` - [Up](#__Models)
+### `v0.0.45_stats_msg_rpc_user` - [Up](#__Models)
 
 user\_id
 
@@ -21970,9 +24136,9 @@ total\_time
 
 average\_time
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
-### `v0.0.44_stats_rec` - [Up](#__Models)
+### `v0.0.45_stats_rec` - [Up](#__Models)
 
 time\_start (optional)
 
@@ -21980,17 +24146,17 @@ time\_start (optional)
 
 rollups (optional)
 
-[v0.0.44\_rollup\_stats](#v0.0.44_rollup_stats)
+[v0.0.45\_rollup\_stats](#v0.0.45_rollup_stats)
 
 RPCs (optional)
 
-[array[v0.0.44\_stats\_rpc]](#v0.0.44_stats_rpc)
+[array[v0.0.45\_stats\_rpc]](#v0.0.45_stats_rpc)
 
 users (optional)
 
-[array[v0.0.44\_stats\_user]](#v0.0.44_stats_user)
+[array[v0.0.45\_stats\_user]](#v0.0.45_stats_user)
 
-### `v0.0.44_stats_rpc` - [Up](#__Models)
+### `v0.0.45_stats_rpc` - [Up](#__Models)
 
 rpc (optional)
 
@@ -22002,9 +24168,9 @@ count (optional)
 
 time (optional)
 
-[v0\_0\_44\_stats\_rpc\_time](#v0_0_44_stats_rpc_time)
+[v0\_0\_45\_stats\_rpc\_time](#v0_0_45_stats_rpc_time)
 
-### `v0.0.44_stats_user` - [Up](#__Models)
+### `v0.0.45_stats_user` - [Up](#__Models)
 
 user (optional)
 
@@ -22016,33 +24182,29 @@ count (optional)
 
 time (optional)
 
-[v0\_0\_44\_stats\_rpc\_time](#v0_0_44_stats_rpc_time)
+[v0\_0\_45\_stats\_rpc\_time](#v0_0_45_stats_rpc_time)
 
-### `v0.0.44_step` - [Up](#__Models)
+### `v0.0.45_step` - [Up](#__Models)
 
 time (optional)
 
-[v0\_0\_44\_step\_time](#v0_0_44_step_time)
+[v0\_0\_45\_step\_time](#v0_0_45_step_time)
 
 exit\_code (optional)
 
-[v0.0.44\_process\_exit\_code\_verbose](#v0.0.44_process_exit_code_verbose)
+[v0.0.45\_process\_exit\_code\_verbose](#v0.0.45_process_exit_code_verbose)
 
 nodes (optional)
 
-[v0\_0\_44\_step\_nodes](#v0_0_44_step_nodes)
+[v0\_0\_45\_step\_nodes](#v0_0_45_step_nodes)
 
 tasks (optional)
 
-[v0\_0\_44\_step\_tasks](#v0_0_44_step_tasks)
-
-pid (optional)
-
-[String](#string) Deprecated; Process ID
+[v0\_0\_45\_step\_tasks](#v0_0_45_step_tasks)
 
 CPU (optional)
 
-[v0\_0\_44\_step\_CPU](#v0_0_44_step_CPU)
+[v0\_0\_45\_step\_CPU](#v0_0_45_step_CPU)
 
 kill\_request\_user (optional)
 
@@ -22056,21 +24218,25 @@ Enum:
 
 statistics (optional)
 
-[v0\_0\_44\_step\_statistics](#v0_0_44_step_statistics)
+[v0\_0\_45\_step\_statistics](#v0_0_45_step_statistics)
 
 step (optional)
 
-[v0\_0\_44\_step\_step](#v0_0_44_step_step)
+[v0\_0\_45\_step\_step](#v0_0_45_step_step)
+
+submit\_line (optional)
+
+[String](#string) Full command used to submit the step
 
 task (optional)
 
-[v0\_0\_44\_step\_task](#v0_0_44_step_task)
+[v0\_0\_45\_step\_task](#v0_0_45_step_task)
 
 tres (optional)
 
-[v0\_0\_44\_step\_tres](#v0_0_44_step_tres)
+[v0\_0\_45\_step\_tres](#v0_0_45_step_tres)
 
-### `v0.0.44_tres` - [Up](#__Models)
+### `v0.0.45_tres` - [Up](#__Models)
 
 type
 
@@ -22088,7 +24254,7 @@ count (optional)
 
 [Long](#long) TRES count (0 if listed generically) format: int64
 
-### `v0.0.44_uint16_no_val_struct` - [Up](#__Models)
+### `v0.0.45_uint16_no_val_struct` - [Up](#__Models)
 
 set (optional)
 
@@ -22102,7 +24268,7 @@ number (optional)
 
 [Integer](#integer) If "set" is True the number will be set with value; otherwise ignore number contents format: int32
 
-### `v0.0.44_uint32_no_val_struct` - [Up](#__Models)
+### `v0.0.45_uint32_no_val_struct` - [Up](#__Models)
 
 set (optional)
 
@@ -22116,7 +24282,7 @@ number (optional)
 
 [Integer](#integer) If "set" is True the number will be set with value; otherwise ignore number contents format: int32
 
-### `v0.0.44_uint64_no_val_struct` - [Up](#__Models)
+### `v0.0.45_uint64_no_val_struct` - [Up](#__Models)
 
 set (optional)
 
@@ -22130,7 +24296,7 @@ number (optional)
 
 [Long](#long) If "set" is True the number will be set with value; otherwise ignore number contents format: int64
 
-### `v0.0.44_update_node_msg` - [Up](#__Models)
+### `v0.0.45_update_node_msg` - [Up](#__Models)
 
 comment (optional)
 
@@ -22184,7 +24350,7 @@ reason\_uid (optional)
 
 resume\_after (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 topology\_str (optional)
 
@@ -22192,9 +24358,9 @@ topology\_str (optional)
 
 weight (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
-### `v0.0.44_user` - [Up](#__Models)
+### `v0.0.45_user` - [Up](#__Models)
 
 administrator\_level (optional)
 
@@ -22204,15 +24370,15 @@ Enum:
 
 associations (optional)
 
-[array[v0.0.44\_assoc\_short]](#v0.0.44_assoc_short)
+[array[v0.0.45\_assoc\_short]](#v0.0.45_assoc_short)
 
 coordinators (optional)
 
-[array[v0.0.44\_coord]](#v0.0.44_coord)
+[array[v0.0.45\_coord]](#v0.0.45_coord)
 
 default (optional)
 
-[v0\_0\_44\_user\_default](#v0_0_44_user_default)
+[v0\_0\_45\_user\_default](#v0_0_45_user_default)
 
 flags (optional)
 
@@ -22230,9 +24396,9 @@ old\_name (optional)
 
 wckeys (optional)
 
-[array[v0.0.44\_wckey]](#v0.0.44_wckey)
+[array[v0.0.45\_wckey]](#v0.0.45_wckey)
 
-### `v0.0.44_user_short` - [Up](#__Models)
+### `v0.0.45_user_short` - [Up](#__Models)
 
 adminlevel (optional)
 
@@ -22252,7 +24418,7 @@ defaultwckey (optional)
 
 [String](#string) Default WCKey
 
-### `v0.0.44_users_add_cond` - [Up](#__Models)
+### `v0.0.45_users_add_cond` - [Up](#__Models)
 
 accounts (optional)
 
@@ -22260,7 +24426,7 @@ accounts (optional)
 
 association (optional)
 
-[v0.0.44\_assoc\_rec\_set](#v0.0.44_assoc_rec_set)
+[v0.0.45\_assoc\_rec\_set](#v0.0.45_assoc_rec_set)
 
 clusters (optional)
 
@@ -22278,11 +24444,11 @@ wckeys (optional)
 
 [array[String]](#string)
 
-### `v0.0.44_wckey` - [Up](#__Models)
+### `v0.0.45_wckey` - [Up](#__Models)
 
 accounting (optional)
 
-[array[v0.0.44\_accounting]](#v0.0.44_accounting)
+[array[v0.0.45\_accounting]](#v0.0.45_accounting)
 
 cluster
 
@@ -22306,7 +24472,7 @@ flags (optional)
 
 Enum:
 
-### `v0.0.44_wckey_tag_struct` - [Up](#__Models)
+### `v0.0.45_wckey_tag_struct` - [Up](#__Models)
 
 wckey
 
@@ -22318,165 +24484,165 @@ flags
 
 Enum:
 
-### `v0_0_44_accounting_allocated` - [Up](#__Models)
+### `v0_0_45_accounting_allocated` - [Up](#__Models)
 
 seconds (optional)
 
 [Long](#long) Number of seconds allocated format: int64
 
-### `v0_0_44_assoc_default` - [Up](#__Models)
+### `v0_0_45_assoc_default` - [Up](#__Models)
 
 qos (optional)
 
 [String](#string) Default QOS
 
-### `v0_0_44_assoc_max` - [Up](#__Models)
+### `v0_0_45_assoc_max` - [Up](#__Models)
 
 jobs (optional)
 
-[v0\_0\_44\_assoc\_max\_jobs](#v0_0_44_assoc_max_jobs)
+[v0\_0\_45\_assoc\_max\_jobs](#v0_0_45_assoc_max_jobs)
 
 tres (optional)
 
-[v0\_0\_44\_assoc\_max\_tres](#v0_0_44_assoc_max_tres)
+[v0\_0\_45\_assoc\_max\_tres](#v0_0_45_assoc_max_tres)
 
 per (optional)
 
-[v0\_0\_44\_assoc\_max\_per](#v0_0_44_assoc_max_per)
+[v0\_0\_45\_assoc\_max\_per](#v0_0_45_assoc_max_per)
 
-### `v0_0_44_assoc_max_jobs` - [Up](#__Models)
+### `v0_0_45_assoc_max_jobs` - [Up](#__Models)
 
 per (optional)
 
-[v0\_0\_44\_assoc\_max\_jobs\_per](#v0_0_44_assoc_max_jobs_per)
+[v0\_0\_45\_assoc\_max\_jobs\_per](#v0_0_45_assoc_max_jobs_per)
 
 active (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 accruing (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 total (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
-### `v0_0_44_assoc_max_jobs_per` - [Up](#__Models)
+### `v0_0_45_assoc_max_jobs_per` - [Up](#__Models)
 
 count (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 accruing (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 submitted (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 wall\_clock (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
-### `v0_0_44_assoc_max_per` - [Up](#__Models)
+### `v0_0_45_assoc_max_per` - [Up](#__Models)
 
 account (optional)
 
-[v0\_0\_44\_assoc\_max\_per\_account](#v0_0_44_assoc_max_per_account)
+[v0\_0\_45\_assoc\_max\_per\_account](#v0_0_45_assoc_max_per_account)
 
-### `v0_0_44_assoc_max_per_account` - [Up](#__Models)
+### `v0_0_45_assoc_max_per_account` - [Up](#__Models)
 
 wall\_clock (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
-### `v0_0_44_assoc_max_tres` - [Up](#__Models)
+### `v0_0_45_assoc_max_tres` - [Up](#__Models)
 
 total (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 group (optional)
 
-[v0\_0\_44\_assoc\_max\_tres\_group](#v0_0_44_assoc_max_tres_group)
+[v0\_0\_45\_assoc\_max\_tres\_group](#v0_0_45_assoc_max_tres_group)
 
 minutes (optional)
 
-[v0\_0\_44\_assoc\_max\_tres\_minutes](#v0_0_44_assoc_max_tres_minutes)
+[v0\_0\_45\_assoc\_max\_tres\_minutes](#v0_0_45_assoc_max_tres_minutes)
 
 per (optional)
 
-[v0\_0\_44\_assoc\_max\_tres\_per](#v0_0_44_assoc_max_tres_per)
+[v0\_0\_45\_assoc\_max\_tres\_per](#v0_0_45_assoc_max_tres_per)
 
-### `v0_0_44_assoc_max_tres_group` - [Up](#__Models)
+### `v0_0_45_assoc_max_tres_group` - [Up](#__Models)
 
 minutes (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 active (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
-### `v0_0_44_assoc_max_tres_minutes` - [Up](#__Models)
+### `v0_0_45_assoc_max_tres_minutes` - [Up](#__Models)
 
 total (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 per (optional)
 
-[v0\_0\_44\_qos\_limits\_min\_tres\_per](#v0_0_44_qos_limits_min_tres_per)
+[v0\_0\_45\_qos\_limits\_min\_tres\_per](#v0_0_45_qos_limits_min_tres_per)
 
-### `v0_0_44_assoc_max_tres_per` - [Up](#__Models)
+### `v0_0_45_assoc_max_tres_per` - [Up](#__Models)
 
 job (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 node (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
-### `v0_0_44_assoc_min` - [Up](#__Models)
+### `v0_0_45_assoc_min` - [Up](#__Models)
 
 priority\_threshold (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
-### `v0_0_44_assoc_shares_obj_wrap_fairshare` - [Up](#__Models)
+### `v0_0_45_assoc_shares_obj_wrap_fairshare` - [Up](#__Models)
 
 factor (optional)
 
-[v0.0.44\_float64\_no\_val\_struct](#v0.0.44_float64_no_val_struct)
+[v0.0.45\_float64\_no\_val\_struct](#v0.0.45_float64_no_val_struct)
 
 level (optional)
 
-[v0.0.44\_float64\_no\_val\_struct](#v0.0.44_float64_no_val_struct)
+[v0.0.45\_float64\_no\_val\_struct](#v0.0.45_float64_no_val_struct)
 
-### `v0_0_44_assoc_shares_obj_wrap_tres` - [Up](#__Models)
+### `v0_0_45_assoc_shares_obj_wrap_tres` - [Up](#__Models)
 
 run\_seconds (optional)
 
-[array[v0.0.44\_shares\_uint64\_tres]](#v0.0.44_shares_uint64_tres)
+[array[v0.0.45\_shares\_uint64\_tres]](#v0.0.45_shares_uint64_tres)
 
 group\_minutes (optional)
 
-[array[v0.0.44\_shares\_uint64\_tres]](#v0.0.44_shares_uint64_tres)
+[array[v0.0.45\_shares\_uint64\_tres]](#v0.0.45_shares_uint64_tres)
 
 usage (optional)
 
-[array[v0.0.44\_shares\_float128\_tres]](#v0.0.44_shares_float128_tres)
+[array[v0.0.45\_shares\_float128\_tres]](#v0.0.45_shares_float128_tres)
 
-### `v0_0_44_cluster_rec_associations` - [Up](#__Models)
+### `v0_0_45_cluster_rec_associations` - [Up](#__Models)
 
 root (optional)
 
-[v0.0.44\_assoc\_short](#v0.0.44_assoc_short)
+[v0.0.45\_assoc\_short](#v0.0.45_assoc_short)
 
-### `v0_0_44_cluster_rec_controller` - [Up](#__Models)
+### `v0_0_45_cluster_rec_controller` - [Up](#__Models)
 
 host (optional)
 
@@ -22486,7 +24652,7 @@ port (optional)
 
 [Integer](#integer) ControlPort format: int32
 
-### `v0_0_44_cron_entry_line` - [Up](#__Models)
+### `v0_0_45_cron_entry_line` - [Up](#__Models)
 
 start (optional)
 
@@ -22496,7 +24662,7 @@ end (optional)
 
 [Integer](#integer) End of this entry in file format: int32
 
-### `v0_0_44_instance_time` - [Up](#__Models)
+### `v0_0_45_instance_time` - [Up](#__Models)
 
 time\_end (optional)
 
@@ -22506,7 +24672,7 @@ time\_start (optional)
 
 [Long](#long) When the instance will start (UNIX timestamp) (UNIX timestamp or time string recognized by Slurm (e.g., '[MM/DD[/YY]-]HH:MM[:SS]')) format: int64
 
-### `v0_0_44_job_array` - [Up](#__Models)
+### `v0_0_45_job_array` - [Up](#__Models)
 
 job\_id (optional)
 
@@ -22514,35 +24680,35 @@ job\_id (optional)
 
 limits (optional)
 
-[v0\_0\_44\_job\_array\_limits](#v0_0_44_job_array_limits)
+[v0\_0\_45\_job\_array\_limits](#v0_0_45_job_array_limits)
 
 task\_id (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 task (optional)
 
 [String](#string) String expression of task IDs in this record
 
-### `v0_0_44_job_array_limits` - [Up](#__Models)
+### `v0_0_45_job_array_limits` - [Up](#__Models)
 
 max (optional)
 
-[v0\_0\_44\_job\_array\_limits\_max](#v0_0_44_job_array_limits_max)
+[v0\_0\_45\_job\_array\_limits\_max](#v0_0_45_job_array_limits_max)
 
-### `v0_0_44_job_array_limits_max` - [Up](#__Models)
+### `v0_0_45_job_array_limits_max` - [Up](#__Models)
 
 running (optional)
 
-[v0\_0\_44\_job\_array\_limits\_max\_running](#v0_0_44_job_array_limits_max_running)
+[v0\_0\_45\_job\_array\_limits\_max\_running](#v0_0_45_job_array_limits_max_running)
 
-### `v0_0_44_job_array_limits_max_running` - [Up](#__Models)
+### `v0_0_45_job_array_limits_max_running` - [Up](#__Models)
 
 tasks (optional)
 
 [Integer](#integer) Maximum number of simultaneously running tasks, 0 if no limit format: int32
 
-### `v0_0_44_job_comment` - [Up](#__Models)
+### `v0_0_45_job_comment` - [Up](#__Models)
 
 administrator (optional)
 
@@ -22556,49 +24722,49 @@ system (optional)
 
 [String](#string) Arbitrary comment from slurmctld
 
-### `v0_0_44_job_desc_msg_rlimits` - [Up](#__Models)
+### `v0_0_45_job_desc_msg_rlimits` - [Up](#__Models)
 
 cpu (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 fsize (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 data (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 stack (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 core (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 rss (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 nproc (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 nofile (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 memlock (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 as (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
-### `v0_0_44_job_het` - [Up](#__Models)
+### `v0_0_45_job_het` - [Up](#__Models)
 
 job\_id (optional)
 
@@ -22606,27 +24772,21 @@ job\_id (optional)
 
 job\_offset (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
-### `v0_0_44_job_info_power` - [Up](#__Models)
-
-flags (optional)
-
-[array[oas\_any\_type\_not\_mapped]](#AnyType)
-
-### `v0_0_44_job_mcs` - [Up](#__Models)
+### `v0_0_45_job_mcs` - [Up](#__Models)
 
 label (optional)
 
 [String](#string) Multi-Category Security label on the job
 
-### `v0_0_44_job_modify_tres` - [Up](#__Models)
+### `v0_0_45_job_modify_tres` - [Up](#__Models)
 
 allocated (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
-### `v0_0_44_job_required` - [Up](#__Models)
+### `v0_0_45_job_required` - [Up](#__Models)
 
 CPUs (optional)
 
@@ -22634,13 +24794,13 @@ CPUs (optional)
 
 memory\_per\_cpu (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 memory\_per\_node (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
-### `v0_0_44_job_res_node_cpus` - [Up](#__Models)
+### `v0_0_45_job_res_node_cpus` - [Up](#__Models)
 
 count (optional)
 
@@ -22650,7 +24810,7 @@ used (optional)
 
 [Integer](#integer) Total number of CPUs used by job format: int32
 
-### `v0_0_44_job_res_node_memory` - [Up](#__Models)
+### `v0_0_45_job_res_node_memory` - [Up](#__Models)
 
 used (optional)
 
@@ -22660,7 +24820,7 @@ allocated (optional)
 
 [Long](#long) Total memory (MiB) allocated to job format: int64
 
-### `v0_0_44_job_res_nodes` - [Up](#__Models)
+### `v0_0_45_job_res_nodes` - [Up](#__Models)
 
 count (optional)
 
@@ -22682,9 +24842,9 @@ whole (optional)
 
 allocation (optional)
 
-[array[v0.0.44\_job\_res\_node]](#v0.0.44_job_res_node) Job resources for a node
+[array[v0.0.45\_job\_res\_node]](#v0.0.45_job_res_node) Job resources for a node
 
-### `v0_0_44_job_reservation` - [Up](#__Models)
+### `v0_0_45_job_reservation` - [Up](#__Models)
 
 id (optional)
 
@@ -22698,7 +24858,7 @@ requested (optional)
 
 [String](#string) Comma-separated list of requested reservation names
 
-### `v0_0_44_job_state` - [Up](#__Models)
+### `v0_0_45_job_state` - [Up](#__Models)
 
 current (optional)
 
@@ -22710,7 +24870,7 @@ reason (optional)
 
 [String](#string) Reason for previous Pending or Failed state
 
-### `v0_0_44_job_time` - [Up](#__Models)
+### `v0_0_45_job_time` - [Up](#__Models)
 
 elapsed (optional)
 
@@ -22726,7 +24886,7 @@ end (optional)
 
 planned (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 start (optional)
 
@@ -22742,21 +24902,21 @@ suspended (optional)
 
 system (optional)
 
-[v0\_0\_44\_job\_time\_system](#v0_0_44_job_time_system)
+[v0\_0\_45\_job\_time\_system](#v0_0_45_job_time_system)
 
 limit (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 total (optional)
 
-[v0\_0\_44\_job\_time\_total](#v0_0_44_job_time_total)
+[v0\_0\_45\_job\_time\_total](#v0_0_45_job_time_total)
 
 user (optional)
 
-[v0\_0\_44\_job\_time\_user](#v0_0_44_job_time_user)
+[v0\_0\_45\_job\_time\_user](#v0_0_45_job_time_user)
 
-### `v0_0_44_job_time_system` - [Up](#__Models)
+### `v0_0_45_job_time_system` - [Up](#__Models)
 
 seconds (optional)
 
@@ -22766,7 +24926,7 @@ microseconds (optional)
 
 [Long](#long) System CPU time used by the job in microseconds format: int64
 
-### `v0_0_44_job_time_total` - [Up](#__Models)
+### `v0_0_45_job_time_total` - [Up](#__Models)
 
 seconds (optional)
 
@@ -22776,7 +24936,7 @@ microseconds (optional)
 
 [Long](#long) Sum of System and User CPU time used by the job in microseconds format: int64
 
-### `v0_0_44_job_time_user` - [Up](#__Models)
+### `v0_0_45_job_time_user` - [Up](#__Models)
 
 seconds (optional)
 
@@ -22786,17 +24946,17 @@ microseconds (optional)
 
 [Long](#long) User CPU time used by the job in microseconds format: int64
 
-### `v0_0_44_job_tres` - [Up](#__Models)
+### `v0_0_45_job_tres` - [Up](#__Models)
 
 allocated (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 requested (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
-### `v0_0_44_kill_jobs_resp_job_error` - [Up](#__Models)
+### `v0_0_45_kill_jobs_resp_job_error` - [Up](#__Models)
 
 string (optional)
 
@@ -22810,13 +24970,13 @@ message (optional)
 
 [String](#string) Error message why signaling job failed
 
-### `v0_0_44_kill_jobs_resp_job_federation` - [Up](#__Models)
+### `v0_0_45_kill_jobs_resp_job_federation` - [Up](#__Models)
 
 sibling (optional)
 
 [String](#string) Name of federation sibling (may be empty for non-federation)
 
-### `v0_0_44_openapi_meta_client` - [Up](#__Models)
+### `v0_0_45_openapi_meta_client` - [Up](#__Models)
 
 source (optional)
 
@@ -22830,7 +24990,7 @@ group (optional)
 
 [String](#string) Client group (if known)
 
-### `v0_0_44_openapi_meta_plugin` - [Up](#__Models)
+### `v0_0_45_openapi_meta_plugin` - [Up](#__Models)
 
 type (optional)
 
@@ -22848,11 +25008,11 @@ accounting\_storage (optional)
 
 [String](#string) Slurm accounting plugin
 
-### `v0_0_44_openapi_meta_slurm` - [Up](#__Models)
+### `v0_0_45_openapi_meta_slurm` - [Up](#__Models)
 
 version (optional)
 
-[v0\_0\_44\_openapi\_meta\_slurm\_version](#v0_0_44_openapi_meta_slurm_version)
+[v0\_0\_45\_openapi\_meta\_slurm\_version](#v0_0_45_openapi_meta_slurm_version)
 
 release (optional)
 
@@ -22862,7 +25022,7 @@ cluster (optional)
 
 [String](#string) Slurm cluster name
 
-### `v0_0_44_openapi_meta_slurm_version` - [Up](#__Models)
+### `v0_0_45_openapi_meta_slurm_version` - [Up](#__Models)
 
 major (optional)
 
@@ -22876,7 +25036,7 @@ minor (optional)
 
 [String](#string) Slurm release minor version
 
-### `v0_0_44_partition_info_accounts` - [Up](#__Models)
+### `v0_0_45_partition_info_accounts` - [Up](#__Models)
 
 allowed (optional)
 
@@ -22886,17 +25046,19 @@ deny (optional)
 
 [String](#string) DenyAccounts - Comma-separated list of accounts which may not execute jobs in the partition
 
-### `v0_0_44_partition_info_cpus` - [Up](#__Models)
+### `v0_0_45_partition_info_cpus` - [Up](#__Models)
 
 task\_binding (optional)
 
-[Integer](#integer) CpuBind - Default method controlling how tasks are bound to allocated resources format: int32
+[array[String]](#string) CpuBind - Default method controlling how tasks are bound to allocated resources
+
+Enum:
 
 total (optional)
 
-[Integer](#integer) TotalCPUs - Number of CPUs available in this partition format: int32
+[Integer](#integer) TotalCPUs - Number of CPUs available in this partition (read-only) format: int32
 
-### `v0_0_44_partition_info_defaults` - [Up](#__Models)
+### `v0_0_45_partition_info_defaults` - [Up](#__Models)
 
 memory\_per\_cpu (optional)
 
@@ -22904,35 +25066,35 @@ memory\_per\_cpu (optional)
 
 partition\_memory\_per\_cpu (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 partition\_memory\_per\_node (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 time (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 job (optional)
 
 [String](#string) JobDefaults - Comma-separated list of job default values (this field is only used to set new defaults)
 
-### `v0_0_44_partition_info_groups` - [Up](#__Models)
+### `v0_0_45_partition_info_groups` - [Up](#__Models)
 
 allowed (optional)
 
 [String](#string) AllowGroups - Comma-separated list of group names which may execute jobs in this partition
 
-### `v0_0_44_partition_info_maximums` - [Up](#__Models)
+### `v0_0_45_partition_info_maximums` - [Up](#__Models)
 
 cpus\_per\_node (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 cpus\_per\_socket (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 memory\_per\_cpu (optional)
 
@@ -22940,15 +25102,15 @@ memory\_per\_cpu (optional)
 
 partition\_memory\_per\_cpu (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 partition\_memory\_per\_node (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 nodes (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 shares (optional)
 
@@ -22956,17 +25118,17 @@ shares (optional)
 
 oversubscribe (optional)
 
-[v0\_0\_44\_partition\_info\_maximums\_oversubscribe](#v0_0_44_partition_info_maximums_oversubscribe)
+[v0\_0\_45\_partition\_info\_maximums\_oversubscribe](#v0_0_45_partition_info_maximums_oversubscribe)
 
 time (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 over\_time\_limit (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
-### `v0_0_44_partition_info_maximums_oversubscribe` - [Up](#__Models)
+### `v0_0_45_partition_info_maximums_oversubscribe` - [Up](#__Models)
 
 jobs (optional)
 
@@ -22978,13 +25140,13 @@ flags (optional)
 
 Enum:
 
-### `v0_0_44_partition_info_minimums` - [Up](#__Models)
+### `v0_0_45_partition_info_minimums` - [Up](#__Models)
 
 nodes (optional)
 
 [Integer](#integer) MinNodes - Minimum count of nodes which may be allocated to any single job format: int32
 
-### `v0_0_44_partition_info_nodes` - [Up](#__Models)
+### `v0_0_45_partition_info_nodes` - [Up](#__Models)
 
 allowed\_allocation (optional)
 
@@ -22996,9 +25158,17 @@ configured (optional)
 
 total (optional)
 
-[Integer](#integer) TotalNodes - Number of nodes available in this partition format: int32
+[Integer](#integer) TotalNodes - Number of nodes available in this partition (read-only) format: int32
 
-### `v0_0_44_partition_info_partition` - [Up](#__Models)
+### `v0_0_45_partition_info_partition` - [Up](#__Models)
+
+exclusive (optional)
+
+[String](#string) Exclusive= string (same as scontrol show partition)
+
+oversubscribe (optional)
+
+[String](#string) OverSubscribe display: FORCE:n, NO, or YES:n (same as show partition and sinfo) (Partition oversubscribe value)
 
 state (optional)
 
@@ -23006,7 +25176,7 @@ state (optional)
 
 Enum:
 
-### `v0_0_44_partition_info_priority` - [Up](#__Models)
+### `v0_0_45_partition_info_priority` - [Up](#__Models)
 
 job\_factor (optional)
 
@@ -23016,7 +25186,7 @@ tier (optional)
 
 [Integer](#integer) PriorityTier - Controls the order in which the scheduler evaluates jobs from different partitions format: int32
 
-### `v0_0_44_partition_info_qos` - [Up](#__Models)
+### `v0_0_45_partition_info_qos` - [Up](#__Models)
 
 allowed (optional)
 
@@ -23030,17 +25200,17 @@ assigned (optional)
 
 [String](#string) QOS - QOS name containing limits that will apply to all jobs in this partition
 
-### `v0_0_44_partition_info_timeouts` - [Up](#__Models)
+### `v0_0_45_partition_info_timeouts` - [Up](#__Models)
 
 resume (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
 suspend (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
-### `v0_0_44_partition_info_tres` - [Up](#__Models)
+### `v0_0_45_partition_info_tres` - [Up](#__Models)
 
 billing\_weights (optional)
 
@@ -23048,19 +25218,19 @@ billing\_weights (optional)
 
 configured (optional)
 
-[String](#string) TRES - Number of each applicable TRES type available in this partition
+[String](#string) TRES - Number of each applicable TRES type available in this partition (read-only)
 
-### `v0_0_44_process_exit_code_verbose_signal` - [Up](#__Models)
+### `v0_0_45_process_exit_code_verbose_signal` - [Up](#__Models)
 
 id (optional)
 
-[v0.0.44\_uint16\_no\_val\_struct](#v0.0.44_uint16_no_val_struct)
+[v0.0.45\_uint16\_no\_val\_struct](#v0.0.45_uint16_no_val_struct)
 
 name (optional)
 
 [String](#string) Signal sent to process (name)
 
-### `v0_0_44_qos_limits` - [Up](#__Models)
+### `v0_0_45_qos_limits` - [Up](#__Models)
 
 grace\_time (optional)
 
@@ -23068,177 +25238,177 @@ grace\_time (optional)
 
 max (optional)
 
-[v0\_0\_44\_qos\_limits\_max](#v0_0_44_qos_limits_max)
+[v0\_0\_45\_qos\_limits\_max](#v0_0_45_qos_limits_max)
 
 factor (optional)
 
-[v0.0.44\_float64\_no\_val\_struct](#v0.0.44_float64_no_val_struct)
+[v0.0.45\_float64\_no\_val\_struct](#v0.0.45_float64_no_val_struct)
 
 min (optional)
 
-[v0\_0\_44\_qos\_limits\_min](#v0_0_44_qos_limits_min)
+[v0\_0\_45\_qos\_limits\_min](#v0_0_45_qos_limits_min)
 
-### `v0_0_44_qos_limits_max` - [Up](#__Models)
+### `v0_0_45_qos_limits_max` - [Up](#__Models)
 
 active\_jobs (optional)
 
-[v0\_0\_44\_qos\_limits\_max\_active\_jobs](#v0_0_44_qos_limits_max_active_jobs)
+[v0\_0\_45\_qos\_limits\_max\_active\_jobs](#v0_0_45_qos_limits_max_active_jobs)
 
 jobs (optional)
 
-[v0\_0\_44\_qos\_limits\_max\_jobs](#v0_0_44_qos_limits_max_jobs)
+[v0\_0\_45\_qos\_limits\_max\_jobs](#v0_0_45_qos_limits_max_jobs)
 
 tres (optional)
 
-[v0\_0\_44\_qos\_limits\_max\_tres](#v0_0_44_qos_limits_max_tres)
+[v0\_0\_45\_qos\_limits\_max\_tres](#v0_0_45_qos_limits_max_tres)
 
 wall\_clock (optional)
 
-[v0\_0\_44\_qos\_limits\_max\_wall\_clock](#v0_0_44_qos_limits_max_wall_clock)
+[v0\_0\_45\_qos\_limits\_max\_wall\_clock](#v0_0_45_qos_limits_max_wall_clock)
 
 accruing (optional)
 
-[v0\_0\_44\_qos\_limits\_max\_jobs\_active\_jobs](#v0_0_44_qos_limits_max_jobs_active_jobs)
+[v0\_0\_45\_qos\_limits\_max\_jobs\_active\_jobs](#v0_0_45_qos_limits_max_jobs_active_jobs)
 
-### `v0_0_44_qos_limits_max_active_jobs` - [Up](#__Models)
+### `v0_0_45_qos_limits_max_active_jobs` - [Up](#__Models)
 
 accruing (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 count (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
-### `v0_0_44_qos_limits_max_jobs` - [Up](#__Models)
+### `v0_0_45_qos_limits_max_jobs` - [Up](#__Models)
 
 count (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 active\_jobs (optional)
 
-[v0\_0\_44\_qos\_limits\_max\_jobs\_active\_jobs](#v0_0_44_qos_limits_max_jobs_active_jobs)
+[v0\_0\_45\_qos\_limits\_max\_jobs\_active\_jobs](#v0_0_45_qos_limits_max_jobs_active_jobs)
 
 per (optional)
 
-[v0\_0\_44\_qos\_limits\_max\_jobs\_active\_jobs\_per](#v0_0_44_qos_limits_max_jobs_active_jobs_per)
+[v0\_0\_45\_qos\_limits\_max\_jobs\_active\_jobs\_per](#v0_0_45_qos_limits_max_jobs_active_jobs_per)
 
-### `v0_0_44_qos_limits_max_jobs_active_jobs` - [Up](#__Models)
+### `v0_0_45_qos_limits_max_jobs_active_jobs` - [Up](#__Models)
 
 per (optional)
 
-[v0\_0\_44\_qos\_limits\_max\_jobs\_active\_jobs\_per](#v0_0_44_qos_limits_max_jobs_active_jobs_per)
+[v0\_0\_45\_qos\_limits\_max\_jobs\_active\_jobs\_per](#v0_0_45_qos_limits_max_jobs_active_jobs_per)
 
-### `v0_0_44_qos_limits_max_jobs_active_jobs_per` - [Up](#__Models)
+### `v0_0_45_qos_limits_max_jobs_active_jobs_per` - [Up](#__Models)
 
 account (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 user (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
-### `v0_0_44_qos_limits_max_tres` - [Up](#__Models)
+### `v0_0_45_qos_limits_max_tres` - [Up](#__Models)
 
 total (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 minutes (optional)
 
-[v0\_0\_44\_qos\_limits\_max\_tres\_minutes](#v0_0_44_qos_limits_max_tres_minutes)
+[v0\_0\_45\_qos\_limits\_max\_tres\_minutes](#v0_0_45_qos_limits_max_tres_minutes)
 
 per (optional)
 
-[v0\_0\_44\_qos\_limits\_max\_tres\_per](#v0_0_44_qos_limits_max_tres_per)
+[v0\_0\_45\_qos\_limits\_max\_tres\_per](#v0_0_45_qos_limits_max_tres_per)
 
-### `v0_0_44_qos_limits_max_tres_minutes` - [Up](#__Models)
+### `v0_0_45_qos_limits_max_tres_minutes` - [Up](#__Models)
 
 total (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 per (optional)
 
-[v0\_0\_44\_qos\_limits\_max\_tres\_minutes\_per](#v0_0_44_qos_limits_max_tres_minutes_per)
+[v0\_0\_45\_qos\_limits\_max\_tres\_minutes\_per](#v0_0_45_qos_limits_max_tres_minutes_per)
 
-### `v0_0_44_qos_limits_max_tres_minutes_per` - [Up](#__Models)
+### `v0_0_45_qos_limits_max_tres_minutes_per` - [Up](#__Models)
 
 qos (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 job (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 account (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 user (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
-### `v0_0_44_qos_limits_max_tres_per` - [Up](#__Models)
+### `v0_0_45_qos_limits_max_tres_per` - [Up](#__Models)
 
 account (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 job (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 node (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 user (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
-### `v0_0_44_qos_limits_max_wall_clock` - [Up](#__Models)
+### `v0_0_45_qos_limits_max_wall_clock` - [Up](#__Models)
 
 per (optional)
 
-[v0\_0\_44\_qos\_limits\_max\_wall\_clock\_per](#v0_0_44_qos_limits_max_wall_clock_per)
+[v0\_0\_45\_qos\_limits\_max\_wall\_clock\_per](#v0_0_45_qos_limits_max_wall_clock_per)
 
-### `v0_0_44_qos_limits_max_wall_clock_per` - [Up](#__Models)
+### `v0_0_45_qos_limits_max_wall_clock_per` - [Up](#__Models)
 
 qos (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 job (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
-### `v0_0_44_qos_limits_min` - [Up](#__Models)
+### `v0_0_45_qos_limits_min` - [Up](#__Models)
 
 priority\_threshold (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 tres (optional)
 
-[v0\_0\_44\_qos\_limits\_min\_tres](#v0_0_44_qos_limits_min_tres)
+[v0\_0\_45\_qos\_limits\_min\_tres](#v0_0_45_qos_limits_min_tres)
 
-### `v0_0_44_qos_limits_min_tres` - [Up](#__Models)
+### `v0_0_45_qos_limits_min_tres` - [Up](#__Models)
 
 per (optional)
 
-[v0\_0\_44\_qos\_limits\_min\_tres\_per](#v0_0_44_qos_limits_min_tres_per)
+[v0\_0\_45\_qos\_limits\_min\_tres\_per](#v0_0_45_qos_limits_min_tres_per)
 
-### `v0_0_44_qos_limits_min_tres_per` - [Up](#__Models)
+### `v0_0_45_qos_limits_min_tres_per` - [Up](#__Models)
 
 job (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
-### `v0_0_44_qos_preempt` - [Up](#__Models)
+### `v0_0_45_qos_preempt` - [Up](#__Models)
 
 list (optional)
 
@@ -23252,15 +25422,15 @@ Enum:
 
 exempt\_time (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
-### `v0_0_44_reservation_info_purge_completed` - [Up](#__Models)
+### `v0_0_45_reservation_info_purge_completed` - [Up](#__Models)
 
 time (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
-### `v0_0_44_rollup_stats_daily` - [Up](#__Models)
+### `v0_0_45_rollup_stats_daily` - [Up](#__Models)
 
 count (optional)
 
@@ -23272,9 +25442,9 @@ last\_run (optional)
 
 duration (optional)
 
-[v0\_0\_44\_rollup\_stats\_daily\_duration](#v0_0_44_rollup_stats_daily_duration)
+[v0\_0\_45\_rollup\_stats\_daily\_duration](#v0_0_45_rollup_stats_daily_duration)
 
-### `v0_0_44_rollup_stats_daily_duration` - [Up](#__Models)
+### `v0_0_45_rollup_stats_daily_duration` - [Up](#__Models)
 
 last (optional)
 
@@ -23288,7 +25458,7 @@ time (optional)
 
 [Long](#long) Total time spent doing daily rollups (seconds) format: int64
 
-### `v0_0_44_rollup_stats_hourly` - [Up](#__Models)
+### `v0_0_45_rollup_stats_hourly` - [Up](#__Models)
 
 count (optional)
 
@@ -23300,9 +25470,9 @@ last\_run (optional)
 
 duration (optional)
 
-[v0\_0\_44\_rollup\_stats\_hourly\_duration](#v0_0_44_rollup_stats_hourly_duration)
+[v0\_0\_45\_rollup\_stats\_hourly\_duration](#v0_0_45_rollup_stats_hourly_duration)
 
-### `v0_0_44_rollup_stats_hourly_duration` - [Up](#__Models)
+### `v0_0_45_rollup_stats_hourly_duration` - [Up](#__Models)
 
 last (optional)
 
@@ -23316,7 +25486,7 @@ time (optional)
 
 [Long](#long) Total time spent doing hourly rollups (seconds) format: int64
 
-### `v0_0_44_rollup_stats_monthly` - [Up](#__Models)
+### `v0_0_45_rollup_stats_monthly` - [Up](#__Models)
 
 count (optional)
 
@@ -23328,9 +25498,9 @@ last\_run (optional)
 
 duration (optional)
 
-[v0\_0\_44\_rollup\_stats\_monthly\_duration](#v0_0_44_rollup_stats_monthly_duration)
+[v0\_0\_45\_rollup\_stats\_monthly\_duration](#v0_0_45_rollup_stats_monthly_duration)
 
-### `v0_0_44_rollup_stats_monthly_duration` - [Up](#__Models)
+### `v0_0_45_rollup_stats_monthly_duration` - [Up](#__Models)
 
 last (optional)
 
@@ -23344,7 +25514,7 @@ time (optional)
 
 [Long](#long) Total time spent doing monthly rollups (seconds) format: int64
 
-### `v0_0_44_stats_rpc_time` - [Up](#__Models)
+### `v0_0_45_stats_rpc_time` - [Up](#__Models)
 
 average (optional)
 
@@ -23354,27 +25524,27 @@ total (optional)
 
 [Long](#long) Total RPC processing time in microseconds format: int64
 
-### `v0_0_44_step_CPU` - [Up](#__Models)
+### `v0_0_45_step_CPU` - [Up](#__Models)
 
 requested\_frequency (optional)
 
-[v0\_0\_44\_step\_CPU\_requested\_frequency](#v0_0_44_step_CPU_requested_frequency)
+[v0\_0\_45\_step\_CPU\_requested\_frequency](#v0_0_45_step_CPU_requested_frequency)
 
 governor (optional)
 
 [String](#string) Requested CPU frequency governor in kHz
 
-### `v0_0_44_step_CPU_requested_frequency` - [Up](#__Models)
+### `v0_0_45_step_CPU_requested_frequency` - [Up](#__Models)
 
 min (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 max (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
-### `v0_0_44_step_nodes` - [Up](#__Models)
+### `v0_0_45_step_nodes` - [Up](#__Models)
 
 count (optional)
 
@@ -23388,29 +25558,29 @@ list (optional)
 
 [array[String]](#string)
 
-### `v0_0_44_step_statistics` - [Up](#__Models)
+### `v0_0_45_step_statistics` - [Up](#__Models)
 
 CPU (optional)
 
-[v0\_0\_44\_step\_statistics\_CPU](#v0_0_44_step_statistics_CPU)
+[v0\_0\_45\_step\_statistics\_CPU](#v0_0_45_step_statistics_CPU)
 
 energy (optional)
 
-[v0\_0\_44\_step\_statistics\_energy](#v0_0_44_step_statistics_energy)
+[v0\_0\_45\_step\_statistics\_energy](#v0_0_45_step_statistics_energy)
 
-### `v0_0_44_step_statistics_CPU` - [Up](#__Models)
+### `v0_0_45_step_statistics_CPU` - [Up](#__Models)
 
 actual\_frequency (optional)
 
 [Long](#long) Average weighted CPU frequency of all tasks in kHz format: int64
 
-### `v0_0_44_step_statistics_energy` - [Up](#__Models)
+### `v0_0_45_step_statistics_energy` - [Up](#__Models)
 
 consumed (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
-### `v0_0_44_step_step` - [Up](#__Models)
+### `v0_0_45_step_step` - [Up](#__Models)
 
 id (optional)
 
@@ -23444,19 +25614,19 @@ stdout\_expanded (optional)
 
 [String](#string) Step stdout with expanded fields
 
-### `v0_0_44_step_task` - [Up](#__Models)
+### `v0_0_45_step_task` - [Up](#__Models)
 
 distribution (optional)
 
 [String](#string) The layout of the step was when it was running
 
-### `v0_0_44_step_tasks` - [Up](#__Models)
+### `v0_0_45_step_tasks` - [Up](#__Models)
 
 count (optional)
 
 [Integer](#integer) Total number of tasks format: int32
 
-### `v0_0_44_step_time` - [Up](#__Models)
+### `v0_0_45_step_time` - [Up](#__Models)
 
 elapsed (optional)
 
@@ -23464,11 +25634,11 @@ elapsed (optional)
 
 end (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 start (optional)
 
-[v0.0.44\_uint64\_no\_val\_struct](#v0.0.44_uint64_no_val_struct)
+[v0.0.45\_uint64\_no\_val\_struct](#v0.0.45_uint64_no_val_struct)
 
 suspended (optional)
 
@@ -23476,21 +25646,21 @@ suspended (optional)
 
 system (optional)
 
-[v0\_0\_44\_step\_time\_system](#v0_0_44_step_time_system)
+[v0\_0\_45\_step\_time\_system](#v0_0_45_step_time_system)
 
 limit (optional)
 
-[v0.0.44\_uint32\_no\_val\_struct](#v0.0.44_uint32_no_val_struct)
+[v0.0.45\_uint32\_no\_val\_struct](#v0.0.45_uint32_no_val_struct)
 
 total (optional)
 
-[v0\_0\_44\_step\_time\_total](#v0_0_44_step_time_total)
+[v0\_0\_45\_step\_time\_total](#v0_0_45_step_time_total)
 
 user (optional)
 
-[v0\_0\_44\_step\_time\_user](#v0_0_44_step_time_user)
+[v0\_0\_45\_step\_time\_user](#v0_0_45_step_time_user)
 
-### `v0_0_44_step_time_system` - [Up](#__Models)
+### `v0_0_45_step_time_system` - [Up](#__Models)
 
 seconds (optional)
 
@@ -23500,7 +25670,7 @@ microseconds (optional)
 
 [Integer](#integer) System CPU time used by the step in microseconds format: int32
 
-### `v0_0_44_step_time_total` - [Up](#__Models)
+### `v0_0_45_step_time_total` - [Up](#__Models)
 
 seconds (optional)
 
@@ -23510,7 +25680,7 @@ microseconds (optional)
 
 [Integer](#integer) Total CPU time used by the step in microseconds format: int32
 
-### `v0_0_44_step_time_user` - [Up](#__Models)
+### `v0_0_45_step_time_user` - [Up](#__Models)
 
 seconds (optional)
 
@@ -23520,57 +25690,57 @@ microseconds (optional)
 
 [Integer](#integer) User CPU time used by the step in microseconds format: int32
 
-### `v0_0_44_step_tres` - [Up](#__Models)
+### `v0_0_45_step_tres` - [Up](#__Models)
 
 requested (optional)
 
-[v0\_0\_44\_step\_tres\_requested](#v0_0_44_step_tres_requested)
+[v0\_0\_45\_step\_tres\_requested](#v0_0_45_step_tres_requested)
 
 consumed (optional)
 
-[v0\_0\_44\_step\_tres\_consumed](#v0_0_44_step_tres_consumed)
+[v0\_0\_45\_step\_tres\_consumed](#v0_0_45_step_tres_consumed)
 
 allocated (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
-### `v0_0_44_step_tres_consumed` - [Up](#__Models)
-
-max (optional)
-
-[array[v0.0.44\_tres]](#v0.0.44_tres)
-
-min (optional)
-
-[array[v0.0.44\_tres]](#v0.0.44_tres)
-
-average (optional)
-
-[array[v0.0.44\_tres]](#v0.0.44_tres)
-
-total (optional)
-
-[array[v0.0.44\_tres]](#v0.0.44_tres)
-
-### `v0_0_44_step_tres_requested` - [Up](#__Models)
+### `v0_0_45_step_tres_consumed` - [Up](#__Models)
 
 max (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 min (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 average (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
 total (optional)
 
-[array[v0.0.44\_tres]](#v0.0.44_tres)
+[array[v0.0.45\_tres]](#v0.0.45_tres)
 
-### `v0_0_44_user_default` - [Up](#__Models)
+### `v0_0_45_step_tres_requested` - [Up](#__Models)
+
+max (optional)
+
+[array[v0.0.45\_tres]](#v0.0.45_tres)
+
+min (optional)
+
+[array[v0.0.45\_tres]](#v0.0.45_tres)
+
+average (optional)
+
+[array[v0.0.45\_tres]](#v0.0.45_tres)
+
+total (optional)
+
+[array[v0.0.45\_tres]](#v0.0.45_tres)
+
+### `v0_0_45_user_default` - [Up](#__Models)
 
 qos (optional)
 

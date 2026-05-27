@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -131,8 +131,8 @@ There are several important configuration parameters relating to preemption:
       
     **NOTE**: If **GANG** scheduling is enabled with
     *PreemptType=preempt/partition\_prio*, the controller will ignore
-    *PreemptExemptTime* and the following *PreemptParameters*:
-    *reorder\_count*, *strict\_order*, and *youngest\_first*.
+    the following *PreemptParameters*: *reorder\_count*,
+    *strict\_order*, and *youngest\_first*.
       
     **NOTE**: Gang scheduling is performed independently for each partition, so
     if you only want time-slicing by *OverSubscribe*, without any preemption,
@@ -185,12 +185,11 @@ There are several important configuration parameters relating to preemption:
     See the [sacctmgr man page](sacctmgr.md) to configure the options
     of *preempt/qos*.
 * **PreemptExemptTime**: Specifies minimum run time of jobs before they are
-  considered for preemption. This is only honored when the *PreemptMode*
-  is set to *REQUEUE* or *CANCEL*. It is specified as a time string:
-  A time of -1 disables the option, equivalent to 0. Acceptable time formats
-  include "minutes", "minutes:seconds", "hours:minutes:seconds", "days\-hours",
-  "days\-hours:minutes", and "days\-hours:minutes:seconds".
-  PreemptEligibleTime is shown in the output of "scontrol show job <job id>"
+  considered for preemption. It is specified as a time string: A time of -1
+  disables the option, equivalent to 0. Acceptable time formats include
+  "minutes", "minutes:seconds", "hours:minutes:seconds", "days\-hours",
+  "days\-hours:minutes", and "days\-hours:minutes:seconds". PreemptEligibleTime
+  is shown in the output of "scontrol show job <job id>"
 * **PriorityTier**: Configure the partition's *PriorityTier* setting
   relative to other partitions to control the preemptive behavior when
   *PreemptType=preempt/partition\_prio*.
@@ -222,9 +221,9 @@ There are several important configuration parameters relating to preemption:
   configuration of *OverSubscribe=FORCE:1* will only permit one job per
   resource normally, but a second job can be started if done so through
   preemption based upon QOS.
-* **ExclusiveUser**: In partitions with *ExclusiveUser=YES*, jobs will be
+* **Exclusive**: In partitions with *Exclusive=USER*, jobs will be
   prevented from preempting or being preempted by any job from any other user.
-  The one exception is that these ExclusiveUser jobs will be able to preempt
+  The one exception is that these jobs will be able to preempt
   (but not be preempted by) fully "--exclusive" jobs from other users.
   This is for the same reason that "--exclusive=user" blocks preemption, but this
   partition-level setting can only be overridden by making a job fully exclusive.

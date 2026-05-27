@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -82,6 +82,21 @@ e.g.
 ```
 scontrol create NodeName=d[1-100] CPUs=16 Boards=1 SocketsPerBoard=1 CoresPerSocket=8 ThreadsPerCore=2 RealMemory=31848 Gres=gpu:2 Feature=f1 State=cloud
 ```
+
+## Automatic GPU Detection
+
+When a dynamic node is created with [slurmd -Z](slurmd.md#OPT_-Z),
+the slurmd will automatically detect and register GPUs when:
+
+* **--conf** does not specify any GPU GRES
+* **gres.conf** does not contain explicit GPU GRES records for the node
+* **gres.conf** does not contain **AutoDetect=off**
+
+If **AutoDetect** in
+**gres.conf** specifies a particular detection mechanism (e.g.,
+**NVML**, **NVIDIA**, **RSMI**, **oneAPI**, **NRT**), it will
+use that mechanism to try to detect a GPU. Otherwise, **slurmd** defaults
+to the [full](gres.conf.md#OPT_AutoDetect) gpu detection method.
 
 ## Deleting Nodes
 

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -34,42 +34,22 @@ Version 25.11
 
 Slurm can be configured to support topology-aware resource
 allocation to optimize job performance.
-Slurm supports several modes of operation, one to optimize performance on
-systems with a three-dimensional torus interconnect and another for
-a hierarchical interconnect.
-The hierarchical mode of operation supports both fat-tree or dragonfly networks,
-using slightly different algorithms.
-
-Slurm's native mode of resource selection is to consider the nodes
-as a one-dimensional array.
-Jobs are allocated resources on a best-fit basis.
-For larger jobs, this minimizes the number of sets of consecutive nodes
-allocated to the job.
+Without a topology plugin, Slurm's native mode of resource selection
+considers nodes as a one-dimensional array and allocates resources
+on a best-fit basis.
 
 ## Contents
 
-* [Three-dimensional Topology](#topo_3d)
 * [Tree Topology (Hierarchical Networks)](#hierarchical)
   + [Configuration Generators](#config_generators)
 * [Block Topology](#block)
   + [Limitations](#block-limitations)
+* [Ring Topology](#ring)
+* [3D Torus Topology](#torus3d)
+* [User Options](#user_opts)
 * [Environment Variables](#env_vars)
 * [Multiple Topologies](#multi_topo)
 * [Dynamic Topology](#dynamic_topo)
-
-## Three-dimensional Topology
-
-Some larger computers rely upon a three-dimensional torus interconnect.
-The Cray XT and XE systems also have three-dimensional
-torus interconnects, but do not require that jobs execute in adjacent nodes.
-On those systems, Slurm only needs to allocate resources to a job which
-are nearby on the network.
-Slurm accomplishes this using a
-[Hilbert curve](http://en.wikipedia.org/wiki/Hilbert_curve)
-to map the nodes from a three-dimensional space into a one-dimensional
-space.
-Slurm's native best-fit algorithm is thus able to achieve a high degree
-of locality for jobs.
 
 ## Tree Topology (Hierarchical Networks)
 
@@ -253,7 +233,8 @@ topology, there are limitations that should be taken into consideration.
   the number of possible values should be kept as small as possible.
 * **Requesting specific nodes**  
   Using `-w`/`--nodelist` to request a specific node or
-  nodes can conflict with the block placement and is not currently supported. You
+  nodes can conflict with the block placement. Because topology enforcement
+  takes precedence, this will prevent the job from receiving an allocation. You
   can use `-x`/`--exclude` to prevent a job from
   being scheduled on certain nodes.
 * **Contiguous blocks**  
@@ -261,9 +242,143 @@ topology, there are limitations that should be taken into consideration.
   other in the block structure. You cannot currently request that a job be
   placed on non-adjacent blocks.
 
+## Ring Topology
+
+Slurm 26.05 introduced ring topologies with **TopologyPlugin=topology/ring**.
+This plugin models the cluster as one or more ordered rings of nodes. Jobs are
+allocated using contiguous segments of nodes in the ring, which may wrap at the
+end of the ring.
+
+Rings can be defined in **topology.conf** using **RingName** and
+**Nodes**. The order of **Nodes** establishes the ring position
+(starting at 0). A maximum of 16 nodes can be specified per ring.
+
+```
+# topology.conf
+RingName=ring0 Nodes=node[01-08]
+RingName=ring1 Nodes=node[09-16]
+```
+
+When using **topology.yaml**, the following lines would define a ring
+topology equivalent to the previous example:
+
+```
+- topology: topo-ring
+  cluster_default: true
+  ring:
+    rings:
+      - ring: ring0
+        nodes: node[01-08]
+      - ring: ring1
+        nodes: node[09-16]
+```
+
+For [dynamic or cloud](#dynamic_topo) nodes, the **Topology**
+field uses the ring name and position: `Topology=topo-ring:ring0:3`.
+The ring position must be 0 when creating a new ring.
+
+## 3D Torus Topology
+
+The **topology/torus3d** plugin models the cluster as one or more 3D torus
+networks. Jobs are allocated contiguous sub-cubes of nodes within a torus,
+enforcing placement shapes defined by the administrator.
+
+Each torus is defined with X, Y, and Z dimensions. Nodes are mapped into
+the 3D coordinate space either directly (via a flat node list in x-major order)
+or through **regions** that map subsets of coordinates to specific nodes.
+Regions must fit within the torus dimensions and do not wrap around
+boundaries. Regions are useful when nodes have sparse or non-contiguous
+naming.
+
+Each **placement** specifies a sub-cube shape (e.g., 2x2x1, 2x2x2).
+Jobs requesting a number of nodes matching a placement size are allocated a
+contiguous sub-cube of that shape, which may wrap around torus boundaries.
+The scheduler selects the best placement based on node weight,
+fragmentation cost, and torus utilization. Jobs requesting a node count that
+does not match any configured placement size will not receive an allocation.
+
+The **torus3d** plugin supports the `--segment` option, where
+the value specifies the segment size (number of nodes per placement).
+The total node count must be evenly divisible by the segment size, and
+the segment size must match a configured placement size. Each segment is
+allocated as one placement sub-cube. Segments may span different toruses.
+
+The **torus3d** topology can only be configured via
+[topology.yaml](topology.yaml.md). Example:
+
+```
+- topology: topo-torus
+  cluster_default: true
+  torus3d:
+    toruses:
+      - name: pod1
+        dims:
+          x: 4
+          y: 4
+          z: 2
+        nodes: node[01-32]
+        placements:
+          - dims:
+              x: 2
+              y: 2
+              z: 1
+          - dims:
+              x: 2
+              y: 2
+              z: 2
+          - dims:
+              x: 4
+              y: 4
+              z: 2
+```
+
+With the above configuration, jobs can be allocated in groups of 4 (2x2x1),
+8 (2x2x2), or 32 (4x4x2) nodes. For example, a 16-node job with
+`--segment=8` specifies 8 nodes per segment, resulting in
+two 2x2x2 placements (16 / 8 = 2 segments).
+
+Regions allow sparse node naming within a torus.
+Anchor spacing can be used to control placement anchor generation. By
+default anchors are spaced at the placement dimensions. Custom
+**anchor\_spacing** allows overlapping placements on the torus.
+**anchor\_seed** shifts the entire anchor grid by a coordinate offset:
+
+```
+- topology: topo-torus
+  cluster_default: true
+  torus3d:
+    toruses:
+      - name: pod1
+        dims:
+          x: 4
+          y: 4
+          z: 2
+        regions:
+          - anchor: {x: 0, y: 0, z: 0}
+            dims: {x: 4, y: 2, z: 2}
+            nodes: rack1-node[01-16]
+          - anchor: {x: 0, y: 2, z: 0}
+            dims: {x: 4, y: 2, z: 2}
+            nodes: rack2-node[01-16]
+        placements:
+          - dims: {x: 2, y: 2, z: 2}
+          - dims: {x: 4, y: 2, z: 1}
+            anchor_spacing: {x: 2, y: 2, z: 1}
+          - dims: {x: 4, y: 2, z: 1}
+            anchor_seed: {x: 1, y: 0, z: 0}
+```
+
+For [dynamic or cloud](#dynamic_topo) nodes, the **Topology**
+field uses the torus name and coordinates:
+`Topology=topo-torus:pod1:2:3:1`.
+
+Hostlist functions `torus{pod1}` and
+`toruswith{node01}` can be used to expand to all nodes in
+a torus or to all nodes sharing a torus with a given node.
+
 ## User Options
 
-For use with the **topology/tree** plugin, user can also specify the
+When a **tree** topology is configured, users can also specify the
 maximum number of leaf switches to be used for their job with the maximum time
 the job should wait for this optimized configuration. The syntax for this option
 is `--switches=count[@time]`.
@@ -272,22 +387,46 @@ wait for this optimized configuration using the **SchedulerParameters**
 configuration parameter with the
 [max\_switch\_wait](slurm.conf.md#OPT_max_switch_wait=#) option.
 
-When **topology/tree** or **topology/block** is configured, hostlist
-functions may be used in place of or alongside regular hostlist expressions
-in commands or configuration files that interact with the slurmctld. Valid
-topology functions include:
+When a **block**, **ring**, or **torus3d** topology is configured, the
+following option is available for job submissions:
 
-* **block{blockX}** and **switch{switchY}** - expand to all nodes in
-  the specified block/switch.
-* **blockwith{nodeX}** and **switchwith{nodeY}** - expand to all nodes
-  in the same block/switch as the specified node.
+* `--segment=<segment_size>`  
+  When a block, ring, or torus3d topology is used, this defines the size of the
+  segments that will be used to create the job allocation.
+  For topology/torus3d, each segment corresponds to one placement sub-cube.
+  For topology/block, no requirement would be placed on all segments for a job
+  needing to be placed within the same higher-level block.  
+  **NOTE**: If the requested node count (**--nodes**) is larger than the
+  requested segment size, it must also be evenly divisible by the segment size.
+  If all nodes fit within a single segment, this option has no effect.
 
-For example:
+The following options only apply to a **block** topology:
+
+* `--spread-segments`  
+  Prevent nodes within the same base block from being allocated to
+  separate segments within the same block.
+* `--consolidate-segments`  
+  Ensure that all segments from the allocation will be consolidated
+  into one higher-level aggregated block.
+
+When a **block**, **tree**, **ring**, or **torus3d** topology is
+configured, hostlist functions may be used in place of or alongside regular
+hostlist expressions in commands or configuration files that interact with the
+slurmctld. Valid topology functions include:
+
+|  |  |
+| --- | --- |
+| `block{blockX}`  `switch{switchY}`  `ring{ringZ}`  `torus{torusW}` | Expand to all nodes in the specified topology unit |
+| `blockwith{nodeX}`  `switchwith{nodeY}`  `ringwith{nodeZ}`  `toruswith{nodeW}` | Expand to all nodes in the same topology unit as the specified node |
+
+  
+
+Hostlist functions can be used in several different contexts, for example:
 
 ```
 scontrol update node=block{b1} state=resume
-sbatch --nodelist=blockwith{node0} -N 10 program
-PartitionName=Block10 Nodes=block{block10} ...
+sbatch --nodelist=switchwith{node0} -N 10 program
+PartitionName=Ring10 Nodes=ring{ring10} ...
 ```
 
 See also the hostlist function **feature{myfeature}**
@@ -335,9 +474,12 @@ nodes.
 This is done by specifying the **Topology** option and providing the list
 of topology names and units. Note that the topology defined in the
 **topology.conf** file will always have the name "default".
-A **topology unit** is the block name or the name of a leaf switch.
+A **topology unit** is the block name, the name of a leaf switch, the ring
+name and position, or the torus name and 3D coordinates.
 Intermediate switch names (':' delimited) can be provided and will be created
 if needed (e.g. Topology=topo-tree:sw\_root:s1:s2).
+For torus3d, the format is `topo-name:torus_name:x:y:z`
+(e.g. `Topology=topo-torus:pod1:2:3:1`).
 
 For **cloud nodes**, the only field that can be set with the
 **--conf** flag is **Topology**, and when the node is powered down the

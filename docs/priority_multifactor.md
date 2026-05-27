@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -258,7 +258,7 @@ TRESBillingWeights option allows you to account for consumed resources other
 than just CPUs by assigning different billing weights to different Trackable
 Resources (TRES) such as CPUs, nodes, memory, licenses and generic resources
 (GRES). For example, when billing only for CPUs, if a job requests 1CPU and 64GB
-of memory on a 16CPU, 64GB node the job will only be billed for 1CPU when it
+of memory on a 16CPU, 64GiB node the job will only be billed for 1CPU when it
 really used the whole node.
 
 By default, when TRESBillingWeights is configured, a job is billed for each
@@ -266,10 +266,10 @@ individual TRES used. The billable TRES is calculated as the sum of all TRES
 types multiplied by their corresponding billing weight.
 
 For example, the following jobs on a partition configured with
-TRESBillingWeights=CPU=1.0,Mem=0.25G and 16CPU, 64GB nodes would be billed as:
+TRESBillingWeights=CPU=1.0,Mem=0.25G and 16CPU, 64GiB nodes would be billed as:
 
 ```
-      CPUs       Mem GB
+      CPUs       Mem GiB
 Job1: (1 *1.0) + (60*0.25) = (1 + 15) = 16
 Job2: (16*1.0) + (1 *0.25) = (16+.25) = 16.25
 Job3: (16*1.0) + (60*0.25) = (16+ 15) = 31
@@ -281,7 +281,7 @@ TRESs (e.g. licenses). For example the above job's billable TRES would
 be calculated as:
 
 ```
-          CPUs      Mem GB
+          CPUs      Mem GiB
 Job1: MAX((1 *1.0), (60*0.25)) = 15
 Job2: MAX((15*1.0), (1 *0.25)) = 15
 Job3: MAX((16*1.0), (64*0.25)) = 16

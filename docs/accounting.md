@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -243,7 +243,8 @@ important parameters include:
 
 * **JobCompHost**:
   Only needed if using a database. The name or address of the host where
-  the database server executes.
+  the database server executes. Can be a UNIX socket, e.g.,
+  "unix:/path/to/socket".
 * **JobCompLoc**:
   Only needed if using a flat file. Location of file to write the job
   completion data to.
@@ -539,6 +540,8 @@ Some of the more important parameters include:
   to store the data.
   This can be the host on which slurmdbd executes, but for larger systems, we
   recommend keeping the database on a separate machine.
+  Can be a UNIX socket, e.g., "unix:/path/to/socket".
+  Default is "localhost".
 * **StorageLoc**:
   Specifies the name of the database where accounting
   records are written. For databases the default database is
@@ -952,7 +955,7 @@ standalone values or aggregated/calculated into a data structure.
 For example, the **TresUsageInTot** field can be queried with
 [sstat](sstat.md) during job runtime, and for every TRES, it
 stores the sum of the gathered metrics of all tasks. For example, if we have 5
-tasks, all of them consuming 1GB of memory, then the **TresUsageInTot**
+tasks, all of them consuming 1GiB of memory, then the **TresUsageInTot**
 would read "memory=5G". With the same example, and for the
 **TresUsageInMax** instead, it will store the maximum memory peak seen by
 any task of this step, so it would read "memory=1G".

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -93,6 +93,7 @@ instance of slurmdbd running these versions.
 | 25.05 | November 2026 (18 months) | 24.11, 24.05, 23.11 |
 | 25.11 | May 2027 (18 months) | 25.05, 24.11, 24.05 |
 | 26.05 | November 2028 (18 months) | 25.11, 25.05, 24.11 |
+| 26.11 | May 2029 (18 months) | 26.05, 25.11, 25.05 |
 
   
 

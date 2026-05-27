@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -211,7 +211,7 @@ See also 'srun --help'
 
 ### Memory as a Consumable Resource
 
-The --mem flag specifies the maximum amount of memory in MB
+The --mem flag specifies the maximum amount of memory in MiB
 needed by the job per node. This flag is used to support the memory
 as a consumable resource allocation strategy.
 
@@ -539,7 +539,7 @@ For user specified output formats (-o/--format) and sorting (-S/--sort),
 the following identifiers are available:
 
 ```
-%m  Size of memory (in MB) requested by the job
+%m  Size of memory (in MiB) requested by the job
 %H  Number of requested sockets per node
 %I  Number of requested cores per socket
 %J  Number of requested threads per core

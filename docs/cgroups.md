@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -248,22 +248,22 @@ The three main differences between v1 and v2 are:
   means the job structure must be replicated and managed for every enabled
   controller. For example, for the same job, if using
   *memory* and *freezer* controllers, we will need to create the same
-  slurm/uid/job\_id/step\_id/ hierarchy in both controller's directories. For
+  slurm/uid/SLUID/step\_id/ hierarchy in both controller's directories. For
   example:
 
   ```
-  /sys/fs/cgroup/memory/slurm/uid_1000/job_1/step_0/
+  /sys/fs/cgroup/memory/slurm/uid_1000/job_31/step_0/
   ```
 
   ```
-  /sys/fs/cgroup/freezer/slurm/uid_1000/job_1/step_0/
+  /sys/fs/cgroup/freezer/slurm/uid_1000/job_31/step_0/
   ```
 
   In *cgroup/v2* we have a *Unified* hierarchy, where controllers are
   enabled at the same level and presented to the user as different files.
 
   ```
-  /sys/fs/cgroup/system.slice/slurmstepd.scope/job_1/step_0/
+  /sys/fs/cgroup/system.slice/slurmstepd.scope/s5K1KKYAYG5D00/step_0/
   ```
 * **Top-down constraint in v2**  
 

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -69,7 +69,7 @@ sample
 **-E**, **--extract**
 :   Extract data series from a merged job file.
 
-    : : Extract mode options: : **-i**, **--input**=*path* : merged file to extract from (default ./job\_$jobid.h5) : **-N**, **--node**=*nodename* : Node name to extract (default is all) : **-l**, **--level**=[Node:Totals | Node:TimeSeries] : Level to which series is attached. (default Node:Totals) : **-s**, **--series**=[Energy | Filesystem | Network | Task | Task\_#] : **Task** is all tasks, **Task\_#** (# is a task id) (default is everything) : **-h**, **--help** : Print this description of use. : **-I**, **--item-extract** : Extract one data item from all samples of one data series from all nodes in a merged job file. : : Item-Extract mode options: : **-s**, **--series**=[Energy | Filesystem | Network | Task] : : **-d**, **--data** : Name of data item in series (See note below). : **-j**, **--jobs**=<*job*[.*step*]> : Format is <*job*[.*step*]>. Merge this job/step (or a comma-separated list of job steps). This option is required. Not specifying a step will result in all steps found to be processed. : **-L**, **--list** : Print the items of a series contained in a job file. : : List mode options: : **-i**, **--input**=*path* : Merged file to extract from (default ./job\_$jobid.h5) : **-s**, **--series**=[Energy | Filesystem | Network | Task] : **-o**, **--output**=<*path*> : Path to a file into which to write. Default for merge is ./job\_$jobid.h5 Default for extract is ./extract\_$jobid.csv : **-p**, **--profiledir**=<*dir*> : Directory location where node-step files exist default is set in acct\_gather.conf. : **-S**, **--savefiles** : Instead of removing node-step files after merging them into the job file, keep them around. : **--usage** : Display brief usage message. : **--user**=<*user*> : User who profiled job. (Handy for root user, defaults to user running this command.)
+    : : Extract mode options: : **-i**, **--input**=*path* : merged file to extract from (default ./job\_$jobid.h5) : **-N**, **--node**=*nodename* : Node name to extract (default is all) : **-l**, **--level**=[Node:Totals | Node:TimeSeries] : Level to which series is attached. (default Node:Totals) : **-s**, **--series**=[Energy | Filesystem | Network | Task | Task\_#] : **Task** is all tasks, **Task\_#** (# is a task id) (default is everything) : **-h**, **--help** : Print this description of use. : **-I**, **--item-extract** : Extract one data item from all samples of one data series from all nodes in a merged job file. : : Item-Extract mode options: : **-s**, **--series**=[Energy | Filesystem | Network | Task] : : **-d**, **--data** : Name of data item in series (See note below). : **-j**, **--jobs**=<*job*[.*step*]> : Format is <*job*[.*step*]>. Merge this job/step (or a comma-separated list of job steps). This option is required. Not specifying a step will result in all steps found to be processed. Array task IDs and het component IDs are not supported. Use regular job IDs instead: : ``` $ sacct -X -j 5077 --format=JobId,JobIdRaw JobID JobIDRaw ------------ ------------ 5077_1 5078 5077_2 5079 5077_3 5077 $ sh5util -S -j 5079 # for merging 5077_2 only sh5util: Merging node-step files into ./job_5079.h5 ``` : **-L**, **--list** : Print the items of a series contained in a job file. : : List mode options: : **-i**, **--input**=*path* : Merged file to extract from (default ./job\_$jobid.h5) : **-s**, **--series**=[Energy | Filesystem | Network | Task] : **-o**, **--output**=<*path*> : Path to a file into which to write. Default for merge is ./job\_$jobid.h5 Default for extract is ./extract\_$jobid.csv : **-p**, **--profiledir**=<*dir*> : Directory location where node-step files exist default is set in acct\_gather.conf. : **-S**, **--savefiles** : Instead of removing node-step files after merging them into the job file, keep them around. : **--usage** : Display brief usage message. : **--user**=<*user*> : User who profiled job. (Handy for root user, defaults to user running this command.)
 
 ## Data Items per Series
 
@@ -124,4 +124,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 19:55:11 GMT, May 14, 2026
+Time: 20:52:42 GMT, May 26, 2026

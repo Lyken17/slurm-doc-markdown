@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -99,9 +99,22 @@ Each node\_confs element contains the following attributes:
     the directory is created with permission 0755. Directory is not deleted during
     slurm shutdown. If set to 'false' or not specified, plugin would expect
     directory to exist. This option can be used on a global or per-line basis.
+    When **dir\_confs** is set, any per-directory **base\_path** entries in
+    **dir\_confs** are also created.
     This parameter is optional.
 
-    : **base\_path** : Specify the *PATH* that the namespace plugin should use as a base to mount the private directories. This path must be readable and writable by the plugin. The plugin constructs a directory for each job inside this path, which is then used for mounting. The **base\_path** gets mounted as 'private' during slurmd start and remains mounted until shutdown. The first "%h" within the name is replaced with the hostname on which the **slurmd** is running. The first "%n" within the name is replaced with the Slurm node name on which the **slurmd** is running. Set *PATH* to 'none' to disable the namespace/linux plugin on node subsets when there is a global setting in **defaults**. **NOTE**: The **base\_path** must be unique to each node. If base\_path is on a shared filesystem, you can use "%h" or "%n" to create node-unique directories. **NOTE**: The **base\_path** parameter cannot be set to any of the paths specified by **dirs**. Using these directories will cause conflicts when trying to mount and unmount the private directories for the job. : **clone\_ns\_script** : Specify fully qualified pathname of an optional initialization script. This script is run after the namespace construction of a job. This script will be provided the SLURM\_NS environment variable containing the path to the namespace that can be used by the nsenter command. This variable will allow the script to join the newly created namespace and do further setup work. This parameter is optional. : **clone\_ns\_script\_wait** : The number of seconds to wait for the **clone\_ns\_script** to complete before considering the script failed. The default value is 10 seconds. : **clone\_ns\_epilog** : Specify fully qualified pathname of an optional epilog script. This script runs just before the namespace is torn down. This script will be provided the SLURM\_NS environment variable containing the path to the namespace that can be used by the nsenter command. This variable will allow the script to join the soon to be removed namespace and do any cleanup work. This parameter is optional. : **clone\_ns\_epilog\_wait** : The number of seconds to wait for the **clone\_ns\_epilog** to complete before considering the script failed. The default value is 10 seconds. : **clone\_ns\_flags** : This contains a list of string flag values. This parameter defines what additional namespaces should be created for the job. Valid values are "CLONE\_NEWPID" and "CLONE\_NEWUSER" to create new PID and USER namespaces respectively. "CLONE\_NEWNS" will also be accepted, but is always on. **NOTE**: When CLONE\_NEWUSER is specified, bpf token support is also required if using ConstrainDevices in **cgroup.conf**. : **dirs** : A comma-separated list of directories to create private mount points for. This parameter is optional and if not specified it defaults to "/tmp,/dev/shm". **NOTE**: /dev/shm has special handling, and instead of a bind mount is always a fresh tmpfs filesystem. **NOTE**: When CLONE\_NEWPID is specified, a unique /proc filesystem for the container will be mounted automatically. : **init\_script** : Specify fully qualified pathname of an optional initialization script. This script is run before the namespace construction of a job. It can be used to make the job join additional namespaces prior to the construction of /tmp namespace or it can be used for any site-specific setup. This parameter is optional. : **shared** : Specifying Shared=true will propagate new mounts between the job specific filesystem namespace and the root filesystem namespace, enable using autofs on the node. This parameter is optional. : **user\_ns\_script** : Specifies the location of a script that will perform the user namespace setup. This script runs first when setting up the namespace. The environment variable "SLURM\_NS\_PID" is provided to allow constructing the path to the various map files that this script could write to. If not specified, every user and group will be mapped.
+    : **base\_path** : Specify the *PATH* that the namespace plugin should use as a base to mount the private directories. This path must be readable and writable by the plugin. The plugin constructs a directory for each job inside this path, which is then used for mounting. The **base\_path** gets mounted as 'private' during slurmd start and remains mounted until shutdown. The first "%h" within the name is replaced with the hostname on which the **slurmd** is running. The first "%n" within the name is replaced with the Slurm node name on which the **slurmd** is running. Set *PATH* to 'none' to disable the namespace/linux plugin on node subsets when there is a global setting in **defaults**. **NOTE**: The **base\_path** must be unique to each node. If base\_path is on a shared filesystem, you can use "%h" or "%n" to create node-unique directories. **NOTE**: The **base\_path** parameter cannot be set to any of the paths specified by **dirs**. Using these directories will cause conflicts when trying to mount and unmount the private directories for the job. : **clone\_ns\_script** : Specify fully qualified pathname of an optional initialization script. This script is run after the namespace construction of a job. This script will be provided the SLURM\_NS environment variable containing the path to the namespace that can be used by the nsenter command. This variable will allow the script to join the newly created namespace and do further setup work. This parameter is optional. : **clone\_ns\_script\_wait** : The number of seconds to wait for the **clone\_ns\_script** to complete before considering the script failed. The default value is 10 seconds. : **clone\_ns\_epilog** : Specify fully qualified pathname of an optional epilog script. This script runs just before the namespace is torn down. This script will be provided the SLURM\_NS environment variable containing the path to the namespace that can be used by the nsenter command. This variable will allow the script to join the soon to be removed namespace and do any cleanup work. This parameter is optional. : **clone\_ns\_epilog\_wait** : The number of seconds to wait for the **clone\_ns\_epilog** to complete before considering the script failed. The default value is 10 seconds. : **clone\_ns\_flags** : This contains a list of string flag values. This parameter defines what additional namespaces should be created for the job. Valid values are "CLONE\_NEWPID" and "CLONE\_NEWUSER" to create new PID and USER namespaces respectively. "CLONE\_NEWNS" will also be accepted, but is always on. **NOTE**: When CLONE\_NEWUSER is specified, bpf token support is also required if using ConstrainDevices in **cgroup.conf**. : **dirs** : A comma-separated list of directories to create private mount points for. This parameter is optional and if not specified it defaults to "/tmp,/dev/shm". Mutually exclusive with **dir\_confs**. If both are set, **dir\_confs** will take precedence. **NOTE**: /dev/shm has special handling, and instead of a bind mount is always a fresh tmpfs filesystem. **NOTE**: When CLONE\_NEWPID is specified, a unique /proc filesystem for the container will be mounted automatically. : **dir\_confs** : A structured list of per-directory mount configurations. Each entry specifies a path, optional per-directory backing storage, and optional mount options. When set, supersedes **dirs**. The list element attributes are described in **dir\_confs list element definitions** below. This parameter is optional. : **init\_script** : Specify fully qualified pathname of an optional initialization script. This script is run before the namespace construction of a job. It can be used to make the job join additional namespaces prior to the construction of /tmp namespace or it can be used for any site-specific setup. This parameter is optional. : **shared** : Specifying Shared=true will propagate new mounts between the job specific filesystem namespace and the root filesystem namespace, enable using autofs on the node. This parameter is optional. : **user\_ns\_script** : Specifies the location of a script that will perform the user namespace setup. This script runs first when setting up the namespace. The environment variable "SLURM\_NS\_PID" is provided to allow constructing the path to the various map files that this script could write to. If not specified, every user and group will be mapped.
+
+### dir\_confs list element definitions
+
+Each **dir\_confs** element contains the following attributes:
+
+**path**
+:   The target directory to mount privately, e.g. "/tmp". The following
+    substitutions are supported: **%j** (job ID), **%S** (SLUID), and
+    **%u** (username). This parameter is required.
+
+    : **base\_path** : Optional per-directory backing storage root. Overrides the global **base\_path** for this mount. A job-specific subdirectory will be created here to back the private mount. Ignored when **tmpfs** is set. This parameter is optional. : **options** : Comma-separated list of **mount** options. Support is included to pass the following options to the **mount** command: : **noatime** : Do not update inode access times on this filesystem. : **nodev** : Do not interpret character or block special devices on the filesystem. : **nodiratime** : Do not update directory inode access times on this filesystem. : **noexec** : Do not permit direct execution of any binaries on the mounted filesystem. : **nosuid** : Do not honor set-user-ID and set-group-ID bits or file capabilities when executing programs from this filesystem. : **relatime** : Update inode access times relative to modify or change time. : **ro** : Mount the filesystem read-only. : For tmpfs mounts, additional data options such as **size=4g** and **mode=1777** may also be specified and are passed directly to the kernel. Options not recognized as flags are treated as tmpfs mount data and silently ignored on bind mounts. This parameter is optional. **NOTE**: tmpfs mounts always have **nosuid** and **nodev** applied regardless of this setting. : **tmpfs** : If set to true, mounts a fresh tmpfs at this path instead of creating a bind mount backed by the **base\_path**. This parameter is optional.
 
 ## NOTES
 
@@ -140,7 +153,13 @@ node_confs:
       auto_base_path: true
       base_path: "/var/nvme/storage_1"
       clone_ns_script_wait: 20
-      dirs: "/tmp"
+      dir_confs:
+        - path: "/tmp"
+          options: "noexec,nosuid,size=8g"
+          tmpfs: true
+        - path: "/scratch"
+          base_path: "/var/nvme/storage_1"
+          options: "noexec,nosuid"
       shared: false
       user_ns_script: "/path/to/user_script"
   - nodes:
@@ -178,10 +197,10 @@ details.
 
 ## Index
 
-[NAME](#lbAB): [DESCRIPTION](#lbAC): [PARAMETERS](#lbAD): [node\_confs list element definitions](#lbAE): [options definitions](#lbAF) [NOTES](#lbAG): [EXAMPLE](#lbAH): [COPYING](#lbAI): [SEE ALSO](#lbAJ)
+[NAME](#lbAB): [DESCRIPTION](#lbAC): [PARAMETERS](#lbAD): [node\_confs list element definitions](#lbAE): [options definitions](#lbAF): [dir\_confs list element definitions](#lbAG) [NOTES](#lbAH): [EXAMPLE](#lbAI): [COPYING](#lbAJ): [SEE ALSO](#lbAK)
 
 ---
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 19:55:11 GMT, May 14, 2026
+Time: 20:52:42 GMT, May 26, 2026

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -59,17 +59,28 @@ Prometheus, Grafana, and other observability tools.
 
 The metrics feature requires specific configuration in *slurm.conf*:
 
-* **PrivateData must not be set**: The metrics feature is disabled if any
-  *PrivateData* parameter is configured in slurm.conf. This is a security
-  requirement to prevent exposure of sensitive information through metrics.
-* **MetricsType parameter**: Set the
-  [MetricsType](slurm.conf.md#OPT_MetricsType) parameter to specify
-  which metrics plugin to use. Currently, only the OpenMetrics plugin is
-  supported:
+* **MetricsAuthUsers parameter**: Set
+  [MetricsAuthUsers](slurm.conf.md#OPT_MetricsAuthUsers) to control
+  which users are allowed to query metrics plugin endpoints. *SlurmUser* and
+  *root* are always allowed. When set, it will ignore *PrivateData*
+  and/or *MetricsParameters=ignore\_private\_data*, allowing users in the list
+  to query the metrics endpoints. This option enables JWT authentication for
+  querying metrics endpoints.* **MetricsParameters parameter**: Set
+    [MetricsParameters](slurm.conf.md#OPT_MetricsParameters) to
+    configure the behavior of metrics plugins. Multiple parameters may be comma
+    separated. Currently supported parameters include:
+    + **ignore\_private\_data**: Set
+      [MetricsParameters=ignore\_private\_data](slurm.conf.md#OPT_ignore_private_data) to make the metrics plugin ignore
+      *PrivateData*, and allow all users to query metrics endpoints without
+      authentication. This option will be ignored if *MetricsAuthUsers* is set.
+  * **MetricsType parameter**: Set the
+    [MetricsType](slurm.conf.md#OPT_MetricsType) parameter to specify
+    which metrics plugin to use. Currently, only the OpenMetrics plugin is
+    supported:
 
-  ```
-  MetricsType=metrics/openmetrics
-  ```
+    ```
+    MetricsType=metrics/openmetrics
+    ```
 
 ### Plugin Loading
 
@@ -97,6 +108,15 @@ listening port (default 6817). The following endpoints are available:
 
 All endpoints return data in UTF-8 text format making them compatible with
 Prometheus and other monitoring systems.
+
+### Standby Controllers (high availability)
+
+When multiple [SlurmctldHost](slurm.conf.md#OPT_SlurmctldHost)
+entries are configured, a daemon in standby mode will answer **GET
+/metrics\*** with HTTP 303 "See Other" with the **Location** header
+pointing at the same path and query on the first listed controller. If no such
+address is available, the response will be HTTP 503 "Service Unavailable"
+instead of a redirect.
 
 ## OpenMetrics Plugin
 
@@ -198,14 +218,22 @@ Examples include:
 
 The metrics system has several important security implications:
 
-* **No authentication**: There is no built-in authentication mechanism for
-  metrics endpoints. Anyone with network access to the slurmctld port can query
-  metrics.
-* **PrivateData dependency**: The metrics feature is automatically disabled
-  when any *PrivateData* parameter is set in slurm.conf to prevent exposure
-  of sensitive information.
+* **Authentication**: By default, metrics endpoints do not require
+  authentication. They are either accessible to everyone or to no one (with the
+  exceptions of *SlurmUser* and *root*), depending on whether
+  *PrivateData* is set. It can be made globally accessible when
+  *PrivateData* is set by using
+  [MetricsParameters=ignore\_private\_data](slurm.conf.md#OPT_ignore_private_data).
+  However, if [MetricsAuthUsers](slurm.conf.md#OPT_MetricsAuthUsers)
+  is used, the values of both *PrivateData* and
+  *MetricsParameters=ignore\_private\_data* are ignored, and only the users in
+  this list (plus *SlurmUser* and *root*) are allowed to query metrics
+  endpoints. When querying without global access enabled, the metrics endpoints
+  require authentication, and the user must provide a JWT token to perform such
+  action.
 * **Network access**: Metrics are exposed through the slurmctld network
-  interface. Consider firewall rules and network segmentation to control access.
+  interface. Consider firewall rules and network segmentation to further control
+  access.
 * **Information disclosure**: Metrics may reveal information about cluster
   utilization, job patterns, and user activity that could be considered sensitive
   in some environments.
@@ -272,6 +300,15 @@ slurm_nodes_alloc 15
 ...
 ```
 
+When *MetricsAuthUsers*, and/or *PrivateData* without
+*MetricsParameters=ignore\_private\_data* are configured, global access is
+restricted. A JWT token must be provided in these cases:
+
+```
+$ curl -H "X-SLURM-USER-TOKEN:$SLURM_JWT" \
+    http://slurmctld.example.com:6817/metrics/endpoint
+```
+
 ### Prometheus Configuration
 
 Configure Prometheus to scrape Slurm metrics by adding the following to your
@@ -303,4 +340,20 @@ scrape_configs:
     static_configs:
       - targets: ['slurm.example.com:6817']
     metrics_path: '/metrics/jobs-users-accts'
+```
+
+If *MetricsAuthUsers* and/or *PrivateData* without
+*MetricsParameters=ignore\_private\_data* are configured, global access is
+restricted. Add a JWT token for a user that is allowed to access to query jobs.
+For example:
+
+```
+scrape_configs:
+  - job_name: 'slurm_jobs'
+    static_configs:
+      - targets: ['slurm.example.com:6817']
+    metrics_path: '/metrics/jobs'
+    authorization:
+      type: Bearer
+      credentials: '<JWT_TOKEN>'
 ```

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -30,66 +30,63 @@ Version 25.11
   + [Support and Training](https://www.schedmd.com/slurm-support/our-services/)
   + [Troubleshooting](troubleshoot.md)
 
-# Release Notes for Slurm 25.11
+# Release Notes for Slurm 26.05
 
 ## Upgrading
 
-Slurm 25.11 supports upgrading directly from 25.05, 24.11, and 24.05.
+Slurm 26.05 supports upgrading directly from 25.11, 25.05, and 24.11.
 
 See the [Upgrade Guide](https://slurm.schedmd.com/upgrades.md) for further details.
 
 ## Highlights
 
-* Added new “Expedited Requeue” mode for batch jobs. Batch jobs with –requeue=expedite will automatically requeue on node failure, or if the batch script returns a non-zero exit code and one or more Epilog scripts fail. Expedited requeue jobs are eligible to restart immediately, are treated as the highest priority job in the system, and their previously allocated set of nodes will be prevented from launching other work.
-* Added a new “Mode 3” of operation to Hierarchical Resources. This mode complements the existing Mode 1 and Mode 2 by summing usage from lower levels automatically. This can be used, e.g., to implement a power-capping mode modeling power distribution between the datacenter, local distribution, and individual racks.
-* Added direct support for exporting OpenMetrics (Prometheus) telemetry from slurmctld. This is accessible on SlurmctldPort on SlurmctldHost by default, or can be disabled if desired.
-* Added an experimental asynchronous-reply mode to slurmctld. If enabled with “SlurmctldParameters=enable\_async\_reply”, RPC responses are offloaded to the kernel for further processing, freeing individual worker threads for new traffic.
+* New “srun –async” step mode that submits step processes to stepmgr to queue and eventually launch. This avoids issues with keeping a large number of srun processes backgrounded to queue up future step-based workflows. (This was previously described as “mini-batch” in the Slurm roadmap presentations.)
+* New topology/ring and topology/torus3d topology plugins. These implement a single-dimensional and three-dimensional topology respectively.
+* Slurm REST API - Add support for creating/updating/removing partitions, and fror viewing the active slurmctld and slurmdbd configurations.
+* Dynamic Memory Resizing. A job can now release memory (and have the cgroup limits updated) using ‘scontrol update’ while running. A new “sbatch –mem-update=@” option can also automatically reduce the memory limit to the current usage plus a given margin percentage after a specified time.
+* Add topology-based sorting for node ranks when using dynamic nodes with the topology plugins. This is also available generically for topology/flat (no topology) with a new alpha\_step\_rank option.
+* Add an optimized single-node path through the scheduling logic for increased performance.
+* Expanded the openmetrics (Prometheus) nodes, partitions, and jobs endpoints with gpu allocation statistics.
+* namespace/linux - Add support for custom mount options and paths for each target directory.
 
-## New Features
+## Configuration Changes - slurm.conf
 
-* Added additional Reservation access controls - AllowQOS and AllowPartition.
-* Allow cloud nodes to dynamically set topology at registration with “slurmd –conf=topology=…”.
-* Renamed “job\_container” plugin interface to “namespace”.
-* Added new namespace/linux plugin with support for managing filesystem, pid, and user namespaces.
-* Added support to launching the slurmd in a cgroup slice other than system.slice.
-* Added –running-over and –running-under time options to squeue to filter running jobs based on their execution time.
-* Added –consolidate-segments option to salloc/sbatch/srun for topology/block. This will ensure segments are packed as few blocks as possible.
-* Added –spread-segments option to salloc/sbatch/srun for topology/block. This will ensure segments are allocated on unique base blocks.
-* Added limited support for using –segment in conjunction with –nodelist for topology/block.
-* Added IMEX channel setup to the batch and interactive steps for switch/nvidia\_imex plugin.
-* Added –network=unique-channel-per-segment option to salloc/sbatch/srun to allocate a unique IMEX channel per segment when using topology/block and switch/nvidia\_imex plugins.
-* Support running HealthCheckProgram only at startup with HealthCheckNodeState=START\_ONLY.
-* Export select metrics from the slurmctld in the Prometheus format.
-* Support responding to both http and slurm protocol requests on the same port.
-* Added –parameters option to slurmd to set Parameters options directly, rather than in the configuration file. This can help test alternate CPU topologies. E.g., “slurmd -C –parameters=l3cache\_as\_socket” will report the corresponding topology.
-* Added basic HTTP service probe support to slurmctld and slurm daemons, accessible through /livez, /readyz, and /healthz endpoints.
-* Allow retroactive changes by administrators to the AllocTRES for a job through the sacctmgr command. This can be used, e.g., to add energy usage data to the accounting records if unavailable through Slurm’s internal jobacct\_gather plugins.
-* If not previously configured to operate with SlurmDBD, slurmctld will not attempt to automatically register with its existing ClusterID.
+* Add SuspendTime as a NodeName parameter, enabling per-node power save configuration.
+* Exclusive=[NO|NODE|USER|TOPO] replaces ExclusiveUser and ExclusiveTopo when defining Partitions.
+* jobcomp/elasticsearch and jobcomp/kafka - Send ‘admin\_comment’ and ‘comment’ fields if JobCompParams=send\_comment is set.
+* Add DebugFlags=thread.
 
-## Configuration Changes
+## Configuration Changes - gres.conf
 
-* Default SlurmdParameters=conmgr\_threads has been changed to 6.
-* NamespaceType replaces JobContainerType in slurm.conf.
-* Added JobCompPassScript and StoragePassScript to enable database password rotation.
-* The “configless” mode now supports distributing TaskProlog and TaskEpilog scripts.
-* Added Parameters option to NodeName lines to vary SlurmdParameters on an individual node. This can be used to set options such as “l3cache\_as\_socket” in a more granular manner.
-* Added DisableArchiveCommands option to slurmdbd.conf. This disables the RPC processing for “sacctmgr archive” and “sacctmgr load” commands.
-* Added MaxPurgeLimit to slurmdbd.conf.
-* Added CommunicationParameters=disable\_http option to disable HTTP processing completely in slurmctld and slurmd.
-* For performance reasons the PMIx server (mpi/pmix plugin) will no longer store the node’s HWLOC topology in the job-level information under the PMIX\_LOCAL\_TOPO key by default. The new PMIxShareServerTopology=true option in mpi.conf can restore the prior behavior if necessary.
+* Add AutoDetect=full option to try all GRES plugin AutoDetection types on slurmd start.
+
+## Configuration Changes - oci.conf
+
+* Add %Z filename expansion pattern for the job’s working directory.
+
+## Configuration Changes - slurmdbd.conf
+
+* Add Parameters=PreserveCaseResource to make resources (remote licenses) case sensitive.
+* Add DisableRollups option.
+* Add DebugFlags=thread.
 
 ## Packaging Changes
 
-* deb - change pam\_slurm\_adopt install location to the correct multiarch location.
-* rpm - add –with cgroupv2 option to force the requirements for the cgroup/v2 plugin to be present at build time.
+* HTML documentation (man and otherwise) is no longer built or packaged by default. New ‘make html’ and ‘make install-html’ targets can be used to generate the HTML documentation if desired.
+* MUNGE is now a weak dependency to Slurm RPM and DEB packages.
+* Use pkgconf to get information about most dependencies in spec file.
+
+## API Changes
+
+The Slurm API has been updated to use slurm\_step\_id\_t in lieu of a job\_id in API calls. This allows the API to be queried by SLUID instead of by JobId. Backwards compatibility is available through the SLURM\_BACKWARD\_COMPAT define when including <slurm/slurm.h>.
 
 ## REST API Changes
 
 [Slurm OpenAPI Plugin Release Notes](https://slurm.schedmd.com/openapi_release_notes.md)
 
-* Added new v0.0.44 API endpoints.
-* Deprecated v0.0.41 API endpoints (will be removed in Slurm 26.05).
+* Added new v0.0.45 API endpoints.
+* Deprecated v0.0.42 API endpoints (will be removed in Slurm 26.11).
 
 ## Deprecations and Removals
 
-* Removed node\_features/knl\_generic plugin.
+* Remove SchedulerParameters=enable\_job\_state\_cache.

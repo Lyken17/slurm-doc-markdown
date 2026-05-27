@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -44,6 +44,7 @@ Version 25.11
 * [MPS Management](#MPS_Management)
 * [MIG Management](#MIG_Management)
 * [Sharding](#Sharding)
+* [Shared GRES Usage](#Shared_GRES_Usage)
 
 ## Overview
 
@@ -784,3 +785,31 @@ which would be the same as if it were a GPU.
 
 Steps with shards have`SLURM_SHARDS_ON_NODE`
 set indicating the number of shards allocated.
+
+## Shared GRES Usage
+
+Commands that display node GRES usage, such as `sinfo -O GresUsed`
+and `scontrol show node -d`, list each allocated GRES.
+Shared GRES entries (MPS and shards) show the total allocated count
+followed by one entry per device (GPU):
+
+```
+$ sinfo -O NodeList:10,Gres:20,GresUsed:0
+NODELIST  GRES                GRES_USED
+node0     gpu:4,shard:20      gpu:1(IDX:0),shard:8(-/5,5/5,3/5,0/5)
+```
+
+In this example, the GRES\_USED column shows that 1 GPU and 8 shards are
+allocated. Since shards are an alternate form of GPUs, both entries represent
+usage of the same underlying GPU devices:
+
+* `gpu:1(IDX:0)` shows that GPU 0 is allocated as a whole GPU.
+* `shard:8(-/5,5/5,3/5,0/5)` shows that 8 shards are allocated
+  across the four GPUs:
+  + `-/5` means GPU 0 is unavailable for shards because it is
+    allocated as a whole GPU.
+  + `5/5` means GPU 1 has all 5 shards allocated.
+  + `3/5` means GPU 2 has 3 of 5 shards allocated, and up to 2
+    more shards can still be allocated.
+  + `0/5` means GPU 3 has no shards allocated, and is available to be
+    allocated as either a whole GPU or up to 5 shards.

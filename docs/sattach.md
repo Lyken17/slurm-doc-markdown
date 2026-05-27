@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -42,7 +42,7 @@ sattach - Attach to a Slurm job step.
 
 ## SYNOPSIS
 
-sattach [*options*] <jobid.stepid>
+sattach [*options*] <jobid|sluid)>.<stepid>
 
 ## DESCRIPTION
 
@@ -51,6 +51,8 @@ the IO streams of all of the tasks of a running Slurm job step. It is also
 suitable for use with a parallel debugger like TotalView. It cannot be used to
 attach directly to extern or batch steps since the IO channels of these steps
 are not set or directly forwarded to a file.
+
+A SLUID may be used in place of a numeric job ID to identify the job.
 
 ## OPTIONS
 
@@ -87,7 +89,7 @@ variables settings.
 
 ## EXAMPLES
 
-Attach to job 15, step 0:: : ``` $ sattach 15.0 ``` Limit the output to the 5th task of job 65386, step 15:: : ``` $ sattach --output-filter 5 65386.15 ```
+Attach to job 15, step 0:: : ``` $ sattach 15.0 ``` Attach to job with SLUID s4SNKN57XZTE00, step 1:: : ``` $ sattach s4SNKN57XZTE00.1 ``` Limit the output to the 5th task of job 65386, step 15:: : ``` $ sattach --output-filter 5 65386.15 ```
 
 ## COPYING
 
@@ -129,4 +131,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 19:55:11 GMT, May 14, 2026
+Time: 20:52:42 GMT, May 26, 2026

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -49,8 +49,8 @@ Version 25.11
 Slurm version 17.11 and later supports the ability to submit and manage
 heterogeneous jobs, in which each component has virtually all job options
 available including partition, account and QOS (Quality Of Service).
-For example, part of a job might require four cores and 4 GB for each of 128
-tasks while another part of the job would require 16 GB of memory and one CPU.
+For example, part of a job might require four cores and 4 GiB for each of 128
+tasks while another part of the job would require 16 GiB of memory and one CPU.
 
 ## Submitting Jobs
 
@@ -189,7 +189,7 @@ $ sbatch --cpus-per-task=4 --mem-per-cpu=16g --ntasks=1 : \
 
 The batch script will be executed in the first node in the first component
 of the heterogeneous job. For the above example, that will be the job component
-with 1 task, 4 CPUs and 64 GB of memory (16 GB for each of the 4 CPUs).
+with 1 task, 4 CPUs and 64 GiB of memory (16 GiB for each of the 4 CPUs).
 
 If a heterogeneous job is submitted to run in multiple clusters not
 part of a federation (e.g. "sbatch --cluster=alpha,beta ...") then the entire
@@ -199,10 +199,11 @@ at the earliest time.
 A resource limit test is performed when a heterogeneous job is submitted in
 order to immediately reject jobs that will not be able to start with current
 limits.
-The individual components of the heterogeneous job are validated, like all
-regular jobs.
-The heterogeneous job as a whole is also tested, but in a more limited
-fashion with respect to quality of service (QOS) limits.
+Each component is validated with the same association and QOS policy checks as a
+regular job (including limits from the partition QOS and job QOS).
+Components are processed in order. Where limits depend on aggregate usage,
+the effect of earlier components in the same submission is included when
+checking later ones.
 Each component of a heterogeneous job counts as a "job" with respect to
 resource limits.
 
@@ -777,12 +778,11 @@ previously determined.
 A resource limit test is performed when a heterogeneous job is submitted in
 order to immediately reject jobs that will not be able to start with current
 limits.
-The individual components of the heterogeneous job are validated, like all
-regular jobs.
-The heterogeneous job as a whole is also tested, but in a more limited
-fashion with respect to quality of service (QOS) limits.
-This is due to the complexity of each job component having up to three sets of
-limits (association, job QOS and partition QOS).
+Each component is validated with the same association and QOS policy checks as a
+regular job (including limits from the partition QOS and job QOS).
+Components are processed in order. Where limits depend on aggregate usage,
+the effect of earlier components in the same submission is included when
+checking later ones.
 Note that successful submission of any job (heterogeneous or otherwise) does
 not ensure the job will be able to start without exceeding some limit.
 For example a job's CPU limit test does not consider that CPUs might not be

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -139,10 +139,10 @@ i.e., `TRESBillingWeights="CPU=1"`.
 
 The weighted amount of a resource can be adjusted by adding a suffix of
 `[KMGTP]` after the billing weight. The base unit for memory and burst
-buffers is Megabytes. For example, a memory weight of `mem=0.25` on a
-job allocated 8GB will result in 2048 billed units (8192MB \* 0.25). A memory
+buffers is Mebibytes. For example, a memory weight of `mem=0.25` on a
+job allocated 8GiB will result in 2048 billed units (8192MiB \* 0.25). A memory
 weight of `mem=0.25G` on the same job will result in 2 billed units
-((8192MB/1024) \* 0.25).
+((8192MiB/1024) \* 0.25).
 
 By default the billing of TRES is calculated as the sum of all TRES types
 multiplied by their corresponding billing weight. For example, consider a
@@ -152,7 +152,7 @@ partition with these billing weights configured:
 TRESBillingWeights="CPU=1.0,Mem=0.25G,GRES/gpu=2.0,license/licA=1.5"
 ```
 
-A job in this partition that gets allocated 1 CPU and 8 GB of memory would be
+A job in this partition that gets allocated 1 CPU and 8 GiB of memory would be
 billed as:
 
 ```

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -559,7 +559,7 @@ On the right side we see the slurmstepd scope, a directory in the cgroup tree
 also delegated where all slurmstepd and user jobs will reside. The slurmstepd
 is migrated initially in the waiting area for new stepds, *system*
 directory, and immediately, when it initializes the job hierarchy, it will move
-itself into the corresponding *job\_x/step\_y/slurm\_processes* directory.
+itself into the corresponding *SLUID/step\_y/slurm\_processes* directory.
 
 User processes will be spawned by slurmstepd and moved into the appropriate
 task directory.
@@ -577,7 +577,7 @@ are running in a slurmstepd scope by issuing this command:
      Memory: 18.7M
         CPU: 141ms
      CGroup: /system.slice/slurmstepd.scope
-             ├─job_3385
+             ├─s5K1KKYAYG5D00
              │ ├─step_0
              │ │ ├─slurm
              │ │ │ └─113630 slurmstepd: [3385.0]

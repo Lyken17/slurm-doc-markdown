@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -88,7 +88,14 @@ wrapping optionally supported without requiring **TLSType** in
 **GET /**
 :   Get list of endpoints.
 
-    : **GET /healthz** : Test if **slurmctld** loaded successfully. : **GET /livez** : Test if **slurmctld** loaded successfully. : **GET /readyz** : Test if **slurmctld** is ready to accept incoming RPCs. : **GET /metrics/jobs** : Get job metrics. : **GET /metrics/nodes** : Get node metrics. : **GET /metrics/partitions** : Get partition metrics. : **GET /metrics/scheduler** : Return scheduler metrics. : **GET /metrics/jobs-users-accts** : Return user and account job metrics.
+    : **GET /healthz** : Test if **slurmctld** loaded successfully. : **GET /livez** : Test if **slurmctld** loaded successfully. : **GET /readyz**[**?verbose**] : Test if **slurmctld** is ready to accept incoming RPCs. Adding the **verbose** query parameter will result in a verbose output of each probe in the response. : **GET /metrics/jobs** : Get job metrics. : **GET /metrics/nodes** : Get node metrics. : **GET /metrics/partitions** : Get partition metrics. : **GET /metrics/scheduler** : Return scheduler metrics. : **GET /metrics/jobs-users-accts** : Return user and account job metrics.
+
+When multiple **SlurmctldHost** entries are configured, a daemon in standby
+mode will answer **GET /metrics\*** with HTTP 303 "See Other" with the
+**Location** header pointing to the same path and query on the first listed
+controller. If no such address is available, the response will be HTTP 503
+"Service Unavailable" instead of a redirect. See **SlurmctldHost** in
+**[slurm.conf](slurm.conf.md)**(5).
 
 ## CORE FILE LOCATION
 
@@ -157,4 +164,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 19:55:11 GMT, May 14, 2026
+Time: 20:52:42 GMT, May 26, 2026

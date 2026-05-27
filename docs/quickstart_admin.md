@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -135,7 +135,7 @@ the convention on Debian-based distros is **libNAME-dev**.
 | **PAM support** | *PAM* |
 | **PMIx support** (requires `--with-pmix` at build time) | *pmix* |
 | **Readline support** in `scontrol` and `sacctmgr` interactive modes | *readline* |
-| `slurmrestd`([restd node](#restd)) | *[http\_parser](related_software.md#httpparser)*  *[json-c](related_software.md#json)*  *[yaml](related_software.md#yaml)* (optional)  *[jwt](related_software.md#jwt)* (optional)  *[s2n](tls.md#s2n)* (optional) |
+| `slurmrestd`([restd node](#restd)) | *[http\_parser](related_software.md#httpparser)* or *[llhttp](related_software.md#llhttp)*  *[json-c](related_software.md#json)*  *[yaml](related_software.md#yaml)* (optional)  *[jwt](related_software.md#jwt)* (optional)  *[s2n](tls.md#s2n)* (optional) |
 | `sview` ([man page](sview.md)) | *gtk+-2.0* |
 | `switch/hpe_slingshot` | *cray-libcxi*  *curl*  *json-c* |
 | NUMA support with `task/affinity` | *numa* |
@@ -567,7 +567,7 @@ Partition and node specifications use node range expressions to identify
 nodes in a concise fashion. This configuration file defines a 1154-node cluster
 for Slurm, but it might be used for a much larger cluster by just changing a few
 node range expressions. Specify the minimum processor count (CPUs), real memory
-space (RealMemory, megabytes), and temporary disk space (TmpDisk, megabytes) that
+space (RealMemory, mebibytes), and temporary disk space (TmpDisk, mebibytes) that
 a node should have to be considered available for use. Any node lacking these
 minimum configuration values will be considered DOWN and not scheduled.
 Note that a more extensive sample configuration file is provided in

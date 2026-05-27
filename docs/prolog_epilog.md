@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -280,15 +280,17 @@ to all of the programs.
 * **SLURM\_JOB\_NUM\_NODES**
   Number of nodes assigned to a job.
 * **SLURM\_JOB\_OVERSUBSCRIBE**
-  Job OverSubscribe status.
-  See the [squeue man page](squeue.md#OPT_OverSubscribe) for
-  possible values.
+  Set to NO, YES, or OK (oversubscribe disposition for the job; see
+  [squeue --format](squeue.md#OPT_%h) `%h`).
+  Available in Prolog, PrologSlurmctld, Epilog and EpilogSlurmctld.
+* **SLURM\_JOB\_EXCLUSIVE**
+  Set to NO, NODE, USER, MCS, or TOPO (exclusive disposition for the job; see
+  [squeue --Format Exclusive](squeue.md#OPT_Exclusive).
   Available in Prolog, PrologSlurmctld, Epilog and EpilogSlurmctld.
 * **SLURM\_JOB\_PARTITION**
   Partition that job runs in.
 * **SLURM\_JOB\_QOS**
-  QOS assigned to job. Available in PrologSlurmctld, EpilogSlurmctld, SrunProlog,
-  TaskProlog, SrunEpilog and TaskEpilog.
+  QOS assigned to job.
 * **SLURM\_JOB\_RESERVATION**
   Reservation requested for the job.
 * **SLURM\_JOB\_RESTART\_COUNT**

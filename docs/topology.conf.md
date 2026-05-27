@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -113,6 +113,34 @@ The overall configuration parameters available for topology/block include:
 
     : **Nodes** : Child nodes of the named block. : **BlockSizes** : List of the planning base block size, alongside any higher-level block sizes that would be enforced. Each block must have at least the planning base block size count of nodes. Successive **BlockSizes** must be a power of two larger than the prior values.
 
+## topology/ring
+
+This plugin models the cluster as one or more ordered rings of nodes.
+Jobs are allocated using contiguous segments of nodes in the ring, which may
+wrap at the end of the ring.
+
+The network topology configuration, each line defining a ring name and
+its child node names.
+Slurm's hostlist expression parser is used, so the node
+names need not be consecutive (e.g. "Nodes=tux[0-3,12,18-20]").
+The order of the nodes in the list defines the ring position
+starting at 0.
+
+The overall configuration parameters available for topology/ring include:
+
+**RingName**
+:   The name of a ring. This name is internal to Slurm and arbitrary.
+    Each ring should have a unique name.
+    This field must be specified.
+
+    : **Nodes** : Ordered list of child nodes in the ring. A maximum of 16 nodes can be specified per ring.
+
+## topology/torus3d
+
+The torus3d plugin can only be configured via
+**[topology.yaml](topology.yaml.md)**(5). It is not supported in **topology.conf**.
+See **[topology.yaml](topology.yaml.md)**(5) for configuration details.
+
 ## EXAMPLE
 
 ```
@@ -136,6 +164,15 @@ BlockName=block2 Nodes=node[33-64]
 BlockName=block3 Nodes=node[65-96]
 BlockName=block4 Nodes=node[97-128]
 BlockSizes=30,120
+```
+
+```
+##################################################################
+# Slurm's network topology configuration file for use with the
+# topology/ring plugin
+##################################################################
+RingName=ring0 Nodes=node[01-08]
+RingName=ring1 Nodes=node[09-16]
 ```
 
 ## COPYING
@@ -168,10 +205,10 @@ details.
 
 ## Index
 
-[NAME](#lbAB): [DESCRIPTION](#lbAC): [topology/tree](#lbAD): [topology/block](#lbAE): [EXAMPLE](#lbAF): [COPYING](#lbAG): [SEE ALSO](#lbAH)
+[NAME](#lbAB): [DESCRIPTION](#lbAC): [topology/tree](#lbAD): [topology/block](#lbAE): [topology/ring](#lbAF): [topology/torus3d](#lbAG): [EXAMPLE](#lbAH): [COPYING](#lbAI): [SEE ALSO](#lbAJ)
 
 ---
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 19:55:11 GMT, May 14, 2026
+Time: 20:52:42 GMT, May 26, 2026

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -50,15 +50,15 @@ Version 25.11
 
 Slurm provides an integrated mechanism for nodes being suspended (powered
 down, placed into power saving mode) and resumed (powered up, restored from
-power saving mode) on demand or by request. Nodes that remain *IDLE* for
-**SuspendTime** will be suspended by **SuspendProgram** and will be
-unavailable for scheduling for **SuspendTimeout**. Nodes will
-automatically be resumed by **ResumeProgram** to complete work allocated
-to them. Nodes that fail to register within **ResumeTimeout** will become
-*DOWN* and their allocated jobs are requeued. Node power saving can be
-manually requested by `scontrol update nodename=<nodename>
-state=power_<down|up>`. The rate of nodes being resumed or
-suspended can be controlled by **ResumeRate** and **SuspendRate**.
+power saving mode) on demand or by request. When automatic power saving is
+enabled, nodes that remain *IDLE* for **SuspendTime** are suspended by
+**SuspendProgram**, and nodes needed to complete work allocated to them are
+resumed by **ResumeProgram**. Nodes suspended by **SuspendProgram** will
+be unavailable for scheduling for **SuspendTimeout** without manual
+intervention. Nodes resumed by **ResumeProgram** must register within
+**ResumeTimeout** or they will become *DOWN* and their allocated jobs
+are requeued. The rate of nodes being resumed or suspended can be controlled by
+**ResumeRate** and **SuspendRate**.
 
 Slurm can be configured to accomplish power saving by managing compute
 resources in any cloud provider (e.g. [Amazon
@@ -68,22 +68,26 @@ their API. These resources can be combined with an existing cluster to
 process excess workload (cloud bursting) or it can operate as an independent
 and self-contained cluster.
 
-To enable Power Saving operation in Slurm, you must configure the
-following:
+To enable automatic Power Saving operations in Slurm, you must configure the
+following. These programs, timeouts, and rates are not required for manual
+power saving operations.
 
-* **ResumeProgram** and **SuspendProgram** must be defined. Their
-  value must be a valid path to a program.
+* **ResumeProgram** and **SuspendProgram** must be defined. Each
+  must be either a valid path to a program or the name of a
+  [PowerAction](#PowerAction) defined in
+  *slurm.conf*.
 * **ResumeTimeout** and **SuspendTimeout** must be defined, either
   globally or on at least one partition.
-* **SuspendTime** must be defined, either globally or on at least one
-  partition, and not be *INFINITE* or *-1*.
+* **SuspendTime** must be defined, either globally, on at least one
+  partition, or on at least one node, and not be *INFINITE* or
+  *-1*.
 * **ResumeRate** and **SuspendRate** must be greater than or equal
   to *0*.
 
-The Slurm control daemon, *slurmctld*, must be restarted to initially
-enable Power Saving operation. Changes in the configuration parameters (e.g.
-**SuspendTime**) will take effect after modifying the *slurm.conf*
-configuration file and executing `scontrol reconfigure`.
+Changes in the configuration parameters (e.g. **SuspendTime**) will take
+effect after modifying the *slurm.conf* configuration file and executing
+`scontrol reconfigure` or restarting the Slurm control daemon,
+*slurmctld*.
 
 ## Configuration
 
@@ -96,6 +100,58 @@ The following configuration parameters of interest include:
     **Power**
     :   Power management plugin and power save (suspend/resume programs)
         details.
+
+**PowerAction**
+:   Defines a named power management program, including the location where
+    it runs. Once defined, a **PowerAction**'s name can be used in place of
+    a program path for **ResumeProgram**, **ResumeFailProgram**,
+    or **SuspendProgram**. A specific **PowerAction** can also be
+    selected for an individual request with the
+    `Action=<name>` option to `scontrol power up|down`
+    (see [Manual Power Saving](#manual)).
+
+    **PowerAction** is also supported for reboot operations, but those
+    are outside the scope of this guide.
+
+    ```
+    PowerAction=<name> Location=<slurmctld|slurmd> Program="<path> [arguments...]"
+    ```
+
+    **PowerAction=<name>**
+    :   Unique name for the action.
+
+    **Location=slurmctld|slurmd**
+    :   Where the program will run. *slurmctld* runs the program
+        on the controller as **SlurmUser**; *slurmd* runs the
+        program on each affected compute node as **SlurmdUser**. Power
+        up actions must use *slurmctld*, since powered down nodes cannot
+        run a *slurmd* action.
+
+    **Program=<path>**
+    :   Program to be executed. Arguments may be included in this field.
+        If arguments are included, quote the complete **Program** value in
+        *slurm.conf*. The program must be accessible and executable by the
+        user appropriate for the configured **Location**. The first
+        whitespace-separated token is used as the executable path; any remaining
+        tokens are passed as arguments before the arguments added by
+        Slurm.
+
+    Slurm appends action-specific arguments after any arguments configured
+    in **Program**:
+
+    | Operation | **Location=slurmctld** | **Location=slurmd** |
+    | --- | --- | --- |
+    | **Power Up (ResumeProgram)** | Runs with the affected nodes as a hostlist argument. | Not valid for power up actions. |
+    | **Power Down (SuspendProgram)** | Runs with the affected nodes as a hostlist argument. | Runs once per affected node. The local node name is passed as an argument and is also available in the environment as **SLURM\_NODE\_NAME**. |
+
+    Example:
+
+    ```
+    PowerAction=cloud_resume Location=slurmctld Program=/usr/sbin/slurm_resume
+    PowerAction=node_suspend Location=slurmd    Program="/usr/sbin/shutdown -h now"
+    ResumeProgram=cloud_resume
+    SuspendProgram=node_suspend
+    ```
 
 **ReconfigFlags**
 :   Flags to control various actions that may be taken when an
@@ -110,14 +166,17 @@ The following configuration parameters of interest include:
 **ResumeFailProgram**
 :   Program to be executed when nodes fail to resume by
     **ResumeTimeout**. The argument to the program will be the names of
-    the failed nodes (using Slurm's hostlist expression format).
+    the failed nodes (using Slurm's hostlist expression format). This can
+    alternatively be set to the name of a
+    [PowerAction](#PowerAction).
 
 **ResumeProgram**
 :   Program to be executed to restore nodes from power saving mode. The
     program executes as *SlurmUser* (as configured in
     *slurm.conf*). The argument to the program will be the names of
     nodes to be restored from power savings mode (using Slurm's hostlist
-    expression format).
+    expression format). This can alternatively be set to the name of a
+    [PowerAction](#PowerAction).
 
     If the *slurmd* daemon fails to respond within the configured
     **ResumeTimeout** value with an updated BootTime, the node will be
@@ -140,6 +199,7 @@ The following configuration parameters of interest include:
       "all_nodes_resume" : "cloud[1-3,7-8]",
       "jobs" : [
         {
+          "exclusive" : "NO",
           "extra" : "An arbitrary string from --extra",
           "features" : "c1,c2",
           "job_id" : 140814,
@@ -150,6 +210,7 @@ The following configuration parameters of interest include:
           "reservation" : "resv_1234"
         },
         {
+          "exclusive" : "NO",
           "extra" : null,
           "features" : "c1,c2",
           "job_id" : 140815,
@@ -160,8 +221,9 @@ The following configuration parameters of interest include:
           "reservation" : null
         },
         {
+          "exclusive" : "NODE",
           "extra" : null,
-          "features" : null
+          "features" : null,
           "job_id" : 140816,
           "nodes_alloc" : "cloud[7-8]",
           "nodes_resume" : "cloud[7-8]",
@@ -173,8 +235,12 @@ The following configuration parameters of interest include:
     }
     ```
 
-    See the [squeue man page](squeue.md#OPT_OverSubscribe)
-    for possible values for **oversubscribe**.
+    **oversubscribe** is NO, YES, or OK; **exclusive** is NO, NODE,
+    USER, MCS, or TOPO (same meanings as [squeue
+    --format](squeue.md#OPT_%h) `%h` and
+    [squeue --Format Exclusive](squeue.md#OPT_Exclusive). See also
+    `SLURM_JOB_OVERSUBSCRIBE` and `SLURM_JOB_EXCLUSIVE` in
+    [prolog\_epilog](prolog_epilog.md).
 
     **NOTE**: The **SLURM\_RESUME\_FILE** will only exist and be
     usable if Slurm was compiled with the [JSON-C](related_software.md#json) serializer library.
@@ -280,7 +346,8 @@ The following configuration parameters of interest include:
     program executes as *SlurmUser* (as configured in
     *slurm.conf*). The argument to the program will be the names of
     nodes to be placed into power savings mode (using Slurm's hostlist
-    expression format).
+    expression format). This can alternatively be set to the name of a
+    [PowerAction](#PowerAction).
 
 **SuspendRate**
 :   Maximum number of nodes to be placed into power saving mode per
@@ -315,6 +382,16 @@ Node parameters of interest include:
 :   Nodes which are to be added on demand should have a state of
     *CLOUD*.
 
+**SuspendTime**
+:   Nodes which remain idle or down for this number of seconds will be
+    placed into power saving mode by **SuspendProgram**.
+
+    This value takes precedence over the partition-level and global
+    **SuspendTime** settings for the specified nodes. If not set on the
+    node, the partition and then global values are used. Setting
+    **SuspendTime** to *INFINITE* will disable suspending of these
+    nodes.
+
 **Weight**
 :   Each node can be configured with a weight indicating the desirability
     of using that resource. Nodes with lower weights are used before those
@@ -339,9 +416,9 @@ Partition parameters of interest include:
 
     * Completing all running jobs without additional jobs being
       allocated.
-    * *ExclusiveUser=YES* and after all running jobs complete but
+    * *Exclusive=USER* and after all running jobs complete but
       before another user's job is allocated.
-    * *OverSubscribe=EXCLUSIVE* and after the running job completes
+    * *Exclusive=NODE* and after the running job completes
       but before another job is allocated.
 
     **NOTE**: Nodes are still subject to powering down when being IDLE
@@ -365,9 +442,10 @@ Partition parameters of interest include:
 
     For nodes that are in multiple partitions with this option set, the
     highest time will take effect. If not set on any partition, the node will
-    use the **SuspendTime** value set for the entire cluster. Setting
-    **SuspendTime** to *INFINITE* will disable suspending of nodes in
-    this partition.
+    use the **SuspendTime** value set for the entire cluster. A
+    **SuspendTime** value set on a **NodeName** line takes precedence
+    over this partition-level value. Setting **SuspendTime** to
+    *INFINITE* will disable suspending of nodes in this partition.
 
 **SuspendTimeout**
 :   Maximum time permitted (in second) between when a node suspend request
@@ -402,12 +480,25 @@ Node states of interest:
 
 ## Manual Power Saving
 
-A node can be manually powered up and down by setting the state of the
-node to the following states using `scontrol`:
+A node can be manually powered up and down by setting the state of the node
+to the following states using `scontrol`:
 
 ```
 scontrol update nodename=<nodename> state=power_<down|down_asap|down_force|up>
 ```
+
+The equivalent `scontrol power` subcommand can also be used.
+It supports selecting a configured
+[PowerAction](#PowerAction) for the request instead of the
+default **ResumeProgram** or **SuspendProgram**:
+
+```
+scontrol power <up|down> [asap|force] {ALL|<nodelist>|<nodeset>} [Action=<name>]
+[Reason=<reason>]
+```
+
+**NOTE**: `Reason=` is only accepted for
+`power down`.
 
 `scontrol update` command actions/states of interest:
 
@@ -444,13 +535,15 @@ scontrol update nodename=<nodename> state=power_<down|down_asap|down_force|up>
 
 ## Resume and Suspend Programs
 
-The **ResumeProgram** and **SuspendProgram** execute as
-*SlurmUser* on the node where the *slurmctld* daemon runs (primary
-and backup server nodes). Use of *sudo* may be required for
-*SlurmUser* to power down and restart nodes. If you need to convert
-Slurm's hostlist expression into individual node names, the `scontrol
-show hostnames` command may prove useful. The commands used to boot or
-shut down nodes will depend upon your cluster management tools.
+When **ResumeProgram** or **SuspendProgram** is set to a filesystem
+path, that program executes as *SlurmUser* on the host where the
+*slurmctld* daemon runs (primary and backup controller nodes). When either
+parameter names a [PowerAction](#PowerAction) instead, the
+**Location** field determines what user runs the program where, as explained
+above. The commands used to change power state will depend upon your cluster
+management tools and may require *sudo* for the executing user to run.
+If you need to convert Slurm's hostlist expression into individual node names,
+the `scontrol show hostnames` command may prove useful.
 
 The **ResumeProgram** and **SuspendProgram** are not subject to any
 time limits but must have [Fault Tolerance](#tolerance). They

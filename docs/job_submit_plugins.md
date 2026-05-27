@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -183,6 +183,10 @@ better ease of use. Sample Lua scripts can be found with the Slurm distribution
 in the directory *contribs/lua*. The default installation location of
 the Lua scripts is the same location as the Slurm configuration file,
 *slurm.conf*.
+Setting `debugflags=script` and (at least debug)
+`SlurmctldDebug=debug` in <slurm.conf> will
+dump error stacktraces in the slurmctld.log along with the debugging
+information but should **not** be configured on production clusters.
 Reading and writing of job environment variables using Lua is possible
 by referencing the environment variables as a data structure containing
 named elements.

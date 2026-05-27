@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -305,18 +305,8 @@ This module has the following options:
     connecting from a login node. Configurable values are:
 
     :   **newest** (default)
-        :   On systems with *cgroup/v1* pick the newest job on the node.
-            The "newest" job is chosen based on the mtime of the job's step\_extern cgroup;
-            asking Slurm would require an RPC to the controller. Thus, the memory cgroup
-            must be in use so that the code can check mtimes of cgroup directories. The user
-            can ssh in but may be adopted into a job that exits earlier than the
-            job they intended to check on. The ssh connection will at least be
-            subject to appropriate limits and the user can be informed of better
-            ways to accomplish their objectives if this becomes a problem.
-            **NOTE**: If the module fails to retrieve the cgroup mtime, then the picked
-            job may not be the newest one.
-            On systems with *cgroup/v2* the newest is just the job with the greatest
-            id, and thus this does not ensure that it is really the newest job.
+        :   Pick the newest job added to the node. If the newest jobs were started in
+            the same second, pick the job with the greatest id.
 
         **allow**
         :   Let the connection through without adoption.

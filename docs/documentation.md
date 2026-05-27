@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -32,7 +32,7 @@ Version 25.11
 
 # Documentation
 
-**NOTE: This documentation is for Slurm version 25.11.  
+**NOTE: This documentation is for Slurm version 26.05.  
 Documentation for older versions of Slurm are distributed with the source, or
 may be found in the [archive](https://slurm.schedmd.com/archive/).**
 

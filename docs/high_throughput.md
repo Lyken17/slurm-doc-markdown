@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -61,7 +61,7 @@ directly into these files
 * **/proc/sys/net/ipv4/tcp\_max\_syn\_backlog**:
   The maximum number of SYN requests to keep in memory that we have yet to get
   the third packet in a 3-way handshake from.
-  The default value is 1024 for systems with more than 128Mb of memory, and 128
+  The default value is 1024 for systems with more than 128MiB of memory, and 128
   for low memory machines. If server suffers of overload, try to increase this
   number.
 * **/proc/sys/net/ipv4/tcp\_syncookies**:

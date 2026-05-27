@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -77,7 +77,8 @@ error message will be printed and the job will not be signaled.
 ## ARGUMENTS
 
 *job\_id*
-:   The Slurm job ID to be signaled.
+:   The Slurm job ID to be signaled. A SLUID may also be used in place of a
+    numeric job ID.
 
     : *step\_id* : The step ID of the job step to be signaled. If not specified, the operation is performed at the level of a job. If neither **--batch** nor **--signal** are used, the entire job will be terminated. When **--batch** is used, the batch shell processes will be signaled. The child processes of the shell will not be signaled by Slurm, but the shell may forward the signal. When **--batch** is not used but **--signal** is used, then all job steps will be signaled, but the batch script itself will not be signaled.
 
@@ -182,4 +183,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 19:55:11 GMT, May 14, 2026
+Time: 20:52:42 GMT, May 26, 2026

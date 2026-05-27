@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -63,8 +63,15 @@ The **namespace/linux** plugin (added 25.11) uses the configuration file
 [namespace.yaml](namespace.yaml.md). This plugin can be configured
 to create user and PID namespaces in addition to a temporary filesystem
 namespace. Namespaces can be configured for all nodes or for a subset of nodes.
-As an example, if all nodes will be configured the same way, you could put the
-following in your namespace.yaml:
+
+By default the plugin creates private bind mounts for **/tmp** and
+**/dev/shm**. The **dirs** option can be used to change the list of
+directories. For more control, the **dir\_confs** option provides
+per-directory configuration including per-directory backing storage, mount
+options, tmpfs support, and path substitutions.
+
+As an example, if all nodes will be configured the same way, you could put
+the following in your namespace.yaml:
 
 ```
 defaults:

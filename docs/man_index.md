@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -32,7 +32,7 @@ Version 25.11
 
 # Man Pages
 
-**NOTE: This documentation is for Slurm version 25.11.  
+**NOTE: This documentation is for Slurm version 26.05.  
 Documentation for other versions of Slurm is distributed with the code**
 
 Refer to [this page](slurm.md) for an overview of Slurm.
@@ -62,6 +62,7 @@ Refer to [this page](slurm.md) for an overview of Slurm.
 | [sstat](sstat.md) | Display the status information of a running job/step. |
 | [strigger](strigger.md) | Used to set, get or clear Slurm trigger information. |
 | [sview](sview.md) | Graphical user interface to view and modify Slurm state. |
+| [swait](swait.md) | Wait for steps of a stepmgr-enabled job to complete. |
 
 ## Configuration Files
 

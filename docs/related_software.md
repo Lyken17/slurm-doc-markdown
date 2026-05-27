@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -206,7 +206,8 @@ administrators.
 * [**HTTP Parser**](https://github.com/nodejs/http-parser)
 
   [slurmrestd](rest.md) requires **libhttp\_parser
-  (>= v2.6.0)**. Instructions for the build are as follows:
+  (>= v2.6.0)** or [llhttp](#llhttp). Instructions for the
+  build are as follows:
 
   ```
   git clone --depth 1 --single-branch -b v2.9.4 https://github.com/nodejs/http-parser.git http_parser
@@ -218,7 +219,27 @@ administrators.
   Add the following argument when running *configure* for Slurm:
 
   ```
-  --with-http-parser=/usr/local/
+  --with-libhttp-parser=/usr/local/
+  ```
+  
+* [**LLHTTP Parser**](https://github.com/nodejs/llhttp)
+
+  [slurmrestd](rest.md) requires **llhttp
+  (>= v9.0.0)** or [libhttp\_parser](#httpparser).
+  Instructions for the build are as follows:
+
+  ```
+  git clone --depth 1 --single-branch -b v9.0.0 https://github.com/nodejs/llhttp.git llhttp
+  cd llhttp
+  npm ci
+  make
+  sudo make install
+  ```
+
+  Add the following argument when running *configure* for Slurm:
+
+  ```
+  --with-llhttp-parser=/usr/local/
   ```
   
 * [**YAML Parser**](https://github.com/yaml/libyaml)

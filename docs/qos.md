@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -129,8 +129,8 @@ Starting in Slurm 23.11, a QOS may be configured to contain relative resource
 limits instead of absolute limits by setting `Flags=Relative`.
 When this flag is set, all resource limits are treated as percentages of the
 total resources available. Values higher than 100 are interpreted as 100%.
-Memory limits should be set with no units. Although the default units (MB) will
-be displayed, the limits will be enforced as a percentage (1MB = 1%).
+Memory limits should be set with no units. Although the default units (M) will
+be displayed, the limits will be enforced as a percentage (1M = 1%).
 
 **NOTE**: When *Flags=Relative* is added to a QOS, **slurmctld**
 must be restarted or reconfigured for the flag to take effect.

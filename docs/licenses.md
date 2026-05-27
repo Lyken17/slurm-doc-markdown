@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -249,8 +249,14 @@ LicenseName=nastran@flex_host
     LastConsumed=0 LastDeficit=0 LastUpdate=2023-02-28T17:01:44
 ```
 
-When submitting jobs to remote licenses, the name and server must be
-used.
+**NOTE**: By default only lowercase resources names are supported, but
+starting with Slurm 26.05 you can configure **Parameters=PreserveCaseResource**
+in slurmdbd.conf to allow resource names with uppercase characters.
+
+When submitting jobs using remote licenses, by default the name and server
+must be used. Starting with Slurm 26.05, it is possible to only use the name
+(without the server) if **LicenseParameters=RemoteFuzzyMatch** is set in
+slurm.conf
 
 ```
 $ sbatch -L nastran@flex_host script.sh
@@ -343,6 +349,20 @@ $ sacctmgr show resource withclusters
 This can also be established as the default for all newly created licenses
 by adding *AllResourcesAbsolute=yes* to *slurmdbd.conf* (and restarting
 SlurmDBD to make the change take effect).
+
+Starting with Slurm 26.05, the flag *SharedPool* allows each cluster
+to access the full license pool. Normally each cluster must have a specific
+*Allowed* count or percentage of licenses that it can access;
+*SharedPool* removes that requirement. Because multiple clusters can each
+schedule up to *Count* licenses, one cluster may exhaust the pool and
+cause jobs at another cluster to stall waiting for licenses. It is strongly
+recommended to use [Dynamic Licenses](#dynamic_licenses) so that
+real-time usage from the license server is reflected in scheduling decisions.
+
+*SharedPool* requires that each cluster's *Allowed* be either 0
+or the full *Count*/100%. Partial shares are not supported because
+they conflict with how *LastConsumed* (the count reported by the license
+server) is applied across clusters.
 
 ## Dynamic Licenses
 

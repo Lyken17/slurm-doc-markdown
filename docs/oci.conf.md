@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -81,7 +81,7 @@ All of the OCI patterns will replace the following characters:
 **%%**
 :   Replace as "%".
 
-    : **%@** : Replace as the command and arguments. Each argument will be enclosed with single quotes and escaped. : **%b** : Replace as OCI Bundle Path. : **%e** : Replace as path to file containing environment if **CreateEnvFile=true**. : **%j** : Replace as numeric job id. : **%m** : Replace with the per-step spool directory path of the container as patterned by **ContainerPath**. If **ContainerPath** is not set, this is replaced with a uniquely generated subdirectory under **SlurmdSpoolDir** as defined in **[slurm.conf](slurm.conf.md)**(5), or defaults to "/var/spool/slurmd". : **%n** : Replace as nodename. : **%p** : Replace as PID of first processes forked off. Only for use in **RunTimeKill** or **RunTimeDelete**. : **%r** : Replace as original path to rootfs. : **%s** : Replace as numeric step id. : **%t** : Replace as numeric step task id. : **%u** : Replace as user name. : **%U** : Replace as numeric user id.
+    : **%@** : Replace as the command and arguments. Each argument will be enclosed with single quotes and escaped. : **%b** : Replace as OCI Bundle Path. : **%e** : Replace as path to file containing environment if **CreateEnvFile=true**. : **%j** : Replace as numeric job id. : **%m** : Replace with the per-step spool directory path of the container as patterned by **ContainerPath**. If **ContainerPath** is not set, this is replaced with a uniquely generated subdirectory under **SlurmdSpoolDir** as defined in **[slurm.conf](slurm.conf.md)**(5), or defaults to "/var/spool/slurmd". : **%n** : Replace as nodename. : **%p** : Replace as PID of first processes forked off. Only for use in **RunTimeKill** or **RunTimeDelete**. : **%r** : Replace as original path to rootfs. : **%s** : Replace as numeric step id. : **%t** : Replace as numeric step task id. : **%u** : Replace as user name. : **%U** : Replace as numeric user id. : **%Z** : Replace as the job's working directory (the value of **--chdir**).
 
 ## COPYING
 
@@ -116,4 +116,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 19:55:11 GMT, May 14, 2026
+Time: 20:52:42 GMT, May 26, 2026
