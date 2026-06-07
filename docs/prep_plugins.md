@@ -150,4 +150,56 @@ job\_env
 (input) details from the step launch request  
 cred
 (input) launch credential with additional verifiable launch details signed by
-the slurmctld
+the slurmctld  
+
+**Returns**:   
+SLURM\_SUCCESS on success, or  
+SLURM\_ERROR on failure, will cause job failure.
+
+int prep\_p\_epilog(job\_env\_t \*job\_env, slurm\_cred\_t \*cred)
+
+**Description**:  
+Called within the slurmd as root after all job steps have completed.
+
+**Arguments**:   
+job\_env
+(input) details from the step launch request  
+cred
+(input) launch credential with additional verifiable launch details signed by
+the slurmctld  
+
+**Returns**:   
+SLURM\_SUCCESS on success, or  
+SLURM\_ERROR on failure, will cause job failure.
+
+int prep\_p\_prolog\_slurmctld(job\_record\_t \*job\_ptr, bool \*async)
+
+**Description**:  
+Called within the slurmctld before a job launches.
+
+**Arguments**:   
+job\_ptr
+(input) raw job record  
+async
+(output) set to true if this interface has spawned a separate processing thread
+that must complete before the job starts execution  
+
+**Returns**:   
+SLURM\_SUCCESS on success, or  
+SLURM\_ERROR on failure, will cause job failure.
+
+int prep\_p\_epilog\_slurmctld(job\_record\_t \*job\_ptr, bool \*async)
+
+**Description**:  
+Called within the slurmctld as a job is terminating.
+
+**Arguments**:   
+job\_ptr
+(input) raw job record  
+async
+(output) set to true if this interface has spawned a separate processing thread
+that must complete before the job is marked complete  
+
+**Returns**:   
+SLURM\_SUCCESS on success, or  
+SLURM\_ERROR on failure, will cause job failure.
