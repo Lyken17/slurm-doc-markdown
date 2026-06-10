@@ -34,8 +34,8 @@ Version 26.05
 
 ## Overview
 
-A namespace plugin can be enabled to provide job-specific, private temporary
-file system space.
+A namespace plugin can be enabled to provide private, temporary file system
+space for each job.
 
 When enabled on the cluster, a filesystem namespace will be created for each
 job with a unique, private instance of /tmp and /dev/shm for the job to use.
@@ -56,6 +56,10 @@ Slurm must be configured to load the namespace plugin by adding
 plugin in slurm.conf. Additional configuration must be done in the
 plugin-specific configuration file file, which should be placed in the same
 directory as slurm.conf.
+
+If using **pam\_slurm\_adopt**, note the
+[join\_container](pam_slurm_adopt.md#join_container) option that
+controls whether an adopted SSH session will try to join the job's namespace.
 
 ### namespace/linux plugin
 
@@ -102,7 +106,7 @@ BasePath=/var/nvme/storage
 
 An easy way to verify that the container is working is to run a job and
 ensure that the /tmp directory is empty (since it normally has some other
-files) and that "." is owned by the user that submitted the job.
+files) and is owned by the user that submitted the job.
 
 ```
 tim@slurm-ctld:~$ srun ls -al /tmp
@@ -116,18 +120,36 @@ While a job is running, root should be able to confirm that
 mounted into the job. `/$BasePath/$JobID` should be owned by root,
 and is not intended to be accessible to the user.
 
+You can also verify the mount location is correct:
+
+```
+parallels@linux_vb:~$ echo $SLURM_JOB_ID
+7
+parallels@linux_vb:~$ findmnt -o+PROPAGATION | grep /tmp
+└─/tmp  /dev/sda1[/storage/7/.7] ext4  rw,relatime,errors=remount-ro,data=ordered   private
+```
+
+In the example above, **base\_path** points to **/storage**, so job ID 7
+mounts **/tmp** on **/storage/7/.7**. When a user from inside a job tries
+to look up mounts, they can see that their **/tmp** is mounted, but they are
+prevented from mistakenly accessing the backing directory directly.
+
 Additionally, when the **Linux** plugin is in use, you can confirm that a
-PID namespace is in effect by running a job and running "ps". The only visible
-PIDs should be related to the job and PID 1 will be named **slurmstepd:
-[${job\_id}.namespace]**.
+PID namespace is in effect by running a job and running `ps`.
+The only visible PIDs should be related to the job and PID 1 will be named
+`slurmstepd: [${job_id}.namespace]`.
 
 ## SPANK
 
-This plugin interfaces with the SPANK api, and automatically joins the job's
+This plugin interfaces with the SPANK API, and automatically joins the job's
 namespace in the following functions:
 
 * spank\_task\_init\_privileged()
 * spank\_task\_init()
 
-In addition to the job itself, the TaskProlog will also be executed inside
-the container.
+Mount namespace construction also happens before the job's SPANK environment
+is set up. Hence all SPANK-related job steps will view only the private /tmp the
+plugin creates.
+
+In addition to the job itself, the **TaskProlog** will also be executed
+inside the container.

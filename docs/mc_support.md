@@ -60,8 +60,8 @@ by their application. Table 1 summarizes these options.
 | **[High-level (automatic mask generation)](#srun_highlevelmc)** | |
 | --sockets-per-node=*S* | Number of sockets in a node to dedicate to a job (minimum) |
 | --cores-per-socket=*C* | Number of cores in a socket to dedicate to a job (minimum) |
-| --threads-per-core=*T* | Minimum number of threads in a core to dedicate to a job. In task layout, use the specified maximum number of threads per-core. |
-| -B *S[:C[:T]]* | Combined shortcut option for --sockets-per-node, --cores-per\_cpu, --threads-per\_core |
+| --threads-per-core=*T* | Minimum number of threads in a core to dedicate to a job. In task layout, use the specified maximum number of threads per core. |
+| -B *S[:C[:T]]* | Combined shortcut option for --sockets-per-node, --cores-per-socket, --threads-per-core |
 | **[Task Distribution Options](#srun_dist)** | |
 | -m / --distribution | Distributions of: arbitrary | block | cyclic | [plane=*x*](dist_plane.md) | [block|cyclic]:[block|cyclic|fcyclic] |
 | **[Memory as a consumable resource](#srun_consres)** | |

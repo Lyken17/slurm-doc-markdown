@@ -2017,55 +2017,9 @@ configuration option in slurm.conf.
 **How can I set up a private /tmp and /dev/shm for
 jobs on my machine?**
   
-The namespace/tmpfs plugin can be used by including
-*NamespaceType=namespace/tmpfs*
-in your slurm.conf file. It additionally requires a
-[job\_container.conf](job_container.conf.md) file to be
-set up which is further described in the man page.
-Tmpfs plugin creates a private mount namespace inside of which it mounts a
-private /tmp to a location that is configured in job\_container.conf. The basepath
-is used to construct the mount path, by creating a job specific directory inside it
-and mounting /tmp to it. Since all the mounts are created inside of a mount
-namespace which is private, they are only visible inside the job. Hence this
-proves to be a useful solution for jobs that are on shared nodes, since each
-job can only view mounts created in their own mount namespace. A private
-/dev/shm is also mounted to isolate it between different jobs.
-
-Mount namespace construction also happens before job's spank environment is
-set up. Hence all spank related job steps will view only private /tmp the
-plugin creates. The plugin also provides an optional initialization script that
-is invoked before the job's namespace is constructed. This can be useful for
-any site specific customization that may be necessary.
-
-```
-parallels@linux_vb:~$ echo $SLURM_JOB_ID
-7
-parallels@linux_vb:~$ findmnt -o+PROPAGATION | grep /tmp
-└─/tmp  /dev/sda1[/storage/7/.7] ext4  rw,relatime,errors=remount-ro,data=ordered   private
-```
-
-In the example above, *BasePath* points to /storage and a slurm job with
-job id 7 is set up to mount /tmp on /storage/7/.7. When user from inside a job
-tries to look up mounts, they can see that their /tmp is mounted. However
-they are prevented from mistakenly accessing the backing directory directly.
-
-```
-parallels@linux_vb:~$ cd /storage/7/
-bash: cd: /storage/7/: Permission denied
-```
-
-They are allowed to access (read/write) /tmp only.
-
-Additionally pam\_slurm\_adopt has also been extended to support this functionality.
-If a user starts an ssh session which is managed by pam\_slurm\_adopt, then
-the user's process joins the namespace that is constructed by tmpfs plugin.
-Hence in ssh sessions, user has the same view of /tmp and /dev/shm as
-their job. This functionality is enabled by default in pam\_slurm\_adopt
-but can be disabled explicitly by appending *join\_container=false* as shown:
-
-```
-account	sufficient  pam_slurm_adopt.so join_container=false
-```
+A namespace plugin can be enabled to provide private, temporary file system
+space for each job. Refer to the [Namespace Plugins](namespace.md)
+page for more details.
 
 **How do I configure Slurm to work with System V IPC
 enabled applications?**  

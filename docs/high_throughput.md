@@ -255,6 +255,20 @@ options that you may want to consider for higher throughput.
       * **SlurmdDebug**:
         More detailed logging will decrease system throughput. Set to *error* or
         *info* for regular operations with high throughput workload.
+      * **SlurmdParameters**:
+        + Increasing **conmgr\_max\_connections** will allow slurmd to accept more
+          simultaneous connections from slurmctld. On nodes running many concurrent jobs,
+          each job may generate multiple inbound connections from slurmctld (e.g., job
+          launch, signals, termination). If the number of concurrent jobs approaches or
+          exceeds the default connection limit, slurmctld will time out trying to reach
+          slurmd, causing jobs to become stuck in the COMPLETING state until slurmctld
+          retries successfully. Sites should set this to at least the number of jobs
+          expected to run concurrently on a single node. The same memory trade-off
+          described under **SlurmctldParameters=conmgr\_max\_connections** applies here.
+            
+          **NOTE**: When **SlurmctldParameters=enable\_stepmgr** is set,
+          slurmctld manages step lifecycles directly, which increases the number of
+          connections to each slurmd and makes tuning this parameter more important.
       * **SlurmdLogFile**:
         Writing to local storage is recommended.
       * The ability to do RPC rate limiting on a per-user basis is a new feature

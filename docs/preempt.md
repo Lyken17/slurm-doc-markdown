@@ -254,6 +254,8 @@ the first identified component of the job with the highest order PreemptMode
 (*SUSPEND* (highest), *REQUEUE*, *CANCEL* (lowest)) will be
 used to set the PreemptMode for all components. The *GraceTime* and user
 warning signal for each component of the heterogeneous job remain unique.
+Note that preemption of heterogeneous jobs is only supported with
+*SelectType=select/cons\_tres*, not with *select/linear*.
 
 Because licenses are not freed when jobs are suspended, jobs using licenses
 requested by higher priority jobs will only be prempted when PreemptMode is

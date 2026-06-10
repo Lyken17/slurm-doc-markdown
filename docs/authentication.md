@@ -1,4 +1,4 @@
-# Slurm Workload Manager - 
+# Slurm Workload Manager - Authentication Plugins
 
 # [Slurm Workload Manager](/)
 

@@ -1,4 +1,4 @@
-# Slurm Workload Manager - 
+# Slurm Workload Manager - Slurm REST API
 
 # [Slurm Workload Manager](/)
 
@@ -38,7 +38,7 @@ More information: <https://www.schedmd.com/>
 
 Contact Info: <sales@schedmd.com>
 
-Version: Slurm-26.05.0
+Version: Slurm-26.05.1
 
 BasePath:
 

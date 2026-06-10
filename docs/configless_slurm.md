@@ -1,4 +1,4 @@
-# Slurm Workload Manager - 
+# Slurm Workload Manager - "Configless" Slurm
 
 # [Slurm Workload Manager](/)
 

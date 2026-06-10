@@ -71,11 +71,16 @@ influence job priority:
 Age: the length of time a job has been waiting in the queue, eligible to be scheduled Association: a factor associated with each association Fair-share: the difference between the portion of the computing resource that has been promised and the amount of resources that has been consumed Job size: the number of nodes or CPUs a job is allocated Nice: a factor that can be controlled by users to prioritize their own jobs. Partition: a factor associated with each node partition QOS: a factor associated with each Quality Of Service Site: a factor dictated by an administrator or a site-developed job\_submit or site\_factor plugin TRES: each TRES Type has its own factor for a job which represents the number of requested/allocated TRES Type in a given partition
 
 Additionally, a weight can be assigned to each of the above
-factors. This provides the ability to enact a policy that blends a
-combination of any of the above factors in any portion desired. For
-example, a site could configure fair-share to be the dominant factor
-(say 70%), set the job size and the age factors to each contribute
-15%, and set the partition and QOS influences to zero.
+factors. The default weight for each factor is 0, so only factors
+specified in **slurm.conf** will impact job priority. This allows
+administrators to configure any combination of the above factors.
+
+For example, a site could configure fair-share to be the dominant
+factor with a weight of 5000, set the job size and the age factors
+each to a weight of 1000, and set the partition and QOS weights to
+zero (or leave them unset). With these weights, the maximum possible
+priority would be 7000, with ~70% of that determined by fair-share
+and ~15% determined by job size and age each.
 
 ## Job Priority Factors In General
 

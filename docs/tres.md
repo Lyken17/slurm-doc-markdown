@@ -50,6 +50,11 @@ Current TRES Types are:
 * Pages
 * VMem (Virtual Memory/Size)
 
+For many TRES types, the units are a count of that item (e.g., CPU). For TRES
+types in which the value represents an amount of data (e.g., Memory), the
+default unit is Mebibytes (MiB). Different units can be specified using a
+suffix `[K|M|G|T|P]`.
+
 The Billing TRES is calculated from a partition's TRESBillingWeights. See
 below for details.
 
@@ -138,11 +143,11 @@ By default, jobs are billed against the total number of allocated CPUs
 i.e., `TRESBillingWeights="CPU=1"`.
 
 The weighted amount of a resource can be adjusted by adding a suffix of
-`[KMGTP]` after the billing weight. The base unit for memory and burst
-buffers is Mebibytes. For example, a memory weight of `mem=0.25` on a
-job allocated 8GiB will result in 2048 billed units (8192MiB \* 0.25). A memory
-weight of `mem=0.25G` on the same job will result in 2 billed units
-((8192MiB/1024) \* 0.25).
+`[K|M|G|T|P]` after the billing weight. The base unit for memory and
+burst buffers is Mebibytes. For example, a memory weight of `mem=0.25`
+on a job allocated 8GiB will result in 2048 billed units (8192MiB \* 0.25). A
+memory weight of `mem=0.25G` on the same job will result in 2 billed
+units ((8192MiB/1024) \* 0.25).
 
 By default the billing of TRES is calculated as the sum of all TRES types
 multiplied by their corresponding billing weight. For example, consider a

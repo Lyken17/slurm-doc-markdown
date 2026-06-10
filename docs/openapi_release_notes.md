@@ -50,6 +50,48 @@ any target slurmrestd daemon. Development of clients should always be designed
 to use the highest version of the plugins available to avoid needing to port
 clients sooner than would be otherwise required.
 
+## Slurm 26.05.1
+
+### data\_parser/v0.0.45
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .info.version = "Slurm-26.05.1"; |
+| Replaced | .info["x-slurm"].release = "26.05.1"; |
+| Replaced | .info["x-slurm"].version.micro = "1"; |
+
+### data\_parser/v0.0.44
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .info.version = "Slurm-26.05.1"; |
+| Replaced | .info["x-slurm"].release = "26.05.1"; |
+| Replaced | .info["x-slurm"].version.micro = "1"; |
+
+### data\_parser/v0.0.43
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .info.version = "Slurm-26.05.1"; |
+| Replaced | .info["x-slurm"].release = "26.05.1"; |
+| Replaced | .info["x-slurm"].version.micro = "1"; |
+
+### data\_parser/v0.0.42
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .info.version = "Slurm-26.05.1"; |
+| Replaced | .info["x-slurm"].release = "26.05.1"; |
+| Replaced | .info["x-slurm"].version.micro = "1"; |
+
 ## Slurm 26.05.0
 
 ### data\_parser/v0.0.45
