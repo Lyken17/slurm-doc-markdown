@@ -1,6 +1,6 @@
 # Slurm System Configuration Tool
 
-# Slurm Version 25.11 Configuration Tool - Easy Version
+# Slurm Version 26.05 Configuration Tool - Easy Version
 
 This form can be used to create a Slurm configuration file with
 you controlling many of the important configuration parameters.
@@ -10,7 +10,7 @@ has fewer options for creating a Slurm configuration file. The full version
 of the Slurm configuration tool is available at
 <configurator.html>.
 
-**This tool supports Slurm version 25.11 only.**
+**This tool supports Slurm version 26.05 only.**
 Configuration files for other versions of Slurm should be built
 using the tool distributed with it in *doc/html/configurator.html*.
 Some parameters will be set to default values, but you can
@@ -192,4 +192,62 @@ Select one value for **SelectType**:
 trackable resources  
 
 **Linear**: Node-base
-resource allocation, does not manage individual processor allocation
+resource allocation, does not manage individual processor allocation  
+
+## Task Launch
+
+Define a task launch plugin. This may be used to
+provide resource management within a node (e.g. pinning
+tasks to specific processors).
+Select one value for **TaskPlugin**:  
+ **None**: No task launch actions  
+ **Affinity**:
+CPU affinity support
+(see srun man pages for the --cpu-bind, --mem-bind, and -E options)  
+ **Cgroup**:
+Allocated resources constraints enforcement using Linux Control Groups
+(see cgroup.conf man page)
+
+## Event Logging
+
+Slurmctld and slurmd daemons can each be configured with different
+levels of logging verbosity from 0 (quiet) to 7 (extremely verbose).
+Each may also be configured to use debug files. Use fully qualified
+pathnames for the files.
+
+**SlurmctldLogFile** (if empty, log goes to syslog)
+
+**SlurmdLogFile** (if empty, log goes to syslog. String "%h" in name gets
+replaced with hostname)
+
+## Job Accounting Gather
+
+Slurm accounts for resource use per job. System specifics can be polled
+determined by system type  
+Select one value for **JobAcctGatherType**:  
+ **None**: No
+job accounting  
+ **cgroup**:
+Specific Linux cgroup information gathered, use with Linux systems only  
+ **Linux**: Specific
+Linux process table information gathered, use with Linux systems only  
+
+## Job Accounting Storage
+
+Used with the Job Accounting Gather Slurm can store the accounting information in many different fashions. Fill in your systems choice here  
+Select one value for **AccountingStorageType**:  
+ **None**:
+No job accounting storage  
+ **SlurmDBD**:
+Write job accounting to SlurmDBD (database daemon) which can securely
+save the data from many Slurm managed clusters into a common database  
+
+## Process ID Logging
+
+Define the location into which we can record the daemon's process ID.
+This is used for locate the appropriate daemon for signaling.
+Specify a specify the fully qualified pathname for the file.
+
+**SlurmctldPidFile**
+
+**SlurmdPidFile**

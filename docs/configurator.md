@@ -1,6 +1,6 @@
 # Slurm System Configuration Tool
 
-# Slurm Version 25.11 Configuration Tool
+# Slurm Version 26.05 Configuration Tool
 
 This form can be used to create a Slurm configuration file with
 you controlling many of the important configuration parameters.
@@ -10,7 +10,7 @@ has all the configuration options to create a Slurm configuration file. There
 is a simplified version of the Slurm configuration tool available at
 <configurator.easy.html>.
 
-**This tool supports Slurm version 25.11 only.**
+**This tool supports Slurm version 26.05 only.**
 Configuration files for other versions of Slurm should be built
 using the tool distributed with it in *doc/html/configurator.html*.
 Some parameters will be set to default values, but you can
@@ -206,4 +206,169 @@ Select one value for **SelectType**:
 trackable resources  
 
 **Linear**: Node-base
-resource allocation, does not manage individual processor allocation
+resource allocation, does not manage individual processor allocation  
+
+## Task Launch
+
+Define a task launch plugin. This may be used to
+provide resource management within a node (e.g. pinning
+tasks to specific processors).
+Select one value for **TaskPlugin**:  
+ **None**: No task launch actions  
+ **Affinity**:
+CPU affinity support
+(see srun man pages for the --cpu-bind, --mem-bind, and -E options)  
+ **Cgroup**:
+Allocated resources constraints enforcement using Linux Control Groups
+(see cgroup.conf man page)
+
+## Prolog and Epilog
+
+**Prolog/Epilog**: Path that will be executed as root on every
+node of a user's job before the job's tasks will be initiated there
+and after that job has terminated.
+These parameters are optional.
+
+**Prolog** **Epilog**
+
+**SrunProlog/Epilog**: Fully qualified path to be executed by srun at
+job step initiation and termination. These parameters may be overridden by
+srun's --prolog and --epilog options
+These parameters are optional.
+
+**SrunProlog** **SrunEpilog**
+
+**TaskProlog/Epilog**: Path that will be executed as the user
+before each task begins execution and after each task terminates.
+These parameters are optional.
+
+**TaskProlog** **TaskEpilog**
+
+## Event Logging
+
+Slurmctld and slurmd daemons can each be configured with different
+levels of logging verbosity from 0 (quiet) to 7 (extremely verbose).
+Each may also be configured to use debug files. Use fully qualified
+pathnames for the files.
+
+**SlurmctldDebug**
+(default is info)
+
+**SlurmctldLogFile** (if empty, log goes to syslog)
+
+**SlurmdDebug**
+(default is info)
+
+**SlurmdLogFile** (if empty, log goes to syslog. String "%h" in name gets
+replaced with hostname)
+
+## Job Completion Logging
+
+Define the job completion logging mechanism to be used. Defaults to None.
+Select one value for **JobCompType**:  
+ **None**:
+No job completion logging  
+ **Elasticsearch**:
+Write job completion info to an Elasticsearch server  
+ **FileTxt**:
+Write job completion status to a text file  
+ **Kafka**:
+Write job completion info to a Kafka server  
+ **Lua**:
+Use a script called jobcomp.lua to log job completion  
+ **Script**:
+Use an arbitrary script to log job completion  
+ **MySQL**:
+Write completion status to a MySQL or MariaDB database  
+
+**JobCompLoc**:
+This is the location of the text file to be written to (if JobCompType=filetxt),
+or the script to be run (if JobCompType=script), or the URL to the
+Elasticsearch server (if JobCompType=elasticsearch), or file containing
+librdkafka parameters (if JobCompType=jobcomp/kafka), database name
+(for other values of JobCompType).
+
+**Options below are for use with a database to specify where the database is running and how to connect to it**  
+ **JobCompHost**:
+Host the database is running on for Job completion  
+ **JobCompPort**:
+Port the database server is listening on for Job completion  
+ **JobCompUser**:
+User we are to use to talk to the database for Job completion  
+ **JobCompParams**:
+Pass arbitrary text string to Job completion plugin  
+ **JobCompPass**:
+Password we are to use to talk to the database for Job completion  
+
+## Job Accounting Gather
+
+Slurm accounts for resource use per job. System specifics can be polled
+determined by system type  
+Select one value for **JobAcctGatherType**:  
+ **None**: No
+job accounting  
+ **cgroup**:
+Specific Linux cgroup information gathered, use with Linux systems only  
+ **Linux**: Specific
+Linux process table information gathered, use with Linux systems only  
+ **JobAcctGatherFrequency**:
+polling interval in seconds. Zero disables periodic sampling.  
+
+## Job Accounting Storage
+
+Used with the Job Accounting Gather Slurm can store the accounting information in many different fashions. Fill in your systems choice here  
+Select one value for **AccountingStorageType**:  
+ **None**:
+No job accounting storage  
+ **SlurmDBD**:
+Write job accounting to SlurmDBD (database daemon) which can securely
+save the data from many Slurm managed clusters into a common database  
+
+**Options below are for use with a database to specify where the database is running and how to connect to it**  
+ **AccountingStorageHost**:
+Host the database is running on for Job Accounting  
+ **AccountingStoragePort**:
+Port the database server is listening on for Job Accounting  
+ **AccountingStoreFlags**:
+Comma separated list. Options are:  
+'job\_comment' - store the job comment field in the database;  
+'job\_env' - store a batch job's env in the database;  
+'job\_extra' - store a batch job's extra field in the database;  
+'job\_script' - store the job batch script in the database.  
+
+## Process ID Logging
+
+Define the location into which we can record the daemon's process ID.
+This is used for locate the appropriate daemon for signaling.
+Specify a specify the fully qualified pathname for the file.
+
+**SlurmctldPidFile**
+
+**SlurmdPidFile**
+
+## Timers
+
+Slurm has a variety of timers to control when to consider a node DOWN,
+when to purge job records, how long to give a job to gracefully terminate, etc.
+
+**SlurmctldTimeout**: How many seconds the backup controller waits before
+becoming the active controller
+
+**SlurmdTimeout**: How many seconds the Slurm controller waits for the slurmd
+to respond to a request before considering the node DOWN
+
+**InactiveLimit**: How many seconds the Slurm controller waits for srun
+commands to respond before considering the job or job step inactive and
+terminating it. A value of zero indicates unlimited wait
+
+**MinJobAge**: How many seconds the Slurm controller waits after a
+job terminates before purging its record. A record of the job will
+persist in job completion and/or accounting records indefinitely,
+but will no longer be visible with the squeue command after puring
+
+**KillWait**: How many seconds a job is given to gracefully terminate
+after reaching its time limit and being sent SIGTERM before sending
+a SIGKILLL
+
+**WaitTime**: How many seconds after a job step's first task terminates
+before terminating all remaining tasks. A value of zero indicates unlimited wait
