@@ -58,8 +58,9 @@ an abbreviated view of **struct hostent** will be provided. Within a given
 process, the response will include only the cloud hosts that belong to
 allocation.
 
-All of this information is populated by slurmctld as it is seen on the
-host running slurmctld.
+All of this information is populated by slurmctld, based on information on
+the host running slurmctld by default, or on information from client systems if
+[AuthInfo=use\_client\_ids](slurm.conf.md#OPT_use_client_ids) is set.
 
 ## Installation
 

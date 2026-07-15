@@ -689,6 +689,13 @@ this can be forced to the plugin version too.
 * **CgroupMountPoint=/path/to/mount/point**: In most cases with cgroup v2,
   this parameter should not be used because */sys/fs/cgroup* will be the only
   cgroup directory.
+* **CgroupJobIdPaths=[yes|no]**: If configured to "yes" then job-level
+  cgroup directories are named with the numeric job ID instead of with the SLUID
+  (e.g. "*/sys/fs/cgroup/system.slice/slurmstepd.scope/job\_123/*" instead of
+  "*/sys/fs/cgroup/system.slice/slurmstepd.scope/sEKNKTV3WPV500/*").
+  This restores the pre-26.05 cgroup/v2 path layout and may be useful for sites
+  with external tooling keyed on job IDs.
+  The default value is no.
 
 ### Ignored parameters
 

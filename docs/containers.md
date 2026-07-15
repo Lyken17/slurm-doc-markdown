@@ -42,7 +42,8 @@ Version 26.05
 * [Testing OCI runtime outside of Slurm](#testing)
 * [Requesting container jobs or steps](#request)
 * [Integration with Rootless Docker](#docker-scrun)
-* [Integration with Podman](#podman-scrun)
+* [Integration with Podman using scrun](#podman-scrun)
+* [Integration with Podman using Slurm cgroup](#podman-cgroup)
 * [OCI Container bundle](#bundle)
 * [Example OpenMPI v5 + PMIx v4 container](#ex-ompi5-pmix4)
 * [Container support via Plugin](#plugin)
@@ -830,6 +831,58 @@ to run containers as jobs. No special user permissions are required and
      ```
      podman system reset
      ```
+
+## Integration with Podman using Slurm cgroup
+
+As an alternative to the [scrun integration](#podman-scrun),
+rootless Podman can be invoked directly inside a regular Slurm job on a compute
+node without any special OCI runtime configuration. In this model the user
+submits a normal batch or interactive job that calls `podman run`
+directly, and Podman executes within the Slurm-managed cgroup of that job.
+
+By default, rootless Podman creates its own cgroup namespace and uses the
+**systemd** cgroup manager, which causes container processes to be
+placed outside of Slurm's cgroup hierarchy. This can be prevented by
+configuring Podman to use the host cgroup namespace and the
+**cgroupfs** cgroup manager, so that all container processes remain
+visible to and constrained by Slurm's cgroup limits (e.g., CPU, memory, devices).
+
+### Required containers.conf configuration
+
+The following settings must be present in an applicable
+`containers.conf` file.
+
+* To configure for all users:
+  `/etc/containers/containers.conf`
+* To configure per user:
+  `$XDG_CONFIG_HOME/containers/containers.conf`
+  or
+  `~/.config/containers/containers.conf`
+  (if `$XDG_CONFIG_HOME` is not defined).
+
+```
+[containers]
+cgroupns = "host"
+
+[engine]
+cgroup_manager = "cgroupfs"
+```
+
+`cgroupns = "host"` instructs Podman not to create a new cgroup
+namespace, so the container processes share the host's cgroup namespace and
+remain within the cgroup that Slurm assigned to the job.
+  
+`cgroup_manager = "cgroupfs"` disables Podman's systemd cgroup
+integration, which would otherwise move processes into a new systemd scope
+outside of Slurm's hierarchy.
+
+### Comparison with scrun integration
+
+This approach differs from the [scrun-based
+integration](#podman-scrun) in that each `podman run` does **not** submit
+a new Slurm job — it runs directly within the already-allocated job. This
+makes it suitable for workflows that pull and run containers as part of a
+larger job script without the overhead of nested job submissions.
 
 ## OCI Container bundle
 

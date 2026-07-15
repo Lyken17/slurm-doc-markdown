@@ -153,43 +153,24 @@ environments should consider setting both
 after successful testing; otherwise, plugin failures may allow users to log in
 unconfined. Future examples on this page will include these flags.
 
-If you need the user management features from pam\_systemd, such as
-handling user runtime directory /run/user/$UID, you can have the prolog script
-run 'loginctl enable-linger $SLURM\_JOB\_USER' and the epilog script disable
-it again (after making sure there are no other jobs from this user on the node)
-by running 'loginctl disable-linger $SLURM\_JOB\_USER'. You will also need to
-export the XDG\_\* environment variables if your software requires them.
-You can see an example of prolog and epilog scripts here:
-
-Prolog:
-
-```
-loginctl enable-linger $SLURM_JOB_USER
-exit 0
-```
+When using pam\_slurm\_adopt, **pam\_systemd** must be disabled (as noted
+above), which means user session features such as the runtime directory
+`/run/user/$UID` and XDG environment variables are not automatically
+set up. A partial workaround is to provide **XDG\_RUNTIME\_DIR** via a per-user
+directory in `/dev/shm` using a **TaskProlog**:
 
 TaskProlog:
 
 ```
-echo "export XDG_RUNTIME_DIR=/run/user/$SLURM_JOB_UID"
-echo "export XDG_SESSION_ID=$(</proc/self/sessionid)"
-echo "export XDG_SESSION_TYPE=tty"
-echo "export XDG_SESSION_CLASS=user"
+MY_XDG_RUNTIME_DIR=/dev/shm/${SLURM_JOB_USER}
+mkdir -p $MY_XDG_RUNTIME_DIR
+chmod 700 $MY_XDG_RUNTIME_DIR
+echo "export XDG_RUNTIME_DIR=$MY_XDG_RUNTIME_DIR"
 ```
 
-Epilog:
-
-```
-#Only disable linger if this is the last job running for this user.
-O_P=0
-for pid in $(scontrol listpids | awk -v jid=$SLURM_JOB_ID 'NR!=1 { if ($2 != jid && $1 != "-1"){print $1} }'); do
-        ps --noheader -o euser p $pid | grep -q $SLURM_JOB_USER && O_P=1
-done
-if [ $O_P -eq 0 ]; then
-        loginctl disable-linger $SLURM_JOB_USER
-fi
-exit 0
-```
+**NOTE**: This does not fully substitute for a systemd user session.
+Features that depend on a running user bus or systemd user services (e.g., some
+dbus-dependent software) will not work with this approach.
 
 You must also make sure a different PAM
 module isn't short-circuiting the account stack before it gets to

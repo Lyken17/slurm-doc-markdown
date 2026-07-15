@@ -69,11 +69,17 @@ by their application. Table 1 summarizes these options.
 | --mem-per-cpu=*mem* | amount of real memory per allocated CPU required by the job. |
 | **[Task invocation control](#srun_ntasks)** | |
 | --cpus-per-task=*CPUs* | number of CPUs required per task |
- --ntasks-per-node=*ntasks* | number of tasks to invoke on each node | --ntasks-per-socket=*ntasks* | number of tasks to invoke on each socket | --ntasks-per-core=*ntasks* | number of tasks to invoke on each core | --overcommit | Permit more than one task per CPU || **[Application hints](#srun_hints)** | |
+| --ntasks-per-node=*ntasks* | number of tasks to invoke on each node |
+| --ntasks-per-socket=*ntasks* | number of tasks to invoke on each socket |
+| --ntasks-per-core=*ntasks* | number of tasks to invoke on each core |
+| --overcommit | Permit more than one task per CPU |
+| **[Application hints](#srun_hints)** | |
 | --hint=compute\_bound | use all cores in each socket |
- --hint=memory\_bound | use only one core in each socket | --hint=[no]multithread | [don't] use extra threads with in-core multi-threading || **[Resources reserved for system use](#srun_hints)** | |
+| --hint=memory\_bound | use only one core in each socket |
+| --hint=[no]multithread | [don't] use extra threads with in-core multi-threading |
+| **Resources reserved for system use** | |
 | --core-spec=*cores* | Count of cores to reserve for system use |
- --thread-spec=*threads* | Count of threads to reserve for system use |
+| --thread-spec=*threads* | Count of threads to reserve for system use |
 
 Table 1: srun flags to support the multi-core/multi-threaded environment
 

@@ -1186,12 +1186,15 @@ $ rpmbuild -ta slurm-23.11.1.tar.bz2 > /dev/null
 ```
 
 Alternatively, as of Slurm 24.11.0 when using **rpmbuild**, a patched
-package may be created directly by placing the patch file in the same directory
-as the source tarball and executing the following command:
+package may be created directly by placing the patch file(s) in the same
+directory as the source tarball and executing the following command:
 
 ```
-$ rpmbuild -ta --define 'patch security.patch' slurm-24.11.0.tar.bz2
+$ rpmbuild -ta --define 'patch security.patch bug2.patch' slurm-24.11.0.tar.bz2
 ```
+
+**NOTE**: Only use a single `--define`; using multiple will
+cause only the last flag to take effect.
 
 **Why am I being offered an automatic update for Slurm?**
   

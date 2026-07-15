@@ -54,14 +54,11 @@ Version 26.05
 
 ## Overview
 
-Please see the [Quick Start User Guide](quickstart.md) for a
-general overview.
+See also:
 
-Also see [Platforms](platforms.md) for a list of supported
-computer platforms.
-
-For information on performing an upgrade, please see the
-[Upgrade Guide](upgrades.md).
+* [Quick Start User Guide](quickstart.md)
+* [Platforms](platforms.md)
+* [Upgrade Guide](upgrades.md)
 
 ## Super Quick Start
 
