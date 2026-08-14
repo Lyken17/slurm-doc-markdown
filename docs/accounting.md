@@ -316,6 +316,13 @@ MySQL/MariaDB server settings that should be reviewed.
   older SQL server versions. If you are using
   **AccountingStoreFlags=job\_env,job\_script**, this must be greater than
   **max\_script\_size**.
+* **innodb\_snapshot\_isolation**:
+  Set this to OFF. MariaDB 10.6.18, 10.11.8, 11.0.6, 11.1.5, 11.2.4, and 11.4.2
+  add this variable, and MariaDB 11.6.2 and later versions set it to ON by
+  default. MySQL does not have this variable. If it is ON, a locking read or a
+  write to a row fails with the ER\_CHECKREAD error when a different transaction
+  changes that row. MariaDB then rolls back the whole transaction. The slurmdbd
+  cannot recover from this failure and stops.
 
 See the following example:
 
@@ -336,6 +343,9 @@ innodb_buffer_pool_size=4096M
 innodb_log_file_size=1024M
 innodb_lock_wait_timeout=900
 max_allowed_packet=16M
+...
+[mariadbd]
+innodb_snapshot_isolation=OFF
 ...
 ```
 

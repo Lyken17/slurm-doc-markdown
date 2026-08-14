@@ -38,7 +38,7 @@ More information: <https://www.schedmd.com/>
 
 Contact Info: <sales@schedmd.com>
 
-Version: Slurm-26.05.2
+Version: Slurm-26.05.3
 
 BasePath:
 
@@ -4448,7 +4448,7 @@ Path Parameter — Node name default: null
 
 update\_time (optional)
 
-Query Parameter — Query jobs updated more recently than this time (UNIX timestamp) default: null
+Query Parameter — Query nodes updated more recently than this time (UNIX timestamp) default: null
 
 flags (optional)
 
@@ -4753,7 +4753,7 @@ get node(s) info (slurmV0045GetNodes)
 
 update\_time (optional)
 
-Query Parameter — Query jobs updated more recently than this time (UNIX timestamp) default: null
+Query Parameter — Query nodes updated more recently than this time (UNIX timestamp) default: null
 
 flags (optional)
 

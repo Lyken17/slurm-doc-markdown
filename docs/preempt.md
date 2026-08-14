@@ -96,6 +96,12 @@ There are several important configuration parameters relating to preemption:
   is configured or when suspending jobs with *scontrol suspend*. For
   setting the preemption grace time in these cases, see
   [suspend\_grace\_time](slurm.conf.md#OPT_suspend_grace_time).
+    
+  **NOTE**: A job selected for preemption that exits before
+  *GraceTime* expires will be handled according to *PreemptMode*
+  regardless of why it exited (most visible if *PreemptMode=REQUEUE*).
+  Slurm cannot distinguish between an exit caused by the preemption signal
+  and an unrelated exit that occurs within *GraceTime*.
 * **JobAcctGatherType and JobAcctGatherFrequency**: The "maximum data segment
   size" and "maximum virtual memory size" system limits will be configured for
   each job to ensure that the job does not exceed its requested amount of memory.

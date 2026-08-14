@@ -79,6 +79,20 @@ Sites are strongly encouraged to setup a caching proxy between slurmrestd
 and clients to avoid having clients repeatedly call queries, causing usage to
 be higher than needed (and causing lock contention) on the controller.
 
+Several collection endpoints accept an **update\_time** query parameter for
+conditional (If-Modified-Since) queries. The timestamp is evaluated against the
+collection as a whole rather than per entity: if anything has changed more
+recently than the given UNIX timestamp, the *entire* collection is
+returned. slurmrestd does not return only the subset of entities that changed.
+When nothing in the collection has changed since that time, the node query
+(**GET /slurm/{version}/nodes**) returns HTTP 304 (Not Modified) with an
+empty body, following
+[RFC 7232](https://www.rfc-editor.org/rfc/rfc7232#section-4.1);
+clients should treat a 304 as "no changes" and reuse the results of their prior
+query rather than expecting a response body. Other endpoints that accept
+**update\_time** instead return HTTP 200 with a warning when nothing has
+changed, so clients should not assume a 304 from every endpoint.
+
 ## Run modes
 
 Slurmrestd currently supports two run modes: inet service mode and listening

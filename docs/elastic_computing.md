@@ -335,8 +335,8 @@ The following configuration parameters of interest include:
 **SuspendExcStates**
 :   Specifies node states that are not to be powered down automatically.
     Valid states include CLOUD, DOWN, DRAIN, DYNAMIC\_FUTURE, DYNAMIC\_NORM,
-    FAIL, INVALID\_REG, MAINTENANCE, NOT\_RESPONDING, PERFCTRS, PLANNED, and
-    RESERVED. By default, any of these states, if idle for
+    FAIL, INVALID\_REG, MAINTENANCE, NOT\_RESPONDING, PLANNED, and RESERVED.
+    By default, any of these states, if idle for
     **SuspendTime**, would be powered down. This value may be updated with
     scontrol. See **ReconfigFlags=KeepPowerSaveSettings** for setting
     persistence.

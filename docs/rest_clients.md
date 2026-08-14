@@ -252,12 +252,12 @@ resultant client code at all.
 |  |  |  |
 | --- | --- | --- |
 | **data\_parser plugin** | **Added in Release** | **Removed in Release** |
-| v0.0.39 | 23.02 ([release notes](openapi_release_notes.md#23020)) | 24.11 |
 | v0.0.40 | 23.11 ([release notes](openapi_release_notes.md#23110)) | 25.11 |
 | v0.0.41 | 24.05 ([release notes](openapi_release_notes.md#24050)) | 26.05 |
 | v0.0.42 | 24.11 ([release notes](openapi_release_notes.md#24110)) | 26.11 |
 | v0.0.43 | 25.05 ([release notes](openapi_release_notes.md#25050)) | 27.05 |
 | v0.0.44 | 25.11 ([release notes](openapi_release_notes.md#25110)) | 27.11 |
+| v0.0.45 | 26.05 ([release notes](openapi_release_notes.md#26050)) | 28.05 |
 
 The data\_parser plugins are explicitly versioned with scheduled release and
 removal dates in the above table. The data\_parser plugins are purposefully kept
