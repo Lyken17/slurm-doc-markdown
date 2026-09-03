@@ -63,6 +63,26 @@ a PENDING state will return an error.
 After the job has begun execution, an individual component can be cancelled
 except for component zero. If component zero is cancelled, the whole het job is
 cancelled.
+Step IDs are unique across the whole heterogeneous job.
+Cancelling a step through the job leader kills that step in every component
+that has it, and leaves the component allocations running.
+Cancelling a step through an individual component signals only that component's
+step.
+It is not an error for a component not to have that step; only a step ID that
+no component has is reported as an invalid job ID.
+Signals other than the default SIGKILL are sent only to the step of the
+Step IDs are unique across the whole heterogeneous job.
+Cancelling a step through component zero (the heterogeneous job leader)
+kills that step in every component that has it, and leaves the component
+allocations running.
+It is not an error if some components do not have that step; only a step ID
+that no component has is reported as an invalid job ID.
+Cancelling a step through an individual component signals only that
+component's step.
+If that component does not have the step, the request is reported as an
+invalid job ID.
+Signals other than the default SIGKILL are sent only to the step of the
+component whose job ID was given.
 A job or job step can only be signaled by the owner of that job or user root.
 If an attempt is made by an unauthorized user to signal a job or job step, an
 error message will be printed and the job will not be signaled.
@@ -183,4 +203,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 19:15:05 GMT, August 13, 2026
+Time: 21:29:30 GMT, September 02, 2026

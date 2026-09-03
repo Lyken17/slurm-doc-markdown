@@ -875,14 +875,15 @@ options are available:
     - Create/Alter/Delete Reservations
   + Admin: These users have the same level of privileges as an
     operator in the database. They can also alter anything on a served
-    slurmctld as if they were the slurm user or root.* **Cluster=** Only add to accounts on these clusters (default is all clusters)
-  * **DefaultAccount=** Default account for the user, used when no account
-    is specified when a job is submitted. (Required on creation)
-  * **DefaultWCKey=** Default wckey for the user, used when no wckey
-    is specified when a job is submitted. (Only used when tracking wckeys.)
-  * **Name=** User name
-  * **NewName=** Use to rename a user in the accounting database
-  * **Partition=** Name of Slurm partition this association applies to
+    slurmctld as if they were the slurm user or root.
+* **Cluster=** Only add to accounts on these clusters (default is all clusters)
+* **DefaultAccount=** Default account for the user, used when no account
+  is specified when a job is submitted. (Required on creation)
+* **DefaultWCKey=** Default wckey for the user, used when no wckey
+  is specified when a job is submitted. (Only used when tracking wckeys.)
+* **Name=** User name
+* **NewName=** Use to rename a user in the accounting database
+* **Partition=** Name of Slurm partition this association applies to
 
 ## Limit Enforcement
 

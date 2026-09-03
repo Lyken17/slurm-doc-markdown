@@ -37,6 +37,32 @@ Version 26.05
 TLS can be enabled for internal Slurm cluster communications in environments
 via the `tls` plugin interface.
 
+## Enforcement
+
+When **TLSType** is set to a TLS plugin, Slurm's RPC listening sockets are
+fail-closed: an inbound RPC connection that is not TLS wrapped is answered with
+a "TLS missing but required for connection" error
+(`ESLURM_TLS_REQUIRED`) and closed before the RPC is parsed,
+authenticated, or dispatched. Note that **slurmdbd**'s listener currently
+does not respond with `ESLURM_TLS_REQUIRED`, but is still
+fail-closed and will reject non-TLS connections.
+
+Unix domain sockets are deliberately not rejected, since they are local and not
+exposed to the network. HTTP requests are also
+unaffected: as described in the
+[slurmctld](slurmctld.md) and [slurmd](slurmd.md) man
+pages, those daemons serve HTTP on their listening port unless
+**CommunicationParameters=disable\_http** is set, and TLS wrapping there is
+optional and independent of **TLSType**. Set
+**CommunicationParameters=disable\_http** if the port must not carry
+cleartext at all.
+
+The usual cause of an unexpected rejection is a client whose configuration does
+not match the cluster's, most often a **slurm.conf** reached through
+**SLURM\_CONF** that leaves **TLSType** unset, which means
+`tls/none`. Every component that talks to the cluster must agree
+on **TLSType**.
+
 ## s2n
 
 The `tls/s2n` plugin uses Amazon's TLS implementation
