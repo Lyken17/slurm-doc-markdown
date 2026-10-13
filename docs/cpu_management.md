@@ -330,19 +330,20 @@ commands/options provide limited information about CPU usage.
 |  |  |
 | --- | --- |
 | **Command/Option** | **Information** |
-| scontrol show job option: --details | This option provides a list of the nodes selected for the job and the CPU ids allocated to the job on each node. Note that the CPU ids reported by this command are Slurm abstract CPU ids, not Linux/hardware CPU ids (as reported by, for example, /proc/cpuinfo). |
+| scontrol show job option: --details | This option provides a list of the nodes selected for the job and the CPU IDs allocated to the job on each node. Note that the CPU IDs reported by this command are Slurm abstract CPU IDs, not Linux/hardware CPU IDs (as reported by, for example, /proc/cpuinfo). |
 | Linux command: env | Man. Slurm environment variables provide information related to node and CPU usage:     SLURM\_JOB\_CPUS\_PER\_NODE  SLURM\_CPUS\_PER\_TASK  SLURM\_CPU\_BIND  SLURM\_DISTRIBUTION  SLURM\_JOB\_NODELIST  SLURM\_TASKS\_PER\_NODE  SLURM\_STEP\_NODELIST  SLURM\_STEP\_NUM\_NODES  SLURM\_STEP\_NUM\_TASKS  SLURM\_STEP\_TASKS\_PER\_NODE  SLURM\_JOB\_NUM\_NODES  SLURM\_NTASKS  SLURM\_NPROCS  SLURM\_CPUS\_ON\_NODE  SLURM\_NODEID  SLURMD\_NODENAME |
-| srun option: --cpu-bind=verbose | This option provides a list of the CPU masks used by task affinity to bind tasks to CPUs. Note that the CPU ids represented by these masks are Linux/hardware CPU ids, not Slurm abstract CPU ids as reported by scontrol, etc. |
-| srun/salloc/sbatch option: -l | This option adds the task id as a prefix to each line of output from a task sent to stdout/stderr. This can be useful for distinguishing node-related and CPU-related information by task id for multi-task jobs/steps. |
-| Linux command:  cat /proc/<pid>/status | grep Cpus\_allowed\_list | Given a task's pid (or "self" if the command is executed by the task itself), this command produces a list of the CPU ids bound to the task. This is the same information that is provided by --cpu-bind=verbose, but in a more readable format. |
+| srun option: --cpu-bind=verbose | This option provides a list of the CPU masks used by task affinity to bind tasks to CPUs. Note that the CPU IDs represented by these masks are Linux/hardware CPU IDs, not Slurm abstract CPU IDs as reported by **scontrol**, etc. |
+| srun/salloc/sbatch option: -l | This option adds the task ID as a prefix to each line of output from a task sent to stdout/stderr. This can be useful for distinguishing node-related and CPU-related information by task ID for multi-task jobs/steps. |
+| Linux command:  cat /proc/<pid>/status | grep Cpus\_allowed\_list | Given a task's PID (or "self" if the command is executed by the task itself), this command produces a list of the CPU IDs bound to the task. This is the same information that is provided by --cpu-bind=verbose, but in a more readable format. |
 
   
 
 ### A Note on CPU Numbering
 
-The number and layout of logical CPUs known to Slurm is described in the node definitions in slurm.conf. This may
-differ from the physical CPU layout on the actual hardware. For this reason, Slurm generates its own internal, or
-"abstract", CPU numbers. These numbers may not match the physical, or "machine", CPU numbers known to Linux.
+The number and layout of logical CPUs known to Slurm are described in the
+node definitions in **slurm.conf**, which determines how Slurm generates
+its own **Slurm abstract CPU IDs**. Slurm's CPU layout and numbering may
+differ from those used by the operating system.
 
   
 
@@ -539,7 +540,7 @@ table shows a possible pattern of allocation for this job.
 |  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- |
 | **Nodename** | **n0** | | **n1** | | **n2** | |
-| **Socket id** | **0** | **1** | **0** | **1** | **0** | **1** |
+| **Socket ID** | **0** | **1** | **0** | **1** | **0** | **1** |
 | **Number of Allocated CPUs** | 4 | 4 | 4 | 0 | 0 | 0 |
 | **Number of Tasks** | 8 | | 4 | | 0 | |
 
@@ -579,7 +580,7 @@ distribution for this job.
 | **Nodename** | **n0** | **n1** | **n2** |
 | **Number of Allocated CPUs** | 6 | 6 | 0 |
 | **Number of Tasks** | 3 | 3 | 0 |
-| **Distribution of Tasks to Nodes, by Task id** | 0 2 4 | 1 3 5 | - |
+| **Distribution of Tasks to Nodes, by Task ID** | 0 2 4 | 1 3 5 | - |
 
   
 
@@ -619,7 +620,7 @@ and distribution for this job.
 | **Nodename** | **n0** | **n1** | **n2** |
 | **Number of Allocated CPUs** | 8 | 6 | 2 |
 | **Number of Tasks** | 4 | 3 | 1 |
-| **Distribution of Tasks to Nodes, by Task id** | 0 1 5 6 | 2 3 7 | 4 |
+| **Distribution of Tasks to Nodes, by Task ID** | 0 1 5 6 | 2 3 7 | 4 |
 
   
 
@@ -652,7 +653,7 @@ a possible pattern of allocation and distribution for this job.
 | **Nodename** | **n0** | **n1** | **n2** |
 | **Number of Allocated CPUs** | 8 | 0 | 0 |
 | **Number of Tasks** | 20 | 0 | 0 |
-| **Distribution of Tasks to Nodes, by Task id** | 0 - 19 | - | - |
+| **Distribution of Tasks to Nodes, by Task ID** | 0 - 19 | - | - |
 
   
 
@@ -715,11 +716,11 @@ for this job.
 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Nodename** | **n3** | | | | | | | | | | | | | | | |
-| **Socket id** | **0** | | | | | | | | **1** | | | | | | | |
-| **Core id** | **0** | | **1** | | **2** | | **3** | | **0** | | **1** | | **2** | | **3** | |
-| **CPU id** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** | **8** | **9** | **10** | **11** | **12** | **13** | **14** | **15** |
+| **Socket ID** | **0** | | | | | | | | **1** | | | | | | | |
+| **Core ID** | **0** | | **1** | | **2** | | **3** | | **0** | | **1** | | **2** | | **3** | |
+| **CPU ID** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** | **8** | **9** | **10** | **11** | **12** | **13** | **14** | **15** |
 | **Number of Allocated CPUs** | 4 | | | | | | | | 4 | | | | | | | |
-| **Allocated CPU ids** | 0 2 4 6 | | | | | | | | 8 10 12 14 | | | | | | | |
+| **Allocated CPU IDs** | 0 2 4 6 | | | | | | | | 8 10 12 14 | | | | | | | |
 
   
 
@@ -749,16 +750,16 @@ Using the default allocation method within nodes (cyclic), Slurm allocates
 within nodes (cyclic), Slurm distributes and binds each task to an allocated
 core in a round-robin fashion across the sockets. The following table shows
 a possible pattern of allocation, distribution and binding for this job.
-For example, task id 2 is bound to CPU id 1.
+For example, task ID 2 is bound to CPU ID 1.
 
 |  |  |  |  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Nodename** | | **n0** | | | | | | | |
-| **Socket id** | | **0** | | | | **1** | | | |
+| **Socket ID** | | **0** | | | | **1** | | | |
 | **Number of Allocated CPUs** | | 3 | | | | 3 | | | |
-| **Allocated CPU ids** | | 0 1 2 | | | | 4 5 6 | | | |
-| **Binding of Tasks to CPUs** | **CPU id** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** |
-| **Task id** | 0 | 2 | 4 | - | 1 | 3 | 5 | - |
+| **Allocated CPU IDs** | | 0 1 2 | | | | 4 5 6 | | | |
+| **Binding of Tasks to CPUs** | **CPU ID** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** |
+| **Task ID** | 0 | 2 | 4 | - | 1 | 3 | 5 | - |
 
   
 
@@ -788,16 +789,16 @@ CPUs on each socket of 1 node. Using the default distribution method within node
 (cyclic), Slurm distributes and binds each task to all of the allocated CPUs in
 one socket in a round-robin fashion across the sockets. The following table shows
 a possible pattern of allocation, distribution and binding for this job. For
-example, task ids 1, 3 and 5 are all bound to CPU ids 4, 5 and 6.
+example, task IDs 1, 3 and 5 are all bound to CPU IDs 4, 5 and 6.
 
 |  |  |  |  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Nodename** | | **n0** | | | | | | | |
-| **Socket id** | | **0** | | | | **1** | | | |
+| **Socket ID** | | **0** | | | | **1** | | | |
 | **Number of Allocated CPUs** | | 3 | | | | 3 | | | |
-| **Allocated CPU ids** | | 0 1 2 | | | | 4 5 6 | | | |
-| **Binding of Tasks to CPUs** | **CPU id** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** |
-| **Task ids** | 0 2 4 | | | - | 1 3 5 | | | - |
+| **Allocated CPU IDs** | | 0 1 2 | | | | 4 5 6 | | | |
+| **Binding of Tasks to CPUs** | **CPU ID** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** |
+| **Task IDs** | 0 2 4 | | | - | 1 3 5 | | | - |
 
   
 
@@ -830,19 +831,19 @@ CPUs on one socket and 2 CPUs on the other socket of one node. Using the block d
 nodes, Slurm distributes 3 CPUs to each task. Applying socket binding, Slurm binds each task to all
 allocated CPUs in all sockets in which the task has a distributed CPU. The following table shows
 a possible pattern of allocation, distribution and binding for this job. In this example, using the
-block allocation method CPU ids 0-3 are allocated on socket id 0 and CPU ids 4-5 are allocated on
-socket id 1. Using the block distribution method, CPU ids 0-2 were distributed to task id 0, and CPU ids
-3-5 were distributed to task id 1. Applying socket binding, task id 0 is therefore bound to the allocated
-CPUs on socket 0, and task id 1 is bound to the allocated CPUs on both sockets.
+block allocation method CPU IDs 0-3 are allocated on socket ID 0 and CPU IDs 4-5 are allocated on
+socket ID 1. Using the block distribution method, CPU IDs 0-2 were distributed to task ID 0, and CPU IDs
+3-5 were distributed to task ID 1. Applying socket binding, task ID 0 is therefore bound to the allocated
+CPUs on socket 0, and task ID 1 is bound to the allocated CPUs on both sockets.
 
 |  |  |  |  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Nodename** | | **n0** | | | | | | | |
-| **Socket id** | | **0** | | | | **1** | | | |
+| **Socket ID** | | **0** | | | | **1** | | | |
 | **Number of Allocated CPUs** | | 4 | | | | 2 | | | |
-| **Allocated CPU ids** | | 0 1 2 3 | | | | 4 5 | | | |
-| **Binding of Tasks to CPUs** | **CPU id** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** |
-| **Task ids** | 0 1 | | | | 1 | | - | |
+| **Allocated CPU IDs** | | 0 1 2 3 | | | | 4 5 | | | |
+| **Binding of Tasks to CPUs** | **CPU ID** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** |
+| **Task IDs** | 0 1 | | | | 1 | | - | |
 
   
 
@@ -875,19 +876,19 @@ CPUs on one socket and 2 CPUs on the other socket of one node. Using the cyclic 
 nodes, Slurm distributes 3 CPUs to each task. Applying socket binding, Slurm binds each task to all
 allocated CPUs in all sockets in which the task has a distributed CPU. The following table shows
 a possible pattern of allocation, distribution and binding for this job. In this example, using the
-block allocation method CPU ids 0-3 are allocated on socket id 0 and CPU ids 4-5 are allocated on
-socket id 1. Using the cyclic distribution method, CPU ids 0, 1 and 4 were distributed to task id 0, and CPU ids
-2, 3 and 5 were distributed to task id 1. Applying socket binding, both tasks are therefore bound to the
+block allocation method CPU IDs 0-3 are allocated on socket ID 0 and CPU IDs 4-5 are allocated on
+socket ID 1. Using the cyclic distribution method, CPU IDs 0, 1 and 4 were distributed to task ID 0, and CPU IDs
+2, 3 and 5 were distributed to task ID 1. Applying socket binding, both tasks are therefore bound to the
 allocated CPUs on both sockets.
 
 |  |  |  |  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Nodename** | | **n0** | | | | | | | |
-| **Socket id** | | **0** | | | | **1** | | | |
+| **Socket ID** | | **0** | | | | **1** | | | |
 | **Number of Allocated CPUs** | | 4 | | | | 2 | | | |
-| **Allocated CPU ids** | | 0 1 2 3 | | | | 4 5 | | | |
-| **Binding of Tasks to CPUs** | **CPU id** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** |
-| **Task ids** | 0 1 | | | | 0 1 | | - | |
+| **Allocated CPU IDs** | | 0 1 2 3 | | | | 4 5 | | | |
+| **Binding of Tasks to CPUs** | **CPU ID** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** |
+| **Task IDs** | 0 1 | | | | 0 1 | | - | |
 
   
 
@@ -927,18 +928,18 @@ and 2 CPUs on the other socket. The
 --distribution=cyclic:block option specifies cyclic distribution of
 tasks to nodes and block distribution of tasks to CPUs within nodes for binding.
 The following table shows a possible pattern of allocation, distribution and binding
-for this job. For example, task id 10 is bound to CPU id 3 on node n1.
+for this job. For example, task ID 10 is bound to CPU ID 3 on node n1.
 
 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Nodename** | | **n0** | | | | | | | | **n1** | | | | | | | | **n2** | | | | | | | |
-| **Socket id** | | **0** | | | | **1** | | | | **0** | | | | **1** | | | | **0** | | | | **1** | | | |
+| **Socket ID** | | **0** | | | | **1** | | | | **0** | | | | **1** | | | | **0** | | | | **1** | | | |
 | **Number of Allocated CPUs** | | 4 | | | | 2 | | | | 4 | | | | 2 | | | | 4 | | | | 2 | | | |
-| **Allocated CPU ids** | | 0 1 2 3 4 5 | | | | | | | | 0 1 2 3 4 5 | | | | | | | | 0 1 2 3 4 5 | | | | | | | |
+| **Allocated CPU IDs** | | 0 1 2 3 4 5 | | | | | | | | 0 1 2 3 4 5 | | | | | | | | 0 1 2 3 4 5 | | | | | | | |
 | **Number of Tasks** | | 6 | | | | | | | | 6 | | | | | | | | 6 | | | | | | | |
-| **Distribution of Tasks to Nodes, by Task id** | | 0  3  6  9  12  15 | | | | | | | | 1  4  7  10  13  16 | | | | | | | | 2  5  8  11  14  17 | | | | | | | |
-| **Binding of Tasks to CPUs** | **CPU id** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** |
-| **Task id** | 0 | 3 | 6 | 9 | 12 | 15 | - | - | 1 | 4 | 7 | 10 | 13 | 16 | - | - | 2 | 5 | 8 | 11 | 14 | 17 | - | - |
+| **Distribution of Tasks to Nodes, by Task ID** | | 0  3  6  9  12  15 | | | | | | | | 1  4  7  10  13  16 | | | | | | | | 2  5  8  11  14  17 | | | | | | | |
+| **Binding of Tasks to CPUs** | **CPU ID** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** |
+| **Task ID** | 0 | 3 | 6 | 9 | 12 | 15 | - | - | 1 | 4 | 7 | 10 | 13 | 16 | - | - | 2 | 5 | 8 | 11 | 14 | 17 | - | - |
 
   
 
@@ -975,18 +976,18 @@ these conditions, Slurm allocates 3 CPUs from one socket in each of the 3 nodes 
 --cpu-bind=cores option causes Slurm to bind
 each task to the 3 allocated CPUs on the node to which it is distributed. The
 following table shows a possible pattern of allocation, distribution and binding
-for this job. For example, task id 2 is bound to CPU ids 0, 1 and 2 on socket id 0 of node n2.
+for this job. For example, task ID 2 is bound to CPU IDs 0, 1 and 2 on socket ID 0 of node n2.
 
 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Nodename** | | **n0** | | | | | | | | **n1** | | | | | | | | **n2** | | | | | | | |
-| **Socket id** | | **0** | | | | **1** | | | | **0** | | | | **1** | | | | **0** | | | | **1** | | | |
+| **Socket ID** | | **0** | | | | **1** | | | | **0** | | | | **1** | | | | **0** | | | | **1** | | | |
 | **Number of Allocated CPUs** | | 3 | | | | 0 | | | | 3 | | | | 0 | | | | 3 | | | | 0 | | | |
-| **Allocated CPU ids** | | 0 1 2 | | | | | | | | 0 1 2 | | | | | | | | 0 1 2 | | | | | | | |
+| **Allocated CPU IDs** | | 0 1 2 | | | | | | | | 0 1 2 | | | | | | | | 0 1 2 | | | | | | | |
 | **Number of Tasks** | | 1 | | | | | | | | 1 | | | | | | | | 1 | | | | | | | |
-| **Distribution of Tasks to Nodes, by Task id** | | 0 | | | | | | | | 1 | | | | | | | | 2 | | | | | | | |
-| **Binding of Tasks to CPUs** | **CPU id** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** |
-| **Task id** | 0 | | | - | | | | | 1 | | | - | | | | | 2 | | | -- | | | | |
+| **Distribution of Tasks to Nodes, by Task ID** | | 0 | | | | | | | | 1 | | | | | | | | 2 | | | | | | | |
+| **Binding of Tasks to CPUs** | **CPU ID** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** |
+| **Task ID** | 0 | | | - | | | | | 1 | | | - | | | | | 2 | | | -- | | | | |
 
   
 
@@ -1026,11 +1027,11 @@ and binding for this job.
 |  |  |  |  |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | **Nodename** | | **n0** | | | | | | | |
-| **Socket id** | | **0** | | | | **1** | | | |
+| **Socket ID** | | **0** | | | | **1** | | | |
 | **Number of Allocated CPUs** | | 4 | | | | 2 | | | |
-| **Allocated CPU ids** | | 0 1 2 3 | | | | 4 5 | | | |
-| **Binding of Tasks to CPUs** | **CPU id** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** |
-| **Task id** | 0-5 | | | | 0-5 | | - | |
+| **Allocated CPU IDs** | | 0 1 2 3 | | | | 4 5 | | | |
+| **Binding of Tasks to CPUs** | **CPU ID** | **0** | **1** | **2** | **3** | **4** | **5** | **6** | **7** |
+| **Task ID** | 0-5 | | | | 0-5 | | - | |
 
 The task/cgroup plugin does not bind tasks to CPUs. To bind tasks to CPUs and
 for access to all task distribution options, the task/affinity plugin can be

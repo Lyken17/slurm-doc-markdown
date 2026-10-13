@@ -55,11 +55,15 @@ the primary server fails.
 ## OPTIONS
 
 **-c**
-:   Clear all previous **slurmctld** state from its last checkpoint.
-    With this option, all jobs, including both running and queued, and all
-    node states, will be deleted. Without this option, previously running
-    jobs will be preserved along with node *State* of DOWN, DRAINED
-    and DRAINING nodes and the associated *Reason* field for those nodes.
+:   Discard previous **slurmctld** state from its last checkpoint. All
+    running and queued jobs will be killed and all node states reset, including
+    the *State* and *Reason* fields of DOWN, DRAINED, and DRAINING nodes.
+    The last job ID, reservation state, and association/QOS usage are
+    unaffected by this option. Dynamically created nodes are not recreated, and
+    reservations naming them lose those nodes and may be deleted.
+    If the state is unreadable due to a version mismatch, **slurmctld** will
+    still refuse to start unless **-i** is also given.
+
     **NOTE**: It is rare you would ever want to use this in production as all
     jobs will be killed.
 
@@ -164,4 +168,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 21:29:31 GMT, September 02, 2026
+Time: 20:36:52 GMT, October 13, 2026

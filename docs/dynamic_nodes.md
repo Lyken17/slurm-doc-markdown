@@ -75,13 +75,7 @@ PartitionName=dyn3 Nodes=ns1,ns2
 Nodes can be created two ways:
 
 1. **Dynamic slurmd registration**: Using the slurmd [-Z](slurmd.md#OPT_-Z) and [--conf](slurmd.md#OPT_conf-<node-parameters>) options a slurmd will register with the controller and will automatically be added to the system. e.g. ``` slurmd -Z --conf "RealMemory=80000 Gres=gpu:2 Feature=f1" ```
-2. **scontrol create NodeName= ...**: Create nodes using scontrol by specifying the same **NodeName** line that you would define in the slurm.conf. See slurm.conf [man](slurm.conf.md#SECTION_NODE-CONFIGURATION) page for node options. Only **State=CLOUD** and **State=FUTURE** are supported. The node configuration should match what the slurmd will register with (e.g. slurmd -C) plus any additional attributes.
-
-e.g.
-
-```
-scontrol create NodeName=d[1-100] CPUs=16 Boards=1 SocketsPerBoard=1 CoresPerSocket=8 ThreadsPerCore=2 RealMemory=31848 Gres=gpu:2 Feature=f1 State=cloud
-```
+2. **scontrol create NodeName= ...**: Create nodes using scontrol by specifying the same **NodeName** line that you would define in the slurm.conf. See slurm.conf [man](slurm.conf.md#SECTION_NODE-CONFIGURATION) page for node options. Only **State=CLOUD**, **State=EXTERNAL** and **State=FUTURE** are supported. The node configuration should match what the slurmd will register with (e.g. slurmd -C) plus any additional attributes. Creation is all-or-nothing. If any node in the request cannot be created, the command fails, no node from the request is created, and every node that already existed — whether created dynamically or defined in slurm.conf — is left unchanged. e.g. ``` scontrol create NodeName=d[1-100] CPUs=16 Boards=1 SocketsPerBoard=1 CoresPerSocket=8 ThreadsPerCore=2 RealMemory=31848 Gres=gpu:2 Feature=f1 State=cloud ```
 
 ## Automatic GPU Detection
 

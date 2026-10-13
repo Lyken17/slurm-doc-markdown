@@ -50,6 +50,50 @@ any target slurmrestd daemon. Development of clients should always be designed
 to use the highest version of the plugins available to avoid needing to port
 clients sooner than would be otherwise required.
 
+## Slurm 26.05.5
+
+### data\_parser/v0.0.45
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .components.schemas["v0.0.45\_node"].properties.specialized\_cpus.description = "Slurm abstract CPU IDs on this node reserved for exclusive use by slurmd and slurmstepd"; |
+| Replaced | .info.version = "Slurm-26.05.5"; |
+| Replaced | .info["x-slurm"].release = "26.05.5"; |
+| Replaced | .info["x-slurm"].version.micro = "5"; |
+
+### data\_parser/v0.0.44
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .info.version = "Slurm-26.05.5"; |
+| Replaced | .info["x-slurm"].release = "26.05.5"; |
+| Replaced | .info["x-slurm"].version.micro = "5"; |
+
+### data\_parser/v0.0.43
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .info.version = "Slurm-26.05.5"; |
+| Replaced | .info["x-slurm"].release = "26.05.5"; |
+| Replaced | .info["x-slurm"].version.micro = "5"; |
+
+### data\_parser/v0.0.42
+
+#### Modified Fields
+
+|  |  |
+| --- | --- |
+| Replaced | .components.schemas["v0.0.42\_node"].properties.specialized\_cpus.description = "Slurm abstract CPU IDs on this node reserved for exclusive use by slurmd and slurmstepd"; |
+| Replaced | .info.version = "Slurm-26.05.5"; |
+| Replaced | .info["x-slurm"].release = "26.05.5"; |
+| Replaced | .info["x-slurm"].version.micro = "5"; |
+
 ## Slurm 26.05.4
 
 ### data\_parser/v0.0.45

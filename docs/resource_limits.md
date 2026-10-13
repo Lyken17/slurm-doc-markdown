@@ -450,6 +450,14 @@ is treated as a Max limit.
     not reached, but could be killed due to limits.
       
     See [AccountingStorageEnforce](slurm.conf.md#OPT_AccountingStorageEnforce) in the slurm.conf man page.
+      
+    **NOTE**: A job's TRESRunMins usage is booked using the QOS UsageFactor in
+    effect when the job starts, and is given back with that same factor when
+    the job ends. Modifying a QOS's UsageFactor does not rescale the TRESRunMins
+    usage of jobs that are already running; RawUsage and GrpWall continue to
+    accrue with the current factor. However, when slurmctld is restarted or
+    reconfigured, the usage of all running jobs is booked again with the
+    UsageFactor in effect at that time.
 
 The **MaxNodes** and **MaxTime** options already exist in
 Slurm's configuration on a per-partition basis, but the above options

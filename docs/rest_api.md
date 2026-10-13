@@ -38,7 +38,7 @@ More information: <https://www.schedmd.com/>
 
 Contact Info: <sales@schedmd.com>
 
-Version: Slurm-26.05.4
+Version: Slurm-26.05.5
 
 BasePath:
 
@@ -21116,7 +21116,7 @@ effective\_cpus (optional)
 
 specialized\_cpus (optional)
 
-[String](#string) Abstract CPU IDs on this node reserved for exclusive use by slurmd and slurmstepd
+[String](#string) Slurm abstract CPU IDs on this node reserved for exclusive use by slurmd and slurmstepd
 
 energy (optional)
 

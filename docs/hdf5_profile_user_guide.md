@@ -210,7 +210,7 @@ file system with **groups** being similar to *directories* and
 to be attached to groups to store application defined properties.
 
 There are commodity programs, notably
-[HDFView](http://www.hdfgroup.org/hdf-java-html/hdfview/index.html), for viewing and manipulating these files.
+[HDFView](https://www.hdfgroup.org/download-hdfview/), for viewing and manipulating these files.
 
 Below is a screen shot from HDFView expanding the job tree and showing the
 attributes for a specific task.

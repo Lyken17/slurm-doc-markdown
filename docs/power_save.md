@@ -323,13 +323,19 @@ The following configuration parameters of interest include:
     the set `nid[10-20]` from being powered down. Multiple sets of
     nodes can be specified with or without counts in a comma separated list
     (e.g `nid[10-20]:4,nid[80-90]:2`). By default, no nodes are
-    excluded. This value may be updated with scontrol. See
+    excluded. Nodes explicitly requested to power down, including nodes
+    allocated from a partition configured with
+    [PowerDownOnIdle=YES](#PowerDownOnIdle), are not affected by
+    this option. This value may be updated with scontrol. See
     **ReconfigFlags=KeepPowerSaveSettings** for setting persistence.
 
 **SuspendExcParts**
 :   List of partitions with nodes to never place in power saving mode.
-    Multiple partitions may be specified using a comma separator. By default,
-    no nodes are excluded. This value may be updated with scontrol. See
+    Multiple partitions may be specified using a comma separator.
+    By default, no nodes are excluded. Nodes explicitly requested to power down,
+    including nodes allocated from a partition configured with
+    [PowerDownOnIdle=YES](#PowerDownOnIdle), are not affected by
+    this option. This value may be updated with scontrol. See
     **ReconfigFlags=KeepPowerSaveSettings** for setting persistence.
 
 **SuspendExcStates**
@@ -337,9 +343,11 @@ The following configuration parameters of interest include:
     Valid states include CLOUD, DOWN, DRAIN, DYNAMIC\_FUTURE, DYNAMIC\_NORM,
     FAIL, INVALID\_REG, MAINTENANCE, NOT\_RESPONDING, PLANNED, and RESERVED.
     By default, any of these states, if idle for
-    **SuspendTime**, would be powered down. This value may be updated with
-    scontrol. See **ReconfigFlags=KeepPowerSaveSettings** for setting
-    persistence.
+    **SuspendTime**, would be powered down. Nodes explicitly requested to
+    power down, including nodes allocated from a partition configured with
+    [PowerDownOnIdle=YES](#PowerDownOnIdle), are not affected by
+    this option. This value may be updated with scontrol. See
+    **ReconfigFlags=KeepPowerSaveSettings** for setting persistence.
 
 **SuspendProgram**
 :   Program to be executed to place nodes into power saving mode. The
@@ -421,8 +429,13 @@ Partition parameters of interest include:
     * *Exclusive=NODE* and after the running job completes
       but before another job is allocated.
 
+    **NOTE**: Nodes allocated from this partition will still be sent a
+    power down request even if they are excluded from automatic power saving
+    mode by **SuspendExcNodes**, **SuspendExcParts**, or
+    **SuspendExcStates**.
+
     **NOTE**: Nodes are still subject to powering down when being IDLE
-    for **SuspendTime** when PowerDownOnIdle is set to NO.
+    for **SuspendTime** when **PowerDownOnIdle** is set to *NO*.
 
 **ResumeTimeout**
 :   Maximum time permitted (in seconds) between when a node resume request
@@ -527,11 +540,17 @@ scontrol power <up|down> [asap|force] {ALL|<nodelist>|<nodeset>} [Action=<name>]
 
 **RESUME**
 :   Not an actual node state, but will change a node state from DRAIN,
-    DRAINING, DOWN or REBOOT to IDLE and NoResp. slurmctld will then attempt to
-    contact slurmd to request that the node register itself. Once registered,
-    the node state will then remove the NoResp flag and will resume normal
-    operations. It will also clear the POWERING\_DOWN state of a node and make
-    it eligible to be allocated.
+    DRAINING, DOWN or REBOOT to IDLE and NoResp. slurmctld will then attempt
+    to contact slurmd to request that the node register itself. Once
+    registered, the node state will then remove the NoResp flag and will
+    resume normal operations. It will also clear the POWERING\_DOWN state of a
+    node and make it eligible to be allocated.
+
+    **NOTE**: This does not set **NoResp** on a node that is
+    **POWERED\_DOWN** or **POWERING\_DOWN**. Such a node is neither pinged
+    nor able to register while it is powered down, so the flag would persist
+    and keep the node out of the available nodes. The node is still required
+    to register when it powers up.
 
 ## Resume and Suspend Programs
 

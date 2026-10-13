@@ -143,6 +143,8 @@ So it would pull 8000 from `node[01-08]`,
   [overview](#overview))
 * Resource names defined through the hierarchical resources configuration must
   not conflict with any cluster licenses
+* Preemption to reclaim busy licenses (**PreemptParameters=reclaim\_licenses**
+  in **slurm.conf**) does not apply to HRES, only to regular licenses
 
 ## Examples
 

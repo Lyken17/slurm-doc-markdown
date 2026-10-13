@@ -240,6 +240,14 @@ due to limits.
 
 See **AccountingStorageEnforce** in slurm.conf man page.
 
+**NOTE**: A job's TRESRunMins usage is booked using the QOS UsageFactor in
+effect when the job starts, and is given back with that same factor when the
+job ends. Modifying a QOS's UsageFactor does not rescale the TRESRunMins usage
+of jobs that are already running; RawUsage and GrpWall continue to accrue with
+the current factor. However, when slurmctld is restarted or reconfigured, the
+usage of all running jobs is booked again with the UsageFactor in effect at
+that time.
+
 Default is 1. To clear a previously set value use the modify command with a new
 value of -1.
 

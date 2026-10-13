@@ -87,7 +87,11 @@ There are several important configuration parameters relating to preemption:
   The *GraceTime* is specified in
   seconds and the default value is zero, which results in no preemption delay.
   Once a job has been selected for preemption, its end time is set to the
-  current time plus *GraceTime*. The job is immediately sent SIGCONT and
+  current time plus *GraceTime*, or left unchanged if it was already sooner
+  than that. A job whose time limit expires before *GraceTime* elapses
+  therefore receives only the remainder of its time limit, not the full
+  *GraceTime*.
+  The job is immediately sent SIGCONT and
   SIGTERM signals in order to provide notification of its imminent termination.
   This is followed by the SIGCONT, SIGTERM and SIGKILL signal sequence upon
   reaching its new end time.
@@ -264,9 +268,11 @@ Note that preemption of heterogeneous jobs is only supported with
 *SelectType=select/cons\_tres*, not with *select/linear*.
 
 Because licenses are not freed when jobs are suspended, jobs using licenses
-requested by higher priority jobs will only be prempted when PreemptMode is
+requested by higher priority jobs will only be preempted when PreemptMode is
 either *REQUEUE* or *CANCEL* and
-*PreemptParameters=reclaim\_licenses* is set.
+*PreemptParameters=reclaim\_licenses* is set. Note that this applies only
+to regular [licenses](licenses.md),
+not [Hierarchical Resources (HRES)](hres.md).
 
 ## Preemption Design and Operation
 

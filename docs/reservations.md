@@ -482,6 +482,20 @@ are able to start before the reservation begins or continue after it ends.
 They are also able to use the reserved node(s) along with additional nodes if
 required and available.
 
+Unless this reservation also has the **MAINT** flag, resources held by
+other reservations are still off limits. A reservation that reserves whole
+nodes keeps those nodes excluded, unless the **FLEX** reservation also has
+the **OVERLAP** flag and the nodes belong to both reservations. When the
+other reservation reserves only part of each node, its reserved cores are
+excluded instead of its nodes, so a job may still be allocated the unreserved
+cores on those nodes. **OVERLAP** never grants access to another reservation
+that has the **MAINT** flag: if it reserves whole nodes those nodes stay
+excluded, and if it reserves only part of each node its reserved cores do. A
+reservation that holds no nodes of its own (a license or
+burst buffer reservation created with **ANY\_NODES**) and that also has the
+**OVERLAP** flag keeps the full **OVERLAP** grant: its jobs may use any
+node that is not in a **MAINT** reservation.
+
 The default behavior for jobs that request a reservation is that they must
 be able to run within the confines (time and space) of that reservation.
 The following example shows that the **FLEX** flag allows the job to run

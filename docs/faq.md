@@ -2257,13 +2257,9 @@ allocated node that all processes associated with that job should be
 terminated.
 The slurmd daemon maintains a list of the jobs which have already been
 terminated to avoid replay of task launch requests.
-If the slurmctld daemon is cold-started (with the "-c" option
-or "/etc/init.d/slurm startclean"), it starts job ID values
-over based upon **FirstJobId**.
-If the slurmd is not also cold-started, it will reject job launch requests
-for jobs that it considers terminated.
-This solution to this problem is to cold-start all slurmd daemons whenever
-the slurmctld daemon is cold-started.
+If job ID numbering is reset due to missing or corrupted files in
+**StateSaveLocation**, then previously used job IDs will be assigned
+again.
 
 **"Unable to accept new connection: Too many open
 files"**  
