@@ -225,8 +225,8 @@ Slurm generally classifies users into three authorization levels:
  - **Privileged Users** include all Administrators and any users with
 "AdminLevel=Operator"
   
- - **Effective Owners** of a job or step include the direct owner and all
-Coordinators of the corresponding account.
+ - **Effective Owners** of a job or step include the direct owner and the
+**Coordinators** of the job's account.
 
 Note that configuring AdminLevels or Coordinators requires the use of SlurmDBD.
 The authorization levels required to execute various commands are defined in the
@@ -237,6 +237,12 @@ following table.
 **scontrol requeue:**  Privileged or Effective Owner
   
 **scontrol update step:**  Privileged or Effective Owner
+  
+**scontrol hold:**  Privileged or Effective Owner
+  
+**scontrol uhold:**  Privileged or Effective Owner
+  
+**scontrol release:**  Privileged or Effective Owner
   
 **scontrol suspend:**  Privileged or Coordinator
   
@@ -398,4 +404,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 20:36:51 GMT, October 13, 2026
+Time: 21:10:03 GMT, November 10, 2026

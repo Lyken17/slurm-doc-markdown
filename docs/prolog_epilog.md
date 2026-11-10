@@ -276,7 +276,14 @@ to all of the programs.
 * **SLURM\_JOB\_NODELIST**
   Nodes assigned to job. A Slurm hostlist expression.
   `scontrol show hostnames` can be used to convert this to a list of
-  individual host names.
+  individual host names. The Prolog and Epilog also get the
+  same value as **SLURM\_NODELIST**.
+  Unless **PrologFlags=RunInJob** is set, when slurmctld terminates or
+  aborts a job, the Epilog receives the job's full allocation at the time the
+  request was sent. This includes a resent
+  termination and the abort sent to the nodes a shrinking job gives up. For a
+  node the job does not hold, such as a node reporting a job the controller
+  has no record of, only that node's own name is listed.
 * **SLURM\_JOB\_NUM\_NODES**
   Number of nodes assigned to a job.
 * **SLURM\_JOB\_OVERSUBSCRIBE**
