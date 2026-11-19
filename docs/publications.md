@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 25.11
+Version 26.05
 
 * About
 
@@ -34,10 +34,20 @@ Version 25.11
 
 Note that older presentations may contain outdated information.
 
+## Presentations from SC26, November 2026
+
+* [Slurm 26.11 and Beyond](http://slurm.schedmd.com/SC26/Slurm_26.11.pdf)
+  Tim Wickberg and Doug Jacobsen, NVIDIA
+
+## Presentations from Cray User Group, April 2026
+
+* [Slurm and Slinky Roadmap Update](https://slurm.schedmd.com/MISC26/Slurm_CUG_2026.pdf)
+  Doug Jacobsen and Tim Wickberg, NVIDIA
+
 ## Presentations from GTC 2026, March 2026
 
 * [Orchestrate Next-Generation AI Workloads With Open-Source Slurm](http://slurm.schedmd.com/MISC26/Slurm_GTC_2026.pdf)
-  Tim Wickberg and Danny Auble, SchedMD
+  Tim Wickberg and Danny Auble, NVIDIA
 
 ## Presentations from SC25, November 2025
 
