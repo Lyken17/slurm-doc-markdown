@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -280,18 +280,36 @@ wish to use on the system. **Slurm uses the InnoDB storage
 engine in MySQL to make rollback possible. This must be available on your
 MySQL installation or rollback will not work.**
 
+MySQL 8.0.21 or later, or MariaDB 10.2.7 or later, is required. See
+[Platforms](platforms.md#database).
+
 The slurm configure
 script uses mysql\_config to find out the information it needs
 about installed libraries and headers. You can specify where your
 mysql\_config script is with the
-*--with-mysql\_conf=/path/to/mysql\_config* option when configuring your
+*--with-mysql\_config=/path/to/directory* option when configuring your
 slurm build.
 On a successful configure, output is something like this:
 
 ```
 checking for mysql_config... /usr/bin/mysql_config
-MySQL test program built properly.
+MySQL 8.0.36 test program built properly.
 ```
+
+**NOTE**: The accounting database stores the KV metadata documents of
+jobs and reservations (see [scontrol](scontrol.md)) once each, in
+a `json` column of a per-cluster `kv_table`, which jobs
+and reservations refer to. slurmctld only sends job documents with
+**AccountingStoreFlags=job\_kv** and reservation documents with
+**AccountingStoreFlags=resv\_kv** in slurm.conf, though
+`sacctmgr modify job` can set the document of a job that has ended
+either way. The slurmdbd adds the table
+and the references when it first starts after an upgrade, or when a cluster
+is added, so no action is needed, though on a large database that first start
+can take a while (see the [upgrade guide](upgrades.md#slurmdbd)).
+Every server version listed above supports `json`. MariaDB
+implements it as `longtext`, so its table definitions show the
+column as `longtext`.
 
 **NOTE**: Before running the slurmdbd for the first time there are several
 MySQL/MariaDB server settings that should be reviewed.
@@ -349,19 +367,13 @@ innodb_snapshot_isolation=OFF
 ...
 ```
 
-Also, in MySQL versions prior to 5.7 the default row format was set to
-*COMPACT* which could cause some issues during an upgrade when creating
-tables. In more recent versions it was changed to *DYNAMIC*. The row
-format of a table determines how its rows are physically stored in pages and
-directly affects the performance of queries and DML operations. In very specific
-situations using a format other than DYNAMIC can lead to rows not fitting into
-pages and MySQL can throw an error during the creation of the table because of
-that. Therefore it is recommended to read carefully about the row format before
-creating your database tables if you are not using DYNAMIC by default, and
-consider setting that if your database version supports it. If the
-following InnoDB error shows up during an upgrade, the table can then be
-altered (may take some time) to set the row format to DYNAMIC in order to
-allow the conversion to proceed:
+The default InnoDB row format is *DYNAMIC* in all supported MySQL and
+MariaDB versions. Existing tables created with older database versions may
+still use the *COMPACT* row format, which can cause rows not to fit into
+pages and the server to throw an error when slurmdbd alters the table during
+an upgrade. If the following InnoDB error shows up during an upgrade, convert
+the affected tables to *DYNAMIC* as described below (this may take some
+time) to allow the conversion to proceed:
 
 ```
 [Warning] InnoDB: Cannot add field ... in table ... because after adding it, the row size is Y which is greater than maximum allowed size (X) for a record on index leaf page.
@@ -380,12 +392,20 @@ mysql> SHOW VARIABLES LIKE 'innodb_default_row_format';
 1 row in set (0.001 sec)
 ```
 
-You can also see how the tables are created by running the following command,
-where *db\_name* is the name of your Slurm database (StorageLoc) set in
-your slurmdbd.conf:
+You can also see how the tables are created, including the
+*Row\_format* of each one, by running the following command, where
+*db\_name* is the name of your Slurm database (StorageLoc) set in your
+slurmdbd.conf:
 
 ```
 mysql> SHOW TABLE STATUS IN db_name;
+```
+
+Convert every table that the command above reports as *COMPACT*, one
+table at a time:
+
+```
+mysql> ALTER TABLE db_name.table_name ROW_FORMAT=DYNAMIC;
 ```
 
 Slurm assumes that the default collation for the database and table columns
@@ -578,16 +598,17 @@ Some of the more important parameters include:
 While Slurm will create the database tables automatically you will need to
 make sure the StorageUser is given permissions in the MySQL or MariaDB database
 to do so.
-As the *mysql* user grant privileges to that user using a
-command such as:
+As the *mysql* user create that user and grant privileges to it using
+commands such as:
 
+CREATE USER 'StorageUser'@'StorageHost' IDENTIFIED BY 'StoragePass';  
 GRANT ALL ON StorageLoc.\* TO 'StorageUser'@'StorageHost';  
 (The ticks are needed)
 
-(You need to be root to do this. Also in the info for password
-usage there is a line that starts with '->'. This a continuation
-prompt since the previous mysql statement did not end with a ';'. It
-assumes that you wish to input more info.)
+The user must exist before privileges are granted to it. The password must
+match the *StoragePass* in your slurmdbd.conf.
+
+(You need to be root to do this.)
 
 If you want Slurm to create the database itself, and any future databases,
 you can change your grant line to be \*.\* instead of StorageLoc.\*
@@ -598,7 +619,7 @@ Live example:
 mysql@snowflake:~$ mysql
 Welcome to the MySQL monitor.Commands end with ; or \g.
 Your MySQL connection id is 538
-Server version: 5.0.51a-3ubuntu5.1 (Ubuntu)
+Server version: 8.0.36 MySQL Community Server - GPL
 
 Type 'help;' or '\h' for help. Type '\c' to clear the buffer.
 
@@ -610,29 +631,15 @@ Query OK, 0 rows affected (0.00 sec)
 ```
 
 You may also need to do the same with the system name in order
-for mysql to work correctly:
+for mysql to work correctly. In the following 'system0' is the localhost or
+database storage host.
 
 ```
+mysql> create user 'slurm'@'system0' identified by 'password';
+Query OK, 0 rows affected (0.00 sec)
+
 mysql> grant all on slurm_acct_db.* TO 'slurm'@'system0';
 Query OK, 0 rows affected (0.00 sec)
-where 'system0' is the localhost or database storage host.
-```
-
-or with a password...
-
-```
-mysql> grant all on slurm_acct_db.* TO 'slurm'@'localhost'
-    -> identified by 'some_pass' with grant option;
-Query OK, 0 rows affected (0.00 sec)
-```
-
-The same is true in the case, you made to do the same with the
-system name:
-
-```
-mysql> grant all on slurm_acct_db.* TO 'slurm'@'system0'
-    -> identified by 'some_pass' with grant option;
-where 'system0' is the localhost or database storage host.
 ```
 
 Verify you have InnoDB support

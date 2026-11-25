@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -62,7 +62,7 @@ Each topology contains the following attributes:
 :   Unique name of the topology, will be used to identify it on partition
     configurations. Must be the first attribute.
 
-    : **cluster\_default** : The first topology defined with **cluster\_default: true** will be used for partitions without an explicitly specified topology and cluster-wide operations not tied to a partition (e.g., slurmctld-to-slurmd communication). Defaults to **false**.
+    : **cluster\_default** : The first topology defined with **cluster\_default: true** will be used for partitions without an explicitly specified topology and cluster-wide operations not tied to a partition (e.g., slurmctld-to-slurmd communication). Defaults to **false**. : **enable\_one\_node\_select** : If set to **true**, jobs limited to one node use the first-fit single-node selection instead of the complete node selection logic. The single-node selection does not honor the partition **LLN** option, **SelectTypeParameters=CR\_LLN**, or the **bf\_busy\_nodes** and **pack\_serial\_at\_end** **SchedulerParameters**. Ignored by **topology/torus3d**, which never uses the single-node selection. Defaults to **false**.
 
 Each topology must also define exactly one of the following topology types:
 
@@ -114,7 +114,9 @@ Each flat topology may contain the following attribute:
 
 **alpha\_step\_rank**
 :   If set to **true**, sort the job's allocated nodes alphabetically by name
-    when picking step nodes and laying out tasks. By default the order follows
+    when picking step nodes and laying out tasks. The node lists reported to the
+    job (**SLURM\_JOB\_NODELIST**, **SLURM\_STEP\_NODELIST**) and the per-node
+    arrays read alongside them follow the same order. By default the order follows
     the internal node table index, which for dynamically registered nodes
     reflects registration order rather than name order.
 
@@ -220,4 +222,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 21:10:03 GMT, November 10, 2026
+Time: 20:23:17 GMT, November 24, 2026

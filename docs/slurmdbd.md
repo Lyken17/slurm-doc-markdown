@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -64,6 +64,78 @@ compiled into slurmdbd.
 **ABORT\_ON\_FATAL**
 :   When a fatal error is detected, use abort() instead of exit() to terminate the
     process. This allows backtraces to be captured without recompiling Slurm.
+
+## HTTP server
+
+The HTTP server shares the RPC listening sockets on **DbdPort**.
+Set **CommunicationParameters**=**disable\_http** in
+**[slurmdbd.conf](slurmdbd.conf.md)**(5) to disable HTTP without disabling RPC service.
+Changes to **disable\_http** or **HttpAuthParameters** are not picked up
+by **sacctmgr reconfigure**; they require a restart of **slurmdbd**.
+
+Plain HTTP remains available even when **TLSType** requires TLS for RPCs.
+HTTPS is available when TLS support and server certificates are configured.
+Use HTTPS to protect authentication tokens in transit.
+
+Configure **HttpAuthParameters** in **[slurmdbd.conf](slurmdbd.conf.md)**(5) for requests
+that require authentication.
+Supply a JWT using either **Authorization**: **Bearer** <*token*>
+or **X-SLURM-USER-TOKEN**.
+The optional **X-SLURM-USER-NAME** header supplies the user name.
+Do not send both token headers in one request; such a request returns
+HTTP 401.
+HTTP and RPC authentication use independent keys; an RPC JWT is not
+necessarily valid for HTTP.
+When **HttpAuthParameters** is unset, requests requiring authentication
+return HTTP 401, while public endpoints remain available.
+
+Ordinary replies and unknown paths support HTTP/1.1 connection reuse.
+A **Connection**: **close** request closes the connection after its reply.
+Authentication and endpoint request failures may close the connection.
+
+### Public endpoints
+
+All endpoints use the GET method.
+
+**GET /**
+:   : Return the endpoint index with HTTP 200.
+
+    : **GET /healthz** : Test whether the daemon is online. Return HTTP 200 with a body of **HEALTHY** on success, or HTTP 500 with an empty body on failure. : **GET /livez** : Test whether the daemon is online. Return HTTP 200 with a body of **LIVE** on success, or HTTP 500 with an empty body on failure. : **GET /readyz**[**?verbose**] : Test whether this daemon is the active **slurmdbd**, not a standby backup, and whether its readiness probes pass. Return HTTP 200 with a body of **READY** on success, or HTTP 500 with an empty body on failure. With **?verbose**, the body holds the probe details, if any, instead of **READY** on success or an empty body on failure. A verbose request requires authentication as root or **SlurmUser**. Missing credentials return HTTP 401; an authenticated user without the required privilege receives HTTP 403. The verbose output is intended for humans, not as a stable data format.
+
+Unknown paths return HTTP 404.
+
+### Versioned endpoints
+
+Replace <*data\_parser*> with an installed parser version, such as
+**v0.0.46**.
+Successful replies use that parser's response schema and default to JSON.
+Use the **Accept** header to select a supported serializer format, for
+example **application/json**.
+See **SerializerPlugins** in **[slurmdbd.conf](slurmdbd.conf.md)**(5).
+These endpoints require HTTP authentication and return HTTP 200 on success.
+Missing credentials or invalid tokens return HTTP 401; an authenticated
+user without the required privilege receives HTTP 403.
+Endpoint errors may return a plain-text explanation rather than JSON.
+
+**GET /**<*data\_parser*>**/conf**
+:   Return the responding daemon's configuration in the **slurmdbd\_conf**
+    response field.
+    Requires a <*data\_parser*> of **v0.0.45** or later; older parser
+    versions return HTTP 404.
+    Any authenticated user may request it.
+
+    : **GET /**<*data\_parser*>**/diag** : Return the responding daemon's RPC and rollup statistics in the **statistics** response field. RPC and user counters include counts and total and average processing times in microseconds. Any installed <*data\_parser*> version may be used. Requires root, **SlurmUser**, or an accounting user with **AdminLevel**=**Administrator**.
+
+### Standby operation
+
+A newly started backup (**DbdBackupHost**) does not open its RPC/HTTP
+listener until its first takeover, so connections to it, including
+**/livez** and **/healthz**, are refused until then.
+If it later returns to standby without restarting, the listener remains open.
+Standby mode alone does not fail **/livez** or **/healthz**, but causes
+**/readyz** to return HTTP 500.
+HTTP responses describe the answering daemon; requests are not redirected
+to the active peer.
 
 ## CORE FILE LOCATION
 
@@ -125,10 +197,10 @@ details.
 
 ## Index
 
-[NAME](#lbAB): [SYNOPSIS](#lbAC): [DESCRIPTION](#lbAD): [OPTIONS](#lbAE): [ENVIRONMENT VARIABLES](#lbAF): [CORE FILE LOCATION](#lbAG): [SIGNALS](#lbAH): [NOTES](#lbAI): [COPYING](#lbAJ): [SEE ALSO](#lbAK)
+[NAME](#lbAB): [SYNOPSIS](#lbAC): [DESCRIPTION](#lbAD): [OPTIONS](#lbAE): [ENVIRONMENT VARIABLES](#lbAF): [HTTP server](#lbAG): [Public endpoints](#lbAH): [Versioned endpoints](#lbAI): [Standby operation](#lbAJ) [CORE FILE LOCATION](#lbAK): [SIGNALS](#lbAL): [NOTES](#lbAM): [COPYING](#lbAN): [SEE ALSO](#lbAO)
 
 ---
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 21:10:03 GMT, November 10, 2026
+Time: 20:23:17 GMT, November 24, 2026

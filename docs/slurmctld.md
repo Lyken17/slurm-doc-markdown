@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -85,14 +85,16 @@ compiled into slurmctld.
 Unless disabled via *CommunicationParameters=disable\_http* in
 **slurm.conf**, **slurmctld** will accept incoming HTTP/1.1 compliant
 requests to any socket listening as configured by **SlurmctldPort** in
-**slurm.conf**. Authentication of HTTP requests is not supported. TLS
-wrapping optionally supported without requiring **TLSType** in
+**slurm.conf**.
+HTTP authentication is configured with **SlurmctldHttpAuthParameters** in
+**slurm.conf**.
+TLS wrapping optionally supported without requiring **TLSType** in
 **slurm.conf**. The following endpoints are currently supported:
 
 **GET /**
 :   Get list of endpoints.
 
-    : **GET /healthz** : Test if **slurmctld** loaded successfully. : **GET /livez** : Test if **slurmctld** loaded successfully. : **GET /readyz**[**?verbose**] : Test if **slurmctld** is ready to accept incoming RPCs. Adding the **verbose** query parameter will result in a verbose output of each probe in the response. : **GET /metrics/jobs** : Get job metrics. : **GET /metrics/nodes** : Get node metrics. : **GET /metrics/partitions** : Get partition metrics. : **GET /metrics/scheduler** : Return scheduler metrics. : **GET /metrics/jobs-users-accts** : Return user and account job metrics.
+    : **GET /healthz** : Test if **slurmctld** loaded successfully. Returns HTTP 200 with a body of **HEALTHY** on success. Returns HTTP 500 with an empty body on failure. : **GET /livez** : Test if **slurmctld** loaded successfully. Returns HTTP 200 with a body of **LIVE** on success. Returns HTTP 500 with an empty body on failure. : **GET /readyz**[**?verbose**] : Test if **slurmctld** is ready to accept incoming RPCs. Adding the **verbose** query parameter will result in a verbose output of each probe in the response. Returns HTTP 200 on success with a body of **READY**, or with the probe detail instead if **verbose** produced any. Returns HTTP 500 on failure, with the probe detail as the body if **verbose** produced any and an empty body otherwise. A verbose request requires authentication as root or **SlurmUser**, which is only possible when **SlurmctldHttpAuthParameters** is set. Returns HTTP 401 for a missing or invalid credential, and HTTP 403 for any other authenticated user. : **GET /metrics/jobs** : Get job metrics. : **GET /metrics/nodes** : Get node metrics. : **GET /metrics/partitions** : Get partition metrics. : **GET /metrics/scheduler** : Return scheduler metrics. : **GET /metrics/jobs-users-accts** : Return user and account job metrics.
 
 When multiple **SlurmctldHost** entries are configured, a daemon in standby
 mode will answer **GET /metrics\*** with HTTP 303 "See Other" with the
@@ -168,4 +170,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 21:10:03 GMT, November 10, 2026
+Time: 20:23:17 GMT, November 24, 2026

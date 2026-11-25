@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -55,6 +55,7 @@ See also [Quick Start Administrator Guide](quickstart_admin.md)
   + [slurmd (Compute Nodes)](#slurmd)
   + [Other Slurm Commands](#other_commands)
   + [Customized Slurm Plugins](#custom_plugins)
+  + [Step Manager and Heterogeneous Jobs (26.11+)](#stepmgr_hetjobs)
 * [Seamless Upgrades](#seamless_upgrades)
 
 ## Release Cycle
@@ -70,30 +71,33 @@ For example, Slurm 23.11.4:
 * **.4** = maintenance version
   + Maintenance releases may contain bug fixes and performance improvements
 
-Prior to the 24.05 release, Slurm operated on a 9-month release cycle for
-major versions. Slurm 24.05 represents the first release on the
-[new 6-month cycle](https://www.schedmd.com/slurm-releases-move-to-a-six-month-cycle/).
+Since version 24.05, Slurm has followed a 6-month release cycle for major
+releases, and each release is supported for 18 months. Once a release leaves
+its support window, it no longer receives bug fixes or security patches. To
+keep your site secure and stable, plan to upgrade to a supported release
+before your current one reaches end of support. Upgrading regularly also
+gives you the latest performance improvements and features.
 
 ### Compatibility Window
 
-Slurm has long supported in-place upgrades from the previous two major
-releases. With the change to a 6-month cycle in 2024, Slurm 24.11 introduced
-compatibility with the **previous three major releases**. For example,
-slurmdbd 25.11.x is capable of accepting messages from slurmctld daemons and
-commands with a version of 25.11.x, 25.05.x, 24.11.x, or 24.05.x. It is also
-capable of updating the records in the database that were recorded by an
-instance of slurmdbd running these versions.
+Starting with version 24.11, Slurm is compatible with the **three
+previous major releases**, which matches the 18-month support window. For
+example, slurmdbd 25.11.x can accept messages from slurmctld daemons and
+commands running version 25.05.x, 24.11.x, or 24.05.x. It can also update
+records in the database that were written by a slurmdbd running any of these
+versions.
 
 |  |  |  |
 | --- | --- | --- |
-| **Slurm Release** | **Revised End of Support** (total length) | **Compatible Prior Version** |
+| **Slurm Release** | **End of Support** (duration) | **Compatible Prior Versions** |
 | 23.11 | May 2025 (18 months) | 23.02, 22.05 |
 | 24.05 | November 2025 (18 months) | 23.11, 23.02 |
 | 24.11 | May 2026 (18 months) | 24.05, 23.11, 23.02 |
 | 25.05 | November 2026 (18 months) | 24.11, 24.05, 23.11 |
 | 25.11 | May 2027 (18 months) | 25.05, 24.11, 24.05 |
-| 26.05 | November 2028 (18 months) | 25.11, 25.05, 24.11 |
-| 26.11 | May 2029 (18 months) | 26.05, 25.11, 25.05 |
+| 26.05 | November 2027 (18 months) | 25.11, 25.05, 24.11 |
+| 26.11 | May 2028 (18 months) | 26.05, 25.11, 25.05 |
+| 27.05 | November 2028 (18 months) | 26.11, 26.05, 25.11 |
 
   
 
@@ -351,13 +355,16 @@ The suggested upgrade procedure is as follows:
 3. Verify that the innodb\_buffer\_pool\_size in my.cnf is greater than the
    default. See the recommendation in the
    [accounting page](accounting.md#slurm-accounting-configuration-before-build).
-4. Upgrade the slurmdbd daemon binaries, libraries, and its systemd unit file
+4. Verify that the database server meets the minimum version: MySQL 8.0.21
+   or later, or MariaDB 10.2.7 or later. See
+   [Database Server](#db_server).
+5. Upgrade the slurmdbd daemon binaries, libraries, and its systemd unit file
    (if used). If using [RPM/DEB packages](quickstart_admin.md#build_install), the package manager will take care of these,
    although systemd overrides may prevent the new unit from taking effect.
      
    Only upgrade the slurmdbd system(s) at this time; other Slurm
    systems should remain on the old version.
-5. Start the primary slurmdbd daemon.
+6. Start the primary slurmdbd daemon.
      
    **NOTE**: If you typically use systemd, it is recommended to
    initially start the daemon directly as the configured SlurmUser:
@@ -370,23 +377,28 @@ The suggested upgrade procedure is as follows:
    may be killed prematurely potentially causing data loss. After it
    finishes starting up, you can use `Ctrl+C` to exit, then
    start it normally with systemd.
-6. Start the backup slurmdbd daemon (if applicable).
-7. Validate accounting operation, such as retrieving data through
+7. Start the backup slurmdbd daemon (if applicable).
+8. Validate accounting operation, such as retrieving data through
    `sacct` or `sacctmgr`.
 
 #### **Database Server**
 
+Slurm requires MySQL 8.0.21 or later, or MariaDB 10.2.7 or later.
+The **slurmdbd** daemon logs a fatal error and exits at startup if the
+server it connects to is older than the minimum, so upgrade the database
+server **before** upgrading slurmdbd. See
+[Platforms](platforms.md#database).
+
 When upgrading the database server that is used by slurmdbd (e.g., MySQL or
 MariaDB), usually no special procedures are required. It is recommended to use a
-database server that is supported by the publisher (or that was at the time when
-the chosen Slurm version was initially released). Database upgrades should be
+database server that is supported by the publisher. Database upgrades should be
 performed while the slurmdbd is stopped and according to the recommended
 procedure for the database used.
 
-When upgrading an existing accounting database to **MariaDB 10.2.1** or
-later from an older version of MariaDB or any version of MySQL, ensure you are
-running **slurmdbd 22.05.7** or later. These versions will gracefully handle
-changes to MariaDB default values that can cause problems for slurmdbd.
+When migrating an existing accounting database from MySQL to MariaDB, or
+from a MariaDB older than 10.2.1, ensure you are running
+**slurmdbd 22.05.7** or later. These versions gracefully handle changes to
+MariaDB default values that can otherwise cause problems for slurmdbd.
 
 ### slurmctld (Controller)
 
@@ -496,6 +508,25 @@ One easy way to know if an application requires a recompile is to inspect all
 of its ELF files with 'ldd' and grep for 'slurm'. If you see a versioned
 'libslurm.so.x.y.z' reference, then the application will likely need to be
 recompiled.
+
+### Step Manager and Heterogeneous Jobs (26.11+)
+
+Starting in Slurm 26.11, the steps of
+[heterogeneous jobs](heterogeneous_jobs.md) are also managed by
+the step manager when it is enabled
+([SlurmctldParameters=enable\_stepmgr](slurm.conf.md#OPT_enable_stepmgr)
+or `--stepmgr`). In older versions, heterogeneous jobs always had
+their steps managed by slurmctld, regardless of this setting.
+
+Steps of heterogeneous jobs managed by the step manager can only be
+launched when both the slurmd on the compute nodes and the `srun`
+that launches them are 26.11 or later. During a rolling upgrade with a 26.11+
+slurmctld, such steps fail to launch while compute nodes still run an older
+slurmd, or while users still run an older `srun`. Sites that use
+the step manager with heterogeneous jobs should either upgrade slurmctld, all
+slurmd daemons and the client commands (including `srun`) at the
+same time, or disable the step manager until all of them have been
+upgraded.
 
 ## Seamless Upgrades
 

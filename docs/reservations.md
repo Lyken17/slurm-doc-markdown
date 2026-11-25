@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -382,6 +382,28 @@ reservation: **HOURLY**, **DAILY**, **WEEKLY**, **WEEKDAY**, or
 while the last two represent the type of day on which the reservation should
 repeat.
 
+A **WEEKDAY** reservation must start on a weekday, and a **WEEKEND**
+reservation must start on a Saturday or a Sunday. The start day is determined
+in the local time zone of the slurmctld host. This is checked when the
+reservation is created and on any update that sets **StartTime** or
+specifies a recurring flag, so adding **WEEKEND** to a reservation
+that starts on a Tuesday is rejected unless the update also sets a
+**StartTime** on a day that flag covers.
+
+Similarly, swapping between **WEEKDAY** and **WEEKEND** also needs a
+new **StartTime** on a day the incoming flag covers:
+
+```
+# 2026-08-29 was a Saturday; any future Saturday or Sunday works
+$ scontrol update ReservationName=resv1 \
+   Flags=-WEEKDAY,+WEEKEND StartTime=2026-08-29T09:00:00
+```
+
+A reservation whose current occurrence has started cannot have its
+**StartTime** changed, so it cannot be swapped while it is active. A
+recurring reservation moves to its next start time once the occurrence
+ends, and the swap is accepted again from then on.
+
 **NOTE**: When a recurring reservation attempts to replace nodes, it
 will consider future availability of the resources and will only reserve
 resources that are in an overlapping reservation or unreserved at that time.
@@ -403,6 +425,8 @@ delete the previously created advanced reservation.
 
 Create the reservation by using the flag value of **TIME\_FLOAT** and a
 start time that is relative to the current time (use the keyword **now**).
+A start time given in days or weeks is Daylight Saving Time aware when the
+reservation is created.
 The reservation duration should generally be a value which is large relative
 to typical job run times in order to not adversely impact backfill scheduling
 decisions.

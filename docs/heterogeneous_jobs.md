@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -80,6 +80,7 @@ A list of propagated options follows.
 * --cluster-constraint
 * --clusters
 * --comment
+* --container-id
 * --deadline
 * --delay-boot
 * --dependency
@@ -134,6 +135,12 @@ A list of propagated options follows.
 * --wckey
 * --workdir
 
+The *--runtime* option is not propagated, nor are the options that a
+runtime plugin provides, such as *--container*.
+A component that omits *--runtime* uses the
+[DefRuntimePlugin](slurm.conf.md#OPT_DefRuntimePlugin), whatever
+runtime an earlier component selected.
+
 The task distribution specification applies separately within each job
 component. Consider for example a heterogeneous job with each component being
 allocated 4 CPUs on 2 nodes. In our example, job component zero is allocated
@@ -158,7 +165,14 @@ executes) using the default output file name.
 
 Environment variables used to specify default options for the job submit
 command will be applied to every component of the heterogeneous job
-(e.g. *SBATCH\_ACCOUNT*).
+(e.g. *SBATCH\_ACCOUNT*). This holds even for options that are not
+propagated: each component reads the environment for itself, so a
+non-propagated option supplied through the environment is applied to every
+component, while the same option given on the command line applies only to
+the component it is written on. For example,
+*SBATCH\_RUNTIME=oci sbatch -N1 : -N1* sets the runtime on both
+components, whereas *sbatch -N1 --runtime=oci : -N1* sets it only on
+the first.
 
 Batch job options can be included in the submitted script for multiple
 heterogeneous job components. Each component should be separated by a line
@@ -303,7 +317,7 @@ of a heterogeneous job (i.e. the "heterogeneous job leader") will return
 information about all components of that job. For example:
 
 ```
-$ squeue --job=93
+$ squeue --jobs=93
 JOBID PARTITION  NAME  USER ST  TIME  NODES NODELIST
  93+0     debug  bash  adam  R 18:18      1 nid00001
  93+1     debug  bash  adam  R 18:18      1 nid00011
@@ -316,18 +330,18 @@ the heterogeneous job using the "#+#" notation will apply only to that specific 
 For example:
 
 ```
-$ squeue --job=93
+$ squeue --jobs=93
 JOBID PARTITION  NAME  USER ST  TIME  NODES NODELIST
  93+0     debug  bash  adam  R 19:18      1 nid00001
  93+1     debug  bash  adam  R 19:18      1 nid00011
  93+2     debug  bash  adam  R 19:18      1 nid00021
 $ scancel 93+1
-$ squeue --job=93
+$ squeue --jobs=93
 JOBID PARTITION  NAME  USER ST  TIME  NODES NODELIST
  93+0     debug  bash  adam  R 19:38      1 nid00001
  93+2     debug  bash  adam  R 19:38      1 nid00021
 $ scancel 93
-$ squeue --job=93
+$ squeue --jobs=93
 JOBID PARTITION  NAME  USER ST  TIME  NODES NODELIST
 ```
 
@@ -392,7 +406,7 @@ cancelled. If a specific heterogeneous job component is specified (e.g. "scancel
 93+1"), then only that one component will be effected.
 
 ```
-$ squeue --job=93
+$ squeue --jobs=93
 JOBID PARTITION  NAME  USER ST  TIME  NODES NODELIST
  93+0     debug  bash  adam  R 19:18      1 nid00001
  93+1     debug  bash  adam  R 19:18      1 nid00011
@@ -514,17 +528,6 @@ $ srun --het-group=0   true   # Launches step  1721.1, no 1722.1
 $ srun --het-group=0,1 true   # Launches steps 1721.2 and 1722.2
 ```
 
-Because step IDs are unique across the whole hetjob, cancelling a step
-through the job leader kills that step in every component that has it.
-Using the step IDs above, scancel 1721.0 would
-kill both 1721.0 and 1722.0, while
-scancel 1721.1 would kill step 1 in the only
-component that has it, which is not an error.
-Only a step ID that no component has is reported as an invalid job ID.
-As with any other job, cancelling a step never cancels the job itself: the
-component allocations keep running.
-Signals other than SIGKILL that you send with scancel are sent only to the step
-
 Because step IDs are unique across the whole heterogeneous job, cancelling a
 step through the heterogeneous job leader kills that step in every component
 that has it.
@@ -541,6 +544,12 @@ As with any other job, cancelling a step never cancels the job itself: the
 component allocations keep running.
 Cancelling a step through an individual component signals only that
 component's step.
+If that component does not have the step, the request is reported as an
+invalid job ID.
+When the job's steps are managed by a step manager (see **--stepmgr**), the
+cancel is forwarded to the step manager instead, so a step ID that does not
+exist is accepted rather than reported as an error, whether it was given
+through the heterogeneous job leader or an individual component.
 Signals other than the default SIGKILL are sent only to the step of the
 component whose job ID was given.
 
@@ -694,6 +703,9 @@ Job arrays of heterogeneous jobs are not supported.
 The srun command's --no-allocate option is not supported
 for heterogeneous jobs.
 
+The srun command's --async option is not supported for heterogeneous jobs,
+even when the step manager is enabled.
+
 Only one job step per heterogeneous job component can be launched by a
 single srun command (e.g.
 "srun --het-group=0 alpha : --het-group=0 beta" is not supported).
@@ -705,14 +717,22 @@ License requests are only allowed on the first component
 job (e.g.
 "sbatch -L ansys:2 : script.sh").
 
+The slurmstepd step management (*--stepmgr*) setting cannot be
+configured independently per component. The *--stepmgr* setting on the
+first component (the heterogeneous job leader) is applied to the whole job;
+the setting on any other component is overridden to match the leader.
+
 Heterogeneous jobs are only scheduled by the backfill scheduler plugin.
 The more frequently executed scheduling logic only starts jobs on a first-in
 first-out (FIFO) basis and lacks logic for concurrently scheduling all
 components of a heterogeneous job.
 
-Heterogeneous jobs are not supported on GANG scheduling operations.
+A heterogeneous job is excluded from GANG scheduling operations,
+including *PreemptMode=SUSPEND*, and from oversubscription while
+*GANG* is enabled. See
+[heterogeneous job preemption](preempt.md#hetjob).
 
-Slurm's Perl APIs do not support heterogeneous jobs.
+Slurm's deprecated Perl API does not support heterogeneous jobs.
 
 The srun --multi-prog option can not be used to span more than one
 heterogeneous job component.

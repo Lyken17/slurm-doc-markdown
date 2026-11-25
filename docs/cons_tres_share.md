@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -50,7 +50,7 @@ being selected for scheduling:
   When a consumable resource such as a core,
   socket, or CPU is shared, it means that more than one job can be assigned to it.
 
-The following table describes this new functionality in more detail:
+The following table describes this functionality in more detail:
 
 | Selection Setting | Per-partition `OverSubscribe` Setting | Resulting Behavior |
 | --- | --- | --- |
@@ -89,7 +89,7 @@ track the CPU usage on each node.
 
 The sharing functionality in the
 `select/cons_tres` plugin also supports the
-new `OverSubscribe=FORCE:<num>` syntax. If `OverSubscribe=FORCE:3`
+`OverSubscribe=FORCE:<num>` syntax. If `OverSubscribe=FORCE:3`
 is configured with a consumable resource plugin and `CR_Core` or
 `CR_Core_Memory`, then the plugin will
 run up to 3 jobs on each core of each node in the partition. If
@@ -126,6 +126,17 @@ the partitions have different "OverSubscribe" policies.
 | Two `OverSubscribe=FORCE` partitions assigned the same set of nodes | Jobs from either partition will be assigned consumable resources. All consumable resources can be shared. One node could have 2 jobs running on it, and each job could be from a different partition. |
 | Two partitions assigned the same set of nodes: one partition is `OverSubscribe=FORCE:3`, and the other is `OverSubscribe=FORCE:5` | Generally the same behavior as above. However no consumable resource will ever run more than 3 jobs from the first partition, and no consumable resource will ever run more than 5 jobs from the second partition. A consumable resource could have up to 8 jobs running on it at one time. |
 
+The per-partition tracking shown above is specific to
+`select/cons_tres`. Because `select/linear` only
+counts the number of jobs on each node, its limit counts every job sharing the
+node regardless of which partition it came from. For example, a shared job from
+an `OverSubscribe=YES` partition counts against the limit of an
+overlapping `OverSubscribe=FORCE:2` partition, so the latter
+partition will not start any more jobs on nodes with two or more already running.
+
+With either plugin, the limit applied to a job is the one set on the partition
+it was submitted to, not the limit of any overlapping partition.
+
 Note that the "mixed shared setting" configuration (row #2 above) introduces the
 possibility of **starvation** between jobs in each partition. If a set of
 nodes are running jobs from the `OverSubscribe=NO` partition, then these
@@ -134,9 +145,7 @@ jobs submitted to the `OverSubscribe=FORCE` partition have a higher
 priority. This works in reverse also, and in fact it's easier for jobs from the
 `OverSubscribe=FORCE` partition to hold onto the nodes longer because the
 consumable resource "sharing" provides more resource availability for new jobs
-to begin running "on top of" the existing jobs. This happens with the
-`select/linear` plugin also, so it's not specific to the
-`select/cons_tres` plugin.
+to begin running "on top of" the existing jobs.
 
 ## Memory Management
 

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -119,7 +119,12 @@ administrators.
 * **Scripting interfaces**
 
 + A **Perl** interface is included in the Slurm distribution in the
-  *contribs/perlapi* directory and packaged in the *perlapi* RPM.
+  *contribs/perlapi* directory and packaged in corresponding RPM/DEB packages.
+  This interface is **deprecated** and may be removed in a future release.
+  New integrations should use the [REST API](rest_quickstart.md)
+  instead.
+  Some other components in the *contribs* directory depend on the Perl API
+  and are also deprecated: *openlava*, *torque*, and *seff*.
 + [PySlurm](https://github.com/pyslurm/) is a
   Python/Cython module to interface with Slurm.
   There is also a Python module to expand and collect hostlist expressions

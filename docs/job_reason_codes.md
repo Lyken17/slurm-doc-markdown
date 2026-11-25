@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -300,6 +300,13 @@ method will be displayed. Refer to the [Scheduling Configuration Guide](sched_co
 * **OutOfMemory** — The job failed with an Out Of Memory error.
 * **PartitionConfig** — Fallback reason when the job violates
   some limit on the partition.
+* **PartitionCpuLimit** — The number of CPUs required by this job
+  exceeds the number of CPUs configured in its partition, or exceeds the
+  partition's **MaxCPUsPerNode** limit multiplied by its node count. Can
+  also indicate that the partition currently has no nodes in it, as is
+  common for a partition backed by
+  [dynamic nodes](dynamic_nodes.md) that have not registered
+  yet.
 * **PartitionDown** — The partition required by this job is in
   a DOWN state.
 * **PartitionInactive** — The partition required by this job is

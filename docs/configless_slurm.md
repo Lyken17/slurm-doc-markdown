@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -175,6 +175,9 @@ the [limitations](#LIMITATIONS) section.
 * namespace.yaml
 * oci.conf
 * plugstack.conf
+* resctrl.yaml
 * scrun.lua
+* switch.lua
 * topology.conf
 * topology.yaml
+* tpu.yaml

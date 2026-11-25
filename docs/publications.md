@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -36,8 +36,18 @@ Note that older presentations may contain outdated information.
 
 ## Presentations from SC26, November 2026
 
-* [Slurm 26.11 and Beyond](http://slurm.schedmd.com/SC26/Slurm_26.11.pdf)
+* [Slurm 26.11 And Beyond](https://slurm.schedmd.com/SC26/Slurm_26.11.pdf)
   Tim Wickberg and Doug Jacobsen, NVIDIA
+* [Slurm Community Birds-Of-A-Feather (Strategic Roadmap)](http://slurm.schedmd.com/SC26/Slurm_Strategic_Roadmap.pdf)
+  Tim Wickberg and Danny Auble, NVIDIA
+* [Keep Nodes Productive with GPU-Level Draining in Slurm](https://slurm.schedmd.com/SC26/Draining_TRES.pdf)
+  Scott Hilton, NVIDIA
+* [Slinky Fundamentals: An Introduction to Slurm on Kubernetes](https://slurm.schedmd.com/SC26/Slinky_101_SC26.pdf)
+  Vivian Hafener, NVIDIA
+* [Slinky - Slurm Bridge: Unifying HPC and Cloud](https://slurm.schedmd.com/SC26/Slurm_Bridge_SC26.pdf)
+  Skyler Malinowski, NVIDIA
+* [Slurm Containers Via Runtime Plugins](https://slurm.schedmd.com/SC26/Runtime_Plugins.pdf)
+  Nathan Rini and Doug Jacobsen, NVIDIA
 
 ## Presentations from Cray User Group, April 2026
 
@@ -46,16 +56,16 @@ Note that older presentations may contain outdated information.
 
 ## Presentations from GTC 2026, March 2026
 
-* [Orchestrate Next-Generation AI Workloads With Open-Source Slurm](http://slurm.schedmd.com/MISC26/Slurm_GTC_2026.pdf)
+* [Orchestrate Next-Generation AI Workloads With Open-Source Slurm](https://slurm.schedmd.com/MISC26/Slurm_GTC_2026.pdf)
   Tim Wickberg and Danny Auble, NVIDIA
 
 ## Presentations from SC25, November 2025
 
-* [Slurm Community Birds-Of-A-Feather](http://slurm.schedmd.com/SC25/Slurm_BoF_SC25.pdf)
+* [Slurm Community Birds-Of-A-Feather](https://slurm.schedmd.com/SC25/Slurm_BoF_SC25.pdf)
   Tim Wickberg and Danny Auble, SchedMD
-* [Hierarchical Resources (HRES) and topology/block](http://slurm.schedmd.com/SC25/HRES_and_topology_block.pdf)
+* [Hierarchical Resources (HRES) and topology/block](https://slurm.schedmd.com/SC25/HRES_and_topology_block.pdf)
   Ben Glines, SchedMD
-* [Clients for Slurm's REST API](http://slurm.schedmd.com/SC25/REST_Clients.pdf)
+* [Clients for Slurm's REST API](https://slurm.schedmd.com/SC25/REST_Clients.pdf)
   Nathan Rini, SchedMD
 
 ## Presentations from KubeCon North America, November 2025

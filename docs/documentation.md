@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -32,7 +32,7 @@ Version 26.05
 
 # Documentation
 
-**NOTE: This documentation is for Slurm version 26.05.  
+**NOTE: This documentation is for Slurm version 26.11.  
 Documentation for older versions of Slurm are distributed with the source, or
 may be found in the [archive](https://slurm.schedmd.com/archive/).**
 
@@ -74,6 +74,7 @@ may be found in the [archive](https://slurm.schedmd.com/archive/).**
 * [JSON Web Tokens Authentication](jwt.md)
 * [Federated Scheduling Guide](federation.md)
 * [Job Containment (SSH Session Control) with pam\_slurm\_adopt](pam_slurm_adopt.md)
+* [Job I/O Relay Guide](relay_io.md)
 * [Kubernetes Guide](kubernetes.md)
 * [Large Cluster Administration Guide](big_sys.md)
 * [License Management](licenses.md)
@@ -85,6 +86,7 @@ may be found in the [archive](https://slurm.schedmd.com/archive/).**
 * [OpenAPI Plugin Release Notes](openapi_release_notes.md)
 * [Power Saving Guide (power down idle nodes)](power_save.md)
 * [Prolog and Epilog Guide](prolog_epilog.md)
+* [Resctrl Task Plugin (memory bandwidth partitioning)](resctrl.md) (Experimental)
 * Slurm REST API
   + [Quick Start Guide](rest_quickstart.md)
   + [API Details](rest.md)
@@ -135,3 +137,4 @@ may be found in the [archive](https://slurm.schedmd.com/archive/).**
   + [Job Submission Plugin Programmer Guide](job_submit_plugins.md)
   + [PrEp Plugin Programmer Guide](prep_plugins.md)
   + [Site Factor (Priority) Plugin Programmer Guide](site_factor.md)
+  + [switch/lua Plugin Programmer Guide](switch_lua_plugin.md)

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -49,19 +49,19 @@ sh5util
 
 sh5util merges HDF5 files produced on each node for each step of a job into
 one HDF5 file for the job. The resulting file can be viewed and manipulated
-by common HDF5 tools such as HDF5View, h5dump, h5edit, or h5ls.
+by common HDF5 tools such as HDFView, h5dump, h5edit, or h5ls.
 
-sh5util also has two extract modes. The first, writes a limited set of
+sh5util also has two extract modes. The first writes a limited set of
 data for specific nodes, steps, and data series in
 "comma separated value" form to a file which can be imported into other
 analysis tools such as spreadsheets.
 
-The second, (Item-Extract) extracts one data time from one time series for all
-the samples on all the nodes from a jobs HDF5 profile.
+The second (Item-Extract) extracts one data item from one time series for all
+the samples on all the nodes from a job's HDF5 profile.
 
 - Finds sample with maximum value of the item.
 
-- Write CSV file with min, ave, max, and item totals for each node for each
+- Writes a CSV file with min, ave, max, and item totals for each node for each
 sample
 
 ## OPTIONS
@@ -69,14 +69,14 @@ sample
 **-E**, **--extract**
 :   Extract data series from a merged job file.
 
-    : : Extract mode options: : **-i**, **--input**=*path* : merged file to extract from (default ./job\_$jobid.h5) : **-N**, **--node**=*nodename* : Node name to extract (default is all) : **-l**, **--level**=[Node:Totals | Node:TimeSeries] : Level to which series is attached. (default Node:Totals) : **-s**, **--series**=[Energy | Filesystem | Network | Task | Task\_#] : **Task** is all tasks, **Task\_#** (# is a task id) (default is everything) : **-h**, **--help** : Print this description of use. : **-I**, **--item-extract** : Extract one data item from all samples of one data series from all nodes in a merged job file. : : Item-Extract mode options: : **-s**, **--series**=[Energy | Filesystem | Network | Task] : : **-d**, **--data** : Name of data item in series (See note below). : **-j**, **--jobs**=<*job*[.*step*]> : Format is <*job*[.*step*]>. Merge this job/step (or a comma-separated list of job steps). This option is required. Not specifying a step will result in all steps found to be processed. Array task IDs and het component IDs are not supported. Use regular job IDs instead: : ``` $ sacct -X -j 5077 --format=JobId,JobIdRaw JobID JobIDRaw ------------ ------------ 5077_1 5078 5077_2 5079 5077_3 5077 $ sh5util -S -j 5079 # for merging 5077_2 only sh5util: Merging node-step files into ./job_5079.h5 ``` : **-L**, **--list** : Print the items of a series contained in a job file. : : List mode options: : **-i**, **--input**=*path* : Merged file to extract from (default ./job\_$jobid.h5) : **-s**, **--series**=[Energy | Filesystem | Network | Task] : **-o**, **--output**=<*path*> : Path to a file into which to write. Default for merge is ./job\_$jobid.h5 Default for extract is ./extract\_$jobid.csv : **-p**, **--profiledir**=<*dir*> : Directory location where node-step files exist default is set in acct\_gather.conf. : **-S**, **--savefiles** : Instead of removing node-step files after merging them into the job file, keep them around. : **--usage** : Display brief usage message. : **--user**=<*user*> : User who profiled job. (Handy for root user, defaults to user running this command.)
+    : : Extract mode options: : **-i**, **--input**=*path* : merged file to extract from (default ./job\_$jobid.h5) : **-N**, **--node**=*nodename* : Node name to extract (default is all) : **-l**, **--level**=[Node:Totals | Node:TimeSeries] : **Node:Totals** writes the minimum, maximum, sum, and average of each item for each series on each node, computed by sh5util. **Node:TimeSeries** writes every sample. (default Node:Totals) : **-s**, **--series**=[Energy | Filesystem | Network | Tasks] : **Tasks** extracts the per-task datasets. : **-h**, **--help** : Print this description of use. : **-I**, **--item-extract** : Extract one data item from all samples of one data series from all nodes in a merged job file. : : Item-Extract mode options: : **-s**, **--series**=[Energy | Filesystem | Network | Tasks] : : **-d**, **--data** : Name of data item in series (See note below). : **-j**, **--jobs**=<*job*[.*step*]> : Format is <*job*[.*step*]>. Merge this job/step (or a comma-separated list of job steps). This option is required. Not specifying a step will result in all steps found to be processed. Array task IDs and het component IDs are not supported. Use regular job IDs instead: : ``` $ sacct -X -j 5077 --format=JobId,JobIdRaw JobID JobIDRaw ------------ ------------ 5077_1 5078 5077_2 5079 5077_3 5077 $ sh5util -S -j 5079 # for merging 5077_2 only sh5util: Merging node-step files into ./job_5079.h5 ``` : **-L**, **--list** : Print the items of a series contained in a job file. : : List mode options: : **-i**, **--input**=*path* : Merged file to extract from (default ./job\_$jobid.h5) : **-s**, **--series**=[Energy | Filesystem | Network | Tasks] : **-o**, **--output**=<*path*> : Path to a file into which to write. Default for merge is ./job\_$jobid.h5 Default for extract is ./extract\_$jobid.csv : **-p**, **--profiledir**=<*dir*> : Directory location where node-step files exist default is set in acct\_gather.conf. : **-S**, **--savefiles** : Instead of removing node-step files after merging them into the job file, keep them around. : **--usage** : Display brief usage message. : **--user**=<*user*> : User who profiled job. (Handy for root user, defaults to user running this command.)
 
 ## Data Items per Series
 
 **Energy**
-:   : Power CPU\_Frequency
+:   : Energy fields are plugin-specific. For the fields each energy plugin provides, see *<https://slurm.schedmd.com/hdf5_profile_user_guide.html#energy>*. Common fields include: Power <label>Power GPU<N>Power Energy CurrPower
 
-    : **Filesystem** : : Reads Megabytes\_Read Writes Megabytes\_Write : **Network** : : Packets\_In Megabytes\_In Packets\_Out Megabytes\_Out : **Task** : : CPU\_Frequency CPU\_Time CPU\_Utilization RSS VM\_Size Pages Read\_Megabytes Write\_Megabytes
+    : **Filesystem** : : Reads ReadMB Writes WriteMB : **Network** : : PacketsIn PacketsOut InMB OutMB : **Tasks** : : CPUFrequency CPUTime CPUUtilization GPUMemMB GPUUtilization RSS VMSize Pages ReadMB WriteMB
 
 ## PERFORMANCE
 
@@ -93,7 +93,7 @@ necessary for the information you are trying to gather.
 
 ## EXAMPLES
 
-Merge node-step files (as part of a sbatch script):: : ``` $ sbatch -n1 -d$SLURM_JOB_ID --wrap="sh5util --savefiles -j $SLURM_JOB_ID" ``` Extract all task data from a node:: : ``` $ sh5util -j 42 -N snowflake01 --level=Node:TimeSeries --series=Tasks ``` Extract all energy data:: : ``` $ sh5util -j 42 --series=Energy --data=power ```
+Merge node-step files (as part of a sbatch script):: : ``` $ sbatch -n1 -d$SLURM_JOB_ID --wrap="sh5util --savefiles -j $SLURM_JOB_ID" ``` Extract all task data from a node:: : ``` $ sh5util -E -j 42 -N snowflake01 --level=Node:TimeSeries --series=Tasks ``` Extract the Power item of the energy data from all nodes:: : ``` $ sh5util -I -j 42 --series=Energy --data=Power ```
 
 ## COPYING
 
@@ -124,4 +124,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 21:10:03 GMT, November 10, 2026
+Time: 20:23:16 GMT, November 24, 2026

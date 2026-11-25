@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -165,8 +165,11 @@ task/cgroup provides the following features:
 * Confine jobs and steps to their allocated cpuset.
 * Confine jobs and steps to specific memory resources.
 * Confine jobs, steps and tasks to their allocated gres, including gpus.
+* Limit the number of PIDs that may exist at the same time in each step,
+  as requested with `--max-pids`.
 
-The task/cgroup plugin uses the cpuset, memory and devices subsystems.
+The task/cgroup plugin uses the cpuset, memory, devices, and pids
+subsystems.
 
 To enable this plugin, add *task/cgroup* to the TaskPlugin configuration
 parameter in slurm.conf:
@@ -343,7 +346,7 @@ cgroup plugins, but instead they only show internal functional differences.
 | --- | --- |
 | **cgroup/v1** | **cgroup/v2** |
 | memory.limit\_in\_bytes | memory.max |
-| memory.soft\_limit\_in\_bytes | memory.high |
+| memory.soft\_limit\_in\_bytes | none |
 | memory.memsw\_limit\_in\_bytes | memory.swap.max |
 | memory.swappiness | none |
 | freezer.state | cgroup.freeze |
@@ -354,6 +357,11 @@ cgroup plugins, but instead they only show internal functional differences.
 
 ### Other generalities
 
+* Slurm sets no soft memory limit under cgroup/v2. The *memory.high*
+  interface is not a substitute for the cgroup/v1 advisory
+  *memory.soft\_limit\_in\_bytes*. It is always enforced and throttles the job
+  with reclaim and penalty sleeps, so the job can stall long before it reaches
+  *memory.max* and is OOM-killed.
 * When using cgroup/v1, some configurations can exclude the swap cgroup
   accounting. This accounting is part of the features provided by the memory
   controller. If this feature is disabled from the kernel or boot parameters,

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -30,98 +30,170 @@ Version 26.05
   + [Support and Training](https://www.schedmd.com/slurm-support/our-services/)
   + [Troubleshooting](troubleshoot.md)
 
-# Release Notes for Slurm 26.05
+# Release Notes for Slurm 26.11
 
 ## Upgrading
 
-Slurm 26.05 supports upgrading directly from 25.11, 25.05, and
-24.11.
+Slurm 26.11 supports upgrading directly from 26.05, 25.11, and
+25.05.
+
+Changes to the database schema may make upgrading SlurmDBD more time
+consuming than usual. It is strongly recommended to test upgrading the
+database before upgrading the production SlurmDBD instance.
 
 See the [Upgrade
 Guide](https://slurm.schedmd.com/upgrades.md) for further details.
 
 ## Highlights
 
-* New “srun –async” step mode that submits step processes to stepmgr
-  to queue and eventually launch. This avoids issues with keeping a large
-  number of srun processes backgrounded to queue up future step-based
-  workflows. (This was previously described as “mini-batch” in the Slurm
-  roadmap presentations.)
-* New topology/ring and topology/torus3d topology plugins. These
-  implement a single-dimensional and three-dimensional topology
-  respectively.
-* Slurm REST API - Add support for creating/updating/removing
-  partitions, and for viewing the active slurmctld and slurmdbd
-  configurations.
-* Dynamic Memory Resizing. A job can now release memory (and have the
-  cgroup limits updated) using ‘scontrol update’ while running. A new
-  “sbatch –mem-update=@” option can also automatically
-  reduce the memory limit to the current usage plus a given margin
-  percentage after a specified time.
-* Add topology-based sorting for node ranks when using dynamic nodes
-  with the topology plugins. This is also available generically for
-  topology/flat (no topology) with a new alpha\_step\_rank option.
-* Add an optimized single-node path through the scheduling logic for
-  increased performance.
-* Expanded the openmetrics (Prometheus) nodes, partitions, and jobs
-  endpoints with gpu allocation statistics.
-* namespace/linux - Add support for custom mount options and paths for
-  each target directory.
+* Add plugin support to the Hierarchical Resources (HRES) subsystem,
+  and the hres/lua plugin script interface.
+* Add arbitrary key-value metadata (a JSON document) to jobs, nodes,
+  partitions, and reservations. Set it with “scontrol update KV=”,
+  “KVPatch=”, or “–kv=”. Store it in accounting with
+  AccountingStoreFlags=job\_kv and resv\_kv.
+* Add the switch/lua plugin to manage interconnects with a Lua
+  script.
+* Add step dependencies (“srun –step-dependency=”)
+* Add stepmgr support for heterogeneous jobs. Note that slurmctld,
+  slurmd, and srun all need to be upgraded to 26.11 to support this mode
+  of operation.
+  + Sites are encouraged to enable stepmgr globally through
+    SlurmctldParameters=enable\_stepmgr and report any issues before this
+    becomes the default in Slurm 27.05.
+* Add swait support for waiting on specific steps, as well as a
+  “–follow” option that reports the completion of individual steps while
+  continuing to block until all steps have completed.
+* Add gpu/amd plugin (AutoDetect=amd) as an alternative to gpu/rsmi
+  for AMD GPUs. This plugin does not require AMD’s RSMI library, and will
+  build on all systems.
+* Add gres/tpu and job\_submit/tpu plugins to support Google TPUs.
+* Add the experimental task/resctrl plugin to confine job steps to
+  resctrl groups (Arm MPAM, Intel RDT, AMD PQoS). Define the groups in
+  resctrl.yaml.
+* Add support for draining individual GRES on a compute node as a way
+  to mitigate a single failed accelerator card.
+* Add the dmem cgroup controller to limit shard GRES device memory
+  (ConstrainDeviceMemory=yes).
+
+## New Features
+
+* Add the relay\_io plugin type to copy job stdout and stderr, as JSON
+  records, to a UNIX datagram socket on each node.
+* Answer HTTP requests in slurmdbd on DbdPort (/livez, /readyz,
+  /healthz, /conf, /diag).
+* Add “–gres-flags=enforce-links” to require directly linked GRES
+  devices (for example NVLink). Add “–gres-flags=ignore-links” to select
+  devices in index order.
+* Add ChunkSizes and ChunkOrder to gres.conf to allocate devices in
+  aligned chunks.
+* Add “–layout==[,…]” to salloc, sbatch, and srun as a job
+  tag for site plugins, prologs, and epilogs.
+* Add “–max-pids” and a “pids” TRES to limit and report processes per
+  step (cgroup/v2).
+* Add CLONE\_NEWIPC support to namespace/linux.
+* Add per-device drain of GRES devices, CPUs, and memory with
+  “scontrol update TresName=… Action=Drain”. Add the DEGRADED node state
+  for nodes with drained TRES.
+* Add the Slurm return code (SlurmRC) to jobs. RequeueExit and
+  RequeueExitHold match it when it is not zero. Add SLURM\_JOB\_RC to the
+  Epilog environment.
+* Add job queue, requeue, hold, and release events to jobcomp/kafka
+  and jobcomp/lua.
+* Add “sacctmgr load … declarative” mode.
+* Add TresDecayHalfLife for associations and QOS to override
+  PriorityDecayHalfLife for each TRES.
+* Add DefSegmentSize as a default for jobs that do not use
+  “–segment”.
+* Use the full node selection logic for single-node jobs by default.
+  Set “enable\_one\_node\_select: true” in topology.yaml to restore the
+  first-fit path.
+* Assign StepIds to steps at submission instead of launch.
+* Change swait exit codes: 1 is an error, 2 is “–timeout”, and 3 is a
+  missing step.
+* Record the name, not the UID, of the user that cancelled a job or
+  set a node reason.
+* Send all supported slurmctld RPC replies asynchronously.
+* Enable the slurmctld threadpool by default.
+* Require authentication as root or SlurmUser for slurmd
+  “/readyz?verbose” probes. Return HTTP 200 in place of 204 from /livez
+  and /readyz.
+* Keep a job in CONFIGURING while a PrologFlags=Alloc Prolog runs,
+  unless NoHold is set.
+* Report node memory metrics in bytes in the openmetrics endpoint.
+  They were in MiB.
+* Refuse to change or remove a partition’s QOS while jobs are running
+  or suspended in it.
+* Add new serializer/xjson plugin as an alternative to serializer/json
+  that does not require json-c. Plugin must be configured explicitly to be
+  used over serializer/json (when compiled).
 
 ## Configuration Changes - slurm.conf
 
-* Add SuspendTime as a NodeName parameter, enabling per-node power
-  save configuration.
-* Exclusive=[NO|NODE|USER|TOPO] replaces ExclusiveUser and
-  ExclusiveTopo when defining Partitions.
-* jobcomp/elasticsearch and jobcomp/kafka - Send ‘admin\_comment’ and
-  ‘comment’ fields if JobCompParams=send\_comment is set.
-* Add DebugFlags=thread.
+* Add DefRuntimePlugin, RelayIOPlugin, RelayIOParameters, and
+  RelayIODefaultEnabled.
+* Add SlurmstepdParameters, SlurmrestdParameters,
+  SerializerParameters, SerializerPlugins, and
+  SlurmrestdHttpAuthParameters.
+* Add DefSegmentSize.
+* Add MaxDrainedTres as a NodeName parameter.
+* Add AccountingStoreFlags=job\_kv and resv\_kv.
+* Add SlurmctldParameters=switch\_timeout, switch\_retries,
+  switch\_drain\_on\_failure, dynamic\_node\_dns, drain\_absent\_gres,
+  fast\_power\_up\_launch, and enable\_deferred\_user\_lookup
+  (experimental).
+* Add SchedulerParameters=bf\_node\_unavail\_exit.
+* Add MailProg=None as a way to explicitly disable MailProg.
+* Add LogTimeFormat=omit and rfc5424\_us.
+* Rename CR\_NO\_DIST\_TOPO\_BLOCK to CR\_NO\_DIST\_TOPO.
+* Require SlurmdUser to be root or SlurmUser.
+* Remove SlurmctldParameters=enable\_async\_reply.
+* Remove CommunicationParameters=block\_null\_hash and
+  block\_zero\_hash.
 
 ## Configuration Changes - gres.conf
 
-* Add AutoDetect=full option to try all GRES plugin AutoDetection
-  types on slurmd start.
+* Add AutoDetect=amd, AutoDetect=tpu, ChunkSizes, ChunkOrder, UUID,
+  and DmemRegion.
 
-## Configuration Changes - oci.conf
+## Configuration Changes - cgroup.conf
 
-* Add %Z filename expansion pattern for the job’s working
-  directory.
+* Add ConstrainDeviceMemory.
+
+## Configuration Changes - topology.yaml
+
+* Add enable\_one\_node\_select.
 
 ## Configuration Changes - slurmdbd.conf
 
-* Add Parameters=PreserveCaseResource to make resources (remote
-  licenses) case sensitive.
-* Add DisableRollups option.
-* Add DebugFlags=thread.
+* Add HttpAuthParameters and Parameters=PreserveCaseAll.
+* Add support for CommunicationParameters=disable\_http.
+* Add SerializerParameters, SerializerPlugins, and the conmgr and
+  workerpool options in Parameters.
+
+## Configuration Changes - Other Files
+
+* Add resctrl.yaml, tpu.yaml, and switch.lua.
 
 ## Packaging Changes
 
-* HTML documentation (man and otherwise) is no longer built or
-  packaged by default. New ‘make html’ and ‘make install-html’ targets can
-  be used to generate the HTML documentation if desired.
-* MUNGE is now a weak dependency to Slurm RPM and DEB packages.
-* Use pkgconf to get information about most dependencies in spec
-  file.
-
-## API Changes
-
-* The Slurm API has been updated to use slurm\_step\_id\_t in lieu of a
-  job\_id in API calls. This allows the API to be queried by SLUID instead
-  of by JobId. Backwards compatibility is available through the
-  SLURM\_BACKWARD\_COMPAT define when including <slurm/slurm.h>.
-* cgroup/v2 directory structures are now keyed off of SLUID and not
-  the JobId.
+* Raise the minimum MySQL and MariaDB versions to 8.0.21 and
+  10.2.7.
+* Prefer llhttp over libhttp\_parser by default.
+* Add Lua 5.5 support.
 
 ## REST API Changes
 
 [Slurm
 OpenAPI Plugin Release Notes](https://slurm.schedmd.com/openapi_release_notes.md)
 
-* Added new v0.0.45 API endpoints.
-* Deprecated v0.0.42 API endpoints (will be removed in Slurm
-  26.11).
+* Add new v0.0.46 API endpoints.
+* Deprecate v0.0.43 API endpoints (will be removed in Slurm
+  27.05).
+* Remove v0.0.42 API endpoints.
 
 ## Deprecations and Removals
 
-* Remove SchedulerParameters=enable\_job\_state\_cache.
+* Deprecate the slurmrestd “become\_user” mode.
+* Deprecate the SLURMRESTD\_JSON and SLURMRESTD\_YAML environment
+  variables. Use SLURM\_JSON and SLURM\_YAML.

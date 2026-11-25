@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -39,8 +39,11 @@ Version 26.05
 * [Running Jobs](#Running_Jobs)
 * [AutoDetect](#AutoDetect)
 * [Socket Affinity](#Socket_Affinity)
+* [Device Links](#Device_Links)
+* [Device Chunks](#Chunks)
 * [Accounting](#Accounting)
 * [GPU Management](#GPU_Management)
+* [Draining GRES](#Draining_GRES)
 * [MPS Management](#MPS_Management)
 * [MIG Management](#MIG_Management)
 * [Sharding](#Sharding)
@@ -183,11 +186,11 @@ wait
 ## AutoDetect
 
 If *AutoDetect=nvml*, *AutoDetect=nvidia*, *AutoDetect=rsmi*,
-*AutoDetect=nrt*, or *AutoDetect=oneapi* are set in *gres.conf*,
-configuration details will automatically be filled in for any system-detected
-GPU. This removes the need to explicitly configure GPUs in gres.conf, though the
-*Gres=* line in slurm.conf is still required in order to tell slurmctld how
-many GRES to expect.
+*AutoDetect=amd*, *AutoDetect=nrt*, or *AutoDetect=oneapi* are
+set in *gres.conf*, configuration details will automatically be filled in
+for any system-detected GPU. This removes the need to explicitly configure GPUs
+in gres.conf, though the *Gres=* line in slurm.conf is still required in
+order to tell slurmctld how many GRES to expect.
 
 Note that *AutoDetect=nvml*, *AutoDetect=rsmi*,
 and *AutoDetect=oneapi* need their corresponding GPU management libraries
@@ -195,13 +198,44 @@ installed on the node and found during Slurm configuration in order to work.
 Both *AutoDetect=nvml* and *AutoDetect=nvidia* detect NVIDIA GPUs.
 *AutoDetect=nvidia* (added in Slurm 24.11) doesn't require the
 nvml library to be installed, but doesn't detect MIGs or NVlinks.
+Both *AutoDetect=rsmi* and *AutoDetect=amd* detect AMD GPUs.
+*AutoDetect=amd* (added in Slurm 26.11) does not require the ROCm SMI
+library to be installed, reading the amdgpu kernel driver through sysfs
+instead.
+
+With *AutoDetect=amd*, the detected *Type* is the GPU model name,
+lowercased with underscores in place of spaces (for example,
+*amd\_instinct\_mi355\_oam*), or the PCI device ID (for example,
+*0x744c*) on a GPU that does not report a model name. The model name is the
+board FRU product name, which can differ from the marketing name, so take the
+*Type* from `slurmd -G`. Only the SPX compute partition mode is
+supported. Each GPU is a
+[MultipleFiles](gres.conf.md#OPT_MultipleFiles) GRES carrying its
+render node and its primary node under */dev/dri*, so that
+[ConstrainDevices](cgroup.conf.md#OPT_ConstrainDevices) confines
+both. [Cores](gres.conf.md#OPT_Cores) and
+[Links](gres.conf.md#OPT_Links) are filled from the GPU's CPU
+affinity and from its XGMI connections to the other GPUs, and
+[Flags=env\_uuid](gres.conf.md#OPT_env_uuid) uses the UUID that the
+amdgpu kernel driver exposes for the GPU. A job allocated a GPU for which the
+driver exposes no UUID gets numeric indices for all of its GPUs. For
+*Flags=env\_uuid* to apply to every autodetected GPU, give the gres.conf
+line the same *Type* and *Count* as the node's *Gres* in
+slurm.conf.
 
 When AutoDetect needs to load a GPU management library as stated above it
 will usually unload this library immediately after the slurmd is started
 allowing other processes to access the library afterwards. This is not the case
 when *AcctGatherEnergyType=acct\_gather\_energy/gpu* is set in the
-slurm.conf. In this configuration the slurmd will keep the GPU library specified
-by the AutoDetect option loaded to track GPU energy usage.
+slurm.conf. In this configuration the slurmd keeps the plugin selected by
+AutoDetect loaded so it can be polled for GPU energy. A plugin that loads
+a GPU management library (such as gpu/rsmi) holds that library open for
+the lifetime of the plugin. Of the plugins AutoDetect can select, only
+*gpu/rsmi* reads energy, through the ROCm System Management Interface
+library. It is selected by *AutoDetect=rsmi*, or by
+[AutoDetect=full](gres.conf.md#OPT_full) on a node where RSMI
+is the first mechanism to detect a device. With any other plugin, no error
+is reported and the node's energy stays at zero.
 
 *AutoDetect=nvml* and *AutoDetect=rsmi* also cause the slurmstepd
 to load and hold open the library to perform accounting on GPU usage when the
@@ -212,8 +246,9 @@ have *JobAcctGatherParams=DisableGPUAcct* in the slurm.conf.
 will cause the slurmstepd to load and hold open the library to configure the gpu
 frequency when *--gpu-freq* is requested with the job.
 
-In the above situations when a GPU management library is held open by a
-process it makes it so any other process can not configure the GPU. If you are
+In the above situations, a process holding a GPU management library open
+keeps other processes from resetting the GPU or unloading its kernel
+modules. If you are
 requiring to make changes in a Prolog or such you will want to not
 have *AcctGatherEnergyType=acct\_gather\_energy/gpu* in the slurm.conf. If
 jobs share gpus on the node, you may also need to set
@@ -222,7 +257,7 @@ jobs share gpus on the node, you may also need to set
 By default, all system-detected devices are added to the node.
 However, if *Type* and *File* in gres.conf match a GPU on
 the system, any other properties explicitly specified (e.g.
-*Cores* or *Links*) can be double-checked against it.
+*Cores*, *Links*, or *UUID*) can be double-checked against it.
 If the system-detected GPU differs from its matching GPU configuration, then the
 GPU is omitted from the node with an error.
 This allows *gres.conf* to serve as an optional sanity check and notifies
@@ -356,6 +391,383 @@ NodeName=node0 Autodetect=off Name=gpu Type=a100 File=/dev/nvidia1 Cores=16-31
 **NOTE**: Manual configuration must still align with socket boundaries or
 it will be rejected.
 
+## Device Links
+
+Devices on a node may be linked by a high speed interconnect (e.g. GPUs
+connected by NVLink). The `Links` option of
+*gres.conf* lists, for one device, how many connections it has to every
+other device of the same GRES name on the node, whatever its
+`Type`. It is filled in automatically when
+[AutoDetect](#AutoDetect) is enabled.
+
+Links are a preference by default: a job needing more than one device uses a
+greedy approximation algorithm to try to get devices linked together (still may
+not get devices linked together, even if there are such devices idle), and
+still runs on whatever is available when it cannot. Two
+[--gres-flags](srun.md#OPT_gres-flags) options change that:
+
+`--gres-flags=enforce-links`
+:   Every device the job is given on a node must be linked to every other
+    device the same request gives it there. A typed request such as
+    `--gres=gpu:a100:2` is held against the devices
+    of that type alone, an untyped one against every device of that GRES name.
+    Nodes that cannot supply a large enough linked set are not used, which may
+    delay the job in exchange for faster communication between its devices. A
+    single device on a node is unaffected.
+    `Links` describes connections within one
+    node, so this applies only to the devices a job is given on a single node;
+    for topology between nodes see the
+    [topology/block](topology.md#block) plugin. Mutually exclusive with
+    `ignore-links`.
+
+`--gres-flags=ignore-links`
+:   The links are not considered, and devices are selected in the order they
+    are found.
+    Mutually exclusive with
+    `enforce-links`.
+
+**NOTE**: With no configured link information, no node can satisfy an
+`enforce-links` request for more than one such
+device.
+
+**NOTE**: A node can give a job only one linked set, so an
+`enforce-links` request that names no count per
+node, such as `--gpus`, may be spread over more
+nodes than it would be otherwise.
+
+**NOTE**:
+[RestrictedCoresPerGPU](slurm.conf.md#OPT_RestrictedCoresPerGPU),
+`--gres-flags=enforce-binding` and a request that
+names a count per socket such as
+`--gpus-per-socket` already tie the job to
+particular sockets, and `enforce-links` applies
+within that. Where both cannot be met, the link requirement holds: a node whose
+linked devices are not on those sockets is not used, and a count per socket
+gives way to a linked set drawn from fewer sockets.
+
+**NOTE**: A job allocated whole nodes (e.g. with
+`--exclusive`) is given every device on them,
+so `enforce-links` then requires that all of
+them be linked. On the
+four-GPU node below,
+`sbatch --exclusive --gres-flags=enforce-links
+--gpus-per-node=2` is refused: the job would get all four GPUs, and no
+four are linked.
+
+**NOTE**: Neither option applies to shared GRES (e.g.
+`mps`, `shard`),
+or to devices allocated in [chunks](#Chunks), which ignore
+`Links`.
+
+`scontrol show job` reports the options as
+`GresEnforceLinks=Yes` and
+`GresIgnoreLinks=Yes`, and
+[DebugFlags=SelectType](slurm.conf.md#OPT_DebugFlags) logs which
+nodes were rejected for the link requirement.
+
+For example, these GPUs form two linked pairs, 0 with 1 and 2 with 3. The
+values are spelled out here to show the shape;
+[AutoDetect](#AutoDetect) normally fills them in:
+
+```
+NodeName=node0 Name=gpu File=/dev/nvidia0 Links=-1,1,0,0
+NodeName=node0 Name=gpu File=/dev/nvidia1 Links=1,-1,0,0
+NodeName=node0 Name=gpu File=/dev/nvidia2 Links=0,0,-1,1
+NodeName=node0 Name=gpu File=/dev/nvidia3 Links=0,0,1,-1
+```
+
+`--gres-flags=enforce-links --gpus-per-node=2`
+is given one of those pairs, or waits for one to be free.
+`--gpus-per-node=4` is refused: no four of these
+GPUs are linked. `--gpus=4` names no count per
+node, so on a cluster of such nodes it is spread over two of them instead.
+
+Now suppose GPUs 0 and 3 are busy, leaving 1 and 2 free but unlinked. A
+two-GPU job with
+`--gres-flags=ignore-links` takes them and runs,
+and so does one with neither option, since the default only prefers a linked
+pair. `enforce-links` waits instead, until a
+whole pair is free.
+
+## Device Chunks
+
+Setting [ChunkSizes](gres.conf.md#OPT_ChunkSizes) for a GRES
+in gres.conf turns on chunk allocation for it. Devices are then handed out
+only in aligned groups: a chunk of *N* devices begins only at a chunk
+position that is a multiple of *N*. Since each size divides the next,
+the chunks nest: every chunk of 2 lies within a chunk of 4, every chunk of 4
+within a chunk of 8, and so on.
+
+This is a simplification of the fabrics some accelerators are wired
+together with, such as a 2D or 3D torus. Slurm does not model the fabric
+itself. The administrator chooses the sizes, and the order of the devices, so
+that each chunk is a well-connected group. Aligned allocation also prevents
+fragmentation, whatever the fabric: free devices stay together in whole
+chunks, rather than being scattered so that no larger job fits on the
+node.
+
+```
+# 16 devices, allocatable in groups of 2, 4, 8, or 16
+NodeName=node1 Name=gpu File=/dev/nvidia[0-15] ChunkSizes=2,4,8,16
+```
+
+A job can only request one of the listed sizes or the whole domain, so this
+node is not used for a job that asks for a single device. Include 1 in
+**ChunkSizes** if single-device jobs should run on the node.
+
+### Device Order
+
+Chunks are aligned ranges of *chunk positions*. By default chunk
+position *i* is device *i*, so the device enumeration order is
+assumed to match the fabric layout.
+
+Devices are numbered in the order slurmd lists them. Without
+[AutoDetect](#AutoDetect), that is the order of the **File**
+entries in gres.conf, so list them in increasing numeric order. With
+**AutoDetect**, slurmd sorts the GPUs it finds, normally into PCI bus ID
+order, which need not match the device file numbers. To see the order, run
+`slurmd -G` on the node. It lists the GRES
+records with their **File**, in this order.
+
+[ChunkOrder](gres.conf.md#OPT_ChunkOrder) is optional. Set it
+only when the enumeration order does not match the fabric layout; without it,
+the identity mapping above applies. It is a permutation whose entry *i*
+names the device at chunk position *i*. Devices are numbered from 0
+within their **Type**, in ascending order, so the devices of a **Type**
+that starts partway through the node's devices are still numbered from 0.
+
+For 16 devices forming a 4×4 fabric that enumerate in row-major order,
+an aligned chunk of 4 is a whole row, a 1×4 line. The recursive halving
+order below makes it a 2×2 tile instead:
+
+```
+NodeName=node1 Name=gpu File=/dev/nvidia[0-15] ChunkSizes=2,4,8,16 \
+    ChunkOrder=0,1,4,5,2,3,6,7,8,9,12,13,10,11,14,15
+```
+
+The resulting configuration is visible with
+`scontrol show node -d`:
+
+```
+$ scontrol show node -d node1 | grep GresChunks
+GresChunks=gpu:sizes=2/4/8/16;order=0/1/4/5/2/3/6/7/8/9/12/13/10/11/14/15
+```
+
+The *order* component is always shown, so it does not by itself mean
+**ChunkOrder** was configured. Nodes with no chunk configuration have no
+**GresChunks** line at all, which makes it easy to tell whether chunk
+allocation is in play on a node.
+
+**ChunkOrder** only permutes how chunks are formed. Device indexes, the
+device files jobs see, and the environment variables Slurm sets are all
+unchanged.
+
+### What Jobs May Request
+
+Chunk allocation limits what a job may request for that GRES. The rules
+below use the *chunk domain*, the devices chunks are formed from: all the
+devices of one **Type** (see [below](#Chunk_Requirements)).
+
+Slurm checks the rules on each node. A node whose chunks cannot serve a
+request is not used for it, and the job can still run on other nodes, such as
+nodes that set no **ChunkSizes**. If no node in the job's partitions can
+serve it, the job is rejected at submit with
+*Requested node configuration is not available*.
+
+* The per-node count must be exactly one of the configured chunk sizes, or
+  every device in the chunk domain. A request that falls between sizes is not
+  rounded up, so a node with **ChunkSizes=1,2,4,8** is not used for a request
+  for 3 devices.
+* A job that may span more than one node must take every device in the
+  chunk domain on each node, so a request for half a domain on each of two nodes
+  cannot use the node.
+* `--gpus-per-socket` can only be used with
+  a whole-node allocation. The number of devices it asks for on a node depends on
+  how many sockets the job's cores land on, which is not known until the job is
+  placed, and the devices would also have to be spread over those sockets, which
+  a single aligned chunk does not guarantee.
+  `--gpus` cannot be used on its own, since it
+  leaves the per-node split up to the scheduler; it is accepted when
+  `--gpus-per-node` or
+  `--gpus-per-task` fixes that count. Request
+  the per-node count explicitly, with `--gres`,
+  `--gpus-per-node`,
+  `--gpus-per-task`, or
+  `--tres-per-task=gres/gpu=N`, which follows the
+  same rules as `--gpus-per-task`.
+* A request for part of the chunk domain can only use the node when the job
+  cannot be spread over more than one node. That is the case for a job with
+  `-N1`, a job with a single task, such as
+  `sbatch --gres=gpu:2 job.sh`, a job whose
+  `--ntasks-per-node` covers all of its tasks,
+  such as `-n4 --ntasks-per-node=4`, and a job in
+  a partition with **MaxNodes=1**. A job with several tasks and no such
+  limit, or with a node range such as
+  `--nodes=1-4`, could be spread over several
+  nodes, so it cannot use part of a domain.
+* A per-task request must additionally fix how many tasks land on a node.
+  Use `-N1` for a partial-domain allocation, or
+  `--ntasks-per-node` to fix the per-node count.
+  A multi-node job is allowed when that count fills the whole domain on each
+  node. For example, on four-device domains,
+  `-N2 -n4 --ntasks-per-node=2 --gpus-per-task=2`
+  requests all four devices per node.
+
+A whole-node allocation is exempt from all of these, including on a node
+whose largest chunk size is smaller than the device count. It normally takes
+every device on the node. GRES configured with **Flags=explicit** are an
+exception: only explicitly requested devices are allocated, but the whole-node
+exemption still applies.
+
+A whole-node allocation here means
+`--exclusive` with no argument, or a partition
+configured with **OverSubscribe=EXCLUSIVE**.
+`--core-spec` and
+`--thread-spec` also qualify, but only on a
+cluster with **AllowSpecResourcesUsage=YES**. That is not the default, and
+where it is not set the two options leave the node shared and the chunk rules
+apply as usual.
+
+The rules constrain the job allocation. Steps run inside an allocation the
+job already holds, so they are not chunk-allocated and may request any subset
+of the job's devices.
+
+A request that does not fix how many devices it needs on each node, such as
+`--gpus=4` on its own, or
+`--gpus-per-task=2 -n4` without
+`-N1`, cannot use a chunked node. When no other
+node can serve it, it is rejected at submit rather than left pending forever.
+[DebugFlags=SelectType](slurm.conf.md#OPT_DebugFlags) logs which
+rule turned each node down, in *slurmctld.log*.
+
+When several free chunks of the right size exist, Slurm prefers one whose
+next larger chunk is already partly in use, so that completely free larger
+chunks stay available for jobs that need them.
+
+Chunk allocation says nothing about which *nodes* a multi-node job
+lands on. Grouping the nodes themselves is the job of the
+[topology/block](topology.md#block) plugin, which is configured
+with **BlockSizes** in *topology.conf*. The two are meant to be used
+together on a fabric that spans nodes.
+
+### Requirements and Interactions
+
+Chunks are formed from the devices of one **Type**, its *chunk
+domain*. Each **Type** of a GRES may set its own **ChunkSizes** and
+**ChunkOrder**, and every gres.conf line of that **Type** for any one
+node must set the same values. A **Type** that sets no **ChunkSizes** is
+allocated as usual. **Type** is optional: lines that set none form a domain
+of their own, as in the first example above.
+
+A request that names a **Type** follows that **Type**'s rules:
+
+```
+NodeName=node1 Name=gpu Type=a100 File=/dev/nvidia[0-15] ChunkSizes=2,4,8,16
+NodeName=node1 Name=gpu Type=h100 File=/dev/nvidia[16-19] ChunkSizes=2,4
+NodeName=node1 Name=gpu Type=l4 File=/dev/nvidia[20-21]
+```
+
+In `scontrol show node -d`, each chunked
+**Type** is listed separately, named as in a request, and its *order* is
+numbered the way **ChunkOrder** is written:
+
+```
+GresChunks=gpu:a100:sizes=2/4/8/16;order=0/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15,gpu:h100:sizes=2/4;order=0/1/2/3
+```
+
+Here `--gres=gpu:a100:4` gets an aligned
+chunk of 4 a100s, `--gres=gpu:h100:2` an aligned
+pair of h100s, and `--gres=gpu:l4:1` is
+unaffected by chunks.
+
+A request that names no **Type** follows the chunk rules on a node whose
+devices are all of one chunked **Type**, as in the first example above. On a
+node that mixes **Types** and chunks any of them, such as this one, it could
+be given devices of several **Types**, which no chunk describes, so the node
+is not used for it. Name a **Type** to use such a node.
+
+Chunk allocation has these requirements:
+
+* **File** or **MultipleFiles** is required. A GRES without device
+  files has no device identity to form chunks from.
+* Every chunk size must be a multiple of the one before it, and the list
+  must ascend, so that each size divides the larger ones evenly. The slurmd
+  process exits on a list that does not, so **ChunkSizes=2,3,6** stops the
+  node from starting.
+* The chunk domain's device count must be a multiple of the largest chunk
+  size, and the domain may hold at most 1024 devices. The controller drains a
+  node that does not meet this, including one that re-registers after losing a
+  device.
+* Shared GRES (gres/shard, gres/mps) cannot use **ChunkSizes**. Nor can
+  gres/gpu on a node that also configures gres/shard or gres/mps, even when the
+  shared GRES is on other GPUs, since the shared allocations are invisible to
+  the chunk selection. The controller drains such a node.
+* **Links** is ignored, including link data produced by
+  **AutoDetect**, since chunks and links are different descriptions of the
+  same device topology. The slurmd process logs a warning for each gres.conf
+  line whose **Links** value it drops. For the same reason
+  [--gres-flags=enforce-links](#Device_Links) is not applied to these
+  devices.
+* With `--gres-flags=enforce-binding`, the
+  chunk must come from devices bound, by **Cores**, to sockets where the job
+  can get cores, or from devices with no **Cores**. The job gets cores on
+  every socket the chunk's devices are bound to. When no free chunk of the
+  requested size meets this, the node is not used for the job.
+
+Because **File** is required, the requirement holds under
+**AutoDetect** too: an autodetected node still needs an explicit record to
+carry **ChunkSizes**.
+
+```
+AutoDetect=nvml
+NodeName=node1 Name=gpu Type=a100 File=/dev/nvidia[0-15] ChunkSizes=2,4,8,16
+```
+
+The slurmd process checks gres.conf when it starts. It logs the error and
+exits, so the node does not register, when:
+
+* a **ChunkSizes** value does not parse, is not strictly ascending, has
+  an entry that is not a multiple of the one before it, or has a size of 0 or
+  above 1024;
+* a **ChunkOrder** value does not parse, has more than 1024 entries,
+  repeats an entry, or has an entry outside the range its length allows;
+* **ChunkOrder** is set without **ChunkSizes**;
+* **ChunkSizes** is set without **File** or
+  **MultipleFiles**;
+* two lines of the same name and **Type** set *different* values,
+  or one of them sets none at all.
+
+When slurmd runs as a daemon or under systemd, an error found on
+`scontrol reconfigure` does not stop it. The
+running slurmd keeps its previous configuration and logs
+*Resuming operation, reconfigure failed.* To catch these errors first,
+check the edited file with `slurmd -G`, which
+reads gres.conf the same way and reports the same errors.
+
+The controller checks the chunk layout against the node's devices when the
+node registers. It drains the node, with the error as the drain reason,
+when:
+
+* the chunk domain's device count is not a multiple of the largest chunk
+  size, or is smaller than it;
+* the chunk domain has more than 1024 devices, or none at all;
+* the length of **ChunkOrder** differs from the chunk domain's device
+  count;
+* **ChunkSizes** is set on gres/shard or gres/mps, or on gres/gpu on a
+  node that also configures gres/shard or gres/mps;
+* the records of a **Type** reach the controller with different
+  values.
+
+The slurmd process cannot check the length of **ChunkOrder**, since only
+the controller knows how many devices the node ended up with. It does stop on
+records that disagree, so the controller sees that case only as a safeguard.
+To return a drained node to service, correct gres.conf, restart slurmd on the
+node, and resume the node:
+
+```
+$ scontrol update NodeName=node1 State=RESUME
+```
+
 ## Accounting
 
 GPU memory and GPU utilization can be tracked as
@@ -367,11 +779,59 @@ gres/gpu is not set.
 
 gres/gpumem and gres/gpuutil are only available for NVIDIA GPUs when using
 `AutoDetect=nvml`, and AMD GPUs when using
-`AutoDetect=rsmi`.
+`AutoDetect=rsmi`. Devices under
+[shard device memory enforcement](#shard_device_memory) feed
+gres/gpumem from the kernel instead, regardless of vendor.
 
 NVML does not support utilization metrics for MIGs, so Slurm does not
 provide gpumem or gpuutil accounting for MIG devices. See
 [NVIDIA's MIG User Guide](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/#gpu-utilization-metrics).
+
+With gpu/rsmi, gres/gpuutil is the percentage of compute units (CUs) that
+a task process occupies. gpu/rsmi is used with `AutoDetect=rsmi`.
+It is also used with [AutoDetect=full](gres.conf.md#OPT_full)
+on a node where RSMI is the first mechanism to detect a device. The ROCm SMI
+library reads a per-process counter of occupied CUs from the amdgpu kernel
+driver. It divides the total over the GPUs it reads by the number of CUs on
+those GPUs. It reads the GPUs that the device cgroup of the slurmstepd
+allows:
+
+* With the default
+  [ConstrainDevices=no](cgroup.conf.md#OPT_ConstrainDevices),
+  it reads every AMD GPU on the node.
+* With `ConstrainDevices=yes` and cgroup/v2, it reads the GPUs
+  of the job.
+* With `ConstrainDevices=yes` and cgroup/v1, it reads the GPUs
+  of the step.
+
+For example, on a node with four identical GPUs and the default
+`ConstrainDevices=no`, a process that keeps one GPU fully busy
+reports a gres/gpuutil of at most 25 percent.
+
+The driver does not always provide the counter:
+
+* It provides the counter only for some GPU generations, depending on the
+  driver version.
+* It never provides the counter for a GPU that the process cannot access.
+  Examples are another task's GPU when each task is bound to its own GPUs
+  under `ConstrainDevices=yes`, or the other GPUs of the job when a
+  step uses fewer GPUs than its job under cgroup/v2.
+
+When the counter is missing on a GPU that the library reads, the result
+depends on the ROCm release:
+
+* Before ROCm 6.1.1, the read fails.
+* From ROCm 6.1.1, the library reports an invalid value. Before ROCm
+  6.3.0, a GPU that the process cannot access still makes the read fail.
+* Also from ROCm 6.1.1, if the library reads a GPU that has the counter
+  after the last GPU that lacks it, it reports a wrong value instead of the
+  invalid one.
+
+For an invalid value or a value above 100, Slurm records gres/gpumem but
+no gres/gpuutil sample. Slurm cannot tell a wrong value of 100 or less from
+a real one. When the read fails, Slurm records neither value. It logs
+`RSMI: Failed to get usage` for each such process at each
+poll.
 
 Here is an example node with two NVIDIA A100 GPUs:
 
@@ -484,6 +944,269 @@ Please consult the
 `CUDA_VISIBLE_DEVICES` and
 `CUDA_DEVICE_ORDER` environmental variables.
 
+## Draining GRES
+
+Slurm can drain individual GRES, CPUs, or memory and leave the rest of the
+node schedulable. Use `scontrol update` with
+`TresName=` for the TRES,
+`NodeName=` for the node, and
+`Index=`,
+`Uuid=`, or
+`Count=` for which resources.
+`Action=Drain` and
+`Action=SetDrain` require
+`Reason=`:
+
+```
+# Drain GPU 3 on node tux1 by index
+$ scontrol update TresName=gres/gpu NodeName=tux1 Index=3 \
+    Action=Drain Reason=ecc_errors
+
+# Drain a specific GPU by UUID
+$ scontrol update TresName=gres/gpu NodeName=tux1 Uuid=GPU-abc123 \
+    Action=Drain Reason=ecc_errors
+
+# Drain every a100 on the node
+$ scontrol update TresName=gres/gpu:a100 NodeName=tux1 Index=ALL \
+    Action=Drain Reason=firmware_update
+
+# Drain part of a count-only GRES or memory by count (one TRES per command)
+$ scontrol update TresName=gres/bandwidth NodeName=tux1 Count=2 \
+    Action=Drain Reason=hw_check
+$ scontrol update TresName=mem NodeName=tux1 Count=4096 \
+    Action=Drain Reason=bad_dimm
+
+# Drain CPUs by index (a numeric Count= is refused for CPUs; Count=ALL
+# drains every core)
+$ scontrol update TresName=cpu NodeName=tux1 Index=0,2-3 \
+    Action=Drain Reason=flaky_cores
+```
+
+Use `Uuid=` when the device has a UUID. A
+UUID names the same card whatever its index, and vendor tools print it (for
+example `nvidia-smi -L`). The Slurm index
+of a GPU can differ from the number the vendor tool gives it, and
+`scontrol show node` does not print the UUID
+of each device.
+
+CPUs are drained by whole core. Naming any thread of a core drains every
+thread of that core, and each of those threads counts toward the
+**cpu** limit of **MaxDrainedTres**. The CPU examples on this page
+assume one thread per core. With two threads per core, the drain above
+covers CPUs 0-3.
+
+`Action=Resume` returns the named resources
+to service.
+`Action=SetDrain` makes the drained
+set exactly the resources named in the command, so repeating it changes
+nothing. `Action=Drain` adds to a drain that is
+already there. Memory and count-only GRES keep one reason per TRES (per type
+for a typed GRES), so a later `Drain` replaces
+that reason:
+
+```
+$ scontrol update TresName=gres/gpu NodeName=tux1 Index=3 Action=Resume
+$ scontrol update TresName=gres/bandwidth NodeName=tux1 Count=2 \
+    Action=SetDrain Reason=hw_check
+```
+
+See [scontrol](scontrol.md#OPT_TresName) for every option
+of this command. The REST API accepts the equivalent request as
+`POST /slurm/v0.0.46/tres/`. Its JSON keys
+are `name` (TresName),
+`nodes` (NodeName),
+`index`,
+`uuid`,
+`count`,
+`reason`, and
+`action`, which is
+`drain`,
+`resume`, or
+`set_drain`. A selector of ALL is
+`"select_all": true`; an
+`index` of ALL is refused.
+
+A node with anything drained is **DEGRADED** until every drain has been
+resumed. `State=RESUME` resumes drained TRES
+that are present. An absent index stays drained until a device fills it.
+When it resumes an automatic UUID-order drain, it drops the
+[saved order](#Draining_GRES_Anchoring); the next slurmd
+registration saves the replacement order.
+`State=UNDRAIN`,
+`State=RESUME_KEEP_TRES`, and
+`State=IDLE` clear the node
+drain and leave those TRES drained. A job already using a drained resource
+keeps it until the job ends. That resource takes no new allocations, and the
+rest of the node stays schedulable.
+
+### Bounding How Much May Be Drained
+
+**MaxDrainedTres** sets how much of a TRES may be drained before the node
+itself is drained:
+
+```
+NodeName=tux[1-16] Gres=gpu:a100:8,bandwidth:4G \
+    MaxDrainedTres=gres/gpu:2,cpu:4,mem:8192
+```
+
+Within the limit the node stays **DEGRADED** and the drained TRES are
+not scheduled. Past the limit the node is drained, with a reason naming the
+TRES. Licenses and other cluster-scoped TRES are not covered. See
+[MaxDrainedTres](slurm.conf.md#OPT_MaxDrainedTres).
+`scontrol show node`
+prints the configured limit as
+**MaxDrainedTres**. The REST node record and
+`scontrol --json` report it as
+`max_drained_tres`, which is empty when the
+node has no limit. `scontrol show node` omits
+**MaxDrainedTres** when the node has no limit.
+
+Shared GRES ([shard](#Sharding) and
+[mps](#MPS_Management)) cannot be drained directly. Drain the GPU
+that backs them. Shards or MPS on that GPU then take no new work, as shown by
+`GresUsed`
+([Shared GRES Usage](#Shared_GRES_Usage)).
+
+### Seeing What Is Drained
+
+`scontrol show drainedtres` and
+**DrainedTRES** on `scontrol show node` list
+what is drained and why. `sinfo -R` includes
+degraded nodes. A node that is only **DEGRADED** has no reason of its own,
+so **-R** shows its **DrainedTRES** list. The field is omitted when
+nothing is drained. The REST API node record has the same list in
+`drained_tres`.
+
+```
+$ scontrol show node tux1
+NodeName=tux1 ...
+   State=IDLE+DEGRADED ...
+   Gres=gpu:a100:8,bandwidth:4G
+   DrainedTRES=gres/gpu(IDX:3)(ecc_errors),gres/bandwidth(CNT:2)(hw_check),cpu(IDX:0,2-3)(flaky_cores),mem(CNT:4096)(bad_dimm)
+```
+
+An `(IDX:...)` entry is an index in the
+saved order when the GRES has a UUID map, and slurmd's order otherwise.
+An absent device is an empty index and is listed by that index. See
+[Saved Device Order and Absent
+Devices](#Draining_GRES_Anchoring).
+
+A `(CNT:...)` entry is a drained count of a
+count-only GRES, or of memory in MiB.
+
+Accounting keeps one open event for the node while a tracked TRES is
+drained. `sacctmgr show event` lists it, and
+**TresReference** names the drained TRES, in the format described in
+[sacctmgr](sacctmgr.md#OPT_TresReference). The event's
+**TRES** column counts only TRES tracked by
+[AccountingStorageTRES](slurm.conf.md#OPT_AccountingStorageTRES).
+CPU and memory always count. An untracked GRES, such as **gres/gpu**
+when it is not tracked, does not, and a drain of only that GRES records
+no event.
+
+The default format of `sacctmgr show event`
+does not include **TRES** or **TresReference**, so ask for them:
+
+```
+$ sacctmgr -p show event Nodes=tux1 States=Degraded \
+    Format=NodeName,Start,End,State,Reason,TRES,TresReference
+```
+
+### Saved Device Order and Absent Devices
+
+When every device of a GRES has a UUID and a count of one, slurmctld saves
+that order. A device slurmd no longer reports stays at its index with an empty
+slot, and the devices after it stay where they are. The index is drained. If
+nothing was already drained there, the reason is
+**gres/***name***:not\_found**. That drain counts toward
+**MaxDrainedTres** for the GRES and the device's type.
+`DrainedTRES` names the index. The UUID that
+left is kept with the drain and is not printed on that entry, because the
+slot is empty. **Uuid** looks up the saved slots, so it does not select an
+empty one. **Index** does, including **ALL**.
+
+A new UUID reported in an empty index fills it. The automatic
+**not\_found** drain is cleared, and the new device is not drained. A report
+that moves a UUID which is still present, or that adds a UUID past the empty
+indexes instead of in one of them, is refused. The saved order stays, and the
+node is drained with the reason
+**GPU UUID order does not match the saved order**. A later report that
+fits the saved order clears that automatic drain. With
+SlurmctldParameters=[drain\_absent\_gres](slurm.conf.md#OPT_drain_absent_gres)
+the node stays up and **DEGRADED** while the drain is within
+**MaxDrainedTres**. Without the parameter the same index is drained and the
+node is marked invalid. A node with no saved order, because this is its first
+registration, is marked invalid when the count is short, and no per-device
+hole is recorded. SlurmdParameters=[config\_overrides](slurm.conf.md#OPT_config_overrides) does not
+change any of this; an absent device is still drained.
+
+A job keeps those saved indexes, and **scontrol** and accounting show
+them.
+
+**NOTE**: An absent index still consumes one configured **Gres**
+count. Lowering the configured count to the devices that remain, in the saved
+order, drops the extra indexes.
+`Action=Resume` of that index is refused.
+`Index=ALL`, a
+`SetDrain` that would resume that index, and
+`State=RESUME`
+leave it drained, and scontrol names each device they leave drained.
+
+On a GRES with a saved order, a drain belongs to the device, not to its
+index. This is also true of a drain that an administrator set:
+
+* When a new device takes the index of a drained device that slurmd no
+  longer reports, the new device is not drained. The old drain is dropped.
+* When the configured count is lowered, the drain on a device that is no
+  longer configured is dropped. It does not come back if that device is
+  installed again. The drains on the remaining devices move with them to
+  their new indexes.
+
+If any device of a GRES reports no UUID, the GRES has no saved order. An
+absent device leaves no empty slot and gets no **not\_found** drain, and a
+drain stays on its index. A device that replaces a drained one at the same
+index is drained too. When the configured count is lowered, the drains on
+indexes past the new count are dropped.
+
+When slurmd reports no device of a GRES at all, every drain on that GRES
+stays. A GPU driver that failed to load looks like this, so the drains are
+still in place when the devices are reported again. With
+SlurmctldParameters=[drain\_absent\_gres](slurm.conf.md#OPT_drain_absent_gres) and a saved
+order, every device is then absent: each empty index is drained as
+**not\_found** and the node stays up. Otherwise the node is marked invalid
+(**INVAL**).
+
+### Replacing a GPU
+
+A drained GPU keeps the node working between the GPU going bad and the
+maintenance that fixes it. To replace a bad GPU:
+
+1. **Drain the bad GPU.** Do this as soon as the GPU is known to be bad. No
+   new job is given it, and the rest of the node stays in service:
+
+   ```
+   $ scontrol update TresName=gres/gpu NodeName=tux1 Uuid=GPU-abc123 \
+       Action=Drain Reason=bad_gpu
+   ```
+2. **Take the node out of service for the repair.** When the maintenance
+   window comes, drain the node or put it in a maintenance reservation, let its
+   jobs finish, and replace the GPU.
+3. **Return the node to service.** What slurmd reports when it registers
+   follows from the [saved device order](#Draining_GRES_Anchoring):
+   * The new GPU is reported at the old GPU's index. The old drain is dropped
+     and the new GPU is not drained.
+   * You did not replace the GPU. Its index stays empty and drained, so no job
+     is given it. With SlurmctldParameters=[drain\_absent\_gres](slurm.conf.md#OPT_drain_absent_gres) the node
+     stays up.
+   * The GPUs are reported in a different order. The report is refused, the
+     saved order stays, and the node is drained with the reason **GPU UUID order
+     does not match the saved order**. If the new order is correct, run
+     `scontrol update NodeName=tux1 State=RESUME`.
+     This drops the saved order, so the next registration saves the new one.Then undrain the node with `State=UNDRAIN`,
+   which leaves any other drained GPU drained.
+   `State=RESUME` resumes those as well, so drain
+   again any device that is still bad.
+
 ## MPS Management
 
 [CUDA Multi-Process Service (MPS)](https://docs.nvidia.com/deploy/pdf/CUDA_Multi_Process_Service_Overview.pdf) provides a mechanism where GPUs can be
@@ -511,12 +1234,26 @@ as listed below with examples following that:
    associated with a higher gres/mps count.
    Another use case would be to prevent some GPUs from being used for MPS (i.e.
    they would have an MPS count of zero).
+4. MPS configuration includes the *Name*, *Type* and *Count*
+   parameters (no *File*): The *Count* is given to **every** GPU
+   whose type matches the *Type* parameter (a case-insensitive substring of
+   the GPU type; the most specific configuration wins). Unlike cases 1 and 2,
+   the *Count* is per device, not a node total, so one line covers any
+   number of GPUs of that model and one line per GPU type may be used to give
+   different models different gres/mps counts. GPUs whose type matches no line
+   get an MPS count of zero.
+   With this form the *slurm.conf* "Gres=" specification should declare the
+   gres/mps counts per type as node totals using the full GPU type names.
+   An untyped total is accepted when it equals the sum of all the per-device
+   counts.
 
-Note that *Type* and *Cores* parameters for gres/mps are ignored.
+Note that the *Cores* parameter for gres/mps is ignored, and the
+*Type* parameter is ignored when *File* is also specified.
 That information is copied from the gres/gpu configuration.
 
 Note the *Count* parameter is translated to a percentage, so the value
-would typically be a multiple of 100.
+would typically be a multiple of 100, or exactly 100 per device with the
+per-type form of case 4.
 
 Note that if NVIDIA's NVML library is installed, the GPU configuration
 (i.e. *Type*, *File*, *Cores* and *Links* data) will be
@@ -683,10 +1420,13 @@ For more information on NVIDIA MIGs (including how to partition them), see
 
 Sharding provides a generic mechanism where GPUs can be
 shared by multiple jobs. While it does permit multiple jobs to run on a given
-GPU it does not fence the processes running on the GPU, it only allows the GPU
-to be shared. Sharding, therefore, works best with homogeneous workflows. It is
+GPU, by default it does not fence the processes running on the GPU nor
+constrain its device memory; it only allows the GPU to be shared. See
+[Shard device memory enforcement](#shard_device_memory) for
+opt-in memory limits.
+Sharding, therefore, works best with homogeneous workflows. It is
 recommended to limit the number of shards on a node to equal the max possible
-jobs that can run simultaneously on the node (i.e. cores).
+jobs that can run simultaneously on the node (i.e. cores or memory).
 The total count of shards available on a node should be configured in
 the *slurm.conf* file (e.g. "NodeName=tux[1-16] Gres=gpu:2,shard:64").
 Several options are available for configuring shards in the *gres.conf* file
@@ -709,8 +1449,23 @@ as listed below with examples following that:
    associated with a higher gres/shard count.
    Another use case would be to prevent some GPUs from being used for sharding (i.e.
    they would have a shard count of zero).
+4. Shard configuration includes the *Name*, *Type* and *Count*
+   parameters (no *File*): The *Count* is given to **every** GPU
+   whose type matches the *Type* parameter (a case-insensitive substring of
+   the GPU type, like GPU type matching; the most specific configuration wins).
+   Unlike cases 1 and 2, the *Count* is per device, not a node total, so
+   one line covers any number of GPUs of that model. One line per GPU type may
+   be used to give different models different shard counts, e.g.
+   "Name=shard Type=a100 Count=32" and "Name=shard Type=l40s Count=16".
+   GPUs whose type matches no line get a shard count of zero.
+   With this form the *slurm.conf* "Gres=" specification should declare the
+   shards per type as node totals using the full GPU type names, e.g.
+   "Gres=gpu:a100:2,gpu:l40s:2,shard:a100:64,shard:l40s:32".
+   An untyped total (e.g. "shard:96") is accepted when it equals the sum of all
+   the per-device counts.
 
-Note that *Type* and *Cores* parameters for gres/shard are ignored.
+Note that the *Cores* parameter for gres/shard is ignored, and the
+*Type* parameter is ignored when *File* is also specified.
 That information is copied from the gres/gpu configuration.
 
 Note that if NVIDIA's NVML library is installed, the GPU configuration
@@ -786,6 +1541,189 @@ which would be the same as if it were a GPU.
 Steps with shards have`SLURM_SHARDS_ON_NODE`
 set indicating the number of shards allocated.
 
+### Shard device memory enforcement
+
+By default sharding does not fence anything: a job with one shard can
+allocate the whole memory of the GPU. When
+[**ConstrainDeviceMemory**](cgroup.conf.md#OPT_ConstrainDeviceMemory) is enabled in *cgroup.conf*, every shard
+implicitly carries a proportional slice of the device memory of its GPU: the
+detected memory capacity of the device divided by the number of shards
+configured on it. A job or step allocating *k* shards of a device is
+limited to *k* slices of device memory (*dmem.max*), which are
+also reserved for it (*dmem.min*), enforced by the kernel through
+the dmem cgroup controller. There are no new request options and scheduling
+is unaffected: the shard count is the memory accounting, so any placement
+that fits its shards fits its memory by construction.
+
+Requirements:
+
+* Linux kernel 6.14 or later with cgroup/v2, and a device driver that
+  registers dmem cgroup regions (amdgpu and xe since kernel 6.14, NVIDIA since
+  driver release 610). This is detected automatically: a device without a
+  usable region keeps today's unenforced behavior, reported once at slurmd
+  startup.
+* **TaskPlugin=task/cgroup** with **ConstrainDevices=yes**, since
+  without the device access filter the memory limits could be evaded through
+  devices not allocated to the job. Enabling **ConstrainDeviceMemory**
+  without them is rejected at startup.
+* The dmem controller enabled down to the Slurm cgroup, e.g. with
+  **EnableControllers=yes** in *cgroup.conf* when systemd does not
+  delegate it.
+
+The slurmd logs one line per sharding device at startup showing the
+detected region, capacity, and per-shard slice, and whether enforcement is
+active, for example:
+
+```
+shard: /dev/nvidia0 shards=16 region=nvidia/0000:01:00/vidmem capacity=16013MiB slice=1000MiB dmem=enforced
+```
+
+Jobs with enforced shards have
+`SLURM_SHARD_MEM_PER_GPU` set to a
+comma-separated list of *pci\_addr*=*size*M pairs, one per allocated
+device, so applications can budget their allocations (e.g. resolving the
+device with `cudaDeviceGetByPCIBusId()`).
+Exceeding the limit makes further device memory allocations of the job fail;
+the exact error observed by the application depends on the vendor driver. The
+*gres/gpumem* usage TRES is fed from the kernel counter on enforced
+devices, extending GPU memory usage accounting to any vendor with dmem
+regions.
+
+A specific device can be excluded from enforcement with
+**DmemRegion=off** on its *gres.conf* gpu record, and the region
+autodetection can be overridden with
+[**DmemRegion**](gres.conf.md#OPT_DmemRegion). The regions
+available on the node are listed in
+`/sys/fs/cgroup/dmem.capacity`.
+
+Limitations:
+
+* Unified/managed memory is not charged: allocations made through
+  unified memory interfaces (e.g.
+  `cudaMallocManaged()`) are handled by the
+  NVIDIA UVM driver rather than the regular device memory allocator, so they
+  do not count against the dmem limit and are effectively unconstrained.
+* MIG instances stay unenforced: all instances carved out of a physical
+  GPU share its single PCI device, so its dmem region is shared by every
+  instance and cannot be attributed to one of them.
+* Coherent platforms where GPU memory is exposed to the operating system
+  as NUMA memory nodes are not reported by the dmem controller, as their
+  GPU memory is managed as system memory, so this mechanism does not apply.
+
+Example of a node with one 16 GB GPU split into 16 shards:
+
+```
+# slurm.conf
+AccountingStorageTRES=gres/gpu,gres/shard,gres/gpumem
+GresTypes=gpu,shard
+NodeName=node1 Gres=gpu:1,shard:16
+ProctrackType=proctrack/cgroup
+TaskPlugin=task/cgroup,task/affinity
+
+# gres.conf
+AutoDetect=nvml
+Name=shard Count=16
+
+# cgroup.conf
+ConstrainDevices=yes
+ConstrainDeviceMemory=yes
+EnableControllers=yes
+```
+
+At startup the slurmd logs the detected region and the resulting
+per-shard slice for each sharding device:
+
+```
+shard: /dev/nvidia0 shards=16 region=nvidia/0000:01:00/vidmem capacity=16013MiB slice=1000MiB dmem=enforced
+```
+
+A job allocating three shards is limited to three slices. The limit is
+exported to the application through the environment and written to the
+dmem cgroup of the job and each of its steps (the job cgroup directory is
+named after the job SLUID, or after the job id with
+**CgroupJobIdPaths=yes**):
+
+```
+$ srun --gres=shard:3 sh -c 'echo $SLURM_SHARD_MEM_PER_GPU'
+0000:01:00.0=3002M
+
+$ srun --gres=shard:3 sh -c \
+    'cat /sys/fs/cgroup/system.slice/slurmstepd.scope/$SLURM_JOB_SLUID/dmem.max'
+nvidia/0000:01:00/vidmem 3148288512
+```
+
+Device memory allocations beyond the limit fail, while the rest of the
+device memory remains available to the other jobs sharding the GPU
+(`alloc_vram` here is a small test program
+allocating the given number of MiB):
+
+```
+$ srun --gres=shard:3 ./alloc_vram 4000
+cudaMalloc failed: out of memory (after 3002 of 4000 MiB)
+```
+
+The device memory used by the job is accounted in the
+*gres/gpumem* TRES, visible while it runs and preserved after it
+completes:
+
+```
+$ sstat -a -j 42 --format=JobID,TRESUsageInMax%70
+JobID                                                                TRESUsageInMax
+------------ ----------------------------------------------------------------------
+42.extern                                                                  energy=0
+42.batch     cpu=00:00:00,energy=0,fs/disk=87713,gres/gpumem=2128M,gres/gpuutil=1,+
+
+$ sacct -j 42 --format=JobID,State,TRESUsageInTot%70
+JobID             State                                                         TRESUsageInTot
+------------ ---------- ----------------------------------------------------------------------
+42            COMPLETED
+42.batch      COMPLETED cpu=00:00:00,energy=0,fs/disk=87713,gres/gpumem=2128M,gres/gpuutil=1,+
+42.extern     COMPLETED                                                               energy=0
+```
+
+Example of a node with three different GPU models from two vendors
+(*cgroup.conf* as in the previous example):
+
+```
+# slurm.conf
+GresTypes=gpu,shard
+NodeName=node2 Gres=gpu:rtx_5090:1,gpu:rtx_5060_ti:1,gpu:amd_granite:1,shard:rtx_5090:16,shard:rtx_5060_ti:16,shard:amd_granite:4
+
+# gres.conf
+# nvml detects the two NVIDIA devices; the AMD one is configured explicitly
+AutoDetect=nvml
+Name=gpu Type=rtx_5060_ti File=/dev/nvidia1 DmemRegion=off
+Name=gpu Type=amd_granite File=/dev/dri/renderD128
+Name=shard Type=rtx_5090 Count=16
+Name=shard Type=rtx_5060_ti Count=16
+Name=shard Type=amd_granite Count=4
+```
+
+Each device gets its own slice from its own capacity and shard count.
+The excluded device logs its region with *dmem=off*:
+
+```
+shard: /dev/nvidia0 shards=16 region=nvidia/0000:17:00/vidmem capacity=32607MiB slice=2037MiB dmem=enforced
+shard: /dev/nvidia1 shards=16 region=nvidia/0000:b3:00/vidmem dmem=off
+shard: /dev/dri/renderD128 shards=4 region=drm/0000:79:00.0/vram capacity=4080MiB slice=1020MiB dmem=enforced
+```
+
+A job sharding the RTX 5090 is limited using the RTX 5090 slice:
+
+```
+$ srun --gres=shard:rtx_5090:4 sh -c 'echo $SLURM_SHARD_MEM_PER_GPU'
+0000:17:00.0=8151M
+```
+
+A job sharding the excluded RTX 5060 Ti behaves exactly as without
+enforcement: no environment variable is set and no dmem limits are
+written, while jobs on the other two devices of the node remain enforced:
+
+```
+$ srun --gres=shard:rtx_5060_ti:2 sh -c 'echo ${SLURM_SHARD_MEM_PER_GPU:-unset}'
+unset
+```
+
 ## Shared GRES Usage
 
 Commands that display node GRES usage, such as `sinfo -O GresUsed`
@@ -813,3 +1751,12 @@ usage of the same underlying GPU devices:
     more shards can still be allocated.
   + `0/5` means GPU 3 has no shards allocated, and is available to be
     allocated as either a whole GPU or up to 5 shards.
+
+A GPU that is drained takes no new shards,
+and its entry starts with `d`. These forms are not in the example
+above:
+
+* `d/5` means the backing GPU is drained with no shards
+  allocated.
+* `d3/5` means the backing GPU is drained but still has 3 shards
+  allocated from before the drain.

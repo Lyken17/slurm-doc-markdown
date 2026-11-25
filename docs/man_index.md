@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -32,7 +32,7 @@ Version 26.05
 
 # Man Pages
 
-**NOTE: This documentation is for Slurm version 26.05.  
+**NOTE: This documentation is for Slurm version 26.11.  
 Documentation for other versions of Slurm is distributed with the code**
 
 Refer to [this page](slurm.md) for an overview of Slurm.
@@ -62,7 +62,7 @@ Refer to [this page](slurm.md) for an overview of Slurm.
 | [sstat](sstat.md) | Display the status information of a running job/step. |
 | [strigger](strigger.md) | Used to set, get or clear Slurm trigger information. |
 | [sview](sview.md) | Graphical user interface to view and modify Slurm state. |
-| [swait](swait.md) | Wait for steps of a stepmgr-enabled job to complete. |
+| [swait](swait.md) | Wait for a job's steps to complete. |
 
 ## Configuration Files
 
@@ -78,10 +78,12 @@ Refer to [this page](slurm.md) for an overview of Slurm.
 | [namespace.yaml](namespace.yaml.md) | Slurm configuration file for the namespace/linux plugin. |
 | [oci.conf](oci.conf.md) | Slurm configuration file for OCI Containers. |
 | [plugstack.conf](spank.md#SECTION_CONFIGURATION) | Slurm configuration file for SPANK plug-in stack. |
+| [resctrl.yaml](resctrl.yaml.md) | Slurm configuration file for the task/resctrl plugin. |
 | [slurm.conf](slurm.conf.md) | Slurm configuration file. |
 | [slurmdbd.conf](slurmdbd.conf.md) | Slurm Database Daemon (SlurmDBD) configuration file. |
 | [topology.conf](topology.conf.md) | Slurm configuration file for defining the network topology. |
 | [topology.yaml](topology.yaml.md) | Slurm configuration file for defining multiple network topologies. |
+| [tpu.yaml](tpu.yaml.md) | Slurm configuration file for TPU accelerator families. |
 
 ## Daemons and Other
 

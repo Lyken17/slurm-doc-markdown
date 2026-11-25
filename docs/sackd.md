@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -111,4 +111,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 21:10:03 GMT, November 10, 2026
+Time: 20:23:17 GMT, November 24, 2026

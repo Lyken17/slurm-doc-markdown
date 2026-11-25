@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -48,6 +48,7 @@ Current TRES Types are:
 * Mem (Memory)
 * Node
 * Pages
+* Pids
 * VMem (Virtual Memory/Size)
 
 For many TRES types, the units are a count of that item (e.g., CPU). For TRES
@@ -58,11 +59,14 @@ suffix `[K|M|G|T|P]`.
 The Billing TRES is calculated from a partition's TRESBillingWeights. See
 below for details.
 
-Valid 'FS' TRES are 'disk' (local disk) and 'lustre'. These are primarily
-there for reporting usage, not limiting access.
-
-Valid 'IC' TRES is 'ofed'. These are primarily there for reporting usage, not
+Valid 'FS' TRES are 'disk' (local disk) and 'lustre'. These are
+runtime-monitored and reported per job/step via sacct; they are not
+aggregated by sreport. They are primarily there for reporting usage, not
 limiting access.
+
+Valid 'IC' TRES are 'ofed' and 'sysfs'. These are runtime-monitored and
+reported per job/step via sacct; they are not aggregated by sreport. They
+are primarily there for reporting usage, not limiting access.
 
 ## slurm.conf settings
 
@@ -72,15 +76,15 @@ limiting access.
   
 Used to define which TRES are
 to be tracked on the system. By default Billing, CPU, Energy, Memory, Node,
-FS/Disk, Pages and VMem are tracked. These default TRES cannot be disabled,
-but only appended to. The following example:
+FS/Disk, Pages, Pids, and VMem are tracked. These default TRES cannot be
+disabled, but only appended to. The following example:
 
 ```
 AccountingStorageTRES=gres/gpu,license/iop1
 ```
 
-will track billing, cpu, energy, memory, nodes, fs/disk, pages and vmem along
-with a GRES called gpu, as well as a license called iop1. Whenever these
+will track billing, cpu, energy, memory, nodes, fs/disk, pages, pids, and vmem
+along with a GRES called gpu, as well as a license called iop1. Whenever these
 resources are used on the cluster they are recorded. TRES are automatically
 set up in the database on the start of the slurmctld.
 
@@ -102,6 +106,8 @@ AccountingStorageTRES=gres/gpu,gres/gpu:tesla
 
 **NOTE**: Setting gres/gpu will also set gres/gpumem and gres/gpuutil.
 gres/gpumem and gres/gpuutil can be set individually when gres/gpu is not set.
+Like other runtime-monitored TRES, these are reported per job/step via sacct
+and are not aggregated by sreport.
 
 ### Priority Weights
 
@@ -232,9 +238,10 @@ option *--tres=* will have sreport generate reports available
 for the requested TRES types. More information about these reports
 can be found on the [sreport manpage](sreport.md).
 
-In *sreport*, the "Reported" Billing TRES is calculated from the largest
-Billing TRES of each node multiplied by the time frame. For example, if a node
-is part of multiple partitions and each has a different TRESBillingWeights
-defined the Billing TRES for the node will be the highest of the partitions.
-If TRESBillingWeights is not defined on any partition for a node then the
-Billing TRES will be equal to the number of CPUs on the node.
+In *sreport*, the "Reported" Billing TRES is the sum, over all nodes, of
+each node's highest Billing TRES among the partitions that define
+TRESBillingWeights, multiplied by the time frame. For example, if a node is
+part of multiple partitions and each has a different TRESBillingWeights
+defined, the Billing TRES for the node will be the highest of those
+partitions. If TRESBillingWeights is not defined on any partition for a node
+then the Billing TRES will be equal to the number of CPUs on the node.

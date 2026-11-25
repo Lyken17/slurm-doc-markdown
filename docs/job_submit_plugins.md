@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -78,6 +78,9 @@ We include samples in the Slurm distribution for
   (if possible).
 * **require\_timelimit** — Force job submissions to specify a
   timelimit.
+* **tpu** — Check a TPU `--layout` request against
+  [tpu.yaml](tpu.yaml.md), and set the job's node count and TPU
+  GRES from it.
 
 const uint32\_t plugin\_version  
 If specified, identifies the version of Slurm used to build this plugin and
@@ -265,6 +268,14 @@ of nodes, as in the example below:
 ...
 ```
 
+**NOTE**: On the submit path, assigning an empty string
+("") to any
+job\_desc string field leaves that field
+NULL (unset), discarding any value the user supplied for it. The per-field
+clear semantics described under
+slurm\_job\_modify below do not apply
+here.
+
 int slurm\_job\_modify(job\_desc\_msg\_t \*job\_desc, job\_record\_t \*job\_ptr,
 List part\_list, int modify\_uid)
 
@@ -289,6 +300,71 @@ modify\_uid
 
 **Returns**:   
 [Returns from job\_modify() are the same as the returns from job\_submit().](#job_modify_returns)
+
+**NOTE**: On the modify path, the following string fields can be
+cleared by assigning an empty string ("")
+to them:
+
+* admin\_comment
+* comment
+* cpus\_per\_tres
+* dependency
+* exc\_nodes
+* extra
+* features
+* gres — legacy alias; clears
+  tres\_per\_node.
+* layout
+* licenses
+* mem\_per\_tres
+* network
+* prefer
+* req\_nodes
+* reservation
+* tres\_bind
+* tres\_freq
+* tres\_per\_job
+* tres\_per\_node
+* tres\_per\_socket
+* tres\_per\_task
+* wckey — cannot be cleared when
+  **AccountingStorageEnforce=wckeys** is configured; the update is rejected
+  with ESLURM\_INVALID\_WCKEY.
+
+A clear overrides any value the user supplied for that field in the same
+request. admin\_comment,
+comment and
+extra are reset to an empty string, which
+scontrol show job reports with no value
+(for example Comment=); every other field
+listed above is reset to NULL, which
+scontrol show job reports as
+(null) or omits entirely.
+
+Most of these fields can only be changed while the job is pending. A clear
+attempted on a job that is not pending is rejected, and the rejection fails
+the whole modify request rather than just that field.
+admin\_comment,
+comment and
+extra are not gated on job state and can be
+cleared for as long as the job has not finished, and
+licenses and
+reservation also allow some changes on
+running jobs. Clearing admin\_comment
+additionally requires a privileged user; on an unprivileged request the whole
+update fails with ESLURM\_ACCESS\_DENIED.
+Guard the assignment on job state if the plugin must not block updates to
+running jobs.
+
+Only the fields listed above are clearable from the plugin; other string
+fields, including burst\_buffer,
+mcs\_label,
+std\_err,
+std\_in and
+std\_out, are deliberately excluded.
+Assigning "" to one of these on modify does
+not clear the field; it leaves the field NULL, discarding any value the user
+supplied for it in the same request.
 
 ## Lua Job Attributes
 

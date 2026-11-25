@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -158,6 +158,10 @@ handles the request if able before submitting the query to other sources.
 To enable cloud node name resolution **slurm** needs to be added to the
 to hosts database in **/etc/nsswitch.conf**.
 It is recommended that **slurm** is listed last.
+
+Host lookups for nodes covered by the **SlurmctldParameters** option
+[dynamic\_node\_dns](slurm.conf.md#OPT_dynamic_node_dns)
+are not answered by nss\_slurm. User and group lookups are unaffected.
 
 Once enabled, test it by launching **getent** queries such as:
 

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -32,13 +32,14 @@ Version 26.05
 
 # Job State Codes
 
-Each job in the Slurm system has a state assigned to it. How the job state is
-displayed depends on the method used to identify the state.
+Each job and job step in the Slurm system has a state assigned to it. How
+the state is displayed depends on the method used to identify it.
 
 ## Overview
 
 In the Slurm code, there are **base states** and **state flags**.
-Each job has a base state and may have additional state flags set. When using
+Each job and job step has a base state and may have additional state flags
+set. When using
 the [REST API](rest_quickstart.md), both the base state and current
 flag(s) will be returned.
 
@@ -56,9 +57,10 @@ For more visibility into the job states and flags, set
 `DebugFlags=TraceJobs` and `SlurmctldDebug=verbose`
 (or higher) in [slurm.conf](slurm.conf.md).
 
-## Job states
+## Job and step states
 
-Each job known to the system will have one of the following states:
+Each job and job step known to the system will have one of the following
+states:
 
 |  |  |
 | --- | --- |
@@ -76,15 +78,15 @@ Each job known to the system will have one of the following states:
 | `SUSPENDED` | allocated resources but execution suspended, such as from [preemption](preempt.md) or a [direct request](scontrol.md#OPT_suspend) from an authorized user |
 | `TIMEOUT` | terminated due to reaching the time limit, such as those configured in [slurm.conf](slurm.conf.md) or specified for the individual job |
 
-## Job flags
+## Job and step flags
 
-Jobs may have additional flags set:
+Jobs and job steps may have additional flags set:
 
 |  |  |
 | --- | --- |
 | **Name** | **Description** |
 | `COMPLETING` | job has finished or been cancelled and is performing cleanup tasks, including the [epilog](prolog_epilog.md) script if present |
-| `CONFIGURING` | job has been allocated nodes and is waiting for them to boot or reboot |
+| `CONFIGURING` | job has been allocated nodes and is waiting for them to become ready for use, such as booting or rebooting the nodes, or running a configured [prolog](prolog_epilog.md) (`PrologSlurmctld`, or `Prolog` with `PrologFlags=Alloc` unless `NoHold` is also set); on a job step managed by the [step manager](slurm.conf.md#OPT_enable_stepmgr), the step has been allocated resources and is waiting to be handed to [srun](srun.md), which is normally momentary |
 | `EXPEDITING` | the job is immediately eligible for scheduling with the highest possible priority |
 | `LAUNCH_FAILED` | failed to launch on the chosen node(s); includes [prolog](prolog_epilog.md) failure and other failure conditions |
 | `POWER_UP_NODE` | job has been allocated powered down nodes and is waiting for them to boot |

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -121,12 +121,12 @@ the convention on Debian-based distros is **libNAME-dev**.
 | `acct_gather_energy/ipmi`  Gathers [energy consumption](slurm.conf.md#OPT_AcctGatherEnergyType) through IPMI | *freeipmi* |
 | `acct_gather_interconnect/ofed`  Gathers [traffic data](slurm.conf.md#OPT_AcctGatherInterconnectType) for InfiniBand networks | *libibmad*  *libibumad* |
 | `acct_gather_profile/hdf5`  Gathers [detailed job profiling](slurm.conf.md#OPT_AcctGatherProfileType) through HDF5 | *hdf5* |
-| `accounting_storage/mysql`  Required for [accounting](accounting.md); a currently supported version of MySQL or MariaDB should be used | *MySQL* or *MariaDB* |
+| `accounting_storage/mysql`  Required for [accounting](accounting.md); needs MySQL 8.0.21 or later, or MariaDB 10.2.7 or later | *MySQL* or *MariaDB* |
 | `auth/slurm`  (alternative to the traditional MUNGE [authentication method](slurm.conf.md#OPT_AuthType)) | *jwt* |
 | `auth/munge`  (default [authentication method](slurm.conf.md#OPT_AuthType)) | *MUNGE* |
 | `AutoDetect=nvml`  Provides [autodetection](gres.conf.md#OPT_AutoDetect) of NVIDIA GPUs with MIGs and NVlinks (`AutoDetect=nvidia`, added in 24.11, does not have any prerequisites) | *libnvidia-ml* |
 | `AutoDetect=oneapi`  Provides [autodetection](gres.conf.md#OPT_AutoDetect) of Intel GPUs | *libvpl* |
-| `AutoDetect=rsmi`  Provides [autodetection](gres.conf.md#OPT_AutoDetect) of AMD GPUs | *ROCm* |
+| `AutoDetect=rsmi`  Provides [autodetection](gres.conf.md#OPT_AutoDetect) of AMD GPUs (`AutoDetect=amd`, added in 26.11, does not have any prerequisites) | *ROCm* |
 | **HTML man pages**  This dependency is a command that must be present, typically provided by a package of the same name. | *man2html* |
 | **Lua API** | *lua* |
 | **PAM support** | *PAM* |
@@ -209,7 +209,7 @@ optional functionality:
 | --- | --- | --- | --- | --- | --- |
 | **RPM name** | **DEB name** | [Login](#login) | [Controller](#ctld) | [Compute](#compute) | [DBD](#dbd) |
 | `slurm` | `slurm-smd` | **X** | **X** | **X** | **X** |
-| `slurm-perlapi` | `slurm-smd-client` | **X** | **X** | **X** |  |
+| `slurm-smd-client` | **X** | **X** | **X** |  |
 | `slurm-slurmctld` | `slurm-smd-slurmctld` |  | **X** |  |  |
 | `slurm-slurmd` | `slurm-smd-slurmd` |  |  | **X** |  |
 | `slurm-slurmdbd` | `slurm-smd-slurmdbd` |  |  |  | **X** |

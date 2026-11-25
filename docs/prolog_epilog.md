@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -236,20 +236,28 @@ to all of the programs.
   Count of processors available per node.
 * **SLURM\_JOB\_DERIVED\_EC**
   The highest exit code of all of the job steps.
-  Available in Epilog and EpilogSlurmctld.
+  Available in Epilog and EpilogSlurmctld, but not set in an Epilog run
+  with **PrologFlags=RunInJob**.
 * **SLURM\_JOB\_END\_TIME**
   The UNIX timestamp for a job's end time.
 * **SLURM\_JOB\_EXIT\_CODE**
   The exit code of the job script (or salloc). The value is the status
   as returned by the `wait()` system call (See `wait(2)`).
-  Available in Epilog and EpilogSlurmctld.
+  A job that Slurm itself failed normally reports `256`, the
+  wait status for an exit status of 1; see **SLURM\_JOB\_RC** for the
+  error code.
+  Available in Epilog and EpilogSlurmctld, but not set in an Epilog run
+  with **PrologFlags=RunInJob**.
 * **SLURM\_JOB\_EXIT\_CODE2**
   The exit code of the job script (or salloc). The value has the format
   `<exit>:<sig>`. The first number is the exit code,
   typically as set by the `exit()` function.
   The second number is the signal that caused the process to
   terminate if it was terminated by a signal.
-  Available in Epilog and EpilogSlurmctld.
+  A job that Slurm itself failed normally reports `1:0` here;
+  see **SLURM\_JOB\_RC** for the error code.
+  Available in Epilog and EpilogSlurmctld, but not set in an Epilog run
+  with **PrologFlags=RunInJob**.
 * **SLURM\_JOB\_EXTRA**
   Extra field added to the job.
   Available in Prolog, PrologSlurmctld, Epilog, EpilogSlurmctld, and
@@ -267,8 +275,30 @@ to all of the programs.
   Job ID.
 * **SLURM\_JOBID**
   Job ID.
+* **SLURM\_JOB\_LAYOUT**
+  Layout set with `--layout` or `scontrol update`, a
+  comma-separated list of key=value pairs.
+  If the job has no layout, it will not be set.
+  The job's owner chooses this value, and Prolog, Epilog, PrologSlurmctld, and
+  EpilogSlurmctld run as root or as SlurmUser, so check it before acting on it
+  there, and quote it when it is used.
+  Available in Prolog, PrologSlurmctld, TaskProlog, Epilog, EpilogSlurmctld,
+  and TaskEpilog.
 * **SLURM\_JOB\_LICENSES**
   Name and count of any license(s) requested.
+* **SLURM\_JOB\_MEM\_ON\_NODE**
+  Memory allocated to the job on the current node, in MiB.
+  This is the effective allocation recorded by the select plugin, derived from
+  the user's submission request (`--mem` or `--mem-per-*`)
+  or the cluster's configuration (**DefMemPer\***). A per-CPU value is
+  multiplied by the CPUs allocated on the node. If neither is present, the
+  default of all available memory on the node will apply (with
+  **select/cons\_tres**, the node's real memory minus **MemSpecLimit**).
+  Set when memory is a consumable resource (see
+  [SelectTypeParameters](slurm.conf.md#OPT_SelectTypeParameters))
+  and when the per-node allocation can be determined.
+  Otherwise it will not be set.
+  Available in Prolog only.
 * **SLURM\_JOB\_NAME**
   Name of the job.
   Available in PrologSlurmctld, SrunProlog, TaskProlog, EpilogSlurmctld,
@@ -276,7 +306,10 @@ to all of the programs.
 * **SLURM\_JOB\_NODELIST**
   Nodes assigned to job. A Slurm hostlist expression.
   `scontrol show hostnames` can be used to convert this to a list of
-  individual host names. The Prolog and Epilog also get the
+  individual host names. In Prolog, PrologSlurmctld, Epilog and EpilogSlurmctld
+  the order of this list is not guaranteed to match the
+  **SLURM\_JOB\_NODELIST** seen inside the job. SrunProlog, SrunEpilog,
+  TaskProlog and TaskEpilog always matches. The Prolog and Epilog also get the
   same value as **SLURM\_NODELIST**.
   Unless **PrologFlags=RunInJob** is set, when slurmctld terminates or
   aborts a job, the Epilog receives the job's full allocation at the time the
@@ -298,6 +331,12 @@ to all of the programs.
   Partition that job runs in.
 * **SLURM\_JOB\_QOS**
   QOS assigned to job.
+* **SLURM\_JOB\_RC**
+  The job's Slurm return code, or 0 if no Slurm error code was recorded for
+  the job. See the [job exit code](job_exit_code.md#rc)
+  documentation for details.
+  Available in Epilog and EpilogSlurmctld, but not set in an Epilog run
+  with **PrologFlags=RunInJob**.
 * **SLURM\_JOB\_RESERVATION**
   Reservation requested for the job.
 * **SLURM\_JOB\_RESTART\_COUNT**
@@ -349,9 +388,8 @@ to all of the programs.
   The MPI rank (or relative process ID) of the current process. Available in
   SrunProlog, TaskProlog, SrunEpilog and TaskEpilog.
 * **SLURM\_RESTART\_COUNT**
-  Number of times the job has been restarted. This is only set if the job
-  has been restarted at least once. Available in SrunProlog, TaskProlog,
-  SrunEpilog and TaskEpilog.
+  Number of times the job has been restarted. Available in SrunProlog,
+  TaskProlog, SrunEpilog and TaskEpilog.
 * **SLURM\_RLIMIT\_AS**
   Resource limit on the job's address space. Available in SrunProlog,
   TaskProlog, SrunEpilog and TaskEpilog.

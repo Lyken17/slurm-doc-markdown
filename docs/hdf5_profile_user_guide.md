@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -47,8 +47,8 @@ data on jobs it runs on a cluster that is more detailed than is practical to
 include in its database. The data comes from periodically sampling various
 performance data either collected by Slurm, the operating system, or
 component software. The plugin will record the data from each source
-as a **Time Series** and also accumulate totals for each statistic for
-the job.
+as a **Time Series**. Totals for each statistic can be computed from the
+time series with [sh5util](sh5util.md).
 
 Time Series are energy data collected by an acct\_gather\_energy plugin,
 I/O data from a network interface collected by an acct\_gather\_interconnect
@@ -59,8 +59,8 @@ Data from other sources may be added in the future.
 
 The data is collected into a file on a shared file system for each step on
 each allocated node of a job and then merged into an HDF5 file.
-Individual files on a shared file system was chosen because it is possible
-that the data is voluminous so solutions that pass data to the Slurm control
+This shared file system architecture was chosen because it is possible
+that the data is voluminous. Solutions that pass data to the Slurm control
 daemon via RPC may not scale to very large clusters or jobs with
 many allocated nodes.
 
@@ -88,6 +88,8 @@ the ProfileHDF5Dir.
 Each user that creates a profile will have a subdirectory in the profile
 directory that has read/write permission only for the user.
 
+  
+
 ### Configuration parameters
 
 The profile plugin is enabled in the
@@ -100,8 +102,9 @@ configured in the
 **AcctGatherProfileType**=acct\_gather\_profile/hdf5
 :   Enables the HDF5 plugin.
 
-**JobAcctGatherFrequency**=<seconds>
-:   Sets the sampling frequency for data types.
+**JobAcctGatherFrequency**=<freq>
+:   Sets the sampling frequency for data types, e.g.
+    `task=sec,energy=sec,filesystem=sec,network=sec`.
 
 ### acct\_gather.conf parameters
 
@@ -126,16 +129,18 @@ These parameters are directly used by the HDF5 Profile Plugin.
 
 ### Time Series Control Parameters
 
-Other plugins add time series data to the HDF5 collection. They typically
-have a default polling frequency specified in slurm.conf in the
+Other plugins add time series data to the HDF5 collection. The HDF5
+profile plugin stores samples produced by the corresponding accounting gather
+plugin configured in slurm.conf: AcctGatherEnergyType,
+AcctGatherFilesystemType, AcctGatherInterconnectType, or JobAcctGatherType.
+They typically have a default polling frequency specified in slurm.conf in the
 JobAcctGatherFrequency parameter. The polling frequency can be overridden
-using the --acctg-freq
-[srun](srun.md) parameter.
-They are both of the form task=sec,energy=sec,filesystem=sec,network=sec.
+using the --acctg-freq [srun](srun.md) parameter.
+Both parameters use the form task=sec,energy=sec,filesystem=sec,network=sec.
 
-The IPMI energy plugin also needs the EnergyIPMIFrequency value set
-in the acct\_gather.conf file. This sets the rate at which the plugin samples
-the external sensors. This value should be the same as the energy=sec in
+The acct\_gather\_energy/ipmi plugin also needs the EnergyIPMIFrequency value
+set in the acct\_gather.conf file. This sets the rate at which that plugin
+samples the external sensors. This value should be the same as the energy=sec in
 either JobAcctGatherFrequency or --acctg-freq.
 
 Note that the IPMI and profile sampling are not synchronous.
@@ -153,14 +158,13 @@ for 2013 era Intel processors is 3 seconds.
 
 The --profile option on salloc|sbatch|srun controls whether data is
 collected and what type of data is collected. If --profile is not specified
-no data collected unless the **ProfileHDF5Default**
+no data is collected unless the **ProfileHDF5Default**
 option is used in acct\_gather.conf. --profile on the command line overrides
 any value specified in the configuration file.
 
 **--profile**=<all|none|[energy[,|task[,|filesystem[,|network]]]]>
 :   Enables detailed data collection by the acct\_gather\_profile plugin.
-    Detailed data are typically time-series that are stored in a HDF5 file for
-    the job.
+    Detailed data is typically a time series stored in an HDF5 file for the job.
 :   **All**
     :   All data types are collected. (Cannot be combined with other values.)
 
@@ -176,18 +180,20 @@ any value specified in the configuration file.
         Lustre filesystem is supported.
 
     **Network**
-    :   Network (InfiniBand) data is collected.
+    :   Network data is collected.
 
     **Task**
     :   Task (I/O, Memory, ...) data is collected.
+
+  
 
 ### Data Consolidation
 
 The node-step files are merged into one HDF5 file for the job using the
 [sh5util](sh5util.md).
 
-If the job is started with sbatch, the command line may added to the normal
-launch script, For example:
+If the job is started with sbatch, the command line may be added to the
+normal launch script. For example:
 
 ```
 sbatch -n1 -d$SLURM_JOB_ID --wrap="sh5util -j $SLURM_JOB_ID"
@@ -202,8 +208,8 @@ form for importation into other analysis tools such as spreadsheets.
 ## HDF5
 
 HDF5 is a well known structured data set that allows heterogeneous but
-related data to be stored in one file.
-(.i.e. sections for energy statistics, network I/O, Task data, etc.)
+related data to be stored in one file
+(e.g. sections for energy statistics, network I/O, task data, etc.).
 Its internal structure resembles a
 file system with **groups** being similar to *directories* and
 **data sets** being similar to *files*. It also allows **attributes**
@@ -212,139 +218,145 @@ to be attached to groups to store application defined properties.
 There are commodity programs, notably
 [HDFView](https://www.hdfgroup.org/download-hdfview/), for viewing and manipulating these files.
 
-Below is a screen shot from HDFView expanding the job tree and showing the
-attributes for a specific task.
-
-  
-![](hdf5_task_attr.png)
-
 ## Data Structure
 
-|  |  |
-| --- | --- |
-|  | In the job file, there will be a group for each **step** of the job. Within each step, there will be a group for nodes, and a group for tasks.   * The **nodes** group will have a group for each node in the step allocation.   For each node group, there is a sub-group for Time Series and another   for Totals.   + The **Time Series** group     contains a group/dataset containing the time series for each collector.   + The **Totals** group contains a group/dataset that has corresponding     Minimum, Average, Maximum, and Sum Total for each item in the time series.* The **Tasks** group will only contain a subgroup for each task.     It primarily contains an attribute stating the node on which the task was     executed. This set of groups is essentially a cross reference table. |
+In the merged job file, the top-level **Steps** group contains a group
+for each **step** of the job, named by step ID (**batch** for the batch
+step). Within each step, there will be a **Nodes** group. Each node
+group contains the node-level time series datasets for the configured
+accounting gather plugins and a **Tasks** group for per-task data.
+For example, step 0 of a job with energy, filesystem, network, and task
+profiling enabled and two tasks on node1 contains:
+
+```
+/Steps/0/Nodes/node1/Energy
+/Steps/0/Nodes/node1/Filesystem
+/Steps/0/Nodes/node1/Network
+/Steps/0/Nodes/node1/Tasks/0
+/Steps/0/Nodes/node1/Tasks/1
+```
+
+* The **Nodes** group will have a group for each node in the step allocation.
+  For each node group, node-level series such as Energy, Filesystem, and
+  Network are stored as HDF5 datasets.
+  + Each dataset contains an **ElapsedTime** field for seconds since the step
+    started and an **EpochTime** field for the sample's UNIX timestamp, followed
+    by the fields defined by the accounting gather plugin that produced the
+    samples.
+  + The [sh5util](sh5util.md) command can aggregate time series data
+    when extracting totals.
+  + The **Tasks** group contains one dataset for each task that ran on the node,
+    named by task ID.
+
+  
 
 ### Energy Data
 
-**AcctGatherEnergyType**=acct\_gather\_energy/ipmi
-
-is required in slurm.conf to collect energy data.
+An **AcctGatherEnergyType** plugin is required in slurm.conf
+to collect energy data.
 Appropriately set energy=freq in either JobAcctGatherFrequency in slurm.conf
 or in --acctg-freq on the command line.
-Also appropriately set EnergyIPMIFrequency in acct\_gather.conf.
+Also set EnergyIPMIFrequency in acct\_gather.conf when using
+**acct\_gather\_energy/ipmi**.
 
-Each data sample in the Energy Time Series contains the following data items.
+Each Energy sample contains **ElapsedTime** and **EpochTime**.
+Additional data items are defined by the configured energy plugin and may vary
+by hardware. The [sh5util](sh5util.md) command can list the
+fields present in a job file.
 
-**Date Time**
-:   Time of day at which the data sample was taken. This can be used to
-    correlate activity with other sources such as logs.
+**acct\_gather\_energy/rapl**, **acct\_gather\_energy/ibmaem**, **acct\_gather\_energy/pm\_counters**
+:   **Power**
 
-**Time**
-:   Elapsed time since the beginning of the step.
+**acct\_gather\_energy/ipmi**
+:   **<label>Power**, where label comes from
+    EnergyIPMIPowerSensors; the default label is **Node**.
 
-**Power**
-:   Power consumption during the interval.
+**acct\_gather\_energy/gpu**
+:   **GPU0Power**, **GPU1Power**, ...
 
-**CPU Frequency**
-:   CPU Frequency at time of sample in kilohertz.
+**acct\_gather\_energy/xcc**
+:   **Energy**, **CurrPower**
 
 ### Filesystem Data
 
-**AcctGatherFilesystemType**=acct\_gather\_filesystem/lustre
-
-is required in slurm.conf to collect task data.
-Appropriately set Filesystem=freq in either JobAcctGatherFrequency in slurm.conf
+An **AcctGatherFilesystemType** plugin is required in slurm.conf
+to collect filesystem data.
+Appropriately set filesystem=freq in either JobAcctGatherFrequency in slurm.conf
 or in --acctg-freq on the command line.
 
-Each data sample in the Filesystem Time Series contains the following data items.
-
-**Date Time**
-:   Time of day at which the data sample was taken. This can be used to
-    correlate activity with other sources such as logs.
-
-**Time**
-:   Elapsed time since the beginning of the step.
+Each Filesystem sample contains **ElapsedTime** and **EpochTime**.
+The Lustre plugin adds the following data items.
 
 **Reads**
 :   Number of read operations.
 
-**Megabytes Read**
+**ReadMB**
 :   Number of megabytes read.
 
 **Writes**
 :   Number of write operations.
 
-**Megabytes Write**
+**WriteMB**
 :   Number of megabytes written.
 
-### Network (Infiniband Data)
+### Network Data
 
-**AcctGatherInterconnectType**=acct\_gather\_interconnect/ofed
-
-is required in slurm.conf to collect task data.
+An **AcctGatherInterconnectType** plugin is required in slurm.conf
+to collect interconnect data.
 Appropriately set network=freq in either JobAcctGatherFrequency in slurm.conf
 or in --acctg-freq on the command line.
 
-Each data sample in the Network Time Series contains the following
-data items.
+Each Network sample contains **ElapsedTime** and **EpochTime**
+in addition to the following data items.
 
-**Date Time**
-:   Time of day at which the data sample was taken. This can be used to
-    correlate activity with other sources such as logs.
-
-**Time**
-:   Elapsed time since the beginning of the step.
-
-**Packets In**
+**PacketsIn**
 :   Number of packets coming in.
 
-**Megabytes Read**
-:   Number of megabytes coming in through the interface.
-
-**Packets Out**
+**PacketsOut**
 :   Number of packets going out.
 
-**Megabytes Write**
+**InMB**
+:   Number of megabytes coming in through the interface.
+
+**OutMB**
 :   Number of megabytes going out through the interface.
 
 ### Task Data
 
-**JobAcctGatherType**=jobacct\_gather/linux
-
-is required in slurm.conf to collect task data.
+A **JobAcctGatherType** plugin is required in slurm.conf
+to collect task data.
 Appropriately set task=freq in either JobAcctGatherFrequency in slurm.conf
 or in --acctg-freq on the command line.
 
-Each data sample in the Task Time Series contains the following data
-items.
+Each Task sample contains **ElapsedTime** and **EpochTime**.
+The job accounting gather plugins add the following data items.
 
-**Date Time**
-:   Time of day at which the data sample was taken. This can be used to
-    correlate activity with other sources such as logs.
-
-**Time**
-:   Elapsed time since the beginning of the step.
-
-**CPU Frequency**
+**CPUFrequency**
 :   CPU Frequency at time of sample.
 
-**CPU Time**
+**CPUTime**
 :   Seconds of CPU time used during the sample.
 
-**CPU Utilization**
+**CPUUtilization**
 :   CPU Utilization during the interval.
+
+**GPUMemMB**
+:   GPU memory used, in megabytes.
+
+**GPUUtilization**
+:   GPU utilization during the interval.
 
 **RSS**
 :   Value of RSS at time of sample.
 
-**VM Size**
+**VMSize**
 :   Value of VM Size at time of sample.
 
 **Pages**
 :   Pages used in sample.
 
-**Read Megabytes**
+**ReadMB**
 :   Number of megabytes read from local disk.
 
-**Write Megabytes**
+**WriteMB**
 :   Number of megabytes written to local disk.

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -321,20 +321,30 @@ There are other situations, and the fact that systemd developers and
 documentation claim that they are the unique single-writer to the tree, made
 SchedMD decide to be on the safe side and have Slurm coexist with systemd.
 
-It is worth noting that we added *IgnoreSystemd* and
-*IgnoreSystemdOnFailure* as cgroup.conf parameters which will avoid any
+It is worth noting that we added **IgnoreSystemd** and
+**IgnoreSystemdOnFailure** as cgroup.conf parameters which will avoid any
 contact with systemd, and will just use a regular "mkdir" to create the same
-directory structures. These parameters are for development and testing
-purposes only.
+directory structures. Slurm will detect when systemd is not the init process and
+set IgnoreSystemd automatically. This parameter can also be useful for testing
+purposes. See
+[What happens with Linux distros without systemd?](#distro_no_sysd).
 
 ### What happens with Linux distros without systemd?
 
-Slurm does not support them, but they can still work. The only
-requirements are to have libdbus, ebpf and systemd packages installed in
-the system to compile slurm. Then you can set the *IgnoreSystemd*
-parameter in cgroup.conf to manually create the
-*/sys/fs/cgroup/system.slice/* directory. With these requirements met,
-Slurm should work normally.
+Non-systemd Linux distributions have limited support, but they can work.
+The only requirements are to have libdbus, ebpf and systemd packages installed
+in the system to compile Slurm. With these requirements met, Slurm should work
+normally. The same applies to Slurm installations in containers.
+
+No extra cgroup configuration is needed for this to work, and nothing has to
+be set by hand. When slurmd starts, it checks whether systemd is the init
+system. If it is not, **IgnoreSystemd** defaults to yes, and the slurmstepd
+scope directory is prepared manually. With default configuration values that
+directory is `/sys/fs/cgroup/system.slice/slurmstepd.scope/`.
+
+This is only a default, so cgroup.conf can still override it. Setting
+**IgnoreSystemd=no** on a node without systemd is not supported, and slurmd
+will fail to start.
 
 ## cgroup/v2 overview
 
@@ -411,7 +421,7 @@ created slurmstepd scope.
 cpuset cpu io memory pids
 
 ]$ cat /sys/fs/cgroup/system.slice/gamba1_slurmstepd.scope/cgroup.subtree_control
-cpuset cpu memory
+cpuset cpu memory pids
 ```
 
 If resource specialization is enabled, slurmd will set its memory and/or
@@ -674,9 +684,13 @@ this can be forced to the plugin version too.
 * **IgnoreSystemd=[yes|no]**: This option is used to avoid any call to dbus
   for contacting systemd. Instead of requesting the creation of a new scope when
   slurmd starts up, it will only use "mkdir" to prepare the cgroup directories for
-  the slurmstepds. Use of this option in production systems with systemd is not
-  supported for the reasons mentioned [above](#consequences_nosysd).
-  This option can be useful for systems without systemd though.
+  the slurmstepds. The default depends on the init system of each node: "no" where
+  systemd is the init system, and "yes" where it is not. Setting it to "no" on a node
+  without systemd is not supported and slurmd will fail to start. Setting it to
+  "yes" on a node where systemd is the init system is only intended for development
+  and testing, since systemd may then modify or remove cgroups that Slurm created
+  for its jobs. See
+  [What happens with Linux distros without systemd?](#distro_no_sysd).
 * **IgnoreSystemdOnFailure=[yes|no]**: This option will fallback to manual
   mode for creating the cgroup directories without creating a systemd "scope".
   This is only if a call to dbus returned an error, as it would be with
@@ -779,3 +793,33 @@ controller, and in old kernels the cpu controller is not enabled by default.
 The cpu controller can be enabled in system.conf by setting
 `DefaultCpuAccounting=yes`. For the cpuset controller, you need to
 set `EnableControllers=yes` in cgroup.conf.
+
+systemd-run: Processes started through systemd escape the job cgroup. A user
+inside a job can run `systemd-run` to request a transient unit from
+the systemd manager. The command is then spawned by systemd under
+`system.slice` or `user.slice`, is not a descendant of
+slurmstepd, and is not constrained, accounted, or terminated with the job. Slurm
+cannot prevent this. A way to work around it is to forbid users to start units
+at all. Whether a user may start units is decided by polkit, the authorization
+service that systemd consults for requests arriving over D-Bus. Its policy is
+defined in */usr/share/polkit-1/actions/* and can be overridden with rules
+in */etc/polkit-1/rules.d/*. For the system manager, the default policy
+requires administrator authentication, so only users that polkit treats as
+administrators (e.g. members of the *wheel* group) or sites with relaxed
+rules are affected. To deny it to every non-root user regardless of the default
+policy, add a rule on the compute nodes:
+
+```
+# cat /etc/polkit-1/rules.d/50-deny-systemd-run.rules
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.freedesktop.systemd1.manage-units") {
+        return polkit.Result.NO;
+    }
+});
+# systemctl restart polkit
+```
+
+This rule does not cover `systemd-run --user`, which only needs a
+running user manager. Ensure that none exists on the compute nodes: do not
+enable lingering for regular users and keep pam\_systemd out of the sshd PAM
+stack as described in [pam\_slurm\_adopt](pam_slurm_adopt.md).

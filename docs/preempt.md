@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -153,6 +153,11 @@ There are several important configuration parameters relating to preemption:
     *PreemptMode=SUSPEND,GANG* to use Gang scheduler to resume the suspended
     job(s).
     In either case, time-slicing won't happen between jobs on different partitions.
+      
+    **NOTE**: A heterogeneous job is excluded from GANG scheduling operations,
+    including *PreemptMode=SUSPEND*, and from oversubscription while
+    *GANG* is enabled. See
+    [heterogeneous job preemption](#hetjob) below.
   + *REQUEUE*: Preempts jobs by requeuing them (if possible) or canceling
     them. For jobs to be requeued they must have the "--requeue" sbatch option set
     or the cluster wide JobRequeue parameter in slurm.conf must be set to 1.
@@ -258,14 +263,29 @@ generally advisable to disable the "--exclusive=user" and "--exclusive=mcs"
 job options by using a job\_submit plugin (set the value of "job\_desc.shared"
 to "NO\_VAL16").
 
-For heterogeneous job to be considered for preemption all components
-must be eligible for preemption. When a heterogeneous job is to be preempted
-the first identified component of the job with the highest order PreemptMode
-(*SUSPEND* (highest), *REQUEUE*, *CANCEL* (lowest)) will be
-used to set the PreemptMode for all components. The *GraceTime* and user
-warning signal for each component of the heterogeneous job remain unique.
+For a heterogeneous job to be considered for preemption, all components
+must be eligible for preemption; *PreemptType* determines which jobs are
+eligible. Heterogeneous jobs are excluded from GANG scheduling operations,
+including *PreemptMode=SUSPEND*: a component whose *PreemptMode*
+resolves to *SUSPEND* is treated as *PreemptMode=OFF*.
+When a heterogeneous job is to be preempted, the first component found with
+*PreemptMode=REQUEUE* sets the mode for all components; if there is none,
+the first component found with *PreemptMode=CANCEL* does. The selected
+mode is applied to every component. If no component resolves to *REQUEUE*
+or *CANCEL*, the job is not preempted.
+The *GraceTime* and user warning signal for each component of the
+heterogeneous job remain unique. A heterogeneous job is never suspended as a
+preemptee, and it will never preempt a job whose resolved *PreemptMode* is
+*SUSPEND*.
 Note that preemption of heterogeneous jobs is only supported with
 *SelectType=select/cons\_tres*, not with *select/linear*.
+
+A heterogeneous job is also excluded from oversubscription while *GANG* is
+enabled, because GANG scheduling cannot time-slice it out of a shared row. It is
+never placed on cores already allocated to another job, not even in its own
+partition's oversubscription rows. No other job is placed on its cores while it
+runs. Such a job may therefore remain pending where a non-heterogeneous job
+would start.
 
 Because licenses are not freed when jobs are suspended, jobs using licenses
 requested by higher priority jobs will only be preempted when PreemptMode is
@@ -273,6 +293,10 @@ either *REQUEUE* or *CANCEL* and
 *PreemptParameters=reclaim\_licenses* is set. Note that this applies only
 to regular [licenses](licenses.md),
 not [Hierarchical Resources (HRES)](hres.md).
+**Mode 3** hierarchical resources are reclaimed by a separate preemption
+path that this option does not control (see
+[HRES Preemption](hres.md#mode3_preemption)); **Mode 1** and
+**Mode 2** resources are never reclaimed by preemption.
 
 ## Preemption Design and Operation
 
@@ -363,6 +387,10 @@ preemptor job, even if the preemptor job requested fewer resources than that.
 These reserved nodes aren't available to other jobs during that backfill
 cycle, even if the other jobs could fit on the nodes. Therefore, jobs may
 preempt more resources during a single backfill iteration than they requested.
+
+Preemption to reclaim licenses or hierarchical resources (HRES) is only
+performed by the main scheduler. The backfill scheduler will not preempt jobs
+to free licenses or HRES for a pending job.
 
 ## A Simple Example
 

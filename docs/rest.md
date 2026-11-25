@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -57,7 +57,8 @@ See also:
 * [Security](#security)
   + [JSON Web Token (JWT) Authentication](#jwt)
   + [Local Authentication](#local_auth)
-  + [Authenticating Proxy](#auth_proxy)* [Python Guide](#python-guide)
+  + [Authenticating Proxy](#auth_proxy)* [Job Environment](#job_environment)
+  * [Python Guide](#python-guide)
     + [Setup](#python-setup)
     + [Usage Overview](#python-usage-overview)
     + [Job Submission](#python-job-submission)
@@ -235,6 +236,32 @@ A working trivial example can be found in an [internal tool](https://gitlab.com/
 [NGINX](https://www.nginx.com/) to provide the authentication logic.
 This example should only be used as a basic starting place as it is not suitable
 for deployment in a production environment.
+
+## Job Environment
+
+Unlike **sbatch**, which by default copies the environment of the
+submitting shell into the job, **slurmrestd** does not copy any environment
+of the client into the job. A batch job submitted through **slurmrestd**
+starts with only the variables given in the required **environment** field
+of its job description (for example, `"PATH=/usr/bin:/bin"`), plus
+the variables that Slurm sets for the batch job.
+
+The job name is exported as follows:
+
+* **SLURM\_JOB\_NAME** is set to the **name** field of the job
+  description. It replaces any **SLURM\_JOB\_NAME** given in the
+  **environment** field.
+* Jobs submitted through **slurmrestd** have no default job name. If
+  **name** is omitted, the job has no name and Slurm does not set
+  **SLURM\_JOB\_NAME**, so it is only present if given in the
+  **environment** field.
+* For a [heterogeneous job](heterogeneous_jobs.md), submitted
+  with the **jobs** field, the batch script runs in the first component.
+  **SLURM\_JOB\_NAME** is set to the name of the first component, and
+  **SLURM\_JOB\_NAME\_HET\_GROUP\_#** is set to the name of component #, numbered
+  from 0 in the order of the **jobs** array. See
+  [Environment Variables](heterogeneous_jobs.md#env_var) for
+  heterogeneous jobs.
 
 ## Python Guide
 

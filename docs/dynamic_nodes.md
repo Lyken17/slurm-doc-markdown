@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -46,6 +46,16 @@ dynamically created nodes, The controller automatically grabs the node's
 **NodeAddr** and **NodeHostname** for dynamic slurmd registrations. The
 controller then passes the node addresses to the clients so that they
 communicate, and even fanout, to other nodes.
+
+Starting in Slurm 26.11, set the **SlurmctldParameters** option
+[dynamic\_node\_dns](slurm.conf.md#OPT_dynamic_node_dns)
+to have each host resolve a dynamic node's **NodeName** through its own
+system resolver instead of using the address the controller recorded. This
+lets node-to-node traffic use a different network than the controller does.
+Every host in the cluster, including login and submit hosts, must then be able
+to resolve the **NodeName** of each node the option applies to. Slurm does
+not fall back to the recorded address. See the option's description for which
+nodes it applies to and how a failed lookup is logged.
 
 ## Slurm Configuration
 
@@ -86,11 +96,12 @@ the slurmd will automatically detect and register GPUs when:
 * **gres.conf** does not contain explicit GPU GRES records for the node
 * **gres.conf** does not contain **AutoDetect=off**
 
-If **AutoDetect** in
+If [AutoDetect](gres.conf.md#OPT_AutoDetect) in
 **gres.conf** specifies a particular detection mechanism (e.g.,
-**NVML**, **NVIDIA**, **RSMI**, **oneAPI**, **NRT**), it will
-use that mechanism to try to detect a GPU. Otherwise, **slurmd** defaults
-to the [full](gres.conf.md#OPT_AutoDetect) gpu detection method.
+**NVML**, **NVIDIA**, **RSMI**, **AMD**, **oneAPI**, **NRT**),
+it will use that mechanism to try to detect a GPU. Otherwise, **slurmd**
+defaults to the [AutoDetect=full](gres.conf.md#OPT_full) GPU
+detection method.
 
 ## Deleting Nodes
 
@@ -102,6 +113,23 @@ reservation can be deleted.
 
 Nodes can be dynamically added to and removed from topologies as described in
 the [Topology Guide](topology.md).
+
+## Hierarchical Resources
+
+Dynamic nodes can join the layers of a
+[Hierarchical Resource](hres.md) (HRES) with the **NodeName**
+parameter [**HRES**](slurm.conf.md#OPT_HRES), a JSON list of
+`hres_name` and `layer_name` pairs. It is accepted by both
+creation methods:
+
+```
+scontrol create NodeName=d1 CPUs=16 RealMemory=31848 State=cloud HRES='[{"hres_name":"power","layer_name":"rack2"}]'
+slurmd -Z --conf 'RealMemory=80000 HRES=[{"hres_name":"power","layer_name":"rack2"}]'
+```
+
+Malformed JSON rejects the node. Naming a layer that does not exist or cannot
+accept the node creates the node without HRES membership and logs an error in
+slurmctld. Deleting the node removes it from all layers.
 
 ## Limitations
 

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -74,6 +74,12 @@ be unknown to Slurm, causing the daemon to fatal on initialization.
 If you decide to change plugin types in **slurm.conf**, also make sure to
 change the related options in **acct\_gather.conf**.
 
+When profiling is enabled, each plugin stores its samples in a dataset named
+for its plugin type: **Energy** for acct\_gather\_energy, **Filesystem**
+for acct\_gather\_filesystem, and **Network** for acct\_gather\_interconnect.
+The fields in each dataset depend on the plugin and are listed in each plugin
+section below.
+
 ## acct\_gather\_energy/gpu
 
 Required entry in slurm.conf:
@@ -82,7 +88,17 @@ Required entry in slurm.conf:
 
 This plugin doesn't read any options from **acct\_gather.conf**.
   
-Dataset provided by the plugin is: Energy.
+Fields provided by the plugin: GPU<N>Power (one per GPU).
+
+## acct\_gather\_energy/ibmaem
+
+Required entry in slurm.conf:
+
+: ``` AcctGatherEnergyType=acct_gather_energy/ibmaem ```
+
+This plugin doesn't read any options from **acct\_gather.conf**.
+  
+Fields provided by the plugin: Power.
 
 ## acct\_gather\_energy/IPMI
 
@@ -94,7 +110,7 @@ Options used for acct\_gather\_energy/ipmi are as follows:
 
 : **EnergyIPMIFrequency**=<number> : This parameter is the number of seconds between BMC access samples. Ideally it should be higher or equal to **JobAcctGatherFrequency**, otherwise the JobAcctGather plugin will get repeated values in successive polls. : **EnergyIPMICalcAdjustment**=<yes|no> : If set to "yes", the consumption between the last BMC access sample and a step consumption update is approximated to get more accurate task consumption. The adjustment is made at the step start and each time the consumption is updated, including the step end. The approximations are not accumulated, only the first and last adjustments are used to calculated the consumption. The default is "no". : **EnergyIPMIPowerSensors**=<key=values> : Optionally specify the ids of the sensors to used. Multiple <key=values> can be set with ";" separators. The key "Node" is mandatory and is used to know the consumed energy for nodes (scontrol show node) and jobs (sacct). Other keys are optional and are named by administrator. These keys are useful only when profile is activated for energy to store power (in watt) of each key. <values> are integers except when using DCMI. Multiple values can be set with "," separators. The sum of the listed sensors is used for each key. EnergyIPMIPowerSensors is optional, default value is "Node=<value>" where "<value>" is the id of the first power sensor returned by ipmi-sensors. i.e. EnergyIPMIPowerSensors=Node=16,19,23,26;Socket0=16,23;Socket1=19,26;SSUP=23,26;KNC=16,19 EnergyIPMIPowerSensors=Node=29,32;SSUP0=29;SSUP1=32 EnergyIPMIPowerSensors=Node=1280 Data Center Manageability Interface - acct\_gather\_energy/ipmi supports gathering power data through DCMI IPMI extension commands. When configured, the ipmi plugin will query the DCMI using the "System Power mode" or the "Enhanced System Power Statistics mode" flags depending on the configuration. To configure one or the other, the special sensor values DCMI or DCMI\_ENHANCED can be used, for example: EnergyIPMIPowerSensors=Node=DCMI EnergyIPMIPowerSensors=Node=DCMI\_ENHANCED The following **acct\_gather.conf** parameters are defined to control the IPMI config default values for libipmiconsole. **EnergyIPMIUsername**=*USERNAME* : Specify BMC Username. : **EnergyIPMIPassword**=*PASSWORD* : Specify BMC Password.
 
-Datasets provided by the plugin have name: <IPMI\_SENSOR\_LABEL>Power.
+Fields provided by the plugin: <IPMI\_SENSOR\_LABEL>Power.
 
 ### NOTES:
 
@@ -102,6 +118,16 @@ This plugin requires the freeipmi development files to be installed and linkable
 at configure time. The plugin will not build otherwise. When building the RPM,
 *rpmbuild ... --with freeipmi* can be specified to explicitly check for
 these dependencies.
+
+## acct\_gather\_energy/pm\_counters
+
+Required entry in slurm.conf:
+
+: ``` AcctGatherEnergyType=acct_gather_energy/pm_counters ```
+
+This plugin doesn't read any options from **acct\_gather.conf**.
+  
+Fields provided by the plugin: Power.
 
 ## acct\_gather\_energy/rapl
 
@@ -111,7 +137,7 @@ Required entry in slurm.conf:
 
 This plugin doesn't read any options from **acct\_gather.conf**.
   
-Dataset provided by the plugin is: Power.
+Fields provided by the plugin: Power.
 
 ## acct\_gather\_energy/XCC
 
@@ -124,7 +150,7 @@ with XClarity Controller, thus a reduced set of configurations is supported:
 
 : **EnergyIPMIFrequency**=<number> : This parameter is the number of seconds between XCC access samples. Default is 30 seconds. : **EnergyIPMITimeout**=<number> : Timeout, in seconds, for initializing the IPMI XCC context for a new gathering thread. Default is 10 seconds.
 
-Datasets provided by the plugin are: Energy, CurrPower.
+Fields provided by the plugin: Energy, CurrPower.
 
 ## acct\_gather\_filesystem/lustre
 
@@ -134,7 +160,7 @@ Required entry in slurm.conf:
 
 This plugin doesn't read any options from **acct\_gather.conf**.
   
-Datasets provided by the plugin are: Reads, ReadMB, Writes, WriteMB.
+Fields provided by the plugin: Reads, ReadMB, Writes, WriteMB.
 
 ## acct\_gather\_profile/HDF5
 
@@ -144,7 +170,7 @@ Required entry in slurm.conf:
 
 Options used for acct\_gather\_profile/hdf5 are as follows:
 
-: **ProfileHDF5Dir**=<path> : This parameter is the path to the shared folder into which the acct\_gather\_profile plugin will write detailed data (usually as an HDF5 file). The directory is assumed to be on a file system shared by the controller and all compute nodes. This is a required parameter. : **ProfileHDF5Default** : A comma-delimited list of data types to be collected for each job submission. Allowed values are: : **All** : All data types are collected. (Cannot be combined with other values.) : **None** : No data types are collected. This is the default. (Cannot be combined with other values.) : **Energy** : Energy data is collected. : **Filesystem** : File system (Lustre) data is collected. : **Network** : Network (InfiniBand) data is collected. : **Task** : Task (I/O, Memory, ...) data is collected.
+: **ProfileHDF5Dir**=<path> : This parameter is the path to the shared folder into which the acct\_gather\_profile plugin will write detailed data (usually as an HDF5 file). The directory is assumed to be on a file system shared by the controller and all compute nodes. This is a required parameter. : **ProfileHDF5Default** : A comma-delimited list of data types to be collected for each job submission. Allowed values are: : **All** : All data types are collected. (Cannot be combined with other values.) : **None** : No data types are collected. This is the default. (Cannot be combined with other values.) : **Energy** : Energy data is collected. : **Filesystem** : File system (Lustre) data is collected. : **Network** : Network data is collected. : **Task** : Task (I/O, Memory, ...) data is collected.
 
 ## acct\_gather\_profile/InfluxDB
 
@@ -166,7 +192,7 @@ authentication is not currently supported.
 :   InfluxDB v1.x database name where profiling information is to be written.
     InfluxDB v2.x bucket name where profiling information is to be written.
 
-    : **ProfileInfluxDBDefault** : A comma-delimited list of data types to be collected for each job submission. Allowed values are: : : **All** : All data types are collected. Cannot be combined with other values. : **None** : No data types are collected. This is the default. Cannot be combined with other values. : **Energy** : Energy data is collected. : **Filesystem** : File system (Lustre) data is collected. : **Network** : Network (InfiniBand) data is collected. : **Task** : Task (I/O, Memory, ...) data is collected. : **ProfileInfluxDBExtraTags**=<tags> : A comma-delimited list of additional tags to attach to every InfluxDB measurement. Requires **ProfileInfluxDBFlags=grouped\_fields**. Valid tags are: : : **cluster** : The Slurm cluster name. : **sluid** : The SLUID of the job. : **uid** : The user ID of the user who ran the job. : **user** : The user name of the user who ran the job. **ProfileInfluxDBFlags**=<flags> : A comma-delimited list of flags that tune the InfluxDB plugin behavior. Valid flags are: : : **grouped\_fields** : Emit all fields from a single sample as one InfluxDB measurement line, with the dataset name (e.g., "task", "network", "filesystem", "energy") as the measurement, rather than one measurement per field. This reduces InfluxDB series cardinality and removes ambiguity caused by identical field names coming from different plugins. **ProfileInfluxDBFrequency**=<seconds> : How often in seconds data should be sent to the InfluxDB server. Note that in practice, profile data will be sent no more often than every JobAcctGatherFrequency seconds. A value of 0 disables buffering in the plugin so that data is sent to the InfluxDB server as soon it is collected. In all cases, data is sent to InfluxDB whenever the plugin's internal buffer is full and at the end of each job step. Default is 30 seconds. : **ProfileInfluxDBHost**=<hostname>:<port> : The hostname of the machine where the *InfluxDB* instance is executed and the port used by the HTTP API. The port used by the HTTP API is the one configured through the bind-address influxdb.conf option in the [http] section. Example: ``` ProfileInfluxDBHost=myinfluxhost:8086 ``` : **ProfileInfluxDBPass** : Password for username configured in ProfileInfluxDBUser. Required in v2.x and optional in v1.x InfluxDB. : **ProfileInfluxDBRTPolicy** : The InfluxDB v1.x retention policy name for the database configured in ProfileInfluxDBDatabase option. If unset, InfluxDB writes to the default retention policy. For InfluxDB v2.x, this value is passed on the v1-compatibility **/write** endpoint and, together with ProfileInfluxDBDatabase, selects a DBRP mapping that resolves to a v2 bucket. Recent v2.x releases auto-create a default DBRP mapping per bucket, so leaving this option unset is usually sufficient. : **ProfileInfluxDBUser** : InfluxDB username that should be used to gain access to the database configured in ProfileInfluxDBDatabase. Required in v2.x and optional in v1.x InfluxDB. This is only needed if InfluxDB v1.x is configured with authentication enabled in the [http] config section and a user has been granted at least WRITE access to the database. See also **ProfileInfluxDBPass**. : **ProfileInfluxDBTimeout**=<seconds> : The maximum time in seconds that an HTTP query to the InfluxDB server can take. After this timeout the data is discarded. Be aware that a long timeout can drain your nodes if the InfluxDB server is unresponsive and, when terminating the job, the last dataset takes more than UnkillableStepTimeout to be sent. Internally, that option sets CURLOPT\_TIMEOUT library option. Default is 10 seconds.
+    : **ProfileInfluxDBDefault** : A comma-delimited list of data types to be collected for each job submission. Allowed values are: : : **All** : All data types are collected. Cannot be combined with other values. : **None** : No data types are collected. This is the default. Cannot be combined with other values. : **Energy** : Energy data is collected. : **Filesystem** : File system (Lustre) data is collected. : **Network** : Network data is collected. : **Task** : Task (I/O, Memory, ...) data is collected. : **ProfileInfluxDBExtraTags**=<tags> : A comma-delimited list of additional tags to attach to every InfluxDB measurement. Requires **ProfileInfluxDBFlags=grouped\_fields**. Valid tags are: : : **cluster** : The Slurm cluster name. : **sluid** : The SLUID of the job. : **uid** : The user ID of the user who ran the job. : **user** : The user name of the user who ran the job. **ProfileInfluxDBFlags**=<flags> : A comma-delimited list of flags that tune the InfluxDB plugin behavior. Valid flags are: : : **grouped\_fields** : Emit all fields from a single sample as one InfluxDB measurement line, with the dataset name (e.g., "task", "network", "filesystem", "energy") as the measurement, rather than one measurement per field. This reduces InfluxDB series cardinality and removes ambiguity caused by identical field names coming from different plugins. **ProfileInfluxDBFrequency**=<seconds> : How often in seconds data should be sent to the InfluxDB server. Note that in practice, profile data will be sent no more often than every JobAcctGatherFrequency seconds. A value of 0 disables buffering in the plugin so that data is sent to the InfluxDB server as soon it is collected. In all cases, data is sent to InfluxDB whenever the plugin's internal buffer is full and at the end of each job step. Default is 30 seconds. : **ProfileInfluxDBHost**=<hostname>:<port> : The hostname of the machine where the *InfluxDB* instance is executed and the port used by the HTTP API. The port used by the HTTP API is the one configured through the bind-address influxdb.conf option in the [http] section. Example: ``` ProfileInfluxDBHost=myinfluxhost:8086 ``` : **ProfileInfluxDBPass** : Password for username configured in ProfileInfluxDBUser. Required in v2.x and optional in v1.x InfluxDB. : **ProfileInfluxDBRTPolicy** : The InfluxDB v1.x retention policy name for the database configured in ProfileInfluxDBDatabase option. If unset, InfluxDB writes to the default retention policy. For InfluxDB v2.x, this value is passed on the v1-compatibility **/write** endpoint and, together with ProfileInfluxDBDatabase, selects a DBRP mapping that resolves to a v2 bucket. Recent v2.x releases auto-create a default DBRP mapping per bucket, so leaving this option unset is usually sufficient. : **ProfileInfluxDBUser** : InfluxDB username that should be used to gain access to the database configured in ProfileInfluxDBDatabase. Required in v2.x and optional in v1.x InfluxDB. This is only needed if InfluxDB v1.x is configured with authentication enabled in the [http] config section and a user has been granted at least WRITE access to the database. See also **ProfileInfluxDBPass**. : **ProfileInfluxDBTimeout**=<seconds> : The maximum time in seconds that an HTTP query to the InfluxDB server can take. After this timeout the data is discarded. Be aware that a long timeout can drain your nodes if the InfluxDB server is unresponsive and, when terminating the job, the last dataset takes more than UnkillableStepTimeout to be sent. Internally, that option sets CURLOPT\_TIMEOUT library option. Default is 10 seconds.
 
 ### NOTES:
 
@@ -208,7 +234,7 @@ Options used for acct\_gather\_interconnect/ofed are as follows:
 
 : **InfinibandOFEDPort**=<number> : This parameter represents the port number of the local Infiniband card that we are willing to monitor. The default port is 1.
 
-Datasets provided by the plugin: PacketsIn, PacketsOut, InMB, OutMB
+Fields provided by the plugin: PacketsIn, PacketsOut, InMB, OutMB.
 
 ## acct\_gather\_interconnect/sysfs
 
@@ -220,7 +246,7 @@ Options used for acct\_gather\_interconnect/sysfs are as follows:
 
 : **SysfsInterfaces**=<interfaces> : Comma-separated list of interface names to collect statistics from. Usage from all listed interfaces will be summed together, and is not broken down individually.
 
-Datasets provided by the plugin: PacketsIn, PacketsOut, InMB, OutMB
+Fields provided by the plugin: PacketsIn, PacketsOut, InMB, OutMB.
 
 ## EXAMPLE
 
@@ -228,7 +254,7 @@ Datasets provided by the plugin: PacketsIn, PacketsOut, InMB, OutMB
 ###
 # Slurm acct_gather configuration file
 ###
-# Parameters for acct_gather_energy/impi plugin
+# Parameters for acct_gather_energy/ipmi plugin
 EnergyIPMIFrequency=10
 EnergyIPMICalcAdjustment=yes
 #
@@ -267,10 +293,10 @@ details.
 
 ## Index
 
-[NAME](#lbAB): [DESCRIPTION](#lbAC): [acct\_gather\_energy/gpu](#lbAD): [acct\_gather\_energy/IPMI](#lbAE): [NOTES:](#lbAF) [acct\_gather\_energy/rapl](#lbAG): [acct\_gather\_energy/XCC](#lbAH): [acct\_gather\_filesystem/lustre](#lbAI): [acct\_gather\_profile/HDF5](#lbAJ): [acct\_gather\_profile/InfluxDB](#lbAK): [Options:](#lbAL): [NOTES:](#lbAM) [acct\_gather\_interconnect/OFED](#lbAN): [acct\_gather\_interconnect/sysfs](#lbAO): [EXAMPLE](#lbAP): [COPYING](#lbAQ): [SEE ALSO](#lbAR)
+[NAME](#lbAB): [DESCRIPTION](#lbAC): [acct\_gather\_energy/gpu](#lbAD): [acct\_gather\_energy/ibmaem](#lbAE): [acct\_gather\_energy/IPMI](#lbAF): [NOTES:](#lbAG) [acct\_gather\_energy/pm\_counters](#lbAH): [acct\_gather\_energy/rapl](#lbAI): [acct\_gather\_energy/XCC](#lbAJ): [acct\_gather\_filesystem/lustre](#lbAK): [acct\_gather\_profile/HDF5](#lbAL): [acct\_gather\_profile/InfluxDB](#lbAM): [Options:](#lbAN): [NOTES:](#lbAO) [acct\_gather\_interconnect/OFED](#lbAP): [acct\_gather\_interconnect/sysfs](#lbAQ): [EXAMPLE](#lbAR): [COPYING](#lbAS): [SEE ALSO](#lbAT)
 
 ---
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 21:10:03 GMT, November 10, 2026
+Time: 20:23:17 GMT, November 24, 2026

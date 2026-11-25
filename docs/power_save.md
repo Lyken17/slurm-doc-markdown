@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -88,6 +88,41 @@ Changes in the configuration parameters (e.g. **SuspendTime**) will take
 effect after modifying the *slurm.conf* configuration file and executing
 `scontrol reconfigure` or restarting the Slurm control daemon,
 *slurmctld*.
+
+Some runtime changes are the exception and take effect immediately:
+
+* A per-node **SuspendTime** set with `scontrol create node`,
+  `scontrol update node`, or the equivalent REST API request.
+* A dynamic node registered with `slurmd -Z`.
+* A change to a partition's node list.
+
+When the rest of the power save configuration is valid, as described below,
+a finite **SuspendTime** from one of these changes enables automatic Power
+Saving operations for those nodes without a `scontrol reconfigure`,
+even when the global **SuspendTime** is *INFINITE*.
+Nodes stop suspending as soon as their **SuspendTime** is back to
+*INFINITE*, but automatic power save itself stays enabled until the next
+`scontrol reconfigure` or *slurmctld* restart.
+
+A per-node **SuspendTime** needs the rest of the power save
+configuration to be valid: **SuspendProgram**, **ResumeProgram**,
+**SuspendRate**, **ResumeRate**,
+**SlurmctldParameters**=**power\_save\_interval**, and
+**SlurmctldParameters**=**power\_save\_min\_interval**.
+When it is not, *slurmctld* handles the request as follows:
+
+* A node update with `scontrol update node` or the REST API is
+  rejected for any value, including *INFINITE*.
+* A node creation with `scontrol create node` or the REST API is
+  rejected for a finite value.
+* A dynamic node registered with `slurmd -Z` is accepted.
+  *slurmctld* logs a warning, and the node's **SuspendTime** has no
+  effect until power save is configured and *slurmctld* is reconfigured or
+  restarted.
+
+The [scontrol](scontrol.md) man page lists the exact
+requirements and how long a per-node **SuspendTime** lasts across a
+reconfigure or restart.
 
 ## Configuration
 
@@ -203,6 +238,7 @@ The following configuration parameters of interest include:
           "extra" : "An arbitrary string from --extra",
           "features" : "c1,c2",
           "job_id" : 140814,
+          "layout" : "tpu7x=2x2x4",
           "nodes_alloc" : "cloud[1-4]",
           "nodes_resume" : "cloud[1-3]",
           "oversubscribe" : "OK",
@@ -214,6 +250,7 @@ The following configuration parameters of interest include:
           "extra" : null,
           "features" : "c1,c2",
           "job_id" : 140815,
+          "layout" : null,
           "nodes_alloc" : "cloud[1-2]",
           "nodes_resume" : "cloud[1-2]",
           "oversubscribe" : "OK",
@@ -225,6 +262,7 @@ The following configuration parameters of interest include:
           "extra" : null,
           "features" : null,
           "job_id" : 140816,
+          "layout" : null,
           "nodes_alloc" : "cloud[7-8]",
           "nodes_resume" : "cloud[7-8]",
           "oversubscribe" : "NO",
@@ -241,6 +279,10 @@ The following configuration parameters of interest include:
     [squeue --Format Exclusive](squeue.md#OPT_Exclusive). See also
     `SLURM_JOB_OVERSUBSCRIBE` and `SLURM_JOB_EXCLUSIVE` in
     [prolog\_epilog](prolog_epilog.md).
+
+    **layout** is the layout of the job, as set with
+    [--layout](sbatch.md#OPT_layout), or null when the job has
+    none.
 
     **NOTE**: The **SLURM\_RESUME\_FILE** will only exist and be
     usable if Slurm was compiled with the [JSON-C](related_software.md#json) serializer library.
@@ -259,26 +301,6 @@ The following configuration parameters of interest include:
     will be marked DOWN with a reason of "Node unexpectedly rebooted." The
     default value is 60 seconds.
 
-**SchedulerParameters**
-:   The interpretation of this parameter varies by SchedulerType. Multiple
-    options may be comma separated. Options of interest include:
-
-    **salloc\_wait\_nodes**
-    :   If defined, the salloc command will wait until all allocated nodes
-        are ready for use (i.e. booted) before the command returns. By
-        default, salloc will return as soon as the resource allocation has
-        been made. The salloc command can use the
-        `--wait-all-nodes` option to override this configuration
-        parameter.
-
-    **sbatch\_wait\_nodes**
-    :   If defined, the sbatch script will wait until all allocated nodes
-        are ready for use (i.e. booted) before the initiation. By default,
-        the sbatch script will be initiated as soon as the first node in the
-        job allocation is ready. The sbatch command can use the
-        `--wait-all-nodes` option to override this configuration
-        parameter.
-
 **SlurmctldParameters**
 :   Comma-separated options identifying slurmctld options. Options of
     interest include:
@@ -292,6 +314,17 @@ The following configuration parameters of interest include:
         nodes to boot, each node's IP address. However, in environments where
         the nodes are in DNS, this step can be avoided by configuring this
         option.
+
+    **fast\_power\_up\_launch**
+    :   Launch a job that is waiting on nodes to power up or reboot as soon
+        as the last of its nodes registers, rather than on the next periodic
+        poll of the slurmctld background thread (which can add up to 30 seconds
+        of delay). This covers jobs waiting on a reboot requested with
+        `sbatch --reboot` or by a node feature change, as well as
+        jobs waiting on nodes to resume from power save. Each registration of a
+        powering-up node scans the job list, so sites that simultaneously power
+        up very large numbers of nodes while holding a very large number of
+        jobs may prefer to leave this disabled. Unset by default.
 
     **idle\_on\_node\_suspend**
     :   Mark nodes as idle, regardless of current state, when suspending
@@ -340,8 +373,9 @@ The following configuration parameters of interest include:
 
 **SuspendExcStates**
 :   Specifies node states that are not to be powered down automatically.
-    Valid states include CLOUD, DOWN, DRAIN, DYNAMIC\_FUTURE, DYNAMIC\_NORM,
-    FAIL, INVALID\_REG, MAINTENANCE, NOT\_RESPONDING, PLANNED, and RESERVED.
+    Valid states include CLOUD, DEGRADED, DOWN, DRAIN, DYNAMIC\_FUTURE,
+    DYNAMIC\_NORM, FAIL, INVALID\_REG, MAINTENANCE, NOT\_RESPONDING, PLANNED, and
+    RESERVED.
     By default, any of these states, if idle for
     **SuspendTime**, would be powered down. Nodes explicitly requested to
     power down, including nodes allocated from a partition configured with
@@ -398,7 +432,9 @@ Node parameters of interest include:
     **SuspendTime** settings for the specified nodes. If not set on the
     node, the partition and then global values are used. Setting
     **SuspendTime** to *INFINITE* will disable suspending of these
-    nodes.
+    nodes. This value may be updated with
+    `scontrol update NodeName=<nodename>
+    SuspendTime=<seconds|INFINITE|NONE|-1>`.
 
 **Weight**
 :   Each node can be configured with a weight indicating the desirability
@@ -513,6 +549,12 @@ scontrol power <up|down> [asap|force] {ALL|<nodelist>|<nodeset>} [Action=<name>]
 **NOTE**: `Reason=` is only accepted for
 `power down`.
 
+`power up force` will requeue or cancel all jobs on the node,
+immediately mark the node as powered down, and then power it up. Unlike
+`power up`, it works on nodes that are already powered up. A DRAIN
+flag set by [POWER\_DOWN\_ASAP](#POWER_DOWN_ASAP) is removed. A
+DRAIN flag set in any other way is kept.
+
 `scontrol update` command actions/states of interest:
 
 **POWER\_DOWN**
@@ -520,12 +562,18 @@ scontrol power <up|down> [asap|force] {ALL|<nodelist>|<nodeset>} [Action=<name>]
     place a node in power saving mode. If a node is already in the process of
     being powered down, the command will only change the state of the node but
     won't have any effect until the configured **SuspendTimeout** is
-    reached.
+    reached. A power down does not remove a DRAIN flag that the node already
+    had, unless [idle\_on\_node\_suspend](#idle_on_node_suspend) is
+    set.
 
 **POWER\_DOWN\_ASAP**
 :   Will drain the node and mark it for power down. Currently running jobs
     will complete first and no additional jobs will be allocated to the
-    node.
+    node. The DRAIN flag set by this request is removed when the node starts
+    powering down, or when the node is powered up with
+    `power up force`. If the node was already drained before the
+    request, or an administrator drains it while the power down is pending, the
+    node stays drained.
 
 **POWER\_DOWN\_FORCE**
 :   Will cancel all jobs on the node, power it down, and reset its state to
@@ -636,23 +684,12 @@ the following actions:
 ## Use of Allocations
 
 A resource allocation request will be granted as soon as resources are
-selected for use, possibly before the nodes are all available for use. The
-launching of job steps will be delayed until the required nodes have been
-restored to service (it prints a warning about waiting for nodes to become
-available and periodically retries until they are available).
-
-In the case of an *sbatch* command, the batch program will start when
-node zero of the allocation is ready for use and pre-processing can be
-performed as needed before using *srun* to launch job steps. The
-*sbatch* `--wait-all-nodes=<value>` option can be used
-to override this behavior on a per-job basis and a system-wide default can be
-set with the *SchedulerParameters=sbatch\_wait\_nodes* option.
-
-In the case of the *salloc* command, once the allocation is made a
-new shell will be created on the login node. The *salloc*
-`--wait-all-nodes=<value>` option can be used to override
-this behavior on a per-job basis and a system-wide default can be set with
-the *SchedulerParameters=salloc\_wait\_nodes* option.
+selected for use, possibly before the nodes are all available for use. A job
+whose nodes had to power up or reboot does not start until all of them have
+registered, and the launching of job steps will be delayed until the required
+nodes have been restored to service (it prints a warning about waiting for
+nodes to become available and periodically retries until they are
+available).
 
 ## Node Features
 

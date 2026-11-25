@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -45,11 +45,11 @@ Version 26.05
   + RedHat Enterprise Linux 8 (RHEL8) and RHEL8 derivatives
   + RedHat Enterprise Linux 9 (RHEL9) and RHEL9 derivatives
   + RedHat Enterprise Linux 10 (RHEL10) and RHEL10 derivatives
-  + SUSE Linux Enterprise Server (SLES) 12
   + SUSE Linux Enterprise Server (SLES) 15
   + Ubuntu 20.04
   + Ubuntu 22.04
   + Ubuntu 24.04
+  + Ubuntu 26.04
 * **NetBSD** — Limited support, not actively tested.
 * **macOS** — Slurm has run on macOS in the past, but does not
   currently. It should be possible to fix this with some adjustments to linker
@@ -58,9 +58,11 @@ Version 26.05
 ## Databases
 
 Slurm will be built with support for MySQL if it finds supported
-development libraries at build time. Although it is possible to build Slurm
-against older versions of MySQL, it is not recommended. SchedMD recommends
-you use a currently supported version of MySQL or MariaDB.
+development libraries at build time. MySQL 8.0.21 and MariaDB 10.2.7 are the
+minimum required versions. The **slurmdbd** daemon checks the version of
+the server it connects to at startup and exits with a fatal error if the
+server is older than the minimum. Use a version of MySQL or MariaDB that is
+still supported by its vendor.
 
 Further reading:
 
@@ -82,6 +84,8 @@ Specific plugins have been developed for:
     plugin doesn't detect MIGs or NVlinks.
   + **AutoDetect=rsmi** enables autodetection of AMD GPUs through their
     proprietary RSMI library (tested on x86\_64 and arm64).
+  + **AutoDetect=amd** also enables autodetection of AMD GPUs, but through
+    the amdgpu kernel driver in sysfs rather than their proprietary library.
   + **AutoDetect=oneapi** enables autodetection of Intel GPUs through their
     proprietary oneAPI library.
   + **AutoDetect=nrt** enables autodetection of AWS Trainium/Inferentia

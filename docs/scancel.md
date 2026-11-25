@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -50,12 +50,16 @@ scancel - Used to signal jobs or job steps that are under the control of Slurm.
 An arbitrary number of jobs or job steps may be signaled using job
 specification filters or a space separated list of specific job and/or
 job step IDs.
-If the job ID of a job array is specified with an array ID value and the job
-associated with the array ID value has been split from the array, then only that
-job array element will be cancelled.
-If the job ID of a job array is specified without an array ID value or the
-array ID value corresponds to a job that has not been split from the array,
-then all job array elements will be cancelled.
+If the job ID of a job array is specified with an array ID value then only that
+job array element will be signaled.
+The array ID value may also be a comma-separated list of indexes and index
+ranges enclosed in square brackets.
+Every listed element that has not finished will be signaled.
+Elements that do not exist or have already finished are skipped, and with
+**-v** an error is reported for them.
+The closing bracket must end the job ID, so a step ID cannot follow it.
+If the job ID of a job array is specified without an array ID value then all
+job array elements will be signaled.
 While a heterogeneous job is in a PENDING state, only the entire job can be
 cancelled rather than its individual components.
 A request to cancel an individual component of a heterogeneous job while in
@@ -63,14 +67,6 @@ a PENDING state will return an error.
 After the job has begun execution, an individual component can be cancelled
 except for component zero. If component zero is cancelled, the whole het job is
 cancelled.
-Step IDs are unique across the whole heterogeneous job.
-Cancelling a step through the job leader kills that step in every component
-that has it, and leaves the component allocations running.
-Cancelling a step through an individual component signals only that component's
-step.
-It is not an error for a component not to have that step; only a step ID that
-no component has is reported as an invalid job ID.
-Signals other than the default SIGKILL are sent only to the step of the
 Step IDs are unique across the whole heterogeneous job.
 Cancelling a step through component zero (the heterogeneous job leader)
 kills that step in every component that has it, and leaves the component
@@ -81,6 +77,10 @@ Cancelling a step through an individual component signals only that
 component's step.
 If that component does not have the step, the request is reported as an
 invalid job ID.
+When the job's steps are managed by a step manager (see **--stepmgr** in
+**[salloc](salloc.md)**(1)), the cancel is forwarded to the step manager instead, so a
+step ID that does not exist is accepted rather than reported as an error,
+whether it was given through component zero or an individual component.
 Signals other than the default SIGKILL are sent only to the step of the
 component whose job ID was given.
 A job or job step can only be signaled by the owner of that job or user root.
@@ -92,7 +92,7 @@ error message will be printed and the job will not be signaled.
 **-A**, **--account**=*account*
 :   Restrict the scancel operation to jobs under this charge account.
 
-    : **--admin-comment**=*comment* : Set the AdminComment on the job while canceling jobs. User must have Administrator privileges on the system. : **-b**, **--batch** : By default, signals other than SIGKILL are not sent to the batch step (the shell script). With this option **scancel** signals only the batch step, but not any other steps. This is useful when the shell script has to trap the signal and take some application defined action. Most shells cannot handle signals while a command is running (i.e. is a child process of the batch step), so the shell needs to wait until the command ends to then handle the signal. Children of the batch step are not signaled with this option. If this is desired, use **-f**, **--full** instead. **NOTE**: If used with **-f**, **--full**, this option is ignored. **NOTE**: This option is not applicable if *step\_id* is specified. **NOTE**: The shell itself may exit upon receipt of many signals. You may avoid this by explicitly trap signals within the shell script (e.g. "trap <arg> <signals>"). See the shell documentation for details. : **-M**, **--clusters**=<*string*> : Cluster to issue commands to. Implies **--ctld**. Note that the **slurmdbd** must be up for this option to work properly, unless running in a federation with **FederationParameters=fed\_display** configured. : **--ctld** : If this option is not used with **--interactive**, **--sibling**, federated job ids, or specific step ids, then this issues a single request to the slurmctld to signal all jobs matching the specified filters. This greatly improves the performance of slurmctld and scancel. Otherwise, this option causes scancel to send each job signal request to the slurmctld daemon rather than directly to the slurmd daemons, which increases overhead, but offers better fault tolerance. **--ctld** is the default behavior on when the **--clusters** option is used. : **-c**, **--cron** : Confirm request to cancel a job submitted by scrontab. This option only has effect with the "explicit\_scancel" option is set in **ScronParameters**. : **-f**, **--full** : By default, signals other than SIGKILL are not sent to the batch step (the shell script). With this option **scancel** also signals the batch script and its children processes. Most shells cannot handle signals while a command is running (i.e. is a child process of the batch step), so the shell needs to wait until the command ends to then handle the signal. Unlike **-b**, **--batch**, children of the batch step are also signaled with this option. **NOTE**: srun steps are also children of the batch step, so steps are also signaled with this option. : **--help** : Print a help message describing all **scancel** options. : **-H**, **--hurry** : Do not stage out any burst buffer data. : **-i**, **--interactive** : Interactive mode. Confirm each job\_id.step\_id before performing the cancel operation. : **-n**, **--jobname**=*job\_name*, **--name**=*job\_name* : Restrict the scancel operation to jobs with this job name. : **--me** : Restrict the scancel operation to jobs owned by the current user. **-w**, **--nodelist=***host1,host2,...* : Cancel any jobs using any of the given hosts. The list may be specified as a comma-separated list of hosts, a range of hosts (host[1-5,7,...] for example), or a filename. The host list will be assumed to be a filename only if it contains a "/" character. : **-p**, **--partition**=*partition\_name* : Restrict the scancel operation to jobs in this partition. : **-q**, **--qos**=*qos* : Restrict the scancel operation to jobs with this quality of service. : **-Q**, **--quiet** : Do not report an error if the specified job is already completed. This option is incompatible with the **--verbose** option. : **-R**, **--reservation**=*reservation\_name* : Restrict the scancel operation to jobs with this reservation name. : **--sibling**=*cluster\_name* : Remove an active sibling job from a federated job. : **-s**, **--signal**=*signal\_name* : The name or number of the signal to send. If this option is not used the specified job or step will be terminated. : **-t**, **--state**=*job\_state\_name* : Restrict the scancel operation to jobs in this state. *job\_state\_name* may have a value of either "PENDING", "RUNNING" or "SUSPENDED". : **--usage** : Print a brief help message listing the **scancel** options. : **-u**, **--user**=*user\_name* : Restrict the scancel operation to jobs owned by the given user. : **-v**, **--verbose** : Print additional logging. Multiple v's increase logging detail. This option is incompatible with the **--quiet** option. : **-V**, **--version** : Print the version number of the scancel command. : **--wckey**=*wckey* : Restrict the scancel operation to jobs using this workload characterization key.
+    : **--admin-comment**=*comment* : Set the AdminComment on the job while canceling jobs. User must have Administrator privileges on the system. : **-b**, **--batch** : By default, signals other than SIGKILL are not sent to the batch step (the shell script). With this option **scancel** signals only the batch step, but not any other steps. This is useful when the shell script has to trap the signal and take some application defined action. Most shells cannot handle signals while a command is running (i.e. is a child process of the batch step), so the shell needs to wait until the command ends to then handle the signal. Children of the batch step are not signaled with this option. If this is desired, use **-f**, **--full** instead. **NOTE**: If used with **-f**, **--full**, this option is ignored. **NOTE**: This option is not applicable if *step\_id* is specified. **NOTE**: The shell itself may exit upon receipt of many signals. You may avoid this by explicitly trap signals within the shell script (e.g. "trap <arg> <signals>"). See the shell documentation for details. : **-M**, **--clusters**=<*string*> : Cluster to issue commands to. Implies **--ctld**. Note that the **slurmdbd** must be up for this option to work properly, unless running in a federation with **FederationParameters=fed\_display** configured. : **--ctld** : If this option is not used with **--interactive**, **--sibling**, federated job ids, or specific step ids, then this issues a single request to the slurmctld to signal all jobs matching the specified filters. This greatly improves the performance of slurmctld and scancel. Otherwise, this option causes scancel to send each job signal request to the slurmctld daemon rather than directly to the slurmd daemons, which increases overhead, but offers better fault tolerance. **--ctld** is the default behavior on when the **--clusters** option is used. : **-c**, **--cron** : Confirm request to cancel a job submitted by scrontab. This option only has effect with the "explicit\_scancel" option is set in **ScronParameters**. : **-f**, **--full** : By default, signals other than SIGKILL are not sent to the batch step (the shell script). With this option **scancel** also signals the batch script and its children processes. Most shells cannot handle signals while a command is running (i.e. is a child process of the batch step), so the shell needs to wait until the command ends to then handle the signal. Unlike **-b**, **--batch**, children of the batch step are also signaled with this option. **NOTE**: srun steps are also children of the batch step, so steps are also signaled with this option. : **--help** : Print a help message describing all **scancel** options. : **-H**, **--hurry** : Do not stage out any burst buffer data. : **-i**, **--interactive** : Interactive mode. Confirm each job\_id.step\_id before performing the cancel operation. : **-J**, **--job-name**=*job\_name* : Restrict the scancel operation to jobs with this job name. Only a single name may be given. A comma separated list is not split; it is matched as one literal name. The name is matched case sensitively. : **--me** : Restrict the scancel operation to jobs owned by the current user. **-w**, **--nodelist=***host1,host2,...* : Cancel any jobs using any of the given hosts. The list may be specified as a comma-separated list of hosts, a range of hosts (host[1-5,7,...] for example), or a filename. The host list will be assumed to be a filename only if it contains a "/" character. : **-p**, **--partition**=*partition\_name* : Restrict the scancel operation to jobs in this partition. : **-q**, **--qos**=*qos* : Restrict the scancel operation to jobs with this quality of service. : **-Q**, **--quiet** : Do not report an error if the specified job is already completed. This option is incompatible with the **--verbose** option. : **-R**, **--reservation**=*reservation\_name* : Restrict the scancel operation to jobs with this reservation name. : **--sibling**=*cluster\_name* : Remove an active sibling job from a federated job. : **-s**, **--signal**=*signal\_name* : The name or number of the signal to send. If this option is not used the specified job or step will be terminated. : **-t**, **--state**=*job\_state\_name* : Restrict the scancel operation to jobs in this state. *job\_state\_name* may have a value of either "PENDING", "RUNNING" or "SUSPENDED". : **--usage** : Print a brief help message listing the **scancel** options. : **-u**, **--user**=*user\_name* : Restrict the scancel operation to jobs owned by the given user. : **-v**, **--verbose** : Print additional logging. Multiple v's increase logging detail. This option is incompatible with the **--quiet** option. : **-V**, **--version** : Print the version number of the scancel command. : **--wckey**=*wckey* : Restrict the scancel operation to jobs using this workload characterization key.
 
 ## ARGUMENTS
 
@@ -100,7 +100,7 @@ error message will be printed and the job will not be signaled.
 :   The Slurm job ID to be signaled. A SLUID may also be used in place of a
     numeric job ID.
 
-    : *step\_id* : The step ID of the job step to be signaled. If not specified, the operation is performed at the level of a job. If neither **--batch** nor **--signal** are used, the entire job will be terminated. When **--batch** is used, the batch shell processes will be signaled. The child processes of the shell will not be signaled by Slurm, but the shell may forward the signal. When **--batch** is not used but **--signal** is used, then all job steps will be signaled, but the batch script itself will not be signaled.
+    : *step\_id* : The step ID of the job step to be signaled. If not specified, the operation is performed at the level of a job. If neither **--batch** nor **--signal** are used, the entire job will be terminated. When **--batch** is used, the batch shell processes will be signaled. The child processes of the shell will not be signaled by Slurm, but the shell may forward the signal. When **--batch** is not used but **--signal** is used, then all job steps will be signaled, but the batch script itself will not be signaled. A queued (PENDING) step may also be targeted by its step ID, but only through the controller: use **scancel** *job\_id*.*step\_id* with no **--signal**, or add **--ctld**. A queued step has no tasks on any node, so a signal sent directly to the slurmd daemons fails. A terminating signal (INT, TERM, or KILL) cancels the step before it launches; any other signal is a no-op, since the step has no tasks yet. This applies equally to a step queued by **srun --async**. A queued step is targetable by step ID only if it was submitted by **srun** 26.11 or newer; an older **srun**'s queued step is shown as *job\_id*.TBD and can only be cancelled at the job level. See **[srun](srun.md)**(1).
 
 ## PERFORMANCE
 
@@ -136,12 +136,13 @@ environment variables, along with their corresponding options, are listed below.
 **SCANCEL\_ACCOUNT**
 :   **-A**, **--account**=*account*
 
-    : **SCANCEL\_BATCH** : **-b, --batch** : **SCANCEL\_CTLD** : **--ctld** : **SCANCEL\_CRON** : **-c, --cron** : **SCANCEL\_FULL** : **-f, --full** : **SCANCEL\_HURRY** : **-H**, **--hurry** : **SCANCEL\_INTERACTIVE** : **-i**, **--interactive** : **SCANCEL\_NAME** : **-n**, **--name**=*job\_name* : **SCANCEL\_PARTITION** : **-p**, **--partition**=*partition\_name* : **SCANCEL\_QOS** : **-q**, **--qos**=*qos* : **SCANCEL\_STATE** : **-t**, **--state**=*job\_state\_name* : **SCANCEL\_USER** : **-u**, **--user**=*user\_name* : **SCANCEL\_VERBOSE** : **-v**, **--verbose** : **SCANCEL\_WCKEY** : **--wckey**=*wckey* : **SLURM\_CONF** : The location of the Slurm configuration file. : **SLURM\_CLUSTERS** : **-M**, **--clusters** : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for scancel to use. See DebugFlags in the **[slurm.conf](slurm.conf.md)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf.
+    : **SCANCEL\_BATCH** : **-b, --batch** : **SCANCEL\_CTLD** : **--ctld** : **SCANCEL\_CRON** : **-c, --cron** : **SCANCEL\_FULL** : **-f, --full** : **SCANCEL\_HURRY** : **-H**, **--hurry** : **SCANCEL\_INTERACTIVE** : **-i**, **--interactive** : **SCANCEL\_NAME** : **-J**, **--job-name**=*job\_name* : **SCANCEL\_PARTITION** : **-p**, **--partition**=*partition\_name* : **SCANCEL\_QOS** : **-q**, **--qos**=*qos* : **SCANCEL\_STATE** : **-t**, **--state**=*job\_state\_name* : **SCANCEL\_USER** : **-u**, **--user**=*user\_name* : **SCANCEL\_VERBOSE** : **-v**, **--verbose** : **SCANCEL\_WCKEY** : **--wckey**=*wckey* : **SLURM\_CONF** : The location of the Slurm configuration file. : **SLURM\_CLUSTERS** : **-M**, **--clusters** : **SLURM\_DEBUG\_FLAGS** : Specify debug flags for scancel to use. See DebugFlags in the **[slurm.conf](slurm.conf.md)**(5) man page for a full list of flags. The environment variable takes precedence over the setting in the slurm.conf.
 
 ## NOTES
 
-If multiple filters are supplied (e.g. **--partition** and **--name**)
-only the jobs satisfying all of the filtering options will be signaled.
+If multiple filters are supplied (e.g. **--partition** and
+**--job-name**) only the jobs satisfying all of the filtering options
+will be signaled.
 
 Cancelling a job step will not result in the job being terminated.
 The job must be cancelled to release a resource allocation.
@@ -155,6 +156,12 @@ time for the running job/step(s) to clean up.
 If a signal value of "KILL" is sent to an entire job, this will cancel
 the active job steps but not cancel the job itself.
 
+An *array\_id* that is not a valid task index or range, or that names a
+task index above the maximum permitted by **MaxArraySize** in
+**[slurm.conf](slurm.conf.md)**(5), is rejected and **scancel** exits non-zero.
+Cancelling a task that has already finished or was never part of the array
+is not an error.
+
 ## AUTHORIZATION
 
 When using SlurmDBD, users who have an AdminLevel defined (Operator
@@ -163,7 +170,7 @@ authority to invoke scancel on other users jobs.
 
 ## EXAMPLES
 
-: Send SIGTERM to steps 1 and 3 of job 1234:: : ``` $ scancel --signal=TERM 1234.1 1234.3 ``` Cancel job 1234 along with all of its steps:: : ``` $ scancel 1234 ``` Send SIGKILL to all steps of job 1235, but do not cancel the job itself:: : ``` $ scancel --signal=KILL 1235 ``` Send SIGUSR1 to the batch shell processes of job 1236:: : ``` $ scancel --signal=USR1 --batch 1236 ``` Cancel all pending jobs belonging to user "bob" in partition "debug":: : ``` $ scancel --state=PENDING --user=bob --partition=debug ``` Cancel only array ID 4 of job array 1237: : ``` $ scancel 1237_4 ```
+: Send SIGTERM to steps 1 and 3 of job 1234:: : ``` $ scancel --signal=TERM 1234.1 1234.3 ``` Cancel job 1234 along with all of its steps:: : ``` $ scancel 1234 ``` Send SIGKILL to all steps of job 1235, but do not cancel the job itself:: : ``` $ scancel --signal=KILL 1235 ``` Send SIGUSR1 to the batch shell processes of job 1236:: : ``` $ scancel --signal=USR1 --batch 1236 ``` Cancel all pending jobs belonging to user "bob" in partition "debug":: : ``` $ scancel --state=PENDING --user=bob --partition=debug ``` Cancel only array ID 4 of job array 1237: : ``` $ scancel 1237_4 ``` Cancel array IDs 1 through 3 and 7 of job array 1237:: : ``` $ scancel "1237_[1-3,7]" ```
 
 ## COPYING
 
@@ -203,4 +210,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 21:10:03 GMT, November 10, 2026
+Time: 20:23:16 GMT, November 24, 2026

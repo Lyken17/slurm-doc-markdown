@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -54,7 +54,7 @@ The user commands include: **sacct**, **sacctmgr**, **salloc**,
 **sattach**, **sbatch**, **sbcast**, **scancel**, **scontrol**,
 **scrontab**, **sdiag**, **sh5util**, **sinfo**, **sprio**,
 **squeue**, **sreport**, **srun**, **sshare**, **sstat**,
-**strigger** and **sview**.
+**strigger**, **sview**, and **swait**.
 All of the commands can run anywhere in the cluster.
 
 ![](arch.gif)  

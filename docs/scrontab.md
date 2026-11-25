@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -92,7 +92,9 @@ job commands. It is not possible to expand variables in other type of lines
 (other variable definitions, comments or crontab entries). The expansion will
 happen before submitting the job, but the variable definitions will remain in
 the **scrontab** script. Unlike crontab, the user environment variables are
-ignored.
+ignored. Instead, Slurm will attempt to load the user's environment on the node
+where the script is being executed. To prevent the user's environment from being
+loaded, specify #SCRON --export=NIL.
 
 ## OPTIONS
 
@@ -190,4 +192,4 @@ details.
 
 This document was created by
 *man2html* using the manual pages.  
-Time: 21:10:03 GMT, November 10, 2026
+Time: 20:23:16 GMT, November 24, 2026

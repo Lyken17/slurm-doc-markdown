@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -40,7 +40,9 @@ Version 26.05
 * [Job Submission](#Job_Submission)
   + [Syntax](#Syntax)
   + [Warnings](#Warnings)
-  + [Valid and Invalid Requests](#Valid)* [Examples](#Examples)
+  + [Valid and Invalid Requests](#Valid)
+* [Scheduling](#Scheduling)
+* [Examples](#Examples)
 
 ## Overview
 
@@ -55,6 +57,12 @@ nodes is changed, the less accurate the backfill scheduler will be.
 
 * In slurm.conf, configure
   `SchedulerParameters=extra_constraints`
+* Load a serializer plugin that provides JSON, which is set by
+  [SerializerPlugins](slurm.conf.md#OPT_SerializerPlugins).
+  slurmctld fails to start without one.
+  The default loads all serializer plugins, which includes one that provides
+  JSON. If SerializerPlugins is set, it must include **json** or
+  **xjson**.
 
 ## Node Extra Data
 
@@ -73,6 +81,30 @@ scontrol update nodename=node123 extra='{ "a": 1.23, "b": true, "c": 0, "foo": "
 
 This defines the features that may be requested by the --extra option in
 salloc, sbatch, and srun. Values may be any string, number, or boolean value.
+Other JSON values (null, objects, and arrays) are accepted, but no request can
+match them.
+
+With **SchedulerParameters=extra\_constraints** enabled, extra data is parsed
+by the serializer plugin that provides JSON, which is set by
+[SerializerPlugins](slurm.conf.md#OPT_SerializerPlugins).
+`scontrol update node` rejects extra data that the plugin cannot
+parse with the error "Invalid extra constraints specification".
+Extra data from `slurmd --extra` that the plugin cannot parse is
+still stored and shown by `scontrol show node`, but no request can
+match that node.
+The same is true of stored extra data, which slurmctld parses again when it
+starts, such as extra data set while **extra\_constraints** was not enabled
+and so was not checked.
+In each case, slurmctld logs "Failed to decode extra".
+An empty value clears the extra data.
+
+The extra data from `slurmd --extra` is applied when slurmd starts
+and the node has not registered with slurmctld before, such as a new node or
+after slurmctld is started with `-c`, or has booted since it last
+responded, including when it is powered up by power saving.
+It is not applied when only slurmd is restarted, so a value set with
+`scontrol update node` is kept until the node boots again with
+slurmd started with `--extra`.
 
 ## Job Submission
 
@@ -107,9 +139,23 @@ The following comparison operators are allowed:
 * `< (less than)`
 * `<= (less than or equal to)`
 
-Two numbers are equal if their difference is less than 0.00001.
-Numerical suffixes (such as kb or mb) are not supported. If letters are
-interspersed with numbers, then the key or value is considered a string.
+The requested value is compared as the type of the node's value for the key:
+
+* Numbers: two numbers are equal if their difference is less than 0.00001.
+  Numerical suffixes (such as kb or mb) are not supported. A request whose value
+  is not a number, such as `zed=23kb`, is not fulfilled by a node with
+  a number for that key, whatever the comparison operator.
+* Booleans: the requested value is false if it is a number equal to 0, or
+  one of `false`, `f`, `no`, `n`,
+  `off`, or `null`, or starts with `~` (not case
+  sensitive). Any other value is true. A boolean is compared to a boolean with
+  false less than true, so `b<=0.05` is fulfilled by a node with
+  `"b": true` (0.05 is true) but `b<0.05` is not.
+* Strings: compared byte by byte and are case sensitive, so
+  `foo<baz` is fulfilled by a node with `"foo": "bar"`.
+  A number in quotes, such as `"zed": "23"`, is a string.
+
+A request for a key the node does not have is not fulfilled.
 
 Requests can be joined together with boolean operators.
 
@@ -126,8 +172,9 @@ The following boolean operators are allowed:
 ```
 
 Any number of parentheses may be used to group requests together.
-All boolean operators at any given level of parentheses must be identical.
-Boolean operators at different levels of parentheses may be different.
+AND and OR cannot be mixed at any given level of parentheses, but
+`&` and `,` may be. Boolean operators at different
+levels of parentheses may be different.
 For example, this is not allowed:
 
 ```
@@ -149,7 +196,7 @@ be considered part of a key or value. This means that the following is invalid:
 --extra " (a=b)"
 ```
 
-The space at he beginning is parsed as a key of a request. Then the opening
+The space at the beginning is parsed as a key of a request. Then the opening
 parenthesis character is recognized as an invalid character for either a key
 or a comparison operator. This request would result in the job being rejected.
 However, this is valid:
@@ -231,6 +278,19 @@ a=1(b=2)
 (((a=1)b=2))
 ```
 
+## Scheduling
+
+A request that is not valid is rejected when the job is submitted with the
+error "Invalid extra constraints specification".
+`scontrol update job` rejects a request that is not valid with the
+same error.
+
+A valid request that no node fulfills is not rejected. The job stays pending
+with the reason "Constraints" until enough nodes fulfill the request, for
+example after their extra data is updated with scontrol. This is the same for
+salloc, sbatch, and srun; salloc and srun wait until the job starts unless
+`--immediate` is used, in which case the job fails.
+
 ## Examples
 
 Given a node with the following extra data:
@@ -264,10 +324,11 @@ foo>baz
 ```
 
 Reminder: in order for two numbers to be considered equal, their difference
-must be less than 0.0001. This is why 0.0001 is not considered equal to 0 and
-thus the request `c>=0.0001` is not fulfilled,
+must be less than 0.00001. This is why 0.00001 is not considered equal to 0 and
+thus the request `c>=0.00001` is not fulfilled,
 but 0.00000001 is considered equal to 0 and thus the request
-`c>=0.00000001` is fulfilled.
+`c>=0.00000001` is fulfilled. Because of floating point precision,
+numbers whose difference is close to 0.00001 may or may not be considered equal.
 
 A practical example might be to have a script that looks at the load average
 of each node and updates the extra attribute for each node with the current

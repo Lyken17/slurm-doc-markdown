@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -162,6 +162,16 @@ see the [slurm.conf(5)](slurm.conf.md) man page.
   spend (including time spent sleeping when locks are released) before
   discontinuing. The default value is the value of **bf\_interval**, which
   defaults to 30 seconds.
+* **bf\_node\_unavail\_exit** - If set, end the current backfill cycle if a
+  node that was planned to be used by a job in the future becomes unavailable
+  while the backfill scheduler had its locks released. This is helpful when
+  **bf\_continue** is set, to avoid delaying higher priority jobs already
+  planned around the lost node. Note that a node being powered down also counts as
+  becoming unavailable, as does a node being rebooted. Nodes rebooted with
+  **scontrol reboot nextstate=RESUME** are the exception, since backfill
+  already treats those as available. For clusters that power down or reboot nodes
+  often this may end backfill cycles more often than expected. This option is
+  disabled by default.
 * **bf\_one\_resv\_per\_job** - Disallow adding more than one backfill
   reservation per job. This option makes it so that a job submitted to multiple
   partitions will stop reserving resources once the first job-partition pair

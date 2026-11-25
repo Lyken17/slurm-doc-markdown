@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -45,7 +45,7 @@ manage resources on a much more fine-grained basis as described below.
 ## Using the Consumable Trackable Resource Plugin: **select/cons\_tres**
 
 The Consumable Trackable Resources (**cons\_tres**) plugin has been built
-to work with several resources. It can track a Board, Socket, Core, CPU, Memory
+to work with several resources. It can track a Socket, Core, CPU, Memory
 as well as any combination of the logical processors with Memory:
 
 * **CPU** (*CR\_CPU*): CPU as a consumable resource.
@@ -55,7 +55,6 @@ as well as any combination of the logical processors with Memory:
 + On a multi-core/hyperthread system CPUs will be threads.
 + On a single-core system CPUs are CPUs.
 
-* **Board** (*CR\_Board*): Baseboard as a consumable resource.
 * **Socket** (*CR\_Socket*): Socket as a consumable resource.
 * **Core** (*CR\_Core*): Core as a consumable resource.
 * **Socket and Memory** (*CR\_Socket\_Memory*): Socket

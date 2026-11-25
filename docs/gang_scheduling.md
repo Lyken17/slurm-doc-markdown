@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -60,7 +60,10 @@ Then it will suspend the running job and let the new job make use of the
 resources for a *SchedulerTimeslice* interval.
 This will continue until one of the jobs terminates.
 
-**NOTE**: Heterogeneous jobs are excluded from gang scheduling operations.
+**NOTE**: A heterogeneous job is excluded from GANG scheduling operations,
+including *PreemptMode=SUSPEND*, and from oversubscription while
+*GANG* is enabled. See
+[heterogeneous job preemption](preempt.md#hetjob).
 
 ## Configuration
 
@@ -244,7 +247,7 @@ srun: Job step creation temporarily disabled, retrying
 srun: Job step creation still disabled, retrying
 srun: Job step creation still disabled, retrying
 srun: Job step creation still disabled, retrying
-srun: Job step created
+srun: StepId=4.0 started
 ```
 
 This occurs because *srun* is attempting to launch a jobstep in an

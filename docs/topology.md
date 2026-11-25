@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -47,6 +47,7 @@ on a best-fit basis.
 * [Ring Topology](#ring)
 * [3D Torus Topology](#torus3d)
 * [User Options](#user_opts)
+* [Segment Size Defaults](#segment_defaults)
 * [Environment Variables](#env_vars)
 * [Multiple Topologies](#multi_topo)
 * [Dynamic Topology](#dynamic_topo)
@@ -228,9 +229,17 @@ topology, there are limitations that should be taken into consideration.
 
 * **Ranges of nodes**  
   When using `-N`/`--nodes` to specify a range of acceptable
-  node counts, the scheduler will have to evaluate each value of that range to
-  find optimal placement on the available block(s). If using a range is necessary,
-  the number of possible values should be kept as small as possible.
+  node counts, the scheduler would have to evaluate each value of that range to
+  find optimal placement on the available block(s). Because of the additional
+  stress this would place on the block scheduler, it will default to allocating
+  the fewest nodes within the range requested that satisfy its other resource
+  requests (e.g. `--ntasks` or `--gpus`). If
+  `TopoMaxSizeUnroll` is set as a `TopologyParam`, the
+  scheduler instead evaluates each value of the range to find optimal placement
+  on the available block(s). In that case, a job whose range exceeds the
+  `TopoMaxSizeUnroll` number is rejected as an invalid node count.
+  If using a range is necessary, keep the number of possible values as small as
+  possible.
 * **Requesting specific nodes**  
   Using `-w`/`--nodelist` to request a specific node or
   nodes can conflict with the block placement. Because topology enforcement
@@ -432,6 +441,34 @@ PartitionName=Ring10 Nodes=ring{ring10} ...
 See also the hostlist function **feature{myfeature}**
 [here](slurm.conf.md#OPT_Features).
 
+## Segment Size Defaults
+
+A partition may supply a segment size for jobs which do not request one,
+using the **DefSegmentSize** partition option in slurm.conf:
+
+```
+PartitionName=gpu Topology=block1 Nodes=node[001-064] DefSegmentSize=8
+```
+
+It is a job default, so it is reported by `scontrol show
+partition` as part of **JobDefaults** and can also be changed
+with `scontrol update PartitionName=gpu
+JobDefaults=DefSegmentSize=8`. A cluster wide **DefSegmentSize**
+may be set in slurm.conf for partitions which do not define one; set
+**DefSegmentSize=0** on a partition to opt it out of a cluster wide
+default.
+
+Changing the default also affects jobs which are already pending. Jobs
+which requested a segment size of their own are never affected, and neither
+are jobs which are already running. The value applied to a job is shown as
+**SegmentSize** by `scontrol show job`, and changes take effect
+on `scontrol reconfigure`. **DefSegmentSize** is ignored for
+partitions using a topology which does not support segments. **NOTE**:
+the same restrictions apply as for the **--segment** option described in
+[User Options](#user_opts). A job whose node count is larger than
+**DefSegmentSize** but not evenly divisible by it cannot be scheduled in
+the partition and is rejected at submission.
+
 ## Environment Variables
 
 If the topology/tree plugin is used, two environment variables will be set
@@ -484,6 +521,15 @@ For torus3d, the format is `topo-name:torus_name:x:y:z`
 For **cloud nodes**, the only field that can be set with the
 **--conf** flag is **Topology**, and when the node is powered down the
 topology will be restored to what is defined in the configuration files.
+
+A node whose topology no longer resolves when slurmctld reads its
+configuration, for example because the block or first switch it names was
+renamed or removed, is drained with the reason `InvalidTopology`.
+Until its topology resolves, the node is removed from every topology,
+including any placement given in the topology configuration file.
+See the **Topology** option of
+[scontrol update](scontrol.md#OPT_Topology) for how to return it
+to service.
 
 Examples using `scontrol`:
 

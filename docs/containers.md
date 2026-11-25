@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -57,7 +57,7 @@ Containers are being adopted in HPC workloads.
 Containers rely on existing kernel features to allow greater user control over
 what applications see and can interact with at any given time. For HPC
 Workloads, these are usually restricted to the
-[mount namespace](http://man7.org/linux/man-pages/man7/mount_namespaces.7.html).
+[mount namespace](https://man7.org/linux/man-pages/man7/mount_namespaces.7.html).
 Slurm natively supports the requesting of unprivileged OCI Containers for jobs
 and steps.
 
@@ -85,7 +85,7 @@ implementation.
   permissions.
 * Custom container networks are not supported. All containers should work
   with the ["host"
-  network](https://docs.docker.com/network/host/).
+  network](https://docs.docker.com/engine/network/drivers/host/).
 * Slurm will not transfer the OCI container bundle to the execution
   nodes. The bundle must already exist on the requested path on the
   execution node.
@@ -119,7 +119,7 @@ $ dockerd-rootless-setuptool.sh check --force
 ## Required software:
 
 * Fully functional
-  [OCI runtime](https://github.com/opencontainers/runtime-spec/blob/master/runtime.md). It needs to be able to run outside of Slurm first.
+  [OCI runtime](https://github.com/opencontainers/runtime-spec/blob/main/runtime.md). It needs to be able to run outside of Slurm first.
 * Fully functional OCI bundle generation tools. Slurm requires OCI
   Container compliant bundles for jobs.
 
@@ -225,6 +225,16 @@ RunTimeRun="nvidia-container-runtime --rootless=true --root=/run/user/%U/ run %n
 
 ### oci.conf example for [Singularity v4.1.3](https://docs.sylabs.io/guides/4.1/admin-guide/installation.html) using native runtime:
 
+**NOTE**: Sylabs has discontinued SingularityCE (end of life and end of
+engineering) effective October 25, 2026. The
+[SingularityCE 4.6.0](https://github.com/sylabs/singularity/releases/tag/v4.6.0) release was
+[announced](https://github.com/sylabs/singularity/discussions/4357)
+as the final one. The source code remains available, but is no longer
+maintained or supported.
+[Apptainer](https://apptainer.org/), a fork of the same code base,
+provides a *singularity* command. The example below was
+written for SingularityCE; sites using Apptainer should verify it.
+
 ```
 IgnoreFileConfigJson=true
 EnvExclude="^(SLURM_CONF|SLURM_CONF_SERVER)="
@@ -235,6 +245,9 @@ RunTimeDelete="kill -s SIGKILL %p"
 ```
 
 ### oci.conf example for [Singularity v4.0.2](https://docs.sylabs.io/guides/4.0/admin-guide/installation.html) in OCI mode:
+
+**NOTE**: SingularityCE is end of life. See the
+[note above](#singularity_native) for details.
 
 Singularity v4.x requires setuid mode for OCI support.
 
@@ -257,6 +270,9 @@ ceased and sites should use the [user
 namespace support](#singularity_native) instead.
 
 ### oci.conf example for hpcng Singularity v3.8.0:
+
+**NOTE**: hpcng Singularity is end of life and no longer maintained.
+This example is only provided for reference.
 
 ```
 EnvExclude="^(SLURM_CONF|SLURM_CONF_SERVER)="
@@ -432,40 +448,50 @@ then the job will also fail.
 
 ## Requesting container jobs or steps
 
-*salloc*, *srun* and *sbatch* (in Slurm 21.08+) have the
-'--container' argument, which can be used to request container runtime
-execution. The requested job container will not be inherited by the steps
-called, excluding the batch and interactive steps.
+*salloc*, *srun* and *sbatch* have the '--container' argument,
+provided by the *runtime/oci* plugin, which can be used to request
+container runtime execution.
+The batch step and *salloc*'s interactive step run in the job's container.
+Any other step runs in a container only when it is given one, with its own
+'--container' or through **SRUN\_CONTAINER**.
+Steps that *srun* starts inside *salloc*'s interactive step
+(**LaunchParameters=use\_interactive\_step**) inherit **SRUN\_CONTAINER**
+from it, so they also run in the container, when that *srun* uses
+*runtime/oci*, as it does when that is the **DefRuntimePlugin**.
+That *srun* runs inside the container, so the image must provide it,
+along with the Slurm configuration and authentication it needs.
+For a heterogeneous job, *salloc* and the batch step use only the first
+component's bundle.
 
 * Batch step inside of container:
 
   ```
-  sbatch --container $ABS_PATH_TO_BUNDLE --wrap 'bash -c "cat /etc/*rel*"'
+  sbatch --container="$ABS_PATH_TO_BUNDLE" --wrap 'bash -c "cat /etc/*rel*"'
   ```
 * Batch job with step 0 inside of container:
 
   ```
-  sbatch --wrap 'srun bash -c "--container $ABS_PATH_TO_BUNDLE cat /etc/*rel*"'
+  sbatch --wrap 'srun --container="$ABS_PATH_TO_BUNDLE" bash -c "cat /etc/*rel*"'
   ```
 * Interactive step inside of container:
 
   ```
-  salloc --container $ABS_PATH_TO_BUNDLE bash -c "cat /etc/*rel*"
+  salloc --container="$ABS_PATH_TO_BUNDLE"
   ```
 * Interactive job step 0 inside of container:
 
   ```
-  salloc srun --container $ABS_PATH_TO_BUNDLE bash -c "cat /etc/*rel*"
+  salloc srun --container="$ABS_PATH_TO_BUNDLE" bash -c "cat /etc/*rel*"
   ```
 * Job with step 0 inside of container:
 
   ```
-  srun --container $ABS_PATH_TO_BUNDLE bash -c "cat /etc/*rel*"
+  srun --container="$ABS_PATH_TO_BUNDLE" bash -c "cat /etc/*rel*"
   ```
 * Job with step 1 inside of container:
 
   ```
-  srun srun --container $ABS_PATH_TO_BUNDLE bash -c "cat /etc/*rel*"
+  srun srun --container="$ABS_PATH_TO_BUNDLE" bash -c "cat /etc/*rel*"
   ```
 
 **NOTE**: Commands run with the `--container` flag are resolved
@@ -475,7 +501,7 @@ command or specify `--export=NONE` to have the container define the
 PATH to be used:
 
 ```
-srun --container $ABS_PATH_TO_BUNDLE --export=NONE bash -c "cat /etc/*rel*"
+srun --container="$ABS_PATH_TO_BUNDLE" --export=NONE bash -c "cat /etc/*rel*"
 ```
 
 ## Integration with Rootless Docker (Docker Engine v20.10+ & Slurm-23.02+)
@@ -494,8 +520,8 @@ not** be granted to use this functionality.
    ```
 2. [scrun.lua](scrun.md#SECTION_Example-<B>scrun.lua</B>-scripts)
    must be configured for site storage configuration.
-3. [Configure kernel to allow pings](https://docs.docker.com/engine/security/rootless/#routing-ping-packets)
-4. [Configure rootless dockerd to allow listening on privileged ports](https://docs.docker.com/engine/security/rootless/#exposing-privileged-ports)
+3. [Configure kernel to allow pings](https://docs.docker.com/engine/security/rootless/tips/#routing-ping-packets)
+4. [Configure rootless dockerd to allow listening on privileged ports](https://docs.docker.com/engine/security/rootless/tips/#exposing-privileged-ports)
 5. [scrun.lua](scrun.md#SECTION_Example-%3CB%3Escrun.lua%3C/B%3E-scripts) must be present on any node where scrun may be run. The
    example should be sufficient for most environments but paths should be
    modified to match available local storage.
@@ -524,7 +550,7 @@ not** be granted to use this functionality.
    the existing security configuration in Slurm outside of unprivileged user
    control.
 4. All containers must use the
-   ["none" networking driver](https://docs.docker.com/network/drivers/none/). Attempting to use bridge, overlay, host, ipvlan, or macvlan can result in
+   ["none" networking driver](https://docs.docker.com/engine/network/drivers/none/). Attempting to use bridge, overlay, host, ipvlan, or macvlan can result in
    scrun being isolated from the network and not being able to communicate with
    the Slurm controller. The container is run by Slurm on the compute nodes which
    makes having Docker setup a network isolation layer ineffective for the
@@ -682,7 +708,7 @@ to run containers as jobs. No special user permissions are required and
 
 1. JWT authentication is not supported.
 2. All containers must use
-   [host networking](https://github.com/containers/podman/blob/main/docs/tutorials/basic_networking.md)
+   [host networking](https://github.com/podman-container-tools/podman/blob/main/docs/tutorials/basic_networking.md)
 3. `podman exec` command is not supported.
 4. `podman-compose` command is not supported, due to only being
    partially implemented. Some compositions may work but each container
@@ -697,7 +723,7 @@ to run containers as jobs. No special user permissions are required and
 ### Setup procedure
 
 1. [Install Podman](https://podman.io/docs/installation)
-2. [Configure rootless Podman](https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md)
+2. [Configure rootless Podman](https://github.com/podman-container-tools/podman/blob/main/docs/tutorials/rootless_tutorial.md)
 3. Verify rootless podman is configured
 
    ```
@@ -889,7 +915,7 @@ larger job script without the overhead of nested job submissions.
 There are multiple ways to generate an OCI Container bundle. The
 instructions below are the method we found the easiest. The OCI standard
 provides the requirements for any given bundle:
-[Filesystem Bundle](https://github.com/opencontainers/runtime-spec/blob/master/bundle.md)
+[Filesystem Bundle](https://github.com/opencontainers/runtime-spec/blob/main/bundle.md)
 
 Here are instructions on how to generate a container using a few
 alternative container solutions:
@@ -926,7 +952,7 @@ alternative container solutions:
        + Test running image:
 
        ```
-       srun --container ~/oci_images/alpine/ uptime
+       srun --container="$HOME/oci_images/alpine/" uptime
        ```
 
 - Use [umoci](https://github.com/opencontainers/umoci)
@@ -937,9 +963,9 @@ alternative container solutions:
   cd ~/oci_images/
   skopeo copy docker://alpine:latest oci:alpine:latest
   umoci unpack --rootless --image alpine ~/oci_images/alpine
-  srun --container ~/oci_images/alpine uptime
+  srun --container="$HOME/oci_images/alpine" uptime
   ```
-- Use [singularity](https://sylabs.io/guides/3.1/user-guide/oci_runtime.html) to generate a full image:
+- Use [singularity](https://docs.sylabs.io/guides/4.1/user-guide/oci_runtime.html) to generate a full image:
 
   ```
   mkdir -p ~/oci_images/alpine/
@@ -948,7 +974,7 @@ alternative container solutions:
   sudo singularity oci mount ~/oci_images/alpine/alpine_latest.sif ~/oci_images/alpine
   mv config.json singularity_config.json
   runc spec --rootless
-  srun --container ~/oci_images/alpine/ uptime
+  srun --container="$HOME/oci_images/alpine/" uptime
   ```
 
 ## Example OpenMPI v5 + PMIx v4 container
@@ -992,7 +1018,7 @@ SchedMD.
 ### Shifter
 
 [Shifter](https://github.com/NERSC/shifter) is a container
-project out of [NERSC](http://www.nersc.gov/)
+project out of [NERSC](https://www.nersc.gov/)
 to provide HPC containers with full scheduler integration.
 
 * Shifter provides full

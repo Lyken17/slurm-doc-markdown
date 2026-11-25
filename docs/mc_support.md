@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -94,34 +94,9 @@ See the "Task Launch" section if generating slurm.conf via
 
 ### Low-level --cpu-bind=... - Explicit binding interface
 
-The following srun flag provides a low-level core binding interface:
-
-```
---cpu-bind=        Bind tasks to CPUs
-    q[uiet]         quietly bind before task runs (default)
-    v[erbose]       verbosely report binding before task runs
-    no[ne]          don't bind tasks to CPUs (default)
-    map_cpu:<list>  specify a CPU ID binding for each task
-                    where <list> is
-                    <cpuid1>,<cpuid2>,...<cpuidN>
-    mask_cpu:<list> specify a CPU ID binding mask for each
-                    task where <list> is
-                    <mask1>,<mask2>,...<maskN>
-    rank_ldom       bind task by rank to CPUs in a NUMA
-                    locality domain
-    map_ldom:<list> specify a NUMA locality domain ID
-                    for each task where <list> is
-                    <ldom1>,<ldom2>,...<ldomN>
-    mask_ldom:<list> specify a NUMA locality domain ID mask
-                    for each task where <list> is
-                    <ldom1>,<ldom2>,...<ldomN>
-    ldoms           auto-generated masks bind to NUMA locality
-                    domains
-    sockets         auto-generated masks bind to sockets
-    cores           auto-generated masks bind to cores
-    threads         auto-generated masks bind to threads
-    help            show this help message
-```
+The [srun --cpu-bind](srun.md#OPT_cpu-bind) option provides a
+low-level core binding interface.
+Run `srun --cpu-bind=help` for a summary of the bind types.
 
 The affinity can be either set to either a specific logical processor
 (socket, core, threads) or at a coarser granularity than the lowest level
@@ -132,8 +107,6 @@ within a specific socket or core.
 Examples:
 
 + srun -n 8 -N 4 --cpu-bind=mask\_cpu:0x1,0x4 a.out+ srun -n 8 -N 4 --cpu-bind=mask\_cpu:0x3,0xD a.out
-
-See also 'srun --cpu-bind=help' and 'man srun'
 
 ### High-level -B *S[:C[:T]]* - Automatic mask generation interface
 

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -116,6 +116,37 @@ options that you may want to consider for higher throughput.
   Turning accounting off provides minimal improvement in performance.
   If using the SlurmDBD increased speedup can be achieved by setting the
   CommitDelay option in the [slurmdbd.conf](slurmdbd.conf.md)
+* **CommunicationParameters**:
+  The **buffer\_alloc\_linear**, **buffer\_alloc\_geometric**, and
+  **buffer\_alloc\_exponential** options control how the internal buffers used
+  to assemble RPCs, HTTP request bodies, and responses are sized and enlarged.
+  These options are mutually exclusive; at most one of them should be set. If
+  more than one is set, an error is logged and **buffer\_alloc\_exponential**
+  takes precedence over **buffer\_alloc\_geometric**, which takes precedence
+  over **buffer\_alloc\_linear**.
+  + Each option accepts an optional size, as in
+    **buffer\_alloc\_exponential=65536**, which is the number of bytes a buffer
+    starts at. The default is 16384, and values below 512 are raised to 512. A
+    value outside the range 1 to 2147483647 is logged as invalid and the option is
+    ignored. A buffer that starts large enough to hold a typical message never has
+    to be enlarged at all, which is the cheapest outcome.
+  + When a buffer does have to grow, the option chosen decides by how much.
+    **buffer\_alloc\_linear** adds the configured number of bytes,
+    **buffer\_alloc\_exponential** doubles the current size, and
+    **buffer\_alloc\_geometric** multiplies the current size by e
+    (approximately 2.718). Growing by a larger factor reallocates fewer times
+    while assembling a large message, at the cost of overshooting the size
+    actually needed.
+  + The trade off is memory. The starting size is paid by every buffer in
+    flight, not once per cluster, so it multiplies by the number of connections
+    being served at once. Sites raising this should account for it alongside
+    **conmgr\_max\_connections**, which already reserves memory per connection to
+    buffer inbound and outbound data, and should watch for *Out of Memory*
+    events after the change.
+  + Sites handling large messages, such as slurmrestd responses covering many
+    jobs or nodes, benefit the most. Sites whose messages comfortably fit in the
+    default starting size have little to gain and should leave these options
+    unset.
 * **JobAcctGatherType**:
   Disabling the collection of job accounting information will improve job
   throughput. Disable collection of accounting by using the
@@ -224,8 +255,9 @@ options that you may want to consider for higher throughput.
       event which will cause slurmctld to crash, potentially losing jobs and
       accounting. Sites are advised to try changing **MessageTimeout** and
       **TCPTimeout** before changing the **conmgr\_max\_connections** parameter.
-    + The **conmgr\_threads** option controls the size of the thread pool that is
-      used to process communications. Threads are used as needed to handle I/O or to
+    + The **workerpool\_threads** option (formerly **conmgr\_threads** prior to
+      Slurm 26.11) controls the size of the thread pool that is used for internal
+      processing. Threads are used as needed to handle I/O or to
       process incoming RPCs and generate replies. The trade off is that slurmctld will
       use more memory for each additional thread. Increasing thread counts will also
       cause increased kernel scheduler contention when there are more threads than
@@ -235,18 +267,18 @@ options that you may want to consider for higher throughput.
       cause increased contention with the scheduler threads. Lock contention will
       result in the job scheduler running slower or with noticeable delays, and
       increase the average time per RPC.
-      Sites wishing for more RPC throughput can increase **conmgr\_threads** from
-      the defaults, while sites wishing to prioritize scheduler threads can decrease
-      the thread count. We recommend trying to modify **conmgr\_max\_connections**
-      and the **SchedulerParameters** to get the performance you want, before
-      attempting to change **conmgr\_threads**.
+      Sites wishing for more RPC throughput can increase **workerpool\_threads**
+      from the default, while sites wishing to prioritize scheduler threads can
+      decrease the thread count. We recommend trying to modify
+      **conmgr\_max\_connections** and the **SchedulerParameters** to get the
+      performance you want, before attempting to change **workerpool\_threads**.
       You should monitor for changes in `sdiag`'s job start statistics
       when changing this parameter. In most cases, sites should consider reducing
-      **conmgr\_threads** instead of adding more threads, as having too many
+      **workerpool\_threads** instead of adding more threads, as having too many
       threads can cause locking overhead and cause `slurmctld` to hang.
-      Increasing **conmgr\_threads** also uses more memory, potentially causing an
-      *Out of Memory* event for `slurmctld`, which could result in
-      lost jobs and accounting.* **SchedulerType**:
+      Increasing **workerpool\_threads** also uses more memory, potentially
+      causing an *Out of Memory* event for `slurmctld`, which could
+      result in lost jobs and accounting.* **SchedulerType**:
       If most jobs are short lived then use of the *sched/builtin* plugin is
       recommended. This manages a queue of jobs on a First-In-First-Out (FIFO) basis
       and eliminates logic used to sort the queue by priority.* **SlurmctldDebug**:

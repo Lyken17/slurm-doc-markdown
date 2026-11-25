@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -45,14 +45,16 @@ a "TLS missing but required for connection" error
 (`ESLURM_TLS_REQUIRED`) and closed before the RPC is parsed,
 authenticated, or dispatched. Note that **slurmdbd**'s listener currently
 does not respond with `ESLURM_TLS_REQUIRED`, but is still
-fail-closed and will reject non-TLS connections.
+fail-closed and will reject non-TLS RPC connections.
 
 Unix domain sockets are deliberately not rejected, since they are local and not
 exposed to the network. HTTP requests are also
 unaffected: as described in the
-[slurmctld](slurmctld.md) and [slurmd](slurmd.md) man
-pages, those daemons serve HTTP on their listening port unless
-**CommunicationParameters=disable\_http** is set, and TLS wrapping there is
+[slurmctld](slurmctld.md), [slurmd](slurmd.md), and
+[slurmdbd](slurmdbd.md) man pages, those daemons serve HTTP on
+their listening port unless
+**CommunicationParameters=disable\_http** is set (in **slurmdbd.conf**
+for slurmdbd), and TLS wrapping there is
 optional and independent of **TLSType**. Set
 **CommunicationParameters=disable\_http** if the port must not carry
 cleartext at all.

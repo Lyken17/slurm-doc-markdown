@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -115,13 +115,22 @@ restrictions on which nodes it uses to get the resources. This is accomplished
 by assigning all nodes to the partition, then configuring a Partition QOS with
 `GrpTRES` set to the desired resource limits.
 
-**NOTE**: Most QOS attributes are set using the **sacctmgr** command.
-However, setting a QOS as a partition QOS is accomplished in **slurm.conf**
-through the [QOS=](slurm.conf.md#OPT_QOS) option in the
-configuration of the associated partition. The QOS should be created using
-**sacctmgr** before it is assigned as a partition QOS. It is possible to
-delete a QOS attached to a partition without deleting the attachment in the
-**slurm.conf**. This is not recommended and could cause unintended behavior.
+Most QOS attributes are set using the **sacctmgr** command. However,
+setting a QOS as a partition QOS is accomplished in **slurm.conf** through
+the [QOS=](slurm.conf.md#OPT_QOS) option in the configuration of
+the associated partition. The QOS should be created using **sacctmgr** before
+it is assigned as a partition QOS. It is possible to delete a QOS attached to a
+partition without deleting the attachment in the **slurm.conf**. This is not
+recommended and could cause unintended behavior.
+
+A partition's QOS may also be set, changed or removed at runtime with
+`scontrol update PartitionName=<name> QOS=<qos>`. Running
+and suspended jobs apply their usage to the partition's current QOS, so the
+update is refused with the error "Partition is in use" while any such job is in
+the partition. To change the QOS while such jobs exist, set the new value in
+**slurm.conf** and run `scontrol reconfigure`, which rebuilds the
+QOS usage from the current jobs. Pending jobs do not block a runtime update, and
+their submit usage is moved from the old partition QOS to the new one.
 
 ## Relative QOS
 
@@ -171,8 +180,8 @@ conditions will apply:
     any jobs submitted with this QOS that fall below the UsageThreshold
     will be held until their Fairshare Usage goes above the Threshold.
   + **NoDecay** If set, this QOS will not have its GrpTRESMins,
-    GrpWall and UsageRaw decayed by the slurm.conf PriorityDecayHalfLife
-    or PriorityUsageResetPeriod settings. This allows
+    GrpWall and RawUsage decayed by the slurm.conf PriorityDecayHalfLife
+    setting. This allows
     a QOS to provide aggregate limits that, once consumed, will not be
     replenished automatically. Such a QOS will act as a time-limited quota
     of resources for an association that has access to it. Account/user
@@ -181,6 +190,12 @@ conditions will apply:
     the QOS RawUsage value reset to 0 (zero) to again allow jobs submitted
     with this QOS to run (if pending with QOSGrp{TRES}MinutesLimit or
     QOSGrpWallLimit reasons, where {TRES} is some type of trackable resource).
+    Note that this flag does not affect PriorityUsageResetPeriod, which still
+    zeroes these counters on its own schedule.
+    This flag covers the whole QOS; to stop a single TRES decaying while the rest
+    of the QOS carries on, see
+    [TresDecayHalfLife](resource_limits.md#tresdecayhalflife), which
+    this flag takes precedence over.
   + **NoReserve** If this flag is set and backfill scheduling is used,
     jobs using this QOS will not reserve resources in the backfill
     schedule's map of resources allocated through time. This flag is

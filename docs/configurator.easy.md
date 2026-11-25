@@ -1,6 +1,6 @@
 # Slurm System Configuration Tool
 
-# Slurm Version 26.05 Configuration Tool - Easy Version
+# Slurm Version 26.11 Configuration Tool - Easy Version
 
 This form can be used to create a Slurm configuration file with
 you controlling many of the important configuration parameters.
@@ -10,7 +10,7 @@ has fewer options for creating a Slurm configuration file. The full version
 of the Slurm configuration tool is available at
 <configurator.html>.
 
-**This tool supports Slurm version 26.05 only.**
+**This tool supports Slurm version 26.11 only.**
 Configuration files for other versions of Slurm should be built
 using the tool distributed with it in *doc/html/configurator.html*.
 Some parameters will be set to default values, but you can

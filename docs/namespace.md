@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -42,7 +42,7 @@ job with a unique, private instance of /tmp and /dev/shm for the job to use.
 These directories can be changed with the **Dirs=** option in the
 plugin-specific configuration file. The contents of these directories will be
 removed at job termination. Additionally, the **namespace/linux** plugin can
-be configured to create new PID and user namespaces.
+be configured to create new IPC, PID, and user namespaces.
 
 ## Installation
 
@@ -65,7 +65,7 @@ controls whether an adopted SSH session will try to join the job's namespace.
 
 The **namespace/linux** plugin (added 25.11) uses the configuration file
 [namespace.yaml](namespace.yaml.md). This plugin can be configured
-to create user and PID namespaces in addition to a temporary filesystem
+to create IPC, PID, and user namespaces in addition to a temporary filesystem
 namespace. Namespaces can be configured for all nodes or for a subset of nodes.
 
 By default the plugin creates private bind mounts for **/tmp** and

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -215,6 +215,8 @@ complete description of the columns available to be displayed, see the
     PriorityDecayHalfLife). It can also be reset (according to
     PriorityUsageResetPeriod) in order to allow jobs to run against the
     association tree.
+    The decay rate can be set per TRES with
+    [TresDecayHalfLife](#tresdecayhalflife).
     This limit only applies when using the Priority Multifactor plugin.
 
 **GrpTRESRunMins**
@@ -345,6 +347,8 @@ is treated as a Max limit.
     PriorityUsageResetPeriod) in order to allow jobs to run against the
     QOS again. QOS that have the NoDecay flag set do not decay GrpTRESMins,
     see [QOS Options](qos.md#qos_other) for details.
+    The decay rate can be set per TRES with
+    [TresDecayHalfLife](#tresdecayhalflife).
     This limit only applies when using the Priority Multifactor plugin.
 
 **GrpTRESRunMins**
@@ -539,6 +543,53 @@ Tesla GPUs, you would set this in your slurm.conf:
 ```
 
 See [Trackable Resources TRES](tres.md) for details.
+
+## Controlling how GrpTRESMins usage decays
+
+Four settings affect whether a GrpTRESMins allocation replenishes, and they
+do different jobs:
+
+* **PriorityDecayHalfLife** (slurm.conf, cluster wide) is the default for
+  every usage counter: fairshare RawUsage, GrpWall, and GrpTRESMins.
+* **TresDecayHalfLife** (per association or QOS, per TRES) overrides that
+  half-life for GrpTRESMins only, and only for the TRES named. The value is
+  **in seconds** — note that both GrpTRESMins and
+  PriorityDecayHalfLife are expressed in minutes, so do not carry a value
+  across without converting it. A longer half-life replenishes the quota more
+  slowly, which is the reverse of most limits; set a TRES to 0 and its
+  GrpTRESMins becomes an allocation that never replenishes. Use it when one
+  resource should renew on a different schedule from the rest, or not at all,
+  while fairshare keeps decaying normally. See
+  [sacctmgr](sacctmgr.md) for the full syntax.
+* **NoDecay** (QOS flag) stops the whole QOS record decaying — its
+  GrpTRESMins, GrpWall and RawUsage. Association (account and user) fairshare
+  usage still decays normally, so job priority is unaffected. Use it when the
+  whole QOS is a fixed allocation.
+* **PriorityUsageResetPeriod** (slurm.conf, cluster wide) zeroes every
+  counter on a calendar boundary instead of decaying it, for "N hours per
+  month" schemes. It still resets a TRES whose TresDecayHalfLife is 0, so the
+  two do not normally belong together.
+
+To give an account a CPU allocation that does not come back:
+
+```
+  sacctmgr modify account name=science set GrpTRESMins=cpu=100000
+  sacctmgr modify account name=science set TresDecayHalfLife=cpu=0
+```
+
+Watch what has been used with
+sshare -o Account,User,GrpTRESMins,GrpTRESRaw,
+and see the half-lives the controller is applying with
+scontrol show assoc\_mgr. Once the allocation is
+gone the account's pending jobs hold with reason
+*AssocGrpCPUMinutesLimit*, and stay held until an administrator raises the
+limit or clears the usage; jobs already running when the budget is crossed are
+killed instead, unless **AccountingStorageEnforce** includes **Safe**.
+Clearing the usage means **RawUsage=0**, which also
+clears fairshare usage and every other TRES on that record, and for an account
+every association beneath it; there is no per-TRES reset. None of this is
+enforced unless **AccountingStorageEnforce** includes **limits** and
+**PriorityType=priority/multifactor**.
 
 ## Job Reason Codes
 

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -162,13 +162,18 @@ If these file name options are used without being part of a job array then
 ## Scancel Command Use
 
 If the job ID of a job array is specified as input to the scancel command
-then all elements of that job array will be cancelled.
-Alternately an array ID, optionally using regular expressions, may be specified
-for job cancellation.
+then all elements of that job array will be signaled.
+To signal only some elements of a job array, append an underscore and either a
+single array index or a bracketed, comma-separated list of indexes and index
+ranges to the job ID.
+Every listed element that has not finished will be signaled.
+Elements that do not exist or have already finished are skipped, and with
+**-v** an error is reported for them.
+The closing bracket must end the job ID, so a step ID cannot follow it.
 
 ```
 # Cancel array ID 1 to 3 from job array 20
-$ scancel 20_[1-3]
+$ scancel "20_[1-3]"
 
 # Cancel array ID 4 and 5 from job array 20
 $ scancel 20_4 20_5
@@ -220,7 +225,7 @@ $ squeue -r
 1082_2     debug   tmp   mac   R  0:03      1 tux3
 ```
 
-The squeue --step/-s and --job/-j options can accept job or step
+The squeue --steps/-s and --jobs/-j options can accept job or step
 specifications of the same format.
 
 ```

@@ -8,7 +8,7 @@
 
 [Slurm Workload Manager](/)
 
-Version 26.05
+Version 26.11
 
 * About
 
@@ -258,6 +258,7 @@ resultant client code at all.
 | v0.0.43 | 25.05 ([release notes](openapi_release_notes.md#25050)) | 27.05 |
 | v0.0.44 | 25.11 ([release notes](openapi_release_notes.md#25110)) | 27.11 |
 | v0.0.45 | 26.05 ([release notes](openapi_release_notes.md#26050)) | 28.05 |
+| v0.0.46 | 26.11 ([release notes](openapi_release_notes.md#26110)) | 28.11 |
 
 The data\_parser plugins are explicitly versioned with scheduled release and
 removal dates in the above table. The data\_parser plugins are purposefully kept
