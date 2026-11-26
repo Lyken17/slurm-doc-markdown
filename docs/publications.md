@@ -48,6 +48,8 @@ Note that older presentations may contain outdated information.
   Skyler Malinowski, NVIDIA
 * [Slurm Containers Via Runtime Plugins](https://slurm.schedmd.com/SC26/Runtime_Plugins.pdf)
   Nathan Rini and Doug Jacobsen, NVIDIA
+* [Mastering GPU Topology: Optimize Multi-Node Workload Placement](https://slurm.schedmd.com/SC26/GPU_Topology.pdf)
+  Ben Glines, NVIDIA
 
 ## Presentations from Cray User Group, April 2026
 
